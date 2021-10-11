@@ -1,0 +1,22 @@
+.authorization {
+  position: relative;
+  display: grid;
+  grid-gap: 20px;
+
+  &__title {
+    display: flex;
+    justify-content: center;
+  }
+
+  &-content {
+    display: grid;
+    align-items: center;
+    grid-gap: 50px;
+    grid-template-columns: minmax(125px, 1fr) auto;
+  }
+
+  &-buttons {
+    display: flex;
+    justify-content: center;
+  }
+}

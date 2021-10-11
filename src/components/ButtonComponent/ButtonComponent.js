@@ -7,11 +7,13 @@ const ButtonComponent = ({
   title,
   color,
   disabled,
+  clickButton,
 }) => (
   <Button
     variant={variant}
     disabled={disabled}
     color={color}
+    onClick={() => clickButton()}
   >
     {title}
   </Button>
@@ -29,6 +31,7 @@ ButtonComponent.propTypes = {
   title: PropTypes.string,
   color: PropTypes.string,
   disabled: PropTypes.bool,
+  clickButton: PropTypes.func.isRequired,
 };
 
 export default ButtonComponent;
