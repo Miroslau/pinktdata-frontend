@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+
+import { Route, Switch } from 'react-router';
 import './App.css';
+import MainPage from './components/main-page/MainPage';
+import Buy from './components/Pages/Buy/Buy';
+import ForSale from './components/Pages/ForSale/ForSale';
+import Insight from './components/Pages/Insight/Insight';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Switch>
+      <Route exact path="/" render={(props) => <MainPage {...props} />} />
+
+        <Route exact path="/buy" render={(props) => <Buy {...props} />} />
+        <Route path="/forSale" render={(props) => <ForSale {...props} />} />
+        <Route path="/insight" render={(props) => <Insight {...props} />} />
+        {/* <Route path = "/contact" render = {(props) => <Contact   {...props} />} /> */}
+        {/* <Route path = '*' component = {NotFoundPage} /> */}
+
+      </Switch>
     </div>
   );
 }
