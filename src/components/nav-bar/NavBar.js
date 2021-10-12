@@ -5,6 +5,7 @@ import ButtonMui from '../ui-components/button-mui/ButtonMui';
 import ModalWindow from '../ui-components/modal-window/ModalWindow';
 import Loader from '../ui-components/loader/Loader';
 import Authorization from '../authorization/Authorization';
+import UserAPI from '../../api/Users/UserAPI';
 
 const NavBar = () => {
   const [isActiveModal, setModalActive] = useState(false);
@@ -23,12 +24,17 @@ const NavBar = () => {
       setLoading(false);
       return;
     }
-    console.log('successfully');
-    console.log('user: ', user);
-    setTimeout(() => {
-      setModalActive(false);
-      setLoading(false);
-    }, 3000);
+    UserAPI.signUp(user)
+      .then(({ data }) => {
+        console.log('successfully');
+        console.log('data: ', data);
+        setModalActive(false);
+        setLoading(false);
+      })
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
   };
 
   const openRegisterForm = () => {
