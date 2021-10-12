@@ -7,10 +7,7 @@ import { validateErrors } from '../../mixins/validateErrors';
 import ButtonComponent from '../ButtonComponent/ButtonComponent';
 import useForm from '../../hooks/useForm';
 
-const Auth = ({ auth }) => {
-  const sign = (user) => {
-    console.log('succes ', user);
-  };
+const Auth = ({ auth, sign }) => {
   const {
     handleChange, handleSubmit, user, errors,
   } = useForm(
@@ -56,6 +53,7 @@ const Auth = ({ auth }) => {
 
 Auth.propTypes = {
   auth: PropTypes.string.isRequired,
+  sign: PropTypes.func.isRequired,
 };
 
 export default Auth;

@@ -1,7 +1,9 @@
+@import '../../sass/variables';
+
 .modal-window {
   height: 100vh;
   width: 100vw;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgba($color-black, 0.4);
   position: fixed;
   top: 0;
   left: 0;
