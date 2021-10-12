@@ -1,6 +1,6 @@
 import React from 'react';
 import './NavBar.scss';
-import ButtonComponent from '../ButtonComponent/ButtonComponent';
+import ButtonComponent from '../button-component/ButtonComponent';
 
 const NavBar = () => (
   <div className="nav-bar">

@@ -1,5 +1,5 @@
 import React from 'react';
-import MainSearch from '../components/MainSearch/MainSearch';
+import MainSearch from '../components/main-search/MainSearch';
 
 const LandingPage = () => (
   <div>
