@@ -1,6 +1,6 @@
 import { LANDING_ROUTE, MAP_ROUTE } from '../constants/routes';
-import LandingPage from '../pages/Landing/LandingPage';
-import MapPage from '../pages/Map/MapPage';
+import LandingPage from '../pages/landing-page/LandingPage';
+import MapPage from '../pages/map-page/MapPage';
 
 const publicRoutes = [
   {

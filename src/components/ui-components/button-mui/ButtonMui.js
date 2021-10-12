@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
 
-const ButtonComponent = ({
+const ButtonMui = ({
   variant,
   title,
   color,
@@ -19,14 +19,14 @@ const ButtonComponent = ({
   </Button>
 );
 
-ButtonComponent.defaultProps = {
+ButtonMui.defaultProps = {
   variant: 'contained',
   title: '',
   color: 'primary',
   disabled: false,
 };
 
-ButtonComponent.propTypes = {
+ButtonMui.propTypes = {
   variant: PropTypes.string,
   title: PropTypes.string,
   color: PropTypes.string,
@@ -34,4 +34,4 @@ ButtonComponent.propTypes = {
   clickButton: PropTypes.func.isRequired,
 };
 
-export default ButtonComponent;
+export default ButtonMui;

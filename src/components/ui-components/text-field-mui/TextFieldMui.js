@@ -2,7 +2,7 @@ import React from 'react';
 import { TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 
-const InputText = ({
+const TextFieldMui = ({
   id,
   label,
   helperText,
@@ -29,7 +29,7 @@ const InputText = ({
   />
 );
 
-InputText.defaultProps = {
+TextFieldMui.defaultProps = {
   id: null,
   label: null,
   helperText: '',
@@ -41,7 +41,7 @@ InputText.defaultProps = {
   placeholder: '',
 };
 
-InputText.propTypes = {
+TextFieldMui.propTypes = {
   id: PropTypes.string,
   label: PropTypes.string,
   helperText: PropTypes.string,
@@ -54,4 +54,4 @@ InputText.propTypes = {
   placeholder: PropTypes.string,
 };
 
-export default InputText;
+export default TextFieldMui;

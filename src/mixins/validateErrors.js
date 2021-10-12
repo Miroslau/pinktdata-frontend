@@ -1,40 +1,47 @@
 export const validateErrors = (values, typeAuth) => {
   const errors = {};
 
+  const REGX_ONLY_LETTER = /^[A-Za-z]*$/;
+  const REGX_MAIL_FORMAT = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+  REGX_MAIL_FORMAT.lastIndex = 0;
+  const REGX_LOWER_UPPER_CASE = /^(?=.*?[A-Z])(?=.*?[a-z])/;
+  const REGEX_MIX_LETTERS_NUMBERS = /^(?=.*?[0-9])/;
+  const REGEX_SPECIAL_SYMBOL = /^(?=.*?[#?!@$%^&*-])/;
+  const REGEX_MIN_MAX_LETTERS_PASSWORD = /^.{7,12}$/;
+  const REGEX_MIN_MAX_LETTERS_NAME = /^.{5,32}$/;
+
   if (typeAuth === 'signUp') {
     if (!values.firstName.trim()) {
       errors.firstName = 'First Name required';
-    } else if (!/^[A-Za-z]*$/.test(values.firstName.trim())) {
+    } else if (!REGX_ONLY_LETTER.test(values.firstName.trim())) {
       errors.firstName = 'Enter a valid name';
-    } else if (values.firstName.length < 5 || values.firstName.length > 32) {
+    } else if (!REGEX_MIN_MAX_LETTERS_NAME.test(values.firstName)) {
       errors.firstName = 'Must be of length 5 to 32';
     }
 
     if (!values.lastName.trim()) {
       errors.lastName = 'Last Name required';
-    } else if (!/^[A-Za-z]*$/.test(values.lastName.trim())) {
+    } else if (!REGX_ONLY_LETTER.test(values.lastName.trim())) {
       errors.lastName = 'Enter a valid name';
-    } else if (values.lastName.length < 5 || values.lastName.length > 32) {
+    } else if (!REGEX_MIN_MAX_LETTERS_NAME.test(values.lastName)) {
       errors.lastName = 'Must be of length 5 to 32';
     }
 
-    const mailFormat = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-    mailFormat.lastIndex = 0;
     if (!values.email) {
       errors.email = 'Email required';
-    } else if (!mailFormat.test(values.email)) {
+    } else if (!REGX_MAIL_FORMAT.test(values.email)) {
       errors.email = 'Email address is invalid';
     }
 
     if (!values.password) {
       errors.password = 'Password required';
-    } else if (!/^(?=.*?[A-Z])(?=.*?[a-z])/.test(values.password)) {
+    } else if (!REGX_LOWER_UPPER_CASE.test(values.password)) {
       errors.password = '1 lowercase and 1 uppercase letter';
-    } else if (!/^(?=.*?[0-9])/.test(values.password)) {
+    } else if (!REGEX_MIX_LETTERS_NUMBERS.test(values.password)) {
       errors.password = 'Must contain mix of letters and numbers';
-    } else if (!/^(?=.*?[#?!@$%^&*-])/.test(values.password)) {
+    } else if (!REGEX_SPECIAL_SYMBOL.test(values.password)) {
       errors.password = 'Must contain at least 1 special character';
-    } else if (!/^.{7,12}$/.test(values.password)) {
+    } else if (!REGEX_MIN_MAX_LETTERS_PASSWORD.test(values.password)) {
       errors.password = 'must be of length 7 to 12';
     }
 

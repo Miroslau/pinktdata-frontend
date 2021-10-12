@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './NavBar.scss';
 import { get } from 'lodash';
-import ButtonComponent from '../ButtonComponent/ButtonComponent';
-import ModalWindow from '../ModalWindow/ModalWindow';
-import Loader from '../Loader/Loader';
-import Auth from '../Auth/Auth';
+import ButtonMui from '../ui-components/button-mui/ButtonMui';
+import ModalWindow from '../ui-components/modal-window/ModalWindow';
+import Loader from '../ui-components/loader/Loader';
+import Authorization from '../authorization/Authorization';
 
 const NavBar = () => {
   const [isActiveModal, setModalActive] = useState(false);
@@ -38,7 +38,7 @@ const NavBar = () => {
   return (
     <div className="nav-bar">
       <div className="nav-bar-buttons">
-        <ButtonComponent
+        <ButtonMui
           title="Sign up"
           variant="outlined"
           clickButton={() => {
@@ -46,7 +46,7 @@ const NavBar = () => {
             setAuth('signUp');
           }}
         />
-        <ButtonComponent
+        <ButtonMui
           title="Sign in"
           variant="outlined"
           clickButton={() => {
@@ -61,7 +61,7 @@ const NavBar = () => {
               active={isActiveModal}
               closeModal={() => setModalActive(false)}
             >
-              <Auth
+              <Authorization
                 auth={isAuth}
                 submitForm={authUser}
                 openForm={openRegisterForm}

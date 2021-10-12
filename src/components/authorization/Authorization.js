@@ -1,13 +1,15 @@
 import React from 'react';
-import './Auth.scss';
+import './Authorization.scss';
 import PropTypes from 'prop-types';
 import { authColumn } from '../../constants/authColumns';
-import InputText from '../Input/InputText';
+import TextFieldMui from '../ui-components/text-field-mui/TextFieldMui';
 import { validateErrors } from '../../mixins/validateErrors';
-import ButtonComponent from '../ButtonComponent/ButtonComponent';
+import ButtonMui from '../ui-components/button-mui/ButtonMui';
 import useForm from '../../hooks/useForm';
 
-const Auth = ({ auth, submitForm, openForm }) => {
+const SIGN_UP = 'signUp';
+
+const Authorization = ({ auth, submitForm, openForm }) => {
   const {
     handleChange, handleSubmit, user, errors,
   } = useForm(
@@ -17,7 +19,7 @@ const Auth = ({ auth, submitForm, openForm }) => {
   );
   return (
     <div className="authorization">
-      <h2 className="authorization__title">{auth === 'signUp' ? 'Sign up' : 'Sign in'}</h2>
+      <h2 className="authorization__title">{auth === SIGN_UP ? 'Sign up' : 'Sign in'}</h2>
       {
             authColumn.filter((column) => (auth === 'signUp' ? column.onlyRegister : column.onlyLogin))
               .map((column) => (
@@ -32,7 +34,7 @@ const Auth = ({ auth, submitForm, openForm }) => {
                     {column.title}
                   </div>
                   <div className="authorization-content__input">
-                    <InputText
+                    <TextFieldMui
                       variant="outlined"
                       value={user[`${column.model}`]}
                       name={column.model}
@@ -48,13 +50,13 @@ const Auth = ({ auth, submitForm, openForm }) => {
       }
       <div className="authorization-buttons">
         {
-              auth === 'signUp' && <ButtonComponent title="Sign up" clickButton={handleSubmit} />
+              auth === SIGN_UP && <ButtonMui title="Sign up" clickButton={handleSubmit} />
         }
         {
               auth === 'signIn' && (
               <div className="authorization-buttons__login">
-                <ButtonComponent title="Login" clickButton={handleSubmit} />
-                <ButtonComponent title="Forgot password" clickButton={handleSubmit} />
+                <ButtonMui title="Login" clickButton={handleSubmit} />
+                <ButtonMui title="Forgot password" clickButton={handleSubmit} />
                 <div
                   className="authorization__link"
                   onClick={openForm}
@@ -70,10 +72,10 @@ const Auth = ({ auth, submitForm, openForm }) => {
   );
 };
 
-Auth.propTypes = {
+Authorization.propTypes = {
   auth: PropTypes.string.isRequired,
   submitForm: PropTypes.func.isRequired,
   openForm: PropTypes.func.isRequired,
 };
 
-export default Auth;
+export default Authorization;
