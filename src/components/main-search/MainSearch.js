@@ -86,7 +86,7 @@ const MainSearch = () => {
 
           {bedroomItems.map(({ id, value, title }) => (
             <MenuItem
-              id={id}
+              key={id}
               value={value}
             >
               {title}
