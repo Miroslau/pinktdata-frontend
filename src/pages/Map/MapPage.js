@@ -1,15 +1,15 @@
-import * as React from "react";
+import * as React from 'react';
 
-import ToggleButton from "@mui/material/ToggleButton";
-import ToggleButtonGroup from "@mui/material/ToggleButtonGroup";
-import FilterListIcon from "@mui/icons-material/FilterList";
-import Divider from "@mui/material/Divider";
-import Typography from "@mui/material/Typography";
-import useStyles from "../../style/style";
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import FilterListIcon from '@mui/icons-material/FilterList';
+import Divider from '@mui/material/Divider';
+import Typography from '@mui/material/Typography';
+import useStyles from '../../style/style';
 
 const Map = () => {
   const classes = useStyles();
-  const [alignment, setAlignment] = React.useState("all");
+  const [alignment, setAlignment] = React.useState('all');
 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
