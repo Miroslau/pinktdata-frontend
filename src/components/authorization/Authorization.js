@@ -9,6 +9,8 @@ import useForm from '../../hooks/useForm';
 
 const SIGN_UP = 'signUp';
 
+const forgotText = 'Don’t have an account? Sign up here!';
+
 const Authorization = ({ auth, submitForm, openForm }) => {
   const {
     handleChange, handleSubmit, user, errors,
@@ -21,32 +23,32 @@ const Authorization = ({ auth, submitForm, openForm }) => {
     <div className="authorization">
       <h2 className="authorization__title">{auth === SIGN_UP ? 'Sign up' : 'Sign in'}</h2>
       {
-            authColumn.filter((column) => (auth === 'signUp' ? column.onlyRegister : column.onlyLogin))
-              .map((column) => (
+          authColumn.filter((column) => (auth === SIGN_UP ? column.onlyRegister : column.onlyLogin))
+            .map((column) => (
+              <div
+                className="authorization-content"
+                key={column.id}
+              >
                 <div
-                  className="authorization-content"
                   key={column.id}
+                  className="authorization-content__label"
                 >
-                  <div
-                    key={column.id}
-                    className="authorization-content__label"
-                  >
-                    {column.title}
-                  </div>
-                  <div className="authorization-content__input">
-                    <TextFieldMui
-                      variant="outlined"
-                      value={user[`${column.model}`]}
-                      name={column.model}
-                      required={column.required}
-                      type={column.type}
-                      helperText={errors[`${column.model}`]}
-                      placeholder={column.placeholder}
-                      inputText={(e) => handleChange(e)}
-                    />
-                  </div>
+                  {column.title}
                 </div>
-              ))
+                <div className="authorization-content__input">
+                  <TextFieldMui
+                    variant="outlined"
+                    value={user[`${column.model}`]}
+                    name={column.model}
+                    required={column.required}
+                    type={column.type}
+                    helperText={errors[`${column.model}`]}
+                    placeholder={column.placeholder}
+                    inputText={(e) => handleChange(e)}
+                  />
+                </div>
+              </div>
+            ))
       }
       <div className="authorization-buttons">
         {
@@ -62,7 +64,7 @@ const Authorization = ({ auth, submitForm, openForm }) => {
                   onClick={openForm}
                   role="presentation"
                 >
-                  Don’t have an account? Sign up here!
+                  {forgotText}
                 </div>
               </div>
               )
