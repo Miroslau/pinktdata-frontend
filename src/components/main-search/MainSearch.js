@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, TextField } from '@mui/material';
+import { TextField } from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import FormControl from '@mui/material/FormControl';
 import DatePicker from '@mui/lab/DatePicker';
@@ -10,6 +10,25 @@ import InputLabel from '@mui/material/InputLabel';
 import RoomIcon from '@mui/icons-material/Room';
 import SearchIcon from '@mui/icons-material/Search';
 import useStyles from './MainSearch.style';
+import ButtonComponent from '../button-component/ButtonComponent';
+
+const bedroomItems = [
+  {
+    id: 1,
+    value: 1,
+    title: 'One',
+  },
+  {
+    id: 2,
+    value: 2,
+    title: 'Two',
+  },
+  {
+    id: 3,
+    value: 3,
+    title: 'Three',
+  },
+];
 
 const MainSearch = () => {
   const classes = useStyles();
@@ -64,15 +83,21 @@ const MainSearch = () => {
           label="Bedroom type"
           onChange={handleBedroomValue}
         >
-          <MenuItem value={1}>One</MenuItem>
-          <MenuItem value={2}>Two</MenuItem>
-          <MenuItem value={3}>Three</MenuItem>
+
+          {bedroomItems.map(({ id, value, title }) => (
+            <MenuItem
+              id={id}
+              value={value}
+            >
+              {title}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
 
-      <Button variant="contained" color="secondary" type="submit" className={classes.searchButton}>
+      <ButtonComponent variant="contained" color="secondary" type="submit" className={classes.searchButton}>
         <SearchIcon fontSize="large" />
-      </Button>
+      </ButtonComponent>
 
     </form>
   );

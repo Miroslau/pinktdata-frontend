@@ -7,13 +7,18 @@ const ButtonComponent = ({
   title,
   color,
   disabled,
+  className,
+  children,
+  type,
 }) => (
   <Button
     variant={variant}
     disabled={disabled}
     color={color}
+    className={className}
+    type={type}
   >
-    {title}
+    {title || children}
   </Button>
 );
 
@@ -22,6 +27,9 @@ ButtonComponent.defaultProps = {
   title: '',
   color: 'primary',
   disabled: false,
+  className: '',
+  children: null,
+  type: '',
 };
 
 ButtonComponent.propTypes = {
@@ -29,6 +37,9 @@ ButtonComponent.propTypes = {
   title: PropTypes.string,
   color: PropTypes.string,
   disabled: PropTypes.bool,
+  className: PropTypes.string,
+  children: PropTypes.func,
+  type: PropTypes.string,
 };
 
 export default ButtonComponent;
