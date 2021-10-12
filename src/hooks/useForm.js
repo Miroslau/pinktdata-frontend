@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const UseForm = (callback, validateErrors) => {
+const UseForm = (callback, validateErrors, typeAuth) => {
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
@@ -8,6 +8,7 @@ const UseForm = (callback, validateErrors) => {
     password: '',
     repeatPassword: '',
   });
+
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -17,7 +18,7 @@ const UseForm = (callback, validateErrors) => {
   };
 
   const handleSubmit = () => {
-    setErrors(validateErrors(user));
+    setErrors(validateErrors(user, typeAuth));
     setIsSubmitting(true);
   };
 

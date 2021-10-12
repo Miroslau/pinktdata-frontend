@@ -1,3 +1,5 @@
+@import '../../sass/variables';
+
 .authorization {
   position: relative;
   display: grid;
@@ -6,6 +8,12 @@
   &__title {
     display: flex;
     justify-content: center;
+  }
+
+  &__link {
+    cursor: pointer;
+    text-decoration: underline;
+    color: $color-denim;
   }
 
   &-content {
@@ -18,5 +26,11 @@
   &-buttons {
     display: flex;
     justify-content: center;
+
+    &__login {
+      display: inline-flex;
+      flex-direction: column;
+      row-gap: 15px;
+    }
   }
 }
