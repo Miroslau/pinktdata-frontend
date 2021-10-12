@@ -55,7 +55,7 @@ const Authorization = ({ auth, submitForm, openForm }) => {
               auth === SIGN_UP && <ButtonMui title="Sign up" clickButton={handleSubmit} />
         }
         {
-              auth === 'signIn' && (
+              auth === SIGN_UP && (
               <div className="authorization-buttons__login">
                 <ButtonMui title="Login" clickButton={handleSubmit} />
                 <ButtonMui title="Forgot password" clickButton={handleSubmit} />
