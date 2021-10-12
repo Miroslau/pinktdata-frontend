@@ -9,10 +9,10 @@ import Authorization from '../authorization/Authorization';
 const NavBar = () => {
   const [isActiveModal, setModalActive] = useState(false);
   const [isAuth, setAuth] = useState(null);
-  const [loaderRun, setLoaderRun] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const authUser = (user) => {
-    setLoaderRun(true);
+    setLoading(true);
     if (isAuth === 'signIn') {
       const email = get(user, 'email', '');
       const password = get(user, 'password', '');
@@ -20,14 +20,14 @@ const NavBar = () => {
       console.log('successfully login');
       console.log('user: ', body);
       setModalActive(false);
-      setLoaderRun(false);
+      setLoading(false);
       return;
     }
     console.log('successfully');
     console.log('user: ', user);
     setTimeout(() => {
       setModalActive(false);
-      setLoaderRun(false);
+      setLoading(false);
     }, 3000);
   };
 
@@ -39,14 +39,6 @@ const NavBar = () => {
     <div className="nav-bar">
       <div className="nav-bar-buttons">
         <ButtonMui
-          title="Sign up"
-          variant="outlined"
-          clickButton={() => {
-            setModalActive(true);
-            setAuth('signUp');
-          }}
-        />
-        <ButtonMui
           title="Sign in"
           variant="outlined"
           clickButton={() => {
@@ -55,22 +47,18 @@ const NavBar = () => {
           }}
         />
       </div>
+      <ModalWindow
+        active={isActiveModal}
+        closeModal={() => setModalActive(false)}
+      >
+        <Authorization
+          auth={isAuth}
+          submitForm={authUser}
+          openForm={openRegisterForm}
+        />
+      </ModalWindow>
       {
-            isActiveModal && (
-            <ModalWindow
-              active={isActiveModal}
-              closeModal={() => setModalActive(false)}
-            >
-              <Authorization
-                auth={isAuth}
-                submitForm={authUser}
-                openForm={openRegisterForm}
-              />
-            </ModalWindow>
-            )
-      }
-      {
-            loaderRun && <Loader />
+        isLoading && <Loader />
       }
     </div>
   );

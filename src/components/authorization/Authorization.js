@@ -49,26 +49,26 @@ const Authorization = ({ auth, submitForm, openForm }) => {
                 </div>
               </div>
             ))
-      }
+            }
       <div className="authorization-buttons">
         {
-              auth === SIGN_UP && <ButtonMui title="Sign up" clickButton={handleSubmit} />
-        }
+                    auth === SIGN_UP && <ButtonMui title="Sign up" clickButton={handleSubmit} />
+                }
         {
-              auth === SIGN_UP && (
-              <div className="authorization-buttons__login">
-                <ButtonMui title="Login" clickButton={handleSubmit} />
-                <ButtonMui title="Forgot password" clickButton={handleSubmit} />
-                <div
-                  className="authorization__link"
-                  onClick={openForm}
-                  role="presentation"
-                >
-                  {forgotText}
-                </div>
-              </div>
-              )
-        }
+                    auth === 'signIn' && (
+                    <div className="authorization-buttons__login">
+                      <ButtonMui title="Login" clickButton={handleSubmit} />
+                      <ButtonMui title="Forgot password" clickButton={handleSubmit} />
+                      <div
+                        className="authorization__link"
+                        onClick={openForm}
+                        role="presentation"
+                      >
+                        {forgotText}
+                      </div>
+                    </div>
+                    )
+                }
       </div>
     </div>
   );
