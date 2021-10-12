@@ -7,9 +7,12 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
-import './MainSearch.scss';
+import RoomIcon from '@mui/icons-material/Room';
+import SearchIcon from '@mui/icons-material/Search';
+import useStyles from './MainSearch.style';
 
 const MainSearch = () => {
+  const classes = useStyles();
   const [location, setLocation] = useState('');
   const [startDateValue, setStartDateValue] = useState(new Date('2021-10-10T11:11:11'));
   const [endDateValue, setEndDateValue] = useState(new Date('2021-12-10T11:11:11'));
@@ -21,41 +24,27 @@ const MainSearch = () => {
   };
 
   return (
-    <form
-      className="searchForm"
-      sx={{
-        width: '65%',
-        display: 'flex',
-        padding: '2rem',
-        justifyContent: 'space-between',
-        backgroundColor: '#fff',
-        boxShadow: '1px 1px 25px 13px rgba(34, 60, 80, 0.14)',
-        borderRadius: '1rem',
-        margin: '0 auto',
-      }}
-    >
-      <TextField
-        sx={{
-          '& .MuiInput-root': {
-            '& MuiInput-root input:before': {
-              border: 'none',
-            },
-          },
-        }}
-        label="Location"
-        variant="standard"
-        placeholder="Enter location"
-        value={location}
-        onChange={(event) => {
-          setLocation(event.target.value);
-        }}
-      />
+    <form className={classes.form}>
+      <div className={classes.locationWrapper}>
+        <RoomIcon className={classes.roomIcon} />
+        <TextField
+          className={classes.location}
+          label="Location"
+          variant="standard"
+          placeholder="Enter location"
+          value={location}
+          onChange={(event) => {
+            setLocation(event.target.value);
+          }}
+        />
+      </div>
+
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           label="Start Date"
           value={startDateValue}
           onChange={setStartDateValue}
-          renderInput={(params) => <TextField {...params} />}
+          renderInput={(params) => <TextField {...params} className={classes.date} />}
         />
 
         <DatePicker
@@ -63,11 +52,11 @@ const MainSearch = () => {
           value={endDateValue}
           onChange={setEndDateValue}
           min={startDateValue}
-          renderInput={(params) => <TextField {...params} />}
+          renderInput={(params) => <TextField {...params} className={classes.date} />}
         />
       </LocalizationProvider>
 
-      <FormControl sx={{ width: 250 }}>
+      <FormControl className={classes.bedroom}>
         <InputLabel id="bedroomValue">Bedroom type</InputLabel>
         <Select
           labelId="bedroomValue"
@@ -81,7 +70,9 @@ const MainSearch = () => {
         </Select>
       </FormControl>
 
-      <Button variant="contained" color="secondary" type="submit">Search</Button>
+      <Button variant="contained" color="secondary" type="submit" className={classes.searchButton}>
+        <SearchIcon fontSize="large" />
+      </Button>
 
     </form>
   );
