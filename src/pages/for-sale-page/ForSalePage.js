@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ForSale() {
+export default function ForSalePage() {
   return (
     <div>
       ForSale

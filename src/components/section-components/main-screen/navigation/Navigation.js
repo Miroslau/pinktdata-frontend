@@ -5,10 +5,10 @@ import {
   Dialog, DialogContent, DialogTitle, IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-import Authorization from '../../authorization/Authorization';
-import { clearState, signupUser, userSelector } from '../../../store/userSlice';
+import Authorization from '../../../authorization/Authorization';
+import { clearState, signupUser, userSelector } from '../../../../store/userSlice';
 import './Navigation.scss';
-import Loader from '../../ui-components/loader/Loader';
+import Loader from '../../../ui-components/loader/Loader';
 
 const Navigation = () => {
   const dispatch = useDispatch();

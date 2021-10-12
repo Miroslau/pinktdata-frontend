@@ -1,11 +1,11 @@
 import React from 'react';
 import './MajorCity.scss';
 
-import NewYork from '../../assets/New York.jpg';
-import Miami from '../../assets/Miami.jpg';
-import SanFrancisco from '../../assets/San Francisco.jpg';
-import Houston from '../../assets/Houston.jpg';
-import LosAngeles from '../../assets/Los Angeles.jpg';
+import NewYork from '../../../assets/New York.jpg';
+import Miami from '../../../assets/Miami.jpg';
+import SanFrancisco from '../../../assets/San Francisco.jpg';
+import Houston from '../../../assets/Houston.jpg';
+import LosAngeles from '../../../assets/Los Angeles.jpg';
 
 export default function MajorCity() {
   return (

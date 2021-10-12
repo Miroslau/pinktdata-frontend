@@ -1,9 +1,9 @@
 import React from 'react';
 
-export default function Insight() {
+export default function BuyPage() {
   return (
     <div>
-      Insight
+      Buy
     </div>
   );
 }
