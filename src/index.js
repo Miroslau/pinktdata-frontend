@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import { Provider } from 'react-redux';
+import './index.scss';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './store/store';
@@ -9,10 +10,13 @@ import store from './store/store';
 const { worker } = require('./mocks/browser');
 
 worker.start();
+import {BrowserRouter} from 'react-router-dom'
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+      <BrowserRouter>
+          <App />
+      </BrowserRouter>
   </Provider>,
   document.getElementById('root'),
 );
