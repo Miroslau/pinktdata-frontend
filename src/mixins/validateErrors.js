@@ -1,4 +1,4 @@
-export const validateErrors = (values, typeAuth) => {
+export const validateErrors = (values, isSignIn) => {
   const errors = {};
 
   const REGX_ONLY_LETTER = /^[A-Za-z]*$/;
@@ -10,7 +10,7 @@ export const validateErrors = (values, typeAuth) => {
   const REGEX_MIN_MAX_LETTERS_PASSWORD = /^.{7,12}$/;
   const REGEX_MIN_MAX_LETTERS_NAME = /^.{5,32}$/;
 
-  if (typeAuth === 'signUp') {
+  if (!isSignIn) {
     if (!values.firstName.trim()) {
       errors.firstName = 'First Name required';
     } else if (!REGX_ONLY_LETTER.test(values.firstName.trim())) {

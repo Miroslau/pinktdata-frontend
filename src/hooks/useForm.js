@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const UseForm = (callback, validateErrors, typeAuth) => {
+const UseForm = (callback, validateErrors, isSignIn) => {
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
@@ -18,8 +18,12 @@ const UseForm = (callback, validateErrors, typeAuth) => {
   };
 
   const handleSubmit = () => {
-    setErrors(validateErrors(user, typeAuth));
+    setErrors(validateErrors(user, isSignIn));
     setIsSubmitting(true);
+  };
+
+  const clearError = () => {
+    setErrors({});
   };
 
   useEffect(
@@ -32,7 +36,7 @@ const UseForm = (callback, validateErrors, typeAuth) => {
   );
 
   return {
-    handleChange, handleSubmit, user, errors,
+    handleChange, handleSubmit, user, errors, clearError,
   };
 };
 

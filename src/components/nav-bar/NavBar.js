@@ -1,41 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './NavBar.scss';
-import { get } from 'lodash';
+import { useSelector, useDispatch } from 'react-redux';
 import ButtonMui from '../ui-components/button-mui/ButtonMui';
 import ModalWindow from '../ui-components/modal-window/ModalWindow';
 import Loader from '../ui-components/loader/Loader';
 import Authorization from '../authorization/Authorization';
-import UserAPI from '../../api/Users/UserAPI';
+import { signupUser, userSelector, clearState } from '../../store/userSlice';
 
 const NavBar = () => {
+  const dispatch = useDispatch();
   const [isActiveModal, setModalActive] = useState(false);
-  const [isAuth, setAuth] = useState(null);
-  const [isLoading, setLoading] = useState(false);
+  const [isAuth, setAuth] = useState('signIn');
+
+  const {
+    isSuccess, isError, isFetching,
+  } = useSelector(
+    userSelector,
+  );
 
   const authUser = (user) => {
-    setLoading(true);
-    if (isAuth === 'signIn') {
-      const email = get(user, 'email', '');
-      const password = get(user, 'password', '');
-      const body = { email, password };
-      console.log('successfully login');
-      console.log('user: ', body);
-      setModalActive(false);
-      setLoading(false);
-      return;
-    }
-    UserAPI.signUp(user)
-      .then(({ data }) => {
-        console.log('successfully');
-        console.log('data: ', data);
-        setModalActive(false);
-        setLoading(false);
-      })
-      .catch((err) => {
-        console.error(err);
-        setLoading(false);
-      });
+    dispatch(signupUser(user));
   };
+
+  useEffect(() => () => {
+    dispatch(clearState());
+  }, []);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setModalActive(false);
+      dispatch(clearState());
+    }
+
+    if (isError) {
+      setModalActive(false);
+    }
+  }, [isSuccess, isError]);
 
   const openRegisterForm = () => {
     setAuth('signUp');
@@ -64,7 +64,7 @@ const NavBar = () => {
         />
       </ModalWindow>
       {
-        isLoading && <Loader />
+        isFetching && <Loader />
       }
     </div>
   );

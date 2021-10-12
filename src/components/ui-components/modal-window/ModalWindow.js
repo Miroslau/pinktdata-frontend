@@ -8,7 +8,7 @@ const ModalWindow = ({ active, closeModal, children }) => (
     <div className="modal-window-container">
       <div className="modal-window__icon">
         <CloseIcon
-          onClick={() => closeModal()}
+          onClick={closeModal}
         />
       </div>
       <div className="modal-window-content">

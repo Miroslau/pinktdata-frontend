@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 export default function ForSale() {
-    return (
-        <div>
-ForSale
-        </div>
-    )
+  return (
+    <div>
+      ForSale
+    </div>
+  );
 }
