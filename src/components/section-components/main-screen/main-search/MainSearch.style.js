@@ -1,9 +1,8 @@
 import { makeStyles } from '@mui/styles';
-import { PINK_COLOR, GREY_COLOR } from '../../constants/colors';
+import { PINK_COLOR, GREY_COLOR, BLUE_COLOR } from '../../../../constants/colors';
 
 const useStyles = makeStyles({
   form: {
-    width: '60%',
     display: 'flex',
     padding: '2rem',
     justifyContent: 'space-between',
@@ -11,6 +10,7 @@ const useStyles = makeStyles({
     boxShadow: '1px 1px 25px 13px rgba(34, 60, 80, 0.14)',
     borderRadius: '1rem',
     margin: '0 auto',
+    marginTop: '4rem',
   },
   locationWrapper: {
     width: 200,
@@ -57,6 +57,9 @@ const useStyles = makeStyles({
   searchButton: {
     borderRadius: '.6rem',
     backgroundColor: PINK_COLOR,
+    '&:hover': {
+      backgroundColor: BLUE_COLOR,
+    },
   },
 });
 

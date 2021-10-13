@@ -10,8 +10,8 @@ import InputLabel from '@mui/material/InputLabel';
 import RoomIcon from '@mui/icons-material/Room';
 import SearchIcon from '@mui/icons-material/Search';
 import useStyles from './MainSearch.style';
-import ButtonMui from '../ui-components/button-mui/ButtonMui';
-import TextFieldMui from '../ui-components/text-field-mui/TextFieldMui';
+import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
+import TextFieldMui from '../../../ui-components/text-field-mui/TextFieldMui';
 
 const bedroomItems = [
   {

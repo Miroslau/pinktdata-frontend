@@ -1,19 +1,19 @@
 import React from 'react';
-import Filter from './filter/Filter';
 import Navigation from './navigation/Navigation';
 import './MainScreen.scss';
+import MainSearch from './main-search/MainSearch';
 
 export default function MainScreen() {
   return (
     <div className="main-screen">
       <div className="wrapper">
         <Navigation />
-        <Filter />
+        <MainSearch />
         <h2>
-          Diacover rooms,
+          Discover rooms,
           <span>hotels & make assets!</span>
         </h2>
-        <button type="button" className="button">Become a Seller</button>
+        <button type="button" className="button button-seller">Become a Seller</button>
       </div>
     </div>
   );
