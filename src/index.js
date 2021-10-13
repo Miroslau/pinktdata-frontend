@@ -6,9 +6,11 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import store from './store/store';
 
-const { worker } = require('./mocks/browser');
-
-worker.start();
+if (process.env.NODE_ENV === 'development' && process.env.REACT_APP_IS_MOCKING) {
+  console.log('mocking');
+  const { worker } = require('./mocks/browser');
+  worker.start();
+}
 
 ReactDOM.render(
   <Provider store={store}>

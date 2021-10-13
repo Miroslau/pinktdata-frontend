@@ -6,8 +6,11 @@ import TextFieldMui from '../ui-components/text-field-mui/TextFieldMui';
 import { validateErrors } from '../../mixins/validateErrors';
 import ButtonMui from '../ui-components/button-mui/ButtonMui';
 import useForm from '../../hooks/useForm';
+import { authorizationLocalization } from '../../constants/authorizationLocalization';
 
-const forgotText = 'Don’t have an account? Sign up here!';
+const {
+  titleSiginUp, titleSiginIn, titleForgotPassword, text,
+} = authorizationLocalization;
 
 const Authorization = ({ isSignIn, submitForm, openForm }) => {
   const {
@@ -32,22 +35,22 @@ const Authorization = ({ isSignIn, submitForm, openForm }) => {
                 type={column.type}
                 helperText={errors[`${column.model}`]}
                 label={column.placeholder}
-                inputText={(e) => handleChange(e)}
+                inputText={handleChange}
               />
             ))
       }
       <div className="authorization-buttons__login">
-        <ButtonMui title={isSignIn ? 'Sign in' : 'Sign Up'} clickButton={handleSubmit} />
+        <ButtonMui title={isSignIn ? titleSiginIn : titleSiginUp} clickButton={handleSubmit} />
         {
           isSignIn && (
             <div className="authorization-buttons__login">
-              <ButtonMui title="Forgot password" clickButton={handleSubmit} />
+              <ButtonMui title={titleForgotPassword} clickButton={handleSubmit} />
               <div
                 className="authorization__link"
                 onClick={openForm}
                 role="presentation"
               >
-                {forgotText}
+                {text}
               </div>
             </div>
           )

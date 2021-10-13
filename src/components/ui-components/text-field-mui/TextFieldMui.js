@@ -1,33 +1,52 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 
-const TextFieldMui = ({
-  id,
-  label,
-  helperText,
-  variant,
-  value,
-  name,
-  type,
-  required,
-  placeholder,
-  inputText,
-}) => (
-  <TextField
-    error={!!helperText}
-    id={id}
-    label={label}
-    value={value}
-    helperText={helperText}
-    variant={variant}
-    name={name}
-    type={type}
-    placeholder={placeholder}
-    required={required}
-    onChange={inputText}
-  />
-);
+const TextFieldMui = (props) => {
+  const {
+    id,
+    label,
+    helperText,
+    variant,
+    value,
+    name,
+    type,
+    required,
+    placeholder,
+    inputText,
+    ...other
+  } = props;
+
+  const [currentValue, setCurrentValue] = useState(value);
+
+  useEffect(() => {
+    if (value !== currentValue) {
+      setCurrentValue(value);
+    }
+  }, [value]);
+
+  const onChangeHandler = (e) => {
+    setCurrentValue(e.target.value);
+  };
+
+  return (
+    <TextField
+      error={!!helperText}
+      id={id}
+      label={label}
+      value={currentValue}
+      helperText={helperText}
+      variant={variant}
+      name={name}
+      type={type}
+      placeholder={placeholder}
+      required={required}
+      onBlur={inputText}
+      onChange={onChangeHandler}
+      {...other}
+    />
+  );
+};
 
 TextFieldMui.defaultProps = {
   id: null,
@@ -39,6 +58,7 @@ TextFieldMui.defaultProps = {
   name: null,
   required: false,
   placeholder: '',
+  type: 'text',
 };
 
 TextFieldMui.propTypes = {
@@ -49,9 +69,9 @@ TextFieldMui.propTypes = {
   inputText: PropTypes.func,
   value: PropTypes.string,
   name: PropTypes.string,
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   required: PropTypes.bool,
   placeholder: PropTypes.string,
 };
 
-export default TextFieldMui;
+export default React.memo(TextFieldMui);

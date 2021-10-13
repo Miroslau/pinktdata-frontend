@@ -42,11 +42,8 @@ export const userSlice = createSlice({
   },
   reducers: {
     clearState: (state) => {
-      // eslint-disable-next-line no-param-reassign
       state.isError = false;
-      // eslint-disable-next-line no-param-reassign
       state.isSuccess = false;
-      // eslint-disable-next-line no-param-reassign
       state.isFetching = false;
 
       return state;
@@ -54,30 +51,19 @@ export const userSlice = createSlice({
   },
   extraReducers: {
     [signupUser.fulfilled]: (state, { payload }) => {
-      console.log(payload);
-      // eslint-disable-next-line no-param-reassign
       state.isFetching = false;
-      // eslint-disable-next-line no-param-reassign
       state.isSuccess = true;
-      // eslint-disable-next-line no-param-reassign
       state.email = payload.email;
-      // eslint-disable-next-line no-param-reassign
       state.firstName = payload.firstName;
-      // eslint-disable-next-line no-param-reassign
       state.lastName = payload.lastName;
-      // eslint-disable-next-line no-param-reassign
       state.password = payload.password;
     },
     [signupUser.pending]: (state) => {
-      // eslint-disable-next-line no-param-reassign
       state.isFetching = true;
     },
     [signupUser.rejected]: (state, { payload }) => {
-      // eslint-disable-next-line no-param-reassign
       state.isFetching = false;
-      // eslint-disable-next-line no-param-reassign
       state.isError = true;
-      // eslint-disable-next-line no-param-reassign
       state.errorMessage = payload.message;
     },
   },

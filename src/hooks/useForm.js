@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 
 const UseForm = (callback, validateErrors, isSignIn) => {
   const [user, setUser] = useState({
@@ -12,15 +12,15 @@ const UseForm = (callback, validateErrors, isSignIn) => {
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e) => {
+  const handleChange = useCallback((e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
-  };
+  }, [user]);
 
-  const handleSubmit = () => {
+  const handleSubmit = useCallback(() => {
     setErrors(validateErrors(user, isSignIn));
     setIsSubmitting(true);
-  };
+  }, [user, isSignIn]);
 
   const clearError = () => {
     setErrors({});
