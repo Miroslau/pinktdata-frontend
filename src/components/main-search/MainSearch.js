@@ -10,7 +10,8 @@ import InputLabel from '@mui/material/InputLabel';
 import RoomIcon from '@mui/icons-material/Room';
 import SearchIcon from '@mui/icons-material/Search';
 import useStyles from './MainSearch.style';
-import ButtonComponent from '../button-component/ButtonComponent';
+import ButtonMui from '../ui-components/button-mui/ButtonMui';
+import TextFieldMui from '../ui-components/text-field-mui/TextFieldMui';
 
 const bedroomItems = [
   {
@@ -46,7 +47,7 @@ const MainSearch = () => {
     <form className={classes.form}>
       <div className={classes.locationWrapper}>
         <RoomIcon className={classes.roomIcon} />
-        <TextField
+        <TextFieldMui
           className={classes.location}
           label="Location"
           variant="standard"
@@ -95,9 +96,9 @@ const MainSearch = () => {
         </Select>
       </FormControl>
 
-      <ButtonComponent variant="contained" color="secondary" type="submit" className={classes.searchButton}>
+      <ButtonMui variant="contained" color="secondary" type="submit" className={classes.searchButton}>
         <SearchIcon fontSize="large" />
-      </ButtonComponent>
+      </ButtonMui>
 
     </form>
   );

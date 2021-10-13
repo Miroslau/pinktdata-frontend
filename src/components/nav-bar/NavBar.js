@@ -1,15 +1,15 @@
 import React from 'react';
 import './NavBar.scss';
-import ButtonComponent from '../button-component/ButtonComponent';
+import ButtonMui from '../ui-components/button-mui/ButtonMui';
 
 const NavBar = () => (
   <div className="nav-bar">
     <div className="nav-bar-buttons">
-      <ButtonComponent
+      <ButtonMui
         title="Sign up"
         variant="outlined"
       />
-      <ButtonComponent
+      <ButtonMui
         title="Sign in"
         variant="outlined"
       />
