@@ -6,9 +6,10 @@ import {
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import Authorization from '../../../authorization/Authorization';
-import { clearState, signupUser, userSelector } from '../../../../store/userSlice';
+import {
+  clearState, signupUser, logoutUser, userSelector,
+} from '../../../../store/userSlice';
 import './Navigation.scss';
-import Loader from '../../../ui-components/loader/Loader';
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -16,12 +17,16 @@ const Navigation = () => {
   const [isSignIn, setSignIn] = useState(false);
 
   const {
-    isSuccess, isError, isFetching,
+    isSuccess, isError, firstName,
   } = useSelector(
     userSelector,
   );
 
-  const authorizationUser = (user) => (isSignIn ? console.log('sign') : dispatch(signupUser(user)));
+  const token = localStorage.getItem('token');
+
+  const authorizationUser = (user) => dispatch(signupUser(user));
+
+  const logOut = () => dispatch(logoutUser());
 
   useEffect(() => () => {
     dispatch(clearState());
@@ -59,8 +64,11 @@ const Navigation = () => {
           setModalActive(true);
         }}
       >
-        Sign in
+        {token ? firstName : 'Sign in'}
       </button>
+      {
+            token && <button onClick={logOut} type="button" className="button">Log out</button>
+        }
       <Dialog open={isActiveModal}>
         <DialogTitle
           sx={{
@@ -90,9 +98,6 @@ const Navigation = () => {
           />
         </DialogContent>
       </Dialog>
-      {
-          isFetching && <Loader />
-      }
     </div>
   );
 };

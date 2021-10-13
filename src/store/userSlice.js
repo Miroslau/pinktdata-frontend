@@ -2,7 +2,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import UserAPI from '../api/Users/UserAPI';
 
-const token = 'dfsfsdf';
 export const signupUser = createAsyncThunk(
   'users/signupUser',
   async ({
@@ -15,11 +14,32 @@ export const signupUser = createAsyncThunk(
 
       const { status, data } = response;
 
+      const { successToken } = data;
+
       if (status !== 200) {
         return thunkAPI.rejectWithValue(data);
       }
 
-      localStorage.setItem('token', token);
+      localStorage.setItem('token', successToken);
+      return data;
+    } catch (e) {
+      console.error(e.response.data);
+      return thunkAPI.rejectWithValue(e.response.data);
+    }
+  },
+);
+
+export const logoutUser = createAsyncThunk(
+  'users/LogoutUser', async (thunkAPI) => {
+    try {
+      const response = await UserAPI.logOut();
+
+      const { status, data } = response;
+
+      if (status !== 200) {
+        return thunkAPI.rejectWithValue(data);
+      }
+      localStorage.removeItem('token');
       return data;
     } catch (e) {
       console.error(e.response.data);
@@ -34,7 +54,6 @@ export const userSlice = createSlice({
     firstName: '',
     lastName: '',
     email: '',
-    password: '',
     isFetching: false,
     isSuccess: false,
     isError: false,
@@ -56,12 +75,23 @@ export const userSlice = createSlice({
       state.email = payload.email;
       state.firstName = payload.firstName;
       state.lastName = payload.lastName;
-      state.password = payload.password;
     },
     [signupUser.pending]: (state) => {
       state.isFetching = true;
     },
     [signupUser.rejected]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isError = true;
+      state.errorMessage = payload.message;
+    },
+    [logoutUser.fulfilled]: (state) => {
+      state.isFetching = false;
+      state.isSuccess = true;
+    },
+    [logoutUser.pending]: (state) => {
+      state.isFetching = true;
+    },
+    [logoutUser.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
       state.errorMessage = payload.message;

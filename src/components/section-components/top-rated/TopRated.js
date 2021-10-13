@@ -1,6 +1,6 @@
 import React from 'react';
 import './TopRated.scss';
-import pict from '../../../assets/mainBG.jpg';
+import pict from '../../../assets/mainBG.webp';
 
 export default function TopRated() {
   return (

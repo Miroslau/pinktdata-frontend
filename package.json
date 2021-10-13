@@ -27,11 +27,13 @@
     "react-redux": "^7.2.5",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
+    "redux-persist": "^6.0.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
     "start-mock": "cross-env REACT_APP_IS_MOCKING=true react-scripts start",
+    "update": "npx msw init public --no-save",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "lint": "eslint .",

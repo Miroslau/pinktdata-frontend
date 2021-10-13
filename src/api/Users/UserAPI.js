@@ -1,11 +1,15 @@
-const axios = require('axios');
+import axios from 'axios';
 
 export default {
   signIn(user) {
-    return axios.post('/api/user/login', user);
+    return axios.post('http://localhost:3000/api/users/login', user);
   },
 
   signUp(user) {
-    return axios.post('/api/user/register', user);
+    return axios.post('http://localhost:3000/api/users', user);
+  },
+
+  logOut() {
+    return axios.post('http://localhost:3000/api/users/Logout');
   },
 };
