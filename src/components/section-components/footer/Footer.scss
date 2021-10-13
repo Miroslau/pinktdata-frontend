@@ -47,3 +47,18 @@ input {
         }
     }
 }
+
+.icons {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+
+    object{
+        margin-right: 10px;
+    }
+}
+
+.mark-hover {
+cursor:pointer
+}
+
