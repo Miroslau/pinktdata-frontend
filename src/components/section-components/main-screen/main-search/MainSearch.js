@@ -12,6 +12,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import useStyles from './MainSearch.style';
 import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
 import TextFieldMui from '../../../ui-components/text-field-mui/TextFieldMui';
+import { text } from '../../../../constants/mainScreen';
 
 const bedroomItems = [
   {
@@ -49,9 +50,9 @@ const MainSearch = () => {
         <RoomIcon className={classes.roomIcon} />
         <TextFieldMui
           className={classes.location}
-          label="Location"
+          label={text.mainSearch.location}
           variant="standard"
-          placeholder="Enter location"
+          placeholder={text.mainSearch.enterLocation}
           value={location}
           onChange={(event) => {
             setLocation(event.target.value);
@@ -61,14 +62,14 @@ const MainSearch = () => {
 
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
-          label="Start Date"
+          label={text.mainSearch.startDate}
           value={startDateValue}
           onChange={setStartDateValue}
           renderInput={(params) => <TextField {...params} className={classes.date} />}
         />
 
         <DatePicker
-          label="End Date"
+          label={text.mainSearch.endDate}
           value={endDateValue}
           onChange={setEndDateValue}
           min={startDateValue}
@@ -77,11 +78,11 @@ const MainSearch = () => {
       </LocalizationProvider>
 
       <FormControl className={classes.bedroom}>
-        <InputLabel id="bedroomValue">Bedroom type</InputLabel>
+        <InputLabel id="bedroomValue">{text.mainSearch.bedroomType}</InputLabel>
         <Select
           labelId="bedroomValue"
           value={bedroomValue}
-          label="Bedroom type"
+          label={text.mainSearch.bedroomType}
           onChange={handleBedroomValue}
         >
 
