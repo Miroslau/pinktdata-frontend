@@ -23,6 +23,9 @@
         "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
         "no-underscore-dangle": "off",
         "import/prefer-default-export": "off",
+        "no-param-reassign": 0,
+        "global-require": 0,
+        "react/jsx-props-no-spreading": "off",
         "import/no-named-as-default": 0
     }
 }
