@@ -1,57 +1,72 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 
-const TextFieldMui = ({
-  id,
-  label,
-  helperText,
-  variant,
-  value,
-  name,
-  type,
-  required,
-  placeholder,
-  onChange,
-  className,
-}) => (
-  <TextField
-    className={className}
-    error={!!helperText}
-    id={id}
-    label={label}
-    value={value}
-    helperText={helperText}
-    variant={variant}
-    name={name}
-    type={type}
-    placeholder={placeholder}
-    required={required}
-    onChange={onChange}
-  />
-);
+const TextFieldMui = (props) => {
+  const {
+    id,
+    label,
+    helperText,
+    variant,
+    value,
+    name,
+    type,
+    required,
+    placeholder,
+    inputText,
+    ...other
+  } = props;
+
+  const [currentValue, setCurrentValue] = useState(value);
+
+  useEffect(() => {
+    if (value !== currentValue) {
+      setCurrentValue(value);
+    }
+  }, [value]);
+
+  const onChangeHandler = (e) => {
+    setCurrentValue(e.target.value);
+  };
+
+  return (
+    <TextField
+      error={!!helperText}
+      id={id}
+      label={label}
+      value={currentValue}
+      helperText={helperText}
+      variant={variant}
+      name={name}
+      type={type}
+      placeholder={placeholder}
+      required={required}
+      onBlur={inputText}
+      onChange={onChangeHandler}
+      {...other}
+    />
+  );
+};
 
 TextFieldMui.defaultProps = {
-  id: '',
-  label: '',
+  id: null,
+  label: null,
   helperText: '',
-  variant: '',
-  onChange: () => {},
-  value: '',
-  name: '',
+  variant: null,
+  inputText: null,
+  value: null,
+  name: null,
   required: false,
   placeholder: '',
   type: 'text',
-  className: '',
 };
 
 TextFieldMui.propTypes = {
-  className: PropTypes.string,
   id: PropTypes.string,
   label: PropTypes.string,
   helperText: PropTypes.string,
   variant: PropTypes.string,
-  onChange: PropTypes.func,
+  inputText: PropTypes.func,
   value: PropTypes.string,
   name: PropTypes.string,
   type: PropTypes.string,
@@ -59,4 +74,4 @@ TextFieldMui.propTypes = {
   placeholder: PropTypes.string,
 };
 
-export default TextFieldMui;
+export default React.memo(TextFieldMui);

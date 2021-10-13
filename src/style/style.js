@@ -5,13 +5,13 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'center',
   },
   mapContentWrapper: {
+    width: '51.2vw',
     padding: '46px 0',
   },
   mapContent: {
-    padding: '0 0 0 40px',
+    padding: '0 40px',
     margin: '17px 0',
   },
   mapTabs: {
@@ -20,9 +20,6 @@ const useStyles = makeStyles({
   divider: {
     backgroundColor: 'rgba(0, 0, 0, 0.09)',
     width: '1px',
-  },
-  contentButton: {
-    columnGap: '1rem',
   },
   content: {
     display: 'flex',
@@ -43,6 +40,15 @@ const useStyles = makeStyles({
   },
   dataText: {
     marginBottom: '56px',
+  },
+  toggleButton: {
+    borderLeft: '4px',
+    borderRadius: '4px',
+    borderColor: 'black',
+  },
+  map: {
+    width: '48.8vw',
+    height: '100vh',
   },
 });
 

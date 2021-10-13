@@ -24,6 +24,9 @@
         "no-underscore-dangle": "off",
         "import/prefer-default-export": "off",
         "react/jsx-props-no-spreading": "off",
+        "no-param-reassign": 0,
+        "global-require": 0,
+        "react/jsx-props-no-spreading": "off",
         "import/no-named-as-default": 0
     }
 }
