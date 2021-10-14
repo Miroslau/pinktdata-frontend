@@ -13,13 +13,39 @@ export const signupUser = createAsyncThunk(
 
       const { status, data } = response;
 
-      const { successToken } = data;
-
       if (status !== 200) {
         return thunkAPI.rejectWithValue(data);
       }
 
+      const { successToken } = data;
+
       localStorage.setItem('token', successToken);
+      return data;
+    } catch (e) {
+      console.error(e.response.data);
+      return thunkAPI.rejectWithValue(e.response.data);
+    }
+  },
+);
+
+export const loginUser = createAsyncThunk(
+  'users/LoginUser',
+  async ({
+    email, password,
+  }, thunkAPI) => {
+    try {
+      const response = await UserAPI.signIn({ email, password });
+      const { data, status } = response;
+      console.log('status: ', data);
+      if (status !== 200) {
+        console.log(thunkAPI.rejectWithValue(data));
+        return thunkAPI.rejectWithValue(data);
+      }
+
+      const { successToken } = data;
+
+      localStorage.setItem('token', successToken);
+
       return data;
     } catch (e) {
       console.error(e.response.data);

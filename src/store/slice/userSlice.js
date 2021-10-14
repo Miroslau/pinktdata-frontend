@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { signupUser, logoutUser } from '../actions/userAction';
+import { signupUser, logoutUser, loginUser } from '../actions/userAction';
 
 export const userSlice = createSlice({
   name: 'user',
@@ -36,6 +36,22 @@ export const userSlice = createSlice({
       state.isFetching = false;
       state.isError = true;
       state.errorMessage = payload.message;
+    },
+    [loginUser.fulfilled]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isSuccess = true;
+      state.email = payload.email;
+      state.firstName = payload.firstName;
+      state.lastName = payload.lastName;
+      return state;
+    },
+    [loginUser.pending]: (state) => {
+      state.isFetching = true;
+    },
+    [loginUser.rejected]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isError = true;
+      state.errorMessage = payload.errorMessage;
     },
     [logoutUser.fulfilled]: (state) => {
       state.isFetching = false;

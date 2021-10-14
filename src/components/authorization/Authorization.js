@@ -14,11 +14,12 @@ const {
 
 const Authorization = ({ isSignIn, submitForm, openForm }) => {
   const {
-    handleChange, handleSubmit, user, errors,
+    handleChange, handleSubmit, user, errors, handleClear,
   } = useForm(
     submitForm,
     validateErrors,
     isSignIn,
+    openForm,
   );
 
   return (
@@ -47,7 +48,7 @@ const Authorization = ({ isSignIn, submitForm, openForm }) => {
               <ButtonMui title={titleForgotPassword} clickButton={handleSubmit} />
               <div
                 className="authorization__link"
-                onClick={openForm}
+                onClick={handleClear}
                 role="presentation"
               >
                 {text}

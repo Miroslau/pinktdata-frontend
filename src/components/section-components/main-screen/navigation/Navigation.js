@@ -1,16 +1,22 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
+import { toast } from 'react-hot-toast';
 import {
   Dialog, DialogContent, DialogTitle, IconButton,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
+import { authorizationLocalization } from '../../../../constants/authorizationLocalization';
 import Authorization from '../../../authorization/Authorization';
 import {
   clearState, userSelector,
 } from '../../../../store/slice/userSlice';
-import { signupUser, logoutUser } from '../../../../store/actions/userAction';
+import { signupUser, logoutUser, loginUser } from '../../../../store/actions/userAction';
 import './Navigation.scss';
+
+const {
+  titleSiginUp, titleSiginIn,
+} = authorizationLocalization;
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -18,14 +24,15 @@ const Navigation = () => {
   const [isSignIn, setSignIn] = useState(false);
 
   const {
-    isSuccess, isError, firstName,
+    isSuccess, isError, firstName, errorMessage,
   } = useSelector(
     userSelector,
   );
 
   const token = localStorage.getItem('token');
 
-  const authorizationUser = (user) => dispatch(signupUser(user));
+  // eslint-disable-next-line max-len
+  const authorizationUser = (user) => (isSignIn ? dispatch(loginUser(user)) : dispatch(signupUser(user)));
 
   const logOut = () => dispatch(logoutUser());
 
@@ -40,11 +47,12 @@ const Navigation = () => {
     }
 
     if (isError) {
-      setModalActive(false);
+      toast.error(errorMessage);
     }
   }, [isSuccess, isError]);
 
   const openRegisterForm = () => {
+    dispatch(clearState());
     setSignIn(false);
   };
   return (
@@ -65,7 +73,7 @@ const Navigation = () => {
           setModalActive(true);
         }}
       >
-        {token ? firstName : 'Sign in'}
+        {token ? firstName : titleSiginIn}
       </button>
       {
             token && <button onClick={logOut} type="button" className="button">Log out</button>
@@ -78,10 +86,13 @@ const Navigation = () => {
             alignItems: 'center',
           }}
         >
-          {isSignIn ? 'Sign in' : 'Sign Up'}
+          {isSignIn ? titleSiginIn : titleSiginUp}
           <IconButton
             onClick={() => {
               setModalActive(false);
+              if (isError) {
+                dispatch(clearState());
+              }
             }}
             aria-label="close"
             sx={{
@@ -92,6 +103,9 @@ const Navigation = () => {
           </IconButton>
         </DialogTitle>
         <DialogContent>
+          {
+              isError && <div className="navigation-error">{errorMessage}</div>
+          }
           <Authorization
             isSignIn={isSignIn}
             submitForm={authorizationUser}
