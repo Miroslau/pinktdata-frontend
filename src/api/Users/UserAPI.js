@@ -1,15 +1,16 @@
 import axios from 'axios';
+import { CURRENT_URL } from '../../constants/domains';
 
 export default {
   signIn(user) {
-    return axios.post('http://localhost:3000/api/users/login', user);
+    return axios.post(`${CURRENT_URL}/users/login`, user);
   },
 
   signUp(user) {
-    return axios.post('http://localhost:3000/api/users', user);
+    return axios.post(`${CURRENT_URL}/users`, user);
   },
 
   logOut() {
-    return axios.post('http://localhost:3000/api/users/Logout');
+    return axios.post(`${CURRENT_URL}/users/Logout`);
   },
 };

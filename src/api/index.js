@@ -1,7 +1,8 @@
 import axios from 'axios';
+import { CURRENT_URL } from '../constants/domains';
 
 const instanceAxios = axios.create({
-  baseURL: 'http://localhost/api/',
+  baseURL: CURRENT_URL,
   withCredentials: true,
 });
 

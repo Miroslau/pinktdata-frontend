@@ -1,6 +1,6 @@
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { userSlice } from './userSlice';
+import { userSlice } from '../slice/userSlice';
 
 const userReducer = userSlice.reducer;
 

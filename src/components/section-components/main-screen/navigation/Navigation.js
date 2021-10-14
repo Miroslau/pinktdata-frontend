@@ -7,8 +7,9 @@ import {
 import CloseIcon from '@mui/icons-material/Close';
 import Authorization from '../../../authorization/Authorization';
 import {
-  clearState, signupUser, logoutUser, userSelector,
-} from '../../../../store/userSlice';
+  clearState, userSelector,
+} from '../../../../store/slice/userSlice';
+import { signupUser, logoutUser } from '../../../../store/actions/userAction';
 import './Navigation.scss';
 
 const Navigation = () => {
