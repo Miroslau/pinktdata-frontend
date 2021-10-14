@@ -45,7 +45,7 @@ const Navigation = () => {
   return (
     <div className="navigation">
       <ul className="link-container">
-        {LINK_ITEM_NAV.map((item) => <Link className="link-item" to={item.path}>{item.name}</Link>)}
+        {LINK_ITEM_NAV.map((item) => <Link className="link-item" key={item} to={item.path}>{item.name}</Link>)}
       </ul>
       <button type="button" className="button btn-find">{FIND_BTN_NAV}</button>
       <button

@@ -34,10 +34,11 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer-nav">
-          {NAV_L_FOOTER.map((link) => <Link to="/">{link}</Link>)}
+          {NAV_L_FOOTER.map((link) => <Link key={link} to="/">{link}</Link>)}
+          {NAV_L_FOOTER.map((link) => <Link key={link} to="/">{link}</Link>)}
         </div>
         <div className="footer-nav">
-          {NAV_R_FOOTER.map((link) => <Link to="/">{link}</Link>)}
+          {NAV_R_FOOTER.map((link) => <Link key={link} to="/">{link}</Link>)}
         </div>
         <div className="footer-input">
           <h4>{NEWSLETTER_FOOTER}</h4>
