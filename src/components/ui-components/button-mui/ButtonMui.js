@@ -10,6 +10,9 @@ const ButtonMui = ({
   className,
   children,
   type,
+  startIcon,
+  ariaLabel,
+
 }) => (
   <Button
     variant={variant}
@@ -17,8 +20,11 @@ const ButtonMui = ({
     color={color}
     className={className}
     type={type}
+    startIcon={startIcon}
+    aria-label={ariaLabel}
   >
-    {title || children}
+    {title}
+    {children || ''}
   </Button>
 );
 
@@ -29,7 +35,9 @@ ButtonMui.defaultProps = {
   disabled: false,
   className: '',
   children: null,
+  startIcon: null,
   type: '',
+  ariaLabel: '',
 };
 
 ButtonMui.propTypes = {
@@ -38,8 +46,10 @@ ButtonMui.propTypes = {
   color: PropTypes.string,
   disabled: PropTypes.bool,
   className: PropTypes.string,
-  children: PropTypes.func,
+  children: PropTypes.element,
   type: PropTypes.string,
+  startIcon: PropTypes.element,
+  ariaLabel: PropTypes.string,
 };
 
 export default ButtonMui;

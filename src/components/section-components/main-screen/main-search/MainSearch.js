@@ -33,10 +33,15 @@ const bedroomItems = [
 ];
 
 const MainSearch = () => {
+  const dateNow = new Date();
+  const dateNowPlusOneDay = new Date();
+  dateNowPlusOneDay.setDate(dateNow.getDate() + 1);
+  dateNowPlusOneDay.toLocaleDateString();
+
   const classes = useStyles();
   const [location, setLocation] = useState('');
-  const [startDateValue, setStartDateValue] = useState(new Date('2021-10-10T11:11:11'));
-  const [endDateValue, setEndDateValue] = useState(new Date('2021-12-10T11:11:11'));
+  const [startDateValue, setStartDateValue] = useState(dateNow);
+  const [endDateValue, setEndDateValue] = useState(dateNowPlusOneDay);
 
   const [bedroomValue, setBedroomValue] = useState('');
 
@@ -97,7 +102,7 @@ const MainSearch = () => {
         </Select>
       </FormControl>
 
-      <ButtonMui variant="contained" color="secondary" type="submit" className={classes.searchButton}>
+      <ButtonMui ariaLabel="search-button" variant="contained" color="secondary" type="submit" className={classes.searchButton}>
         <SearchIcon fontSize="large" />
       </ButtonMui>
 
