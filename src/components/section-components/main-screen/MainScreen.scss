@@ -1,3 +1,5 @@
+@import '../../../sass/variables';
+
 .main-screen {
     background-image: url("../../../assets/mainBG.jpg");
     background-repeat: no-repeat;
@@ -8,17 +10,15 @@
     h2 {
         margin: 300px 0 20px 0;
         font-size: 50px;
-        color: #fff;
-        // background-color: #9ac0c0;
-        background-color: #c4a288;
+        color: $color-white;
+        background-color: $color-titleBg;
         width: 400px;
         border-radius: 4px;
 
         span {
             display: block;
             width: 530px;
-            // background-color: #75b8b8;
-            background-color: #1c8ac9;
+            background-color: $color-bg;
             padding: 3px;
             border-radius: 4px;
         }
@@ -26,8 +26,8 @@
 }
 
 .btn-find {
-    background-color: #1c8ac9;
+    background-color: $color-bg;
     &:hover {
-        background-color: #e57373;
+        background-color: $color-hover;
     }
 }
