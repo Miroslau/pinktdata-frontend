@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { toast } from 'react-hot-toast';
 import {
   Dialog, DialogContent, DialogTitle, IconButton,
 } from '@mui/material';
@@ -24,12 +23,10 @@ const Navigation = () => {
   const [isSignIn, setSignIn] = useState(false);
 
   const {
-    isSuccess, isError, firstName, errorMessage,
+    isSuccess, isError, firstName, errorMessage, token,
   } = useSelector(
     userSelector,
   );
-
-  const token = localStorage.getItem('token');
 
   // eslint-disable-next-line max-len
   const authorizationUser = (user) => (isSignIn ? dispatch(loginUser(user)) : dispatch(signupUser(user)));
@@ -45,11 +42,7 @@ const Navigation = () => {
       setModalActive(false);
       dispatch(clearState());
     }
-
-    if (isError) {
-      toast.error(errorMessage);
-    }
-  }, [isSuccess, isError]);
+  }, [isSuccess]);
 
   const openRegisterForm = () => {
     dispatch(clearState());

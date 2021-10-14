@@ -17,9 +17,6 @@ export const signupUser = createAsyncThunk(
         return thunkAPI.rejectWithValue(data);
       }
 
-      const { accessToken } = data;
-
-      localStorage.setItem('token', accessToken);
       return data;
     } catch (e) {
       console.error(e.response.data);
@@ -37,13 +34,8 @@ export const loginUser = createAsyncThunk(
       const response = await UserAPI.signIn({ email, password });
       const { data, status } = response;
       if (status !== 200) {
-        console.log(thunkAPI.rejectWithValue(data));
         return thunkAPI.rejectWithValue(data);
       }
-
-      const { accessToken } = data;
-
-      localStorage.setItem('token', accessToken);
 
       return data;
     } catch (e) {
@@ -60,11 +52,10 @@ export const logoutUser = createAsyncThunk(
 
       const { status, data } = response;
 
-      if (status !== 200) {
+      if (status !== 204) {
         return thunkAPI.rejectWithValue(data);
       }
-      localStorage.removeItem('token');
-      return data;
+      return status;
     } catch (e) {
       console.error(e.response.data);
       return thunkAPI.rejectWithValue(e.response.data);

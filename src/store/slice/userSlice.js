@@ -7,6 +7,7 @@ export const userSlice = createSlice({
     firstName: '',
     lastName: '',
     email: '',
+    token: null,
     isFetching: false,
     isSuccess: false,
     isError: false,
@@ -28,6 +29,7 @@ export const userSlice = createSlice({
       state.email = payload.email;
       state.firstName = payload.firstName;
       state.lastName = payload.lastName;
+      state.token = payload.accessToken;
     },
     [signupUser.pending]: (state) => {
       state.isFetching = true;
@@ -43,6 +45,7 @@ export const userSlice = createSlice({
       state.email = payload.email;
       state.firstName = payload.firstName;
       state.lastName = payload.lastName;
+      state.token = payload.accessToken;
       return state;
     },
     [loginUser.pending]: (state) => {
@@ -56,6 +59,7 @@ export const userSlice = createSlice({
     [logoutUser.fulfilled]: (state) => {
       state.isFetching = false;
       state.isSuccess = true;
+      state.token = null;
     },
     [logoutUser.pending]: (state) => {
       state.isFetching = true;
