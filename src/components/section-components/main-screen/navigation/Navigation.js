@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  Dialog, DialogContent, DialogTitle, IconButton,
-} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import ModalWindowMui from '../../../ui-components/modal-window-mui/ModalWindowMui';
 import { authorizationLocalization } from '../../../../constants/authorizationLocalization';
 import Authorization from '../../../authorization/Authorization';
+import useStyles from '../../../../style/style';
 import {
   clearState, userSelector,
 } from '../../../../store/slice/userSlice';
@@ -22,11 +20,20 @@ const Navigation = () => {
   const [isActiveModal, setModalActive] = useState(false);
   const [isSignIn, setSignIn] = useState(false);
 
+  const useStyle = useStyles();
+
   const {
     isSuccess, isError, firstName, errorMessage, token,
   } = useSelector(
     userSelector,
   );
+
+  const closeModal = () => {
+    setModalActive(false);
+    if (isError) {
+      dispatch(clearState());
+    }
+  };
 
   // eslint-disable-next-line max-len
   const authorizationUser = (user) => (isSignIn ? dispatch(loginUser(user)) : dispatch(signupUser(user)));
@@ -70,42 +77,22 @@ const Navigation = () => {
       </button>
       {
             token && <button onClick={logOut} type="button" className="button">Log out</button>
-        }
-      <Dialog open={isActiveModal}>
-        <DialogTitle
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: '1fr auto',
-            alignItems: 'center',
-          }}
-        >
-          {isSignIn ? titleSiginIn : titleSiginUp}
-          <IconButton
-            onClick={() => {
-              setModalActive(false);
-              if (isError) {
-                dispatch(clearState());
-              }
-            }}
-            aria-label="close"
-            sx={{
-              color: (theme) => theme.palette.grey[500],
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent>
-          {
+      }
+      <ModalWindowMui
+        clickButton={closeModal}
+        title={isSignIn ? titleSiginIn : titleSiginUp}
+        isActiveModal={isActiveModal}
+        sx={useStyle.dialog}
+      >
+        {
               isError && <div className="navigation-error">{errorMessage}</div>
-          }
-          <Authorization
-            isSignIn={isSignIn}
-            submitForm={authorizationUser}
-            openForm={openRegisterForm}
-          />
-        </DialogContent>
-      </Dialog>
+        }
+        <Authorization
+          isSignIn={isSignIn}
+          submitForm={authorizationUser}
+          openForm={openRegisterForm}
+        />
+      </ModalWindowMui>
     </div>
   );
 };

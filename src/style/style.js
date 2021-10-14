@@ -27,6 +27,11 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  dialog: {
+    display: 'grid',
+    gridTemplateColumns: '1fr auto',
+    alignItems: 'center',
+  },
   contentData: {
     display: 'flex',
     flexDirection: 'row',
