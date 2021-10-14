@@ -51,7 +51,7 @@ export const userSlice = createSlice({
     [loginUser.rejected]: (state, { payload }) => {
       state.isFetching = false;
       state.isError = true;
-      state.errorMessage = payload.errorMessage;
+      state.errorMessage = payload.message;
     },
     [logoutUser.fulfilled]: (state) => {
       state.isFetching = false;
