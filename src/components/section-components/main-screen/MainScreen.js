@@ -2,6 +2,7 @@ import React from 'react';
 import Navigation from './navigation/Navigation';
 import './MainScreen.scss';
 import MainSearch from './main-search/MainSearch';
+import { TITLE_MAINSCREEN, TITLE_SPAN_MAINSCREEN, BTN_MAINSCREEN } from '../../../constants/mainPageConst';
 
 export default function MainScreen() {
   return (
@@ -10,10 +11,10 @@ export default function MainScreen() {
         <Navigation />
         <MainSearch />
         <h2>
-          Discover rooms,
-          <span>hotels & make assets!</span>
+          {TITLE_MAINSCREEN}
+          <span>{TITLE_SPAN_MAINSCREEN}</span>
         </h2>
-        <button type="button" className="button button-seller">Become a Seller</button>
+        <button type="button" className="button button-seller">{BTN_MAINSCREEN}</button>
       </div>
     </div>
   );

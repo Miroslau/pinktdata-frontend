@@ -9,6 +9,7 @@ import Authorization from '../../../authorization/Authorization';
 import { clearState, signupUser, userSelector } from '../../../../store/userSlice';
 import './Navigation.scss';
 import Loader from '../../../ui-components/loader/Loader';
+import { LINK_ITEM_NAV, FIND_BTN_NAV, SIGNIN_BTN_NAV } from '../../../../constants/mainPageConst';
 
 const Navigation = () => {
   const dispatch = useDispatch();
@@ -44,13 +45,9 @@ const Navigation = () => {
   return (
     <div className="navigation">
       <ul className="link-container">
-        <Link className="link-item" to="/">MainScreen</Link>
-        <Link className="link-item" to="/buy">Buy</Link>
-        <Link className="link-item" to="/forSale">ForSale</Link>
-        <Link className="link-item" to="/insight">Insight</Link>
-        <Link className="link-item" to="/contact">Contact</Link>
+        {LINK_ITEM_NAV.map((item) => <Link className="link-item" to={item.path}>{item.name}</Link>)}
       </ul>
-      <button type="button" className="button btn-find">Find Nearby</button>
+      <button type="button" className="button btn-find">{FIND_BTN_NAV}</button>
       <button
         type="button"
         className="button"
@@ -59,7 +56,7 @@ const Navigation = () => {
           setModalActive(true);
         }}
       >
-        Sign in
+        {SIGNIN_BTN_NAV}
       </button>
       <Dialog open={isActiveModal}>
         <DialogTitle
