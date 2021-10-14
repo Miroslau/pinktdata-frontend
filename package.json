@@ -33,6 +33,7 @@
     "start": "react-scripts start",
     "start-mock": "cross-env REACT_APP_IS_MOCKING=true react-scripts start",
     "build": "react-scripts build",
+    "update": "npx msw init public --no-save",
     "test": "react-scripts test",
     "lint": "eslint .",
     "lint:fix": "eslint --fix --ext .js .",
