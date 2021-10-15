@@ -11,6 +11,6 @@ export default {
   },
 
   logOut() {
-    return axios.post(`${CURRENT_URL}/auth/Logout`);
+    return axios.post(`${CURRENT_URL}/auth/logout`);
   },
 };

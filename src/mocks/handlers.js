@@ -35,5 +35,5 @@ export const handlers = [
       accessToken: 'Bear f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
     }));
   }),
-  rest.post('http://localhost:3000/api/auth/Logout', (req, res, ctx) => res(ctx.status(204))),
+  rest.post('http://localhost:3000/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
 ];

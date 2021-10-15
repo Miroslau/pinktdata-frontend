@@ -10,6 +10,9 @@ import {
 } from '../../../../store/slice/userSlice';
 import { signupUser, logoutUser, loginUser } from '../../../../store/actions/userAction';
 import './Navigation.scss';
+import {
+  FIND_BTN_NAV, LINK_MAIN_SCREEN, LINK_BUY, LINK_FOR_SALE, LINK_INSIGHT, LINK_CONTACT,
+} from '../../../../constants/mainPageConst';
 
 const {
   TITLE_SIGN_UP, TITLE_SIGN_IN, BUTTON_LOG_OUT,
@@ -58,13 +61,13 @@ const Navigation = () => {
   return (
     <div className="navigation">
       <ul className="link-container">
-        <Link className="link-item" to="/">MainScreen</Link>
-        <Link className="link-item" to="/buy">Buy</Link>
-        <Link className="link-item" to="/forSale">ForSale</Link>
-        <Link className="link-item" to="/insight">Insight</Link>
-        <Link className="link-item" to="/contact">Contact</Link>
+        <Link className="link-item" to="/">{LINK_MAIN_SCREEN}</Link>
+        <Link className="link-item" to="/buy">{LINK_BUY}</Link>
+        <Link className="link-item" to="/forSale">{LINK_FOR_SALE}</Link>
+        <Link className="link-item" to="/insight">{LINK_INSIGHT}</Link>
+        <Link className="link-item" to="/contact">{LINK_CONTACT}</Link>
       </ul>
-      <button type="button" className="button btn-find">Find Nearby</button>
+      <button type="button" className="button btn-find">{FIND_BTN_NAV}</button>
       <button
         type="button"
         className="button"
