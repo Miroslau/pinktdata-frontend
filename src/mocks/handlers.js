@@ -36,4 +36,7 @@ export const handlers = [
     }));
   }),
   rest.post('http://localhost:3000/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
+  rest.get('/api/search/location', (req, res, ctx) => res(ctx.status(200), ctx.json({
+    title: 'test',
+  }))),
 ];

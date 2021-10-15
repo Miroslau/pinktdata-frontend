@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 
 const TextFieldMui = (props) => {
   const {
+    className,
     id,
     label,
     helperText,
@@ -31,6 +32,7 @@ const TextFieldMui = (props) => {
 
   return (
     <TextField
+      className={className}
       error={!!helperText}
       id={id}
       label={label}
@@ -49,6 +51,7 @@ const TextFieldMui = (props) => {
 };
 
 TextFieldMui.defaultProps = {
+  className: '',
   id: null,
   label: null,
   helperText: '',
@@ -62,6 +65,7 @@ TextFieldMui.defaultProps = {
 };
 
 TextFieldMui.propTypes = {
+  className: PropTypes.string,
   id: PropTypes.string,
   label: PropTypes.string,
   helperText: PropTypes.string,
