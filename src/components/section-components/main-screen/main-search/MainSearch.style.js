@@ -56,9 +56,9 @@ const useStyles = makeStyles({
   },
   searchButton: {
     borderRadius: '.6rem',
-    backgroundColor: PINK_COLOR,
+    backgroundColor: `${PINK_COLOR} !important`,
     '&:hover': {
-      backgroundColor: BLUE_COLOR,
+      backgroundColor: `${BLUE_COLOR} !important`,
     },
   },
 });
