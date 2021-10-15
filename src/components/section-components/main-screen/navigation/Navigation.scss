@@ -1,11 +1,13 @@
+@import '../../../../sass/variables';
+
 .navigation {
     display: flex;
-    justify-content: end;
+    justify-content: flex-end;
     align-items: center;
 }
 
 .link-item {
-    color: #fff;
+    color: $color-white;
     text-decoration: none;
     font-size: 18px;
     font-weight: bold;
