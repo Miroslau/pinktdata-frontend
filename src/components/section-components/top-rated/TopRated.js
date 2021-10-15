@@ -18,7 +18,13 @@ export default function TopRated() {
       <div className="wrapper">
         <h3>{TITLE_TOPRATED}</h3>
         <div className="cards-container">
-          {arrayOfPopularRooms.length > 0 ? arrayOfPopularRooms.map((img) => <img src={img} alt="pict" />) : 'Rooms loading...'}
+          {arrayOfPopularRooms.length > 0
+            ? arrayOfPopularRooms.map(({ image, id }) => (
+              <div key={id} className="image-container">
+                <img src={image} alt="room" />
+              </div>
+            ))
+            : 'Rooms loading...'}
         </div>
       </div>
     </div>
