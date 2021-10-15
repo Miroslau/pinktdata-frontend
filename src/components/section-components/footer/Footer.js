@@ -1,6 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Footer.scss';
+import instagram from '../../../assets/instagram 1.svg';
+import youtub from '../../../assets/youtub.svg';
+import twitter from '../../../assets/twitter.svg';
+import facebook from '../../../assets/icons8-facebook-новый.svg';
+
+import {
+  TEXT_FOOTER,
+  NAV_L_FOOTER, NAV_R_FOOTER, NEWSLETTER_FOOTER,
+  SUBSCRIBE_BTN_FOOTER, ALLRIGHT_FOOTER, TERMS_FOOTER, POLICY_FOOTER, SUBSCRIBE_PARAGRAF_FOOTER,
+} from '../../../constants/mainPageConst';
+
+const icons = [instagram, youtub, twitter, facebook];
 
 export default function Footer() {
   return (
@@ -8,45 +20,41 @@ export default function Footer() {
       <div className="footer-content">
         <div className="footer-text">
           <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-            Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,
-            when an unknown printer took a galley of type and scrambled it to make a type
-            specimen book. It has survived not only five centuries, but also the leap into
-            electronic typesetting
+            {TEXT_FOOTER}
           </p>
-          <div className="icons" />
+          <div className="icons">
+            {icons.map((icon) => (
+              <object
+                aria-label="this object has text"
+                className="object"
+                type="image/svg+xml"
+                data={icon}
+              />
+            ))}
+          </div>
         </div>
         <div className="footer-nav">
-          <Link to="/">Home</Link>
-          <Link to="/">Buy Room</Link>
-          <Link to="/">Sell Room</Link>
-          <Link to="/">Help</Link>
-          <Link to="/">Contact</Link>
+          {NAV_L_FOOTER.map((link) => <Link key={link} to="/">{link}</Link>)}
+          {NAV_L_FOOTER.map((link) => <Link key={link} to="/">{link}</Link>)}
         </div>
         <div className="footer-nav">
-          <Link to="/">About</Link>
-          <Link to="/">Explore Rooms</Link>
-          <Link to="/">Insight</Link>
-          <Link to="/">Blog</Link>
+          {NAV_R_FOOTER.map((link) => <Link key={link} to="/">{link}</Link>)}
         </div>
         <div className="footer-input">
-          <h4>Newsletter</h4>
-          <p>Subscribe to the newsletter</p>
+          <h4>{NEWSLETTER_FOOTER}</h4>
+          <p>{SUBSCRIBE_PARAGRAF_FOOTER}</p>
           <input type="email" placeholder="Enter Email" />
-          <button type="button" className="button">Subscribe</button>
+          <button type="button" className="button">{SUBSCRIBE_BTN_FOOTER}</button>
         </div>
       </div>
       <div className="footer-policy">
-        <div>All right Revserved@2020</div>
+        <div>{ALLRIGHT_FOOTER}</div>
         <div>
-          <Link to="/">Terms & Conditions</Link>
-          <Link to="/">Privacy Policy</Link>
+          <Link to="/">{TERMS_FOOTER}</Link>
+          <Link to="/">{POLICY_FOOTER}</Link>
           USA
-
         </div>
-
       </div>
-
     </div>
   );
 }

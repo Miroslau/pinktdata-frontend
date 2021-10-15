@@ -2,6 +2,7 @@ import React from 'react';
 import Filter from './filter/Filter';
 import Navigation from './navigation/Navigation';
 import './MainScreen.scss';
+import { TITLE_MAINSCREEN, TITLE_SPAN_MAINSCREEN, BTN_MAINSCREEN } from '../../../constants/mainPageConst';
 
 export default function MainScreen() {
   return (
@@ -10,10 +11,10 @@ export default function MainScreen() {
         <Navigation />
         <Filter />
         <h2>
-          Diacover rooms,
-          <span>hotels & make assets!</span>
+          {TITLE_MAINSCREEN}
+          <span>{TITLE_SPAN_MAINSCREEN}</span>
         </h2>
-        <button type="button" className="button">Become a Seller</button>
+        <button type="button" className="button">{BTN_MAINSCREEN}</button>
       </div>
     </div>
   );

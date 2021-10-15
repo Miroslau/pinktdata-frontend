@@ -1,14 +1,16 @@
+@import '../../../sass/variables';
+
 .major-city {
-    background-color: #65c7f5;
+    background-color: $color-section;
 
     h3 {
-        color: #fff;
+        color: $color-white;
     }
 }
 
 .img-container{
     h4{
-        color: #fff;
+        color: $color-white;
         font-size: 16px;
         margin-bottom: 15px;
     }
@@ -24,7 +26,7 @@
         width: 250px;
         height: 120px;
         border-radius: 4px;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        box-shadow: $box-shadow2;
     }
 }
 .major-city-hotels-m {
@@ -32,7 +34,7 @@
         width: 542px;
         height: 150px;
         border-radius: 4px;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        box-shadow: $box-shadow2;
     }
 }
 .major-city-hotels-big {
@@ -40,7 +42,7 @@
         width: 300px;
         height: 315px;
         border-radius: 4px;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        box-shadow: $box-shadow2;
     }
 }
 
