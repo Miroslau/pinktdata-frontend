@@ -12,7 +12,7 @@ import { signupUser, logoutUser, loginUser } from '../../../../store/actions/use
 import './Navigation.scss';
 
 const {
-  titleSiginUp, titleSiginIn,
+  TITLE_SIGN_UP, TITLE_SIGN_IN, BUTTON_LOG_OUT,
 } = authorizationLocalization;
 
 const Navigation = () => {
@@ -73,14 +73,14 @@ const Navigation = () => {
           setModalActive(true);
         }}
       >
-        {token ? firstName : titleSiginIn}
+        {token ? firstName : TITLE_SIGN_IN}
       </button>
       {
-            token && <button onClick={logOut} type="button" className="button">Log out</button>
+            token && <button onClick={logOut} type="button" className="button">{BUTTON_LOG_OUT}</button>
       }
       <ModalWindowMui
         clickButton={closeModal}
-        title={isSignIn ? titleSiginIn : titleSiginUp}
+        title={isSignIn ? TITLE_SIGN_IN : TITLE_SIGN_UP}
         isActiveModal={isActiveModal}
         sx={useStyle.dialog}
       >
