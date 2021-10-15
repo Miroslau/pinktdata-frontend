@@ -7,9 +7,9 @@
 
     img {
         width: 290px;
-        height: auto;
+        height: 390px;
         border-radius: 4px;
         box-shadow: $box-shadow2;
-        background-size: cover;
+        object-fit: cover;
     }
 }
