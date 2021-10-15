@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const UseForm = (callback, validateErrors, isSignIn) => {
+const UseForm = (callback, validateErrors, isSignIn, callBackFunction) => {
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
@@ -16,6 +16,17 @@ const UseForm = (callback, validateErrors, isSignIn) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
   }, [user]);
+
+  const handleClear = () => {
+    setUser({
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      repeatPassword: '',
+    });
+    callBackFunction();
+  };
 
   const handleSubmit = useCallback(() => {
     setErrors(validateErrors(user, isSignIn));
@@ -36,7 +47,7 @@ const UseForm = (callback, validateErrors, isSignIn) => {
   );
 
   return {
-    handleChange, handleSubmit, user, errors, clearError,
+    handleChange, handleSubmit, user, errors, clearError, handleClear,
   };
 };
 

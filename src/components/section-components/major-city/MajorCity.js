@@ -1,11 +1,12 @@
 import React from 'react';
 import './MajorCity.scss';
 
-import NewYork from '../../../assets/New York.jpg';
-import Miami from '../../../assets/Miami.jpg';
-import SanFrancisco from '../../../assets/San Francisco.jpg';
-import Houston from '../../../assets/Houston.jpg';
-import LosAngeles from '../../../assets/Los Angeles.jpg';
+import NewYork from '../../../assets/New-York.webp';
+import Miami from '../../../assets/Miami.webp';
+import SanFrancisco from '../../../assets/San-Francisco.webp';
+import Houston from '../../../assets/Houston.webp';
+import LosAngeles from '../../../assets/Los-Angeles.webp';
+
 import {
   TITLE_MAJORCITY, BTN_MAJORCITY, LOSANGELES_CITY_MAJORCITY,
   MIAMI_CITY_MAJORCITY, SAN_FRANCISCO_CITY_MAJORCITY,

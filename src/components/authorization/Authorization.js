@@ -9,16 +9,17 @@ import useForm from '../../hooks/useForm';
 import { authorizationLocalization } from '../../constants/authorizationLocalization';
 
 const {
-  titleSiginUp, titleSiginIn, titleForgotPassword, text,
+  TITLE_SIGN_UP, TITLE_SIGN_IN, BUTTON_FORGOT_PASSWORD, TEXT,
 } = authorizationLocalization;
 
 const Authorization = ({ isSignIn, submitForm, openForm }) => {
   const {
-    handleChange, handleSubmit, user, errors,
+    handleChange, handleSubmit, user, errors, handleClear,
   } = useForm(
     submitForm,
     validateErrors,
     isSignIn,
+    openForm,
   );
 
   return (
@@ -40,17 +41,17 @@ const Authorization = ({ isSignIn, submitForm, openForm }) => {
             ))
       }
       <div className="authorization-buttons__login">
-        <ButtonMui title={isSignIn ? titleSiginIn : titleSiginUp} clickButton={handleSubmit} />
+        <ButtonMui title={isSignIn ? TITLE_SIGN_IN : TITLE_SIGN_UP} clickButton={handleSubmit} />
         {
           isSignIn && (
             <div className="authorization-buttons__login">
-              <ButtonMui title={titleForgotPassword} clickButton={handleSubmit} />
+              <ButtonMui title={BUTTON_FORGOT_PASSWORD} clickButton={handleSubmit} />
               <div
                 className="authorization__link"
-                onClick={openForm}
+                onClick={handleClear}
                 role="presentation"
               >
-                {text}
+                {TEXT}
               </div>
             </div>
           )

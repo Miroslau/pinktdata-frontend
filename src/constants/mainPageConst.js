@@ -37,6 +37,11 @@ export const MIAMI_CITY_MAJORCITY = 'Miami';
 export const SAN_FRANCISCO_CITY_MAJORCITY = 'Miami';
 export const HOUSTON_CITY_MAJORCITY = 'Houston';
 export const NEW_YOURK_CITY_MAJORCITY = 'New York';
+export const LINK_MAIN_SCREEN = 'Main Screen';
+export const LINK_BUY = 'Buy';
+export const LINK_FOR_SALE = 'For Sale';
+export const LINK_INSIGHT = 'Insight';
+export const LINK_CONTACT = 'Contact';
 
 export const TEXT_FOOTER = ` Lorem Ipsum is simply dummy text of the printing and typesetting industry
 Lorem Ipsum has been the industrys standard dummy text ever since the 1500s,when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting`;
