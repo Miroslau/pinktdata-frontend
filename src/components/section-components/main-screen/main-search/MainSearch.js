@@ -13,6 +13,7 @@ import useStyles from './MainSearch.style';
 import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
 import TextFieldMui from '../../../ui-components/text-field-mui/TextFieldMui';
 import TEXT from '../../../../constants/mainScreen';
+import searchByLocation from '../../../../api/main-search/main-searchAPI';
 
 const bedroomItems = [
   {
@@ -61,6 +62,7 @@ const MainSearch = () => {
           value={location}
           onChange={(event) => {
             setLocation(event.target.value);
+            searchByLocation.location();
           }}
         />
       </div>

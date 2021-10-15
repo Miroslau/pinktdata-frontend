@@ -27,4 +27,7 @@ export const handlers = [
       password,
     }));
   }),
+  rest.get('/api/search/location', (req, res, ctx) => res(ctx.status(200), ctx.json({
+    id: 'f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
+  }))),
 ];
