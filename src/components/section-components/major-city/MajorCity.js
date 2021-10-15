@@ -12,7 +12,7 @@ import {
   MIAMI_CITY_MAJORCITY, SAN_FRANCISCO_CITY_MAJORCITY,
   HOUSTON_CITY_MAJORCITY, NEW_YOURK_CITY_MAJORCITY,
 }
-  from '../../../constants/mainPageConst';
+from '../../../constants/mainPageConst';
 
 export default function MajorCity() {
   return (

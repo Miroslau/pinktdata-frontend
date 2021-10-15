@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import './Footer.scss';
 import instagram from '../../../assets/instagram 1.svg';
-import youtub from '../../../assets/youtub.svg';
+import youtube from '../../../assets/youtub.svg';
 import twitter from '../../../assets/twitter.svg';
 import facebook from '../../../assets/icons8-facebook-новый.svg';
 
@@ -11,8 +11,6 @@ import {
   NAV_L_FOOTER, NAV_R_FOOTER, NEWSLETTER_FOOTER,
   SUBSCRIBE_BTN_FOOTER, ALLRIGHT_FOOTER, TERMS_FOOTER, POLICY_FOOTER, SUBSCRIBE_PARAGRAF_FOOTER,
 } from '../../../constants/mainPageConst';
-
-const icons = [instagram, youtub, twitter, facebook];
 
 export default function Footer() {
   return (
@@ -23,14 +21,30 @@ export default function Footer() {
             {TEXT_FOOTER}
           </p>
           <div className="icons">
-            {icons.map((icon) => (
-              <object
-                aria-label="this object has text"
-                className="object"
-                type="image/svg+xml"
-                data={icon}
-              />
-            ))}
+            <object
+              aria-label="this object has text"
+              className="object"
+              type="image/svg+xml"
+              data={instagram}
+            />
+            <object
+              aria-label="this object has text"
+              className="object"
+              type="image/svg+xml"
+              data={youtube}
+            />
+            <object
+              aria-label="this object has text"
+              className="object"
+              type="image/svg+xml"
+              data={twitter}
+            />
+            <object
+              aria-label="this object has text"
+              className="object"
+              type="image/svg+xml"
+              data={facebook}
+            />
           </div>
         </div>
         <div className="footer-nav">
