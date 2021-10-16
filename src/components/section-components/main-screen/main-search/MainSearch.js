@@ -104,7 +104,13 @@ const MainSearch = () => {
         </Select>
       </FormControl>
 
-      <ButtonMui ariaLabel="search-button" variant="contained" color="secondary" type="submit" className={classes.searchButton}>
+      <ButtonMui
+        ariaLabel="search-button"
+        variant="contained"
+        color="secondary"
+        className={classes.searchButton}
+        clickButton={() => console.log('Search...')}
+      >
         <SearchIcon fontSize="large" />
       </ButtonMui>
 
