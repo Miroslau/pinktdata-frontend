@@ -2,31 +2,35 @@ import React from 'react';
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
 
-const ButtonMui = ({
-  variant,
-  title,
-  color,
-  disabled,
-  className,
-  children,
-  type,
-  startIcon,
-  ariaLabel,
-
-}) => (
-  <Button
-    variant={variant}
-    disabled={disabled}
-    color={color}
-    className={className}
-    type={type}
-    startIcon={startIcon}
-    aria-label={ariaLabel}
-  >
-    {title}
-    {children || ''}
-  </Button>
-);
+const ButtonMui = (props) => {
+  const {
+    variant,
+    title,
+    color,
+    disabled,
+    className,
+    children,
+    ariaLabel,
+    startIcon,
+    clickButton,
+    ...other
+  } = props;
+  return (
+    <Button
+      variant={variant}
+      disabled={disabled}
+      color={color}
+      className={className}
+      onClick={clickButton}
+      startIcon={startIcon}
+      aria-label={ariaLabel}
+      {...other}
+    >
+      {title}
+      {children || ''}
+    </Button>
+  );
+};
 
 ButtonMui.defaultProps = {
   variant: 'contained',
@@ -36,7 +40,6 @@ ButtonMui.defaultProps = {
   className: '',
   children: null,
   startIcon: null,
-  type: '',
   ariaLabel: '',
 };
 
@@ -46,10 +49,10 @@ ButtonMui.propTypes = {
   color: PropTypes.string,
   disabled: PropTypes.bool,
   className: PropTypes.string,
+  clickButton: PropTypes.func.isRequired,
   children: PropTypes.element,
-  type: PropTypes.string,
   startIcon: PropTypes.element,
   ariaLabel: PropTypes.string,
 };
 
-export default ButtonMui;
+export default React.memo(ButtonMui);
