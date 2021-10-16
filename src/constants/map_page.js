@@ -13,6 +13,7 @@ export const TABS = [
 ];
 
 export const DATA = [
+  'img',
   'PATH trains and lower Manhattan',
   'DoubleTree by Hilton Hotel',
   'Available',

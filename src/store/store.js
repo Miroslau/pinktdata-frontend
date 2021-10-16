@@ -1,8 +1,15 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { userSlice } from './userSlice';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import thunk from 'redux-thunk';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
-export default configureStore({
-  reducer: {
-    user: userSlice.reducer,
-  },
+import userReducer from './userSlice';
+import mapPageReducer from './slice/mapPageSlice';
+
+const reducer = combineReducers({
+  user: userReducer,
+  mapPage: mapPageReducer,
 });
+
+const store = createStore(reducer, composeWithDevTools(applyMiddleware(thunk)));
+
+export default store;

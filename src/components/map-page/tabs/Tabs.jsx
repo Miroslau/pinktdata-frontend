@@ -1,9 +1,10 @@
 import * as React from 'react';
 
-import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Divider from '@mui/material/Divider';
+import { Button } from '@mui/material';
+import ButtonMui from '../../ui-components/button-mui/ButtonMui';
 import useStyles from '../../../style/mapStyle';
 
 import { TABS } from '../../../constants/map_page';
@@ -13,11 +14,11 @@ const Tabs = () => {
   return (
     <div className={classes.mapTabs}>
       <Stack direction="row" spacing={1}>
-        <Button variant="contained">{TABS[0]}</Button>
-        <Button variant="outlined">{TABS[1]}</Button>
-        <Button variant="contained">{TABS[2]}</Button>
-        <Button variant="outlined">{TABS[3]}</Button>
-        <Button variant="outlined">{TABS[4]}</Button>
+        <ButtonMui title={TABS[0]} />
+        <ButtonMui variant="outlined" title={TABS[1]} />
+        <ButtonMui title={TABS[2]} />
+        <ButtonMui variant="outlined" title={TABS[3]} />
+        <ButtonMui variant="outlined" title={TABS[4]} />
         <Divider className={classes.divider} />
         <Button variant="contained">
           <FilterListIcon />
