@@ -1,27 +1,47 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  Dialog, DialogContent, DialogTitle, IconButton,
-} from '@mui/material';
-import CloseIcon from '@mui/icons-material/Close';
+import ModalWindowMui from '../../../ui-components/modal-window-mui/ModalWindowMui';
+import { authorizationLocalization } from '../../../../constants/authorizationLocalization';
 import Authorization from '../../../authorization/Authorization';
-import { clearState, signupUser, userSelector } from '../../../../store/userSlice';
+import useStyles from '../../../../style/style';
+import {
+  clearState, userSelector,
+} from '../../../../store/slice/userSlice';
+import { signupUser, logoutUser, loginUser } from '../../../../store/actions/userAction';
 import './Navigation.scss';
-import Loader from '../../../ui-components/loader/Loader';
+import {
+  FIND_BTN_NAV, LINK_MAIN_SCREEN, LINK_BUY, LINK_FOR_SALE, LINK_INSIGHT, LINK_CONTACT,
+} from '../../../../constants/mainPageConst';
+
+const {
+  TITLE_SIGN_UP, TITLE_SIGN_IN, BUTTON_LOG_OUT,
+} = authorizationLocalization;
 
 const Navigation = () => {
   const dispatch = useDispatch();
   const [isActiveModal, setModalActive] = useState(false);
   const [isSignIn, setSignIn] = useState(false);
 
+  const useStyle = useStyles();
+
   const {
-    isSuccess, isError, isFetching,
+    isSuccess, isError, firstName, errorMessage, token,
   } = useSelector(
     userSelector,
   );
 
-  const authorizationUser = (user) => (isSignIn ? console.log('sign') : dispatch(signupUser(user)));
+  const closeModal = () => {
+    setModalActive(false);
+    if (isError) {
+      dispatch(clearState());
+    }
+  };
+
+  // eslint-disable-next-line max-len
+  const authorizationUser = (user) => (isSignIn ? dispatch(loginUser(user)) : dispatch(signupUser(user)));
+
+  const logOut = () => dispatch(logoutUser());
 
   useEffect(() => () => {
     dispatch(clearState());
@@ -32,25 +52,22 @@ const Navigation = () => {
       setModalActive(false);
       dispatch(clearState());
     }
-
-    if (isError) {
-      setModalActive(false);
-    }
-  }, [isSuccess, isError]);
+  }, [isSuccess]);
 
   const openRegisterForm = () => {
+    dispatch(clearState());
     setSignIn(false);
   };
   return (
     <div className="navigation">
       <ul className="link-container">
-        <Link className="link-item" to="/">MainScreen</Link>
-        <Link className="link-item" to="/buy">Buy</Link>
-        <Link className="link-item" to="/forSale">ForSale</Link>
-        <Link className="link-item" to="/insight">Insight</Link>
-        <Link className="link-item" to="/contact">Contact</Link>
+        <Link className="link-item" to="/">{LINK_MAIN_SCREEN}</Link>
+        <Link className="link-item" to="/buy">{LINK_BUY}</Link>
+        <Link className="link-item" to="/forSale">{LINK_FOR_SALE}</Link>
+        <Link className="link-item" to="/insight">{LINK_INSIGHT}</Link>
+        <Link className="link-item" to="/contact">{LINK_CONTACT}</Link>
       </ul>
-      <button type="button" className="button btn-find">Find Nearby</button>
+      <button type="button" className="button btn-find">{FIND_BTN_NAV}</button>
       <button
         type="button"
         className="button"
@@ -59,40 +76,26 @@ const Navigation = () => {
           setModalActive(true);
         }}
       >
-        Sign in
+        {token ? firstName : TITLE_SIGN_IN}
       </button>
-      <Dialog open={isActiveModal}>
-        <DialogTitle
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: '1fr auto',
-            alignItems: 'center',
-          }}
-        >
-          {isSignIn ? 'Sign in' : 'Sign Up'}
-          <IconButton
-            onClick={() => {
-              setModalActive(false);
-            }}
-            aria-label="close"
-            sx={{
-              color: (theme) => theme.palette.grey[500],
-            }}
-          >
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
-        <DialogContent>
-          <Authorization
-            isSignIn={isSignIn}
-            submitForm={authorizationUser}
-            openForm={openRegisterForm}
-          />
-        </DialogContent>
-      </Dialog>
       {
-          isFetching && <Loader />
+            token && <button onClick={logOut} type="button" className="button">{BUTTON_LOG_OUT}</button>
       }
+      <ModalWindowMui
+        clickButton={closeModal}
+        title={isSignIn ? TITLE_SIGN_IN : TITLE_SIGN_UP}
+        isActiveModal={isActiveModal}
+        sx={useStyle.dialog}
+      >
+        {
+              isError && <div className="navigation-error">{errorMessage}</div>
+        }
+        <Authorization
+          isSignIn={isSignIn}
+          submitForm={authorizationUser}
+          openForm={openRegisterForm}
+        />
+      </ModalWindowMui>
     </div>
   );
 };
