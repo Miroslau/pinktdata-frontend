@@ -1,7 +1,17 @@
+@import '../../../sass/variables';
+
 .footer-content {
     display: flex;
     justify-content: space-between;
-    color: #7d8f8f;
+    color: $color-grey;
+    input {
+        height: 35px;
+        border-radius: 4px;
+        border: none;
+        box-shadow: 0px 4px 4px #00000040;
+        margin: 10px 5px 0 0;
+        outline: none;
+    }
 }
 .footer-text {
     width: 30%;
@@ -12,38 +22,38 @@
     flex-direction: column;
     font-weight: bold;
     a {
-        color: #5e6464;
+        color:$color-greyDark;
         margin-bottom: 5px;
     }
 }
 
 .footer-input {
-    color: #5e6464;
+    color: $color-greyDark;
     p {
         margin-top: 5px;
     }
 }
 
-input {
-    height: 35px;
-    border-radius: 4px;
-    border: none;
-    box-shadow: 0px 4px 4px #00000040;
-    margin: 10px 5px 0 0;
-    outline: none;
-}
-
 .footer-policy{
-    color: #5e6464;
+    color: $color-greyDark;
     margin-top: 30px;
-    border-top: 1px solid #868f8f;
+    border-top: 1px solid $color-grey;
     display: flex;
     justify-content: space-between;
     div {
         margin-top: 15px;
         a {
-            color: #5e6464;
+            color: $color-greyDark;
             margin-right: 10px;
         }
+    }
+}
+
+.icons {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    object {
+        margin-right: 15px;
     }
 }

@@ -1,7 +1,13 @@
-export const TEXT = {
-  TITLE: 'Places to buy near you',
-  SUBTITLE: 'Explore all 300+ stays',
-};
+export const TEXT = [
+  {
+    id: 1,
+    TITLE: 'Places to buy near you',
+  },
+  {
+    id: 2,
+    SUBTITLE: 'Explore all 300+ stays',
+  },
+];
 
 export const TABS = [
   'All',

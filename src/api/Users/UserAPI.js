@@ -1,11 +1,16 @@
-const axios = require('axios');
+import axios from 'axios';
+import { CURRENT_URL } from '../../constants/domains';
 
 export default {
   signIn(user) {
-    return axios.post('/api/user/login', user);
+    return axios.post(`${CURRENT_URL}/auth/login`, user);
   },
 
   signUp(user) {
-    return axios.post('/api/user/register', user);
+    return axios.post(`${CURRENT_URL}/auth/registration`, user);
+  },
+
+  logOut() {
+    return axios.post(`${CURRENT_URL}/auth/logout`);
   },
 };

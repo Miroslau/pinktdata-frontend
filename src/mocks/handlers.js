@@ -2,7 +2,7 @@
 import { rest } from 'msw';
 
 export const handlers = [
-  rest.post('/api/user/register', (req, res, ctx) => {
+  rest.post('http://localhost:3000/api/auth/registration', (req, res, ctx) => {
     const {
       firstName, lastName, email, password,
     } = req.body;
@@ -12,19 +12,31 @@ export const handlers = [
       lastName,
       email,
       password,
+      accessToken: 'Bear f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
     }));
   }),
-  rest.post('/api/user/login', (req, res, ctx) => {
+  rest.post('http://localhost:3000/api/auth/login', (req, res, ctx) => {
     const {
-      firstName, lastName, email, password,
+      email, password,
     } = req.body;
-    sessionStorage.setItem('is-authenticated', 'true');
+
+    if (email !== 'mira2408@mail.ru' || password !== 'Mira$1234') {
+      return res(ctx.status(403), ctx.json({
+        message: 'Invalid email or password',
+      }));
+    }
+
     return res(ctx.status(200), ctx.json({
       id: 'f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
-      firstName,
-      lastName,
+      firstName: 'Miraslau',
+      lastName: 'Rabikau',
       email,
       password,
+      accessToken: 'Bear f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
     }));
   }),
+  rest.post('http://localhost:3000/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
+  rest.get('/api/search/location', (req, res, ctx) => res(ctx.status(200), ctx.json({
+    title: 'test',
+  }))),
 ];

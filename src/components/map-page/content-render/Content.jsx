@@ -1,25 +1,32 @@
 import * as React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+// import { useSelector } from 'react-redux';
 
 import Divider from '@mui/material/Divider';
 import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
 import useStyles from '../../../style/mapStyle';
 
 import Tabs from '../tabs/Tabs';
-import Table from '../table/Table';
+import Table from '../card/Card';
 import { TEXT } from '../../../constants/map_page';
-import { getData } from '../../../store/slice/thunk';
-import { mapPageActions } from '../../../store/slice/mapPageSlice';
+import MapAPI from '../../../api/Map/MapAPI';
+// import { getData } from '../../../store/slice/thunk';
+// import { mapPageActions } from '../../../store/slice/mapPageSlice';
 
 const Content = () => {
   const classes = useStyles();
+  const [apart, setApart] = React.useState([]);
 
-  const dispatch = useDispatch();
-  const allData = React.useCallback(() => {
-    dispatch(getData(mapPageActions.getAllData));
-  }, [dispatch]);
-  React.useEffect(() => allData(), [allData, dispatch]);
-  const rooms = useSelector((state) => state.mapPage.rooms);
+  // const dispatch = useDispatch();
+  // const allData = React.useCallback(() => {
+  //   dispatch(getData(mapPageActions.getAllData));
+  // }, [dispatch]);
+
+  React.useEffect(() => {
+    MapAPI
+      .getAllData()
+      .then(({ data }) => setApart(data))
+      .catch((err) => console.error(err));
+  }, []);
 
   return (
     <div className={classes.mapContentWrapper}>
@@ -29,13 +36,7 @@ const Content = () => {
         <TypographyMui variant="subtitle1" text={TEXT.SUBTITLE} />
       </div>
       <Divider />
-      {rooms.map((data) => (
-        <Table
-          key={data.id}
-          id={data.id}
-          avgRating={data.avgRating}
-        />
-      ))}
+      <Table apart={apart} />
     </div>
   );
 };
