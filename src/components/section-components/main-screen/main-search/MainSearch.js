@@ -18,6 +18,8 @@ import TEXT from '../../../../constants/mainScreen';
 import useStyles from './MainSearch.style';
 
 const city = ['minsk', 'gomel'];
+let isCity = false;
+let isError = false;
 
 const bedroomItems = [
   {
@@ -46,7 +48,7 @@ const MainSearch = () => {
   const classes = useStyles();
 
   const defaultProps = {
-    options: city,
+    options: isCity ? city : [],
     // getOptionLabel: (option) => option.city,
   };
 
@@ -61,14 +63,22 @@ const MainSearch = () => {
   };
 
   const getCities = (e) => {
-    setLocation(e.target.value);
     // searchByLocation.location();
-    console.log(e.target.value);
+    isCity = true;
+    isError = true;
+    if (!e.target.value) {
+      isError = true;
+    } else {
+      isError = false;
+      setLocation(e.target.value);
+
+      console.log(e.target.value);
     // axios.get(url, {
     //   params: {
-    //     location: sdfsg
+    //     location: e.target.value
     //   }
     // })
+    }
   };
   const debouncedChangeHandler = useCallback(
     debounce(getCities, 500),
@@ -91,6 +101,7 @@ const MainSearch = () => {
               value={location}
               label={TEXT.MAIN_SEARCH.LOCATION}
               variant="standard"
+              error={isError}
             />
           )}
         />
