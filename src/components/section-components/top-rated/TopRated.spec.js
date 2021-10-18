@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import TopRated from './TopRated';
-import {BrowserRouter} from "react-router-dom";
 
 describe('TopRated component', () => {
   test('should have the text "Top Rated"', () => {
