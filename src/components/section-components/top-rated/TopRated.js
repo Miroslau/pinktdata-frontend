@@ -26,7 +26,7 @@ export default function TopRated() {
       <div className="cards-container">
         {arrayOfPopularRooms.length > 0
           ? arrayOfPopularRooms.map(({ image, _id }) => (
-            <Link to={`apartments/getApartment/${_id}`} key={_id} className="image-container" onKeyDown={(event) => handleKeyDown(event, _id)}>
+            <Link to={`apartments/getApartment/${_id}`} key={_id} className="image-container" onKeyDown={(event) => handleKeyDown(event, _id)} data-testid="room-link">
               <img src={image} alt="room" />
             </Link>
           ))

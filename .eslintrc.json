@@ -24,6 +24,8 @@
         "no-underscore-dangle": "off",
         "import/prefer-default-export": "off",
         "react/jsx-props-no-spreading": "off",
+        "eslint-disable-next-line no-undef": "off",
+        "eslint-disable-next-line react/react-in-jsx-scope": "off",
         "no-param-reassign": 0,
         "global-require": 0,
         "import/no-named-as-default": 0
