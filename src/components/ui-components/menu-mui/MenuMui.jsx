@@ -11,15 +11,16 @@ const MenuMui = (props) => {
     <Menu
       open={isOpen}
       id={id}
-      onMouseLeave={handleClose}
       anchorEl={anchorEl}
       {...other}
       MenuListProps={{
         'aria-labelledby': 'basic-button',
       }}
     >
-      <MenuItem>My account</MenuItem>
-      <MenuItem onClick={logOutUser}>Logout</MenuItem>
+      <div onMouseLeave={handleClose}>
+        <MenuItem>My account</MenuItem>
+        <MenuItem onClick={logOutUser}>Logout</MenuItem>
+      </div>
     </Menu>
   );
 };

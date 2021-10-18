@@ -84,10 +84,6 @@ const Navigation = () => {
                 </button>
               )
         }
-      {/* { */}
-      {/* eslint-disable-next-line max-len */}
-      {/*      token && <button onClick={logOut} type="button" className="button">{BUTTON_LOG_OUT}</button> */}
-      {/* } */}
       <ModalWindowMui
         clickButton={closeModal}
         title={isSignIn ? TITLE_SIGN_IN : TITLE_SIGN_UP}
