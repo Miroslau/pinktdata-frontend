@@ -34,6 +34,7 @@ const Authorization = ({ isSignIn, submitForm, openForm }) => {
                 name={column.model}
                 required={column.required}
                 type={column.type}
+                placeholder={column.placeholder}
                 helperText={errors[`${column.model}`]}
                 label={column.placeholder}
                 inputText={handleChange}
