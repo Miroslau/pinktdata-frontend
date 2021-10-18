@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import ModalWindowMui from '../../../ui-components/modal-window-mui/ModalWindowMui';
 import { authorizationLocalization } from '../../../../constants/authorizationLocalization';
 import Authorization from '../../../authorization/Authorization';
+import User from '../../user/User';
 import useStyles from '../../../../style/style';
 import {
   clearState, userSelector,
@@ -15,7 +16,7 @@ import {
 } from '../../../../constants/mainPageConst';
 
 const {
-  TITLE_SIGN_UP, TITLE_SIGN_IN, BUTTON_LOG_OUT,
+  TITLE_SIGN_UP, TITLE_SIGN_IN,
 } = authorizationLocalization;
 
 const Navigation = () => {
@@ -26,7 +27,7 @@ const Navigation = () => {
   const useStyle = useStyles();
 
   const {
-    isSuccess, isError, firstName, errorMessage, token,
+    isSuccess, isError, errorMessage, token, firstName,
   } = useSelector(
     userSelector,
   );
@@ -68,19 +69,25 @@ const Navigation = () => {
         <Link className="link-item" to="/contact">{LINK_CONTACT}</Link>
       </ul>
       <button type="button" className="button btn-find">{FIND_BTN_NAV}</button>
-      <button
-        type="button"
-        className="button"
-        onClick={() => {
-          setSignIn(true);
-          setModalActive(true);
-        }}
-      >
-        {token ? firstName : TITLE_SIGN_IN}
-      </button>
       {
-            token && <button onClick={logOut} type="button" className="button">{BUTTON_LOG_OUT}</button>
-      }
+            token ? <User userName={firstName} logOut={logOut} />
+              : (
+                <button
+                  type="button"
+                  className="button"
+                  onClick={() => {
+                    setSignIn(true);
+                    setModalActive(true);
+                  }}
+                >
+                  {TITLE_SIGN_IN}
+                </button>
+              )
+        }
+      {/* { */}
+      {/* eslint-disable-next-line max-len */}
+      {/*      token && <button onClick={logOut} type="button" className="button">{BUTTON_LOG_OUT}</button> */}
+      {/* } */}
       <ModalWindowMui
         clickButton={closeModal}
         title={isSignIn ? TITLE_SIGN_IN : TITLE_SIGN_UP}
