@@ -71,7 +71,8 @@ const MainSearch = () => {
         .then((response) => response.json())
         .then((data) => {
           setDataLocation(data.cities);
-        });
+        })
+        .catch((error) => console.log(error));
     }
   };
   const debouncedChangeHandler = useCallback(
