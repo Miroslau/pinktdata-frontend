@@ -2,8 +2,7 @@ export const validateErrors = (values, isSignIn) => {
   const errors = {};
 
   const REGX_ONLY_LETTER = /^[A-Za-z]*$/;
-  const REGX_MAIL_FORMAT = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-  REGX_MAIL_FORMAT.lastIndex = 0;
+  const REGX_MAIL_FORMAT = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
   const REGX_LOWER_UPPER_CASE = /^(?=.*?[A-Z])(?=.*?[a-z])/;
   const REGEX_MIX_LETTERS_NUMBERS = /^(?=.*?[0-9])/;
   const REGEX_SPECIAL_SYMBOL = /^(?=.*?[#?!@$%^&*-])/;

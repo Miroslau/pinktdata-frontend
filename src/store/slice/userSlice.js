@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { signupUser, logoutUser, loginUser } from '../actions/userAction';
+import { setHttpToken } from '../../api';
 
 export const userSlice = createSlice({
   name: 'user',
@@ -30,6 +31,7 @@ export const userSlice = createSlice({
       state.firstName = payload.firstName;
       state.lastName = payload.lastName;
       state.token = payload.accessToken;
+      setHttpToken(payload.accessToken);
     },
     [signupUser.pending]: (state) => {
       state.isFetching = true;
@@ -46,6 +48,7 @@ export const userSlice = createSlice({
       state.firstName = payload.firstName;
       state.lastName = payload.lastName;
       state.token = payload.accessToken;
+      setHttpToken(payload.accessToken);
       return state;
     },
     [loginUser.pending]: (state) => {
@@ -60,6 +63,7 @@ export const userSlice = createSlice({
       state.isFetching = false;
       state.isSuccess = true;
       state.token = null;
+      setHttpToken(null);
     },
     [logoutUser.pending]: (state) => {
       state.isFetching = true;

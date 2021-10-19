@@ -5,6 +5,10 @@ import {
   Dialog, DialogContent, DialogTitle, IconButton,
 } from '@mui/material';
 
+const colorStyle = {
+  color: (theme) => theme.palette.grey[500],
+};
+
 const ModalWindowMui = (props) => {
   const {
     isActiveModal, sx, title, children, clickButton, ...other
@@ -16,9 +20,7 @@ const ModalWindowMui = (props) => {
         <IconButton
           onClick={clickButton}
           aria-label="close"
-          sx={{
-            color: (theme) => theme.palette.grey[500],
-          }}
+          sx={colorStyle}
         >
           <CloseIcon />
         </IconButton>
