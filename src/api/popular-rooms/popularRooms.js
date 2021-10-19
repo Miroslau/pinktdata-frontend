@@ -1,8 +1,8 @@
-import axios from 'axios';
+import httpClient from '../index';
 
 export default {
   async popularRooms() {
-    const response = await axios.get('/api/apartments/popular/images');
+    const response = await httpClient.get('/apartments/popular/images');
     const { data } = response;
     return data;
   },

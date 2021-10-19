@@ -17,7 +17,7 @@ export default function TopRated() {
       <h3>{TITLE_TOPRATED}</h3>
       <div className="cards-container">
         {arrayOfPopularRooms.map(({ image, _id }) => (
-          <Link to={`apartments/getApartment/${_id}`} key={_id} className="image-container">
+          <Link to={`/apartments/getApartment/${_id}`} key={_id} className="image-container">
             <img src={image} alt="room" />
           </Link>
         ))}

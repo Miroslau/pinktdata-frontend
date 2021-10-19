@@ -2,6 +2,7 @@ import httpClient from '../index';
 
 export default {
   location() {
-    return httpClient.get('/search/location');
+    const response = httpClient.get('/search/location');
+    return response;
   },
 };
