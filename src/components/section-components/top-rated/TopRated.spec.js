@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
 import TopRated from './TopRated';
 
 describe('TopRated component', () => {
@@ -13,14 +12,5 @@ describe('TopRated component', () => {
     render(<TopRated />);
     const elementWithText = screen.getByText(/Rooms loading/i);
     expect(elementWithText).toBeInTheDocument();
-  });
-
-  test('should have async render images', async () => {
-    render((
-      <BrowserRouter>
-        <TopRated />
-      </BrowserRouter>
-    ));
-    expect(await screen.findAllByAltText(/room/i)).toBeTruthy();
   });
 });
