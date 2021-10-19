@@ -35,6 +35,5 @@ describe('Popular rooms function', () => {
     ));
 
     expect(await screen.findAllByAltText(/room/i)).toBeTruthy();
-    screen.debug();
   });
 });
