@@ -50,7 +50,7 @@ describe('user registration', () => {
   });
 
   // eslint-disable-next-line no-undef
-  it('has render component authorization', () => {
+  it('renders component authorization', () => {
     // eslint-disable-next-line no-shadow,max-len,react/react-in-jsx-scope
     const { container } = render(<Authorization openForm={openForm} isSignIn={isSign} submitForm={sendForm} />);
     // eslint-disable-next-line no-undef
