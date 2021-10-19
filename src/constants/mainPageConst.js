@@ -29,6 +29,7 @@ export const FIND_BTN_NAV = 'Find Nearby';
 export const SIGNIN_BTN_NAV = 'Sign in';
 
 export const TITLE_TOPRATED = 'Top Rated';
+export const ROOMS_LOADING = 'Rooms loading...';
 
 export const TITLE_MAJORCITY = 'Find hotels in Major Cities';
 export const BTN_MAJORCITY = 'Become a Saller';

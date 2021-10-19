@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { TITLE_TOPRATED } from '../../../constants/mainPageConst';
+import { Link } from 'react-router-dom';
+import { TITLE_TOPRATED, ROOMS_LOADING } from '../../../constants/mainPageConst';
 import popularRooms from '../../../api/popular-rooms/popularRooms';
+import handleEnterPress from '../../../utils/handleEnterPress';
 import './TopRated.scss';
 
 export default function TopRated() {
-  const history = useHistory();
   const [arrayOfPopularRooms, setArrayOfPopularRooms] = useState([]);
 
   useEffect(() => {
@@ -16,9 +16,7 @@ export default function TopRated() {
     fetchRooms();
   }, []);
 
-  const handleKeyDown = (event, id) => {
-    if (event.code === 'Enter') history.push(`apartments/getApartment/${id}`);
-  };
+  const handleKeyDown = () => handleEnterPress(() => {}, true);
 
   return (
     <div className="wrapper">
@@ -26,11 +24,11 @@ export default function TopRated() {
       <div className="cards-container">
         {arrayOfPopularRooms.length > 0
           ? arrayOfPopularRooms.map(({ image, _id }) => (
-            <Link to={`apartments/getApartment/${_id}`} key={_id} className="image-container" onKeyDown={(event) => handleKeyDown(event, _id)} data-testid="room-link">
+            <Link to={`apartments/getApartment/${_id}`} key={_id} className="image-container" onKeyDown={handleKeyDown} data-testid="room-link">
               <img src={image} alt="room" />
             </Link>
           ))
-          : 'Rooms loading...'}
+          : ROOMS_LOADING}
       </div>
     </div>
   );
