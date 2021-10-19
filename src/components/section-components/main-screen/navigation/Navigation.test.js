@@ -42,27 +42,30 @@ describe('Navigation Component', () => {
   const store = configureStore({
     reducer: rootReducer,
   });
+
   // eslint-disable-next-line no-undef
-  it('render correctly', () => {
+  it('has render component navigation', () => {
     // eslint-disable-next-line react/react-in-jsx-scope
     render(<Provider store={store}><BrowserRouter><Navigation /></BrowserRouter></Provider>);
   });
 
   // eslint-disable-next-line no-undef
-  it('click button Sign In correctly', () => {
+  it('has correct click button Sign In', async () => {
     // eslint-disable-next-line react/react-in-jsx-scope,max-len
     const { container } = render(<Provider store={store}><BrowserRouter><Navigation /></BrowserRouter></Provider>);
     const button = container.querySelectorAll('button')[1];
     let isOpenModal = false;
-    userEvent.click(button);
-    isOpenModal = true;
     const closeModal = () => {
       isOpenModal = false;
     };
+
+    userEvent.click(button);
+
+    // eslint-disable-next-line react/react-in-jsx-scope
+    const modalContainer = await render(<ModalWindowMui clickButton={closeModal} title="Sign in" isActiveModal={isOpenModal} />).container;
+    const result = modalContainer.querySelector('.MuiPaper-root');
+    console.log(result);
     // eslint-disable-next-line no-undef
-    if (isOpenModal) {
-      // eslint-disable-next-line react/react-in-jsx-scope
-      render(<ModalWindowMui clickButton={closeModal} title="Sign in" isActiveModal={isOpenModal} />);
-    }
+    expect(result.firstChild).toBeInTheDocument();
   });
 });

@@ -8,6 +8,10 @@ import { userMenuLocalization } from '../../../constants/userMenuLocalization';
 const ACCOUNT_ITEM = get(userMenuLocalization, 'TITLE_ONE', '');
 const LOGUOT_ITEM = get(userMenuLocalization, 'TITLE_TWO', '');
 
+const menuListProps = {
+  'aria-labelledby': 'basic-button',
+};
+
 const MenuMui = (props) => {
   const {
     id, isOpen, logOutUser, anchorEl, handleClose, ...other
@@ -18,9 +22,7 @@ const MenuMui = (props) => {
       id={id}
       anchorEl={anchorEl}
       {...other}
-      MenuListProps={{
-        'aria-labelledby': 'basic-button',
-      }}
+      MenuListProps={menuListProps}
     >
       <div onMouseLeave={handleClose}>
         <MenuItem>{ACCOUNT_ITEM}</MenuItem>
