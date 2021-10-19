@@ -1,4 +1,5 @@
 import React, { useCallback, useState } from 'react';
+// import axios from 'axios';
 import { TextField } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -12,12 +13,9 @@ import RoomIcon from '@mui/icons-material/Room';
 import SearchIcon from '@mui/icons-material/Search';
 import debounce from 'lodash.debounce';
 import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
-// import TextFieldMui from '../../../ui-components/text-field-mui/TextFieldMui';
 import TEXT from '../../../../constants/mainScreen';
-// import searchByLocation from '../../../../api/main-search/main-searchAPI';
 import useStyles from './MainSearch.style';
 
-const city = ['minsk', 'gomel'];
 let isCity = false;
 let isError = false;
 
@@ -47,37 +45,44 @@ const MainSearch = () => {
 
   const classes = useStyles();
 
-  const defaultProps = {
-    options: isCity ? city : [],
-    // getOptionLabel: (option) => option.city,
-  };
-
   const [location, setLocation] = useState('');
+  const [dataLocation, setDataLocation] = useState([]);
   const [startDateValue, setStartDateValue] = useState(dateNow);
   const [endDateValue, setEndDateValue] = useState(dateNowPlusOneDay);
-
   const [bedroomValue, setBedroomValue] = useState('');
+
+  const defaultProps = {
+    options: isCity ? dataLocation : [],
+  };
 
   const handleBedroomValue = (event) => {
     setBedroomValue(event.target.value);
   };
 
   const getCities = (e) => {
-    // searchByLocation.location();
-    isCity = true;
+    const { value } = e.target;
     isError = true;
-    if (!e.target.value) {
+    if (value.length === 0) {
+      isCity = false;
       isError = true;
     } else {
+      isCity = true;
       isError = false;
-      setLocation(e.target.value);
-
-      console.log(e.target.value);
-    // axios.get(url, {
-    //   params: {
-    //     location: e.target.value
-    //   }
-    // })
+      setLocation(value);
+      fetch(`http://localhost/api/apartments/locations?query=${value}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setDataLocation(data.cities);
+          isCity = false;
+        });
+      // axios.get(`http://localhost/api/apartments/locations?query=${value}`)
+      //   .then((response) => response.json())
+      //   .then((data) => {
+      //     setDataLocation(data.cities);
+      //   })
+      //   .catch((error) => {
+      //     console.log(error);
+      //   });
     }
   };
   const debouncedChangeHandler = useCallback(
@@ -105,14 +110,6 @@ const MainSearch = () => {
             />
           )}
         />
-        {/* <TextFieldMui
-          className={classes.location}
-          label={TEXT.MAIN_SEARCH.LOCATION}
-          variant="standard"
-          placeholder={TEXT.MAIN_SEARCH.ENTER_LOCATION}
-          value={location}
-          onChange={getCities}
-        /> */}
       </div>
 
       <LocalizationProvider dateAdapter={AdapterDateFns}>
