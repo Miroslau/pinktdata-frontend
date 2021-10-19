@@ -16,7 +16,6 @@ import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
 import TEXT from '../../../../constants/mainScreen';
 import useStyles from './MainSearch.style';
 
-let isCity = false;
 let isError = false;
 
 const bedroomItems = [
@@ -52,7 +51,7 @@ const MainSearch = () => {
   const [bedroomValue, setBedroomValue] = useState('');
 
   const defaultProps = {
-    options: isCity ? dataLocation : [],
+    options: dataLocation,
   };
 
   const handleBedroomValue = (event) => {
@@ -63,26 +62,16 @@ const MainSearch = () => {
     const { value } = e.target;
     isError = true;
     if (value.length === 0) {
-      isCity = false;
+      setDataLocation([]);
       isError = true;
     } else {
-      isCity = true;
       isError = false;
       setLocation(value);
       fetch(`http://localhost/api/apartments/locations?query=${value}`)
         .then((response) => response.json())
         .then((data) => {
           setDataLocation(data.cities);
-          isCity = false;
         });
-      // axios.get(`http://localhost/api/apartments/locations?query=${value}`)
-      //   .then((response) => response.json())
-      //   .then((data) => {
-      //     setDataLocation(data.cities);
-      //   })
-      //   .catch((error) => {
-      //     console.log(error);
-      //   });
     }
   };
   const debouncedChangeHandler = useCallback(
@@ -98,7 +87,7 @@ const MainSearch = () => {
           style={{ width: '300px' }}
           {...defaultProps}
           id="disable-close-on-select"
-          disableCloseOnSelect
+          disableClearable
           renderInput={(params) => (
             <TextField
               {...params}
