@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import MapAPI from '../../api/Map/MapAPI';
 
