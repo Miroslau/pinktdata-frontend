@@ -1,8 +1,7 @@
-const axios = require('axios');
+import httpClient from '../index';
 
 export default {
   location() {
-    console.log('get location');
-    return axios.get('/api/search/location');
+    return httpClient.get('/search/location');
   },
 };
