@@ -1,4 +1,5 @@
-import { render } from '@testing-library/react';
+import '@testing-library/jest-dom';
+import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore, createSlice, combineReducers } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
@@ -6,7 +7,6 @@ import storage from 'redux-persist/lib/storage';
 import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import Navigation from './Navigation';
-import ModalWindowMui from '../../../ui-components/modal-window-mui/ModalWindowMui';
 
 // eslint-disable-next-line no-undef
 describe('Navigation Component', () => {
@@ -52,20 +52,13 @@ describe('Navigation Component', () => {
   // eslint-disable-next-line no-undef
   it('has correct click button Sign In', async () => {
     // eslint-disable-next-line react/react-in-jsx-scope,max-len
-    const { container } = render(<Provider store={store}><BrowserRouter><Navigation /></BrowserRouter></Provider>);
-    const button = container.querySelectorAll('button')[1];
-    let isOpenModal = false;
-    const closeModal = () => {
-      isOpenModal = false;
-    };
+    render(<Provider store={store}><BrowserRouter><Navigation /></BrowserRouter></Provider>);
+    const button = screen.getByText('Sign in');
 
     userEvent.click(button);
 
-    // eslint-disable-next-line react/react-in-jsx-scope
-    const modalContainer = await render(<ModalWindowMui clickButton={closeModal} title="Sign in" isActiveModal={isOpenModal} />).container;
-    const result = modalContainer.querySelector('.MuiPaper-root');
-    console.log(result);
+    const result = await screen.getByText('Enter email');
     // eslint-disable-next-line no-undef
-    expect(result.firstChild).toBeInTheDocument();
+    expect(result).toBeInTheDocument();
   });
 });

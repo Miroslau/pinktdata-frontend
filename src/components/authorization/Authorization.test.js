@@ -1,3 +1,4 @@
+import '@testing-library/jest-dom';
 import {
   findByDisplayValue, findByText, fireEvent, render,
 } from '@testing-library/react';
