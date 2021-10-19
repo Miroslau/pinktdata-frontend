@@ -2,6 +2,11 @@ import React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import PropTypes from 'prop-types';
+import { get } from 'lodash';
+import { userMenuLocalization } from '../../../constants/userMenuLocalization';
+
+const ACCOUNT_ITEM = get(userMenuLocalization, 'TITLE_ONE', '');
+const LOGUOT_ITEM = get(userMenuLocalization, 'TITLE_TWO', '');
 
 const MenuMui = (props) => {
   const {
@@ -18,8 +23,8 @@ const MenuMui = (props) => {
       }}
     >
       <div onMouseLeave={handleClose}>
-        <MenuItem>My account</MenuItem>
-        <MenuItem onClick={logOutUser}>Logout</MenuItem>
+        <MenuItem>{ACCOUNT_ITEM}</MenuItem>
+        <MenuItem onClick={logOutUser}>{LOGUOT_ITEM}</MenuItem>
       </div>
     </Menu>
   );
