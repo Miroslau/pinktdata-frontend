@@ -7,7 +7,6 @@ import Content from '../../components/map-page/content-render/Content';
 
 const Map = () => {
   const classes = useStyles();
-
   return (
     <section className={classes.wrapper}>
       <Content />

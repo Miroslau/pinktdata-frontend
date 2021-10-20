@@ -13,13 +13,8 @@ export const TABS = [
 ];
 
 export const DATA = [
-  'img',
-  'PATH trains and lower Manhattan',
-  'DoubleTree by Hilton Hotel',
   'Available',
   'Air Conditioned',
-  'rating',
-  'price',
 ];
 
 export const MARKER = ['A pretty CSS3 popup.', ' Easily customizable.'];

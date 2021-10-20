@@ -1,5 +1,4 @@
 import * as React from 'react';
-// import PropTypes from 'prop-types';
 // import { useSelector } from 'react-redux';
 
 import Divider from '@mui/material/Divider';
@@ -32,9 +31,9 @@ const Content = () => {
   return (
     <div className={classes.mapContentWrapper}>
       <div className={classes.mapContent}>
-        <TypographyMui variant="h4" text={TEXT[0]} />
+        <TypographyMui variant="h4" text={TEXT.TITLE} className={classes.title} />
         <Tabs />
-        <TypographyMui variant="subtitle1" text={TEXT[1]} />
+        <TypographyMui variant="h6" text={TEXT.SUBTITLE} />
       </div>
       <Divider />
       {apart.map((data) => (
