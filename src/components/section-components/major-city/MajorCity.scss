@@ -15,7 +15,6 @@
         grid-gap: 20px;
 
         &__item {
-
             &_left {
                 display: grid;
                 grid-template-columns: auto auto;
@@ -50,6 +49,7 @@
             object-fit: cover;
             border-radius: 4px;
             box-shadow: $box-shadow2;
+            cursor: pointer;
 
             &_big {
                 max-height: 296px;

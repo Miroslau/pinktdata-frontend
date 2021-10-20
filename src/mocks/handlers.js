@@ -35,7 +35,7 @@ export const handlers = [
       accessToken: 'Bear f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
     }));
   }),
-  rest.get('http://localhost:3000/api/cities', (req, res, ctx) => res(ctx.json([
+  rest.get('http://localhost:3000/api/apartments/locations/most-apartments', (req, res, ctx) => res(ctx.json([
     {
       id: 1,
       title: 'Los Angeles',

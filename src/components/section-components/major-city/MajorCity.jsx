@@ -12,16 +12,23 @@ const MajorCity = () => {
   const [majorCities, setMajorCities] = useState([]);
 
   useEffect(() => {
-    majorCitiesAPI.getMajorCities()
-      .then(({ data }) => {
-        setMajorCities(data);
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  }, []);
+    let cleanupFunction = false;
+    const getMajorCities = async () => {
+      try {
+        const response = await majorCitiesAPI.getMajorCities();
+        const { data } = response;
 
-  console.log(majorCities);
+        if (!cleanupFunction) setMajorCities(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+
+    getMajorCities();
+
+    // eslint-disable-next-line no-return-assign
+    return () => cleanupFunction = true;
+  }, []);
 
   return (
     <div className="major-city">
@@ -42,7 +49,7 @@ const MajorCity = () => {
                   <h4 className="major-city-container__title">{city.title}</h4>
                 </div>
               )).slice(0, 3)
-            }
+             }
           </div>
           <div className="major-city-container__right">
             {
@@ -57,7 +64,7 @@ const MajorCity = () => {
                   <h4 className="major-city-container__title">{city.title}</h4>
                 </div>
               )).slice(3, 5)
-            }
+             }
           </div>
         </div>
       </div>
