@@ -1,0 +1,46 @@
+@import '../../sass/variables';
+
+.room {
+  max-height: 100vh;
+  height: 100%;
+  &-bg {
+    background-color: #eeeeee;
+  }
+
+  &-container {
+    display: flex;
+    margin: auto;
+    width: 1200px;
+    padding: 1rem 0;
+
+    main {
+      width: 80%;
+
+      .main-info {
+        display: flex;
+
+        .main {
+          width: 80%;
+        }
+
+        .nav {
+          width: 20%;
+        }
+      }
+    }
+
+    nav {
+      width: 20%;
+    }
+  }
+
+  &-component {
+    background-color: #fff;
+    border-radius: .5rem;
+    box-shadow: $box-shadow3;
+    padding: .5rem;
+    margin: .3rem;
+  }
+
+}
+
