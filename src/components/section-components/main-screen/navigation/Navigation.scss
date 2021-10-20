@@ -1,5 +1,5 @@
-@import '../../../../sass/_variables.scss';
-.navigation {
+@import '../../../../sass/variables';
+.navigation-landing {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -14,6 +14,14 @@
         border-radius: 5px;
         color: $color-monza;
     }
+}
+
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 25px;
+    box-shadow: 0 7px 20px -2px $color-grey;
 }
 
 .link-item {
