@@ -2,7 +2,7 @@
 import { rest } from 'msw';
 
 export const handlers = [
-  rest.post('http://localhost:3000/api/auth/registration', (req, res, ctx) => {
+  rest.post('/api/auth/registration', (req, res, ctx) => {
     const {
       firstName, lastName, email, password,
     } = req.body;
@@ -15,7 +15,7 @@ export const handlers = [
       accessToken: 'Bear f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
     }));
   }),
-  rest.post('http://localhost:3000/api/auth/login', (req, res, ctx) => {
+  rest.post('/api/auth/login', (req, res, ctx) => {
     const {
       email, password,
     } = req.body;
@@ -35,7 +35,7 @@ export const handlers = [
       accessToken: 'Bear f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
     }));
   }),
-  rest.get('http://localhost:3000/api/apartments/locations/most-apartments', (req, res, ctx) => res(ctx.json([
+  rest.get('/api/apartments/locations/most-apartments', (req, res, ctx) => res(ctx.json([
     {
       id: 1,
       title: 'Los Angeles',
@@ -62,7 +62,7 @@ export const handlers = [
       img: 'https://i.pinimg.com/564x/cc/30/74/cc30746029f69d8de4f88153e243888d.jpg',
     },
   ]))),
-  rest.post('http://localhost:3000/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
+  rest.post('/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
   rest.get('/api/search/location', (req, res, ctx) => res(ctx.status(200), ctx.json({
     title: 'test',
   }))),

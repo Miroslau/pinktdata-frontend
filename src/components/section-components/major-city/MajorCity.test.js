@@ -5,6 +5,8 @@ import { server } from '../../../mocks/server';
 
 // eslint-disable-next-line no-undef
 describe('MajorCity Component', () => {
+  process.env.REACT_APP_IS_MOCKING = true;
+
   // eslint-disable-next-line no-undef
   beforeAll(() => server.listen({
     onUnhandledRequest: 'error',
