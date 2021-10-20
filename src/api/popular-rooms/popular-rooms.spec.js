@@ -1,9 +1,10 @@
+import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import axios from 'axios';
+import httpClient from '../index';
 import TopRated from '../../components/section-components/top-rated/TopRated';
 
-jest.mock('axios');
+jest.mock('../index.js');
 
 const images = [
   {
@@ -26,7 +27,7 @@ const images = [
 
 describe('Popular rooms function', () => {
   test('should have async render images', async () => {
-    axios.get.mockImplementationOnce(() => Promise.resolve({ data: images }));
+    httpClient.get.mockImplementationOnce(() => Promise.resolve({ data: images }));
 
     render((
       <BrowserRouter>
