@@ -86,7 +86,7 @@ const Navigation = () => {
         sx={useStyle.dialog}
       >
         {
-              isError && <div className="navigation-error">{errorMessage}</div>
+              isError && <div className="navigation-landing-error">{errorMessage}</div>
         }
         <Authorization
           isSignIn={isSignIn}
