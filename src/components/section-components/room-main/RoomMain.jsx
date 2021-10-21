@@ -1,26 +1,35 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import RoomAbout from './room-about/RoomAbout';
 import RoomLocation from './room-location/RoomLocation';
 import '../../../index.scss';
 import MainInfo from './main-info/MainInfo';
 import RoomReviews from './room-reviews/RoomReviews';
+import { roomContext } from '../../../store/context/roomContext';
 
-const RoomMain = () => (
-  <div className="room-bg">
-    <div className="room-container">
+const RoomMain = () => {
+  const roomCtx = useContext(roomContext);
 
-      <main>
-        <RoomAbout />
-        <MainInfo />
-      </main>
+  if (!roomCtx) {
+    return 'Data Loading...';
+  }
 
-      <nav>
-        <RoomLocation />
-        <RoomReviews />
-      </nav>
+  return (
+    <div className="room-bg">
+      <div className="room-container">
 
+        <main>
+          <RoomAbout />
+          <MainInfo />
+        </main>
+
+        <nav>
+          <RoomLocation />
+          <RoomReviews />
+        </nav>
+
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default RoomMain;
