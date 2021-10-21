@@ -7,8 +7,14 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
   },
   mapContentWrapper: {
+    height: '100vh',
     width: '45.2vw',
     padding: '46px 0',
+    overflow: 'hidden',
+  },
+  mapWrapper: {
+    overflow: 'scroll',
+    overflowX: 'hidden',
   },
   mapContent: {
     padding: '0 40px',

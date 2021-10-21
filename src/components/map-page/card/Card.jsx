@@ -8,12 +8,47 @@ import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
 import useStyles from '../../../style/mapStyle';
 
 import { DATA } from '../../../constants/map_page';
+// import MapAPI from '../../../api/map/mapPageAPI';
 
 const Card = (props) => {
   const classes = useStyles();
+  // const [apart, setApart] = React.useState([]);
+  // const [currentPage, setCurrentPage] = React.useState(0);
+  // const [fetching, setFetching] = React.useState(true);
+  // const [totalCount, setTotalCount] = React.useState(0);
+
   const {
-    name, img, rating, reviews, city, address, price,
+    name, rating, img, reviews, city, address, price,
   } = props;
+
+  // React.useEffect(() => {
+  //   MapAPI
+  //     .searchApartments('Philadelphia, PA, United States', currentPage)
+  //     .then((response) => {
+  //       setApart(response.data);
+  //       setCurrentPage((prevState) => prevState + 1);
+  //       // setTotalCount(response.headers['x-total-count']);
+  //     })
+  //     // .finally(() => setFetching(false))
+  //     .catch((err) => console.error(err));
+  // }, []);
+
+  // const scrollHandler = () => {
+  //   // if (
+  //   //   e.target.documentElement.scrollHeight
+  //   //   - (e.target.documentElement.scrollTop
+  //   //   + window.innerHeight) < 100 && apart.length < totalCount) {
+  //   //   setFetching(true);
+  //   // }
+  //   console.log('scroll');
+  // };
+
+  // React.useEffect(() => {
+  //   document.addEventListener('scroll', scrollHandler);
+  //   return function () {
+  //     document.removeEventListener('scroll', scrollHandler);
+  //   };
+  // }, []);
 
   return (
     <>

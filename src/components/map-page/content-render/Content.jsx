@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import * as React from 'react';
 // import { useSelector } from 'react-redux';
 
@@ -15,6 +16,9 @@ import MapAPI from '../../../api/map/mapPageAPI';
 const Content = () => {
   const classes = useStyles();
   const [apart, setApart] = React.useState([]);
+  const [currentPage, setCurrentPage] = React.useState(0);
+  // const [fetching, setFetching] = React.useState(true);
+  // const [totalCount, setTotalCount] = React.useState(0);
 
   // const dispatch = useDispatch();
   // const allData = React.useCallback(() => {
@@ -23,9 +27,31 @@ const Content = () => {
 
   React.useEffect(() => {
     MapAPI
-      .getAllData()
-      .then(({ data }) => setApart(data))
+      .searchApartments('Philadelphia, PA, United States', currentPage)
+      .then((response) => {
+        setApart(response.data);
+        // setCurrentPage((prevState) => prevState + 1);
+        // setTotalCount(response.headers['x-total-count']);
+      })
+      // .finally(() => setFetching(false))
       .catch((err) => console.error(err));
+  }, []);
+
+  const scrollHandler = (e) => {
+    // if (
+    //   e.target.documentElement.scrollHeight
+    //   - (e.target.documentElement.scrollTop
+    //   + window.innerHeight) < 100 && apart.length < totalCount) {
+    //   setFetching(true);
+    // }
+    console.log('scroll');
+  };
+
+  React.useEffect(() => {
+    document.addEventListener('scroll', scrollHandler);
+    return function () {
+      document.removeEventListener('scroll', scrollHandler);
+    };
   }, []);
 
   return (
@@ -36,26 +62,24 @@ const Content = () => {
         <TypographyMui variant="h6" text={TEXT.SUBTITLE} />
       </div>
       <Divider />
-      {apart.map((data) => (
-        <Card
-          key={data._id}
-          id={data._id}
-          name={data.listing.name}
-          img={data.listing.pictureUrl}
-          rating={data.listing.avgRating}
-          reviews={data.listing.reviewsCount}
-          city={data.listing.city}
-          address={data.listing.publicAddress}
-          price={data.pricingQuote.priceString}
-        />
-      ))}
+      <div div className={classes.mapWrapper}>
+        {apart.map((data) => (
+          <Card
+            key={data._id}
+            id={data._id}
+            name={data.name}
+            img={data.img}
+            rating={data.rating}
+            reviews={data.reviews}
+            city={data.city}
+            address={data.address}
+            price={data.price}
+          />
+        ))}
+      </div>
 
     </div>
   );
 };
-
-// Content.propTypes = {
-//   apart: PropTypes.instanceOf(Array).isRequired,
-// };
 
 export default Content;
