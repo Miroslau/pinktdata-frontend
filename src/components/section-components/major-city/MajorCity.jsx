@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './MajorCity.scss';
+import { uniqueId } from 'lodash';
 
 import majorCitiesAPI from '../../../api/major-cities/majorCitiesAPI';
 
@@ -7,6 +8,8 @@ import {
   TITLE_MAJORCITY, BTN_MAJORCITY,
 }
 from '../../../constants/mainPageConst';
+
+const PREFIX = 'major_cities_';
 
 const MajorCity = () => {
   const [majorCities, setMajorCities] = useState([]);
@@ -17,8 +20,12 @@ const MajorCity = () => {
       try {
         const response = await majorCitiesAPI.getMajorCities();
         const { data } = response;
+        const cities = data.map((city) => {
+          city.id = uniqueId(PREFIX);
+          return city;
+        });
 
-        if (!cleanupFunction) setMajorCities(data);
+        if (!cleanupFunction) setMajorCities(cities);
       } catch (err) {
         console.error(err.message);
       }
@@ -45,8 +52,8 @@ const MajorCity = () => {
                   key={city.id}
                   className="major-city-container__left"
                 >
-                  <img className="major-city-container__img" src={city.img} alt={city.title} />
-                  <h4 className="major-city-container__title">{city.title}</h4>
+                  <img className="major-city-container__img" src={city.imageUrl} alt={city.city} />
+                  <h4 className="major-city-container__title">{city.city}</h4>
                 </div>
               )).slice(0, 3)
              }
@@ -58,10 +65,10 @@ const MajorCity = () => {
                   <img
                     className="major-city-container__img
                                major-city-container__img_big"
-                    src={city.img}
-                    alt={city.title}
+                    src={city.imageUrl}
+                    alt={city.city}
                   />
-                  <h4 className="major-city-container__title">{city.title}</h4>
+                  <h4 className="major-city-container__title">{city.city}</h4>
                 </div>
               )).slice(3, 5)
              }
