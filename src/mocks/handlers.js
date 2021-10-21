@@ -12,7 +12,7 @@ export const handlers = [
       lastName,
       email,
       password,
-      accessToken: 'Bear f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
+      accessToken: 'f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
     }));
   }),
   rest.post('/api/auth/login', (req, res, ctx) => {
@@ -32,7 +32,7 @@ export const handlers = [
       lastName: 'Rabikau',
       email,
       password,
-      accessToken: 'Bear f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
+      accessToken: 'f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
     }));
   }),
   rest.get('/api/apartments/locations/most-apartments', (req, res, ctx) => res(ctx.json([
