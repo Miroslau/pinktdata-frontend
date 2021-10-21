@@ -1,9 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { rest } from 'msw';
-import mockDataForPreviewPage from './mocks-constants/mockDataForPreviewPage';
-import mockDataForPopularRooms from './mocks-constants/mockDataForPopularRooms';
-import mockDataApartments from './mocks-constants/mockDataApartments';
-import mockDataMajorCities from './mocks-constants/mockDataMajorCities';
 
 export const handlers = [
   rest.post('/api/auth/registration', (req, res, ctx) => {

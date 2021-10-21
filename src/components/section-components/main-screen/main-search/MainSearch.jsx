@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import FormControl from '@mui/material/FormControl';
@@ -7,48 +7,41 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
+import OutlinedInput from '@mui/material/OutlinedInput';
 import RoomIcon from '@mui/icons-material/Room';
 import SearchIcon from '@mui/icons-material/Search';
 import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
 import TextFieldMui from '../../../ui-components/text-field-mui/TextFieldMui';
 import TEXT from '../../../../constants/mainScreen';
 import searchByLocation from '../../../../api/main-search/main-searchAPI';
+import searchByBedroom from '../../../../api/search-bedroom/search-bedroomAPI';
 import useStyles from './MainSearch.style';
 
-const bedroomItems = [
-  {
-    id: 1,
-    value: 1,
-    title: 'One',
-  },
-  {
-    id: 2,
-    value: 2,
-    title: 'Two',
-  },
-  {
-    id: 3,
-    value: 3,
-    title: 'Three',
-  },
-];
-
 const MainSearch = () => {
+  const [personName, setPersonName] = React.useState([]);
+  const [bedroomData, setBedroomData] = React.useState([]);
+  const handleChange = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setPersonName(
+      typeof value === 'string' ? value.split(',') : value,
+    );
+  };
+
   const dateNow = new Date();
   const dateNowPlusOneDay = new Date();
   dateNowPlusOneDay.setDate(dateNow.getDate() + 1);
   dateNowPlusOneDay.toLocaleDateString();
-
   const classes = useStyles();
   const [location, setLocation] = useState('');
   const [startDateValue, setStartDateValue] = useState(dateNow);
   const [endDateValue, setEndDateValue] = useState(dateNowPlusOneDay);
 
-  const [bedroomValue, setBedroomValue] = useState('');
-
-  const handleBedroomValue = (event) => {
-    setBedroomValue(event.target.value);
-  };
+  useEffect(async () => {
+    const { data } = await searchByBedroom.bedroom();
+    setBedroomData(data.bedroom);
+  }, []);
 
   return (
     <form className={classes.form}>
@@ -85,23 +78,33 @@ const MainSearch = () => {
       </LocalizationProvider>
 
       <FormControl className={classes.bedroom}>
-        <InputLabel id="bedroomValue">{TEXT.MAIN_SEARCH.BEDROOM_TYPE}</InputLabel>
-        <Select
-          labelId="bedroomValue"
-          value={bedroomValue}
-          label={TEXT.MAIN_SEARCH.BEDROOM_TYPE}
-          onChange={handleBedroomValue}
-        >
-
-          {bedroomItems.map(({ id, value, title }) => (
-            <MenuItem
-              key={id}
-              value={value}
+        <div>
+          <FormControl sx={{ m: 1, width: 300 }}>
+            <InputLabel id="input-search-bedrooms">Label placement</InputLabel>
+            <Select
+              labelId="multiple-search-bedrooms"
+              id="search-bedrooms"
+              multiple
+              value={personName}
+              onChange={handleChange}
+              input={<OutlinedInput label="Name" />}
+              MenuProps={{
+                classes: {
+                  paper: classes.PaperProps,
+                },
+              }}
             >
-              {title}
-            </MenuItem>
-          ))}
-        </Select>
+              {bedroomData && bedroomData.map((name) => (
+                <MenuItem
+                  key={name.value}
+                  value={name.value}
+                >
+                  {name.type}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        </div>
       </FormControl>
 
       <ButtonMui
