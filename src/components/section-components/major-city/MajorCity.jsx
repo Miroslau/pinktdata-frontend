@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react';
 import './MajorCity.scss';
 import { uniqueId } from 'lodash';
-
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { setMajorCity } from '../../../store/slice/majorCitySlice';
 import majorCitiesAPI from '../../../api/major-cities/majorCitiesAPI';
 
 import {
   TITLE_MAJORCITY, BTN_MAJORCITY,
 }
 from '../../../constants/mainPageConst';
+import { MAP_ROUTE } from '../../../constants/routes';
 
 const PREFIX = 'major_cities_';
 
 const MajorCity = () => {
+  const dispatch = useDispatch();
   const [majorCities, setMajorCities] = useState([]);
+  const history = useHistory();
 
   useEffect(() => {
     let cleanupFunction = false;
@@ -37,6 +42,12 @@ const MajorCity = () => {
     return () => cleanupFunction = true;
   }, []);
 
+  const openMapPageWithCity = (city) => {
+    console.log('click in city: ', city);
+    dispatch(setMajorCity(city));
+    history.push(MAP_ROUTE);
+  };
+
   return (
     <div className="major-city">
       <div className="wrapper">
@@ -48,9 +59,12 @@ const MajorCity = () => {
           <div className="major-city-container__item major-city-container__item_left">
             {
               majorCities.map((city) => (
+                // eslint-disable-next-line max-len
+                // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
                 <div
                   key={city.id}
                   className="major-city-container__left"
+                  onClick={() => openMapPageWithCity(city)}
                 >
                   <img className="major-city-container__img" src={city.imageUrl} alt={city.city} />
                   <h4 className="major-city-container__title">{city.city}</h4>
@@ -61,7 +75,12 @@ const MajorCity = () => {
           <div className="major-city-container__right">
             {
               majorCities.map((city) => (
-                <div key={city.id}>
+                // eslint-disable-next-line max-len
+                // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
+                <div
+                  key={city.id}
+                  onClick={() => openMapPageWithCity(city)}
+                >
                   <img
                     className="major-city-container__img
                                major-city-container__img_big"
