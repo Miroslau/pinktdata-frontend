@@ -61,6 +61,10 @@ const useStyles = makeStyles({
       backgroundColor: `${BLUE_COLOR} !important`,
     },
   },
+  PaperProps: {
+    height: 244,
+    width: 250,
+  },
 });
 
 export default useStyles;

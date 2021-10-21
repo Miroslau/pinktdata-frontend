@@ -63,4 +63,52 @@ export const handlers = [
       images,
     }));
   }),
+  rest.get('/api/apartments/bedrooms-list', (req, res, ctx) => {
+    const bedroom = [
+      {
+        type: 'One bedroom',
+        value: 1,
+      },
+      {
+        type: 'Two bedroom',
+        value: 2,
+      },
+      {
+        type: 'Three bedroom',
+        value: 3,
+      },
+      {
+        type: 'Four bedroom',
+        value: 4,
+      },
+      {
+        type: 'Five bedroom',
+        value: 5,
+      },
+      {
+        type: 'Six bedroom',
+        value: 6,
+      },
+      {
+        type: 'Seven bedroom',
+        value: 7,
+      },
+      {
+        type: 'Eight bedroom',
+        value: 8,
+      },
+      {
+        type: 'Nine bedroom',
+        value: 9,
+      },
+      {
+        type: 'Ten bedroom',
+        value: 10,
+      },
+    ];
+
+    return res(ctx.status(200), ctx.json({
+      bedroom,
+    }));
+  }),
 ];
