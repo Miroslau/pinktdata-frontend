@@ -62,7 +62,7 @@ const Content = () => {
         <TypographyMui variant="h6" text={TEXT.SUBTITLE} />
       </div>
       <Divider />
-      <div div className={classes.mapWrapper}>
+      <div className={classes.mapWrapper} onChange={scrollHandler}>
         {apart.map((data) => (
           <Card
             key={data._id}
