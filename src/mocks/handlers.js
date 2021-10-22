@@ -39,9 +39,9 @@ export const handlers = [
   rest.get('/api/search/location', (req, res, ctx) => res(ctx.status(200), ctx.json({
     title: 'test',
   }))),
-  rest.get('http://localhost/api/apartments/locations', (req, res, ctx) => {
+  rest.get('/api/apartments/locations', (req, res, ctx) => {
     const params = req.url.searchParams.get('query');
-    const cities = ['minsk', 'gomel', 'grodno', 'brest', 'vitebsk', 'mogileu', 'moscow', 'snp', 'miami', 'vitebsk'];
+    const cities = ['minsk', 'gomel', 'grodno', 'brest', 'vitebsk', 'mogileu', 'moscow', 'snp', 'miami'];
     return res(ctx.json({ cities: cities.filter((x) => x.includes(params)) }));
   }),
   rest.get('/api/search/rooms', (req, res, ctx) => {

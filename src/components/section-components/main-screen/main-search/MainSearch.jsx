@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { TextField } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -41,7 +41,7 @@ const MainSearch = () => {
   dateNowPlusOneDay.toLocaleDateString();
 
   const classes = useStyles();
-
+  const isMounted = useRef(null);
   const [location, setLocation] = useState('');
   const [dataLocation, setDataLocation] = useState([]);
   const [startDateValue, setStartDateValue] = useState(dateNow);
@@ -53,18 +53,24 @@ const MainSearch = () => {
     options: dataLocation,
   };
 
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+    };
+  });
+
   useEffect(async () => {
     if (location) {
       try {
         const response = await LocationAPI.search(location);
-        setDataLocation(response.cities);
+        if (isMounted.current) {
+          setDataLocation(response.cities);
+        }
       } catch (error) {
         console.log(error);
       }
     }
-    return () => {
-      document.removeEventListener('click', LocationAPI.search(location));
-    };
   }, [location]);
 
   const handleBedroomValue = (event) => {
