@@ -12,6 +12,8 @@
     "@mui/material": "^5.0.3",
     "@mui/styles": "^5.0.1",
     "@reduxjs/toolkit": "^1.6.2",
+    "@splidejs/react-splide": "^0.6.5",
+    "@splidejs/splide": "^3.2.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.22.0",

@@ -39,7 +39,7 @@ export const handlers = [
   rest.get('/api/search/location', (req, res, ctx) => res(ctx.status(200), ctx.json({
     title: 'test',
   }))),
-  rest.get('/api/search/rooms', (req, res, ctx) => {
+  rest.get('api/apartments/popular/images', (req, res, ctx) => {
     const images = [
       {
         image: 'https://cdn.shopify.com/s/files/1/1765/3959/collections/Screen_Shot_2021-06-30_at_9.24.07_AM_0af7c44d-82f5-4497-a242-67ef3c78e9e6_700x.png?v=1627574426',
