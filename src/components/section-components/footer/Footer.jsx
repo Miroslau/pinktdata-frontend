@@ -26,6 +26,7 @@ export default function Footer() {
           <div className="icons">
             {icons.map((icon) => (
               <object
+                key={icon}
                 aria-label="this object has text"
                 className="object"
                 type="image/svg+xml"

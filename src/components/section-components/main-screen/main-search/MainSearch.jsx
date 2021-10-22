@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
 import { TextField } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -15,8 +15,7 @@ import debounce from 'lodash.debounce';
 import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
 import TEXT from '../../../../constants/mainScreen';
 import useStyles from './MainSearch.style';
-
-let isError = false;
+import LocationAPI from '../../../../api/main-search/LocationAPI';
 
 const bedroomItems = [
   {
@@ -49,10 +48,22 @@ const MainSearch = () => {
   const [startDateValue, setStartDateValue] = useState(dateNow);
   const [endDateValue, setEndDateValue] = useState(dateNowPlusOneDay);
   const [bedroomValue, setBedroomValue] = useState('');
+  const [isError, setIsError] = useState(false);
 
   const defaultProps = {
     options: dataLocation,
   };
+
+  useEffect(async () => {
+    if (location) {
+      try {
+        const response = await LocationAPI.search(location);
+        setDataLocation(response.cities);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [location]);
 
   const handleBedroomValue = (event) => {
     setBedroomValue(event.target.value);
@@ -60,25 +71,15 @@ const MainSearch = () => {
 
   const getCities = (e) => {
     const { value } = e.target;
-    isError = true;
-    if (value.length === 0) {
+    if (!value) {
       setDataLocation([]);
-      isError = true;
+      setIsError(true);
     } else {
-      isError = false;
+      setIsError(false);
       setLocation(value);
-      fetch(`http://localhost/api/apartments/locations?query=${value}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setDataLocation(data.cities);
-        })
-        .catch((error) => console.log(error));
     }
   };
-  const debouncedChangeHandler = useCallback(
-    debounce(getCities, 500),
-    [],
-  );
+  const searchChangeHandler = debounce(getCities, 500);
 
   return (
     <form className={classes.form}>
@@ -92,7 +93,7 @@ const MainSearch = () => {
           renderInput={(params) => (
             <TextField
               {...params}
-              onChange={debouncedChangeHandler}
+              onChange={searchChangeHandler}
               value={location}
               label={TEXT.MAIN_SEARCH.LOCATION}
               variant="standard"
