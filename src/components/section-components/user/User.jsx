@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import userIcon from '../../../assets/user.webp';
 import MenuMui from '../../ui-components/menu-mui/MenuMui';
 import ButtonMui from '../../ui-components/button-mui/ButtonMui';
-import useStyle from '../../../style/style';
+import useStyle from '../../../style/mapStyle';
 
 const User = ({ userName, logOut }) => {
   const [anchorEl, setAnchorEl] = useState(null);
