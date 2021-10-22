@@ -19,7 +19,7 @@ export const mapPageData = createAsyncThunk(
 
       return data;
     } catch (e) {
-      console.error(e.response.data);
+      // console.error(e.response.data);
       return thunkAPI.rejectWithValue(e.response.data);
     }
   },

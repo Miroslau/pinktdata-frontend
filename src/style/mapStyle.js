@@ -23,6 +23,14 @@ const useStyles = makeStyles({
   mapTabs: {
     margin: '27px 0',
   },
+  userIcon: {
+    fontSize: '38px',
+  },
+  userBlock: {
+    backgroundColor: '#E7E7E7 !important',
+    color: 'black !important',
+    textTransform: 'capitalize !important',
+  },
   divider: {
     backgroundColor: 'rgba(0, 0, 0, 0.09)',
     width: '1px',
