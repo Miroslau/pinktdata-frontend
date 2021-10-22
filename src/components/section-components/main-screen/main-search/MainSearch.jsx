@@ -62,13 +62,16 @@ const MainSearch = () => {
         console.log(error);
       }
     }
+    return () => {
+      document.removeEventListener('click', LocationAPI.search(location));
+    };
   }, [location]);
 
   const handleBedroomValue = (event) => {
     setBedroomValue(event.target.value);
   };
 
-  const getCities = (e) => {
+  const handleChange = (e) => {
     const { value } = e.target;
     if (!value) {
       setDataLocation([]);
@@ -78,7 +81,7 @@ const MainSearch = () => {
       setLocation(value);
     }
   };
-  const searchChangeHandler = debounce(getCities, 500);
+  const searchChangeHandler = debounce(handleChange, 500);
 
   return (
     <form className={classes.form}>
