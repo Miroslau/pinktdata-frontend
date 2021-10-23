@@ -1,36 +1,26 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import RoomAbout from './room-about/RoomAbout';
 import RoomLocation from './room-location/RoomLocation';
 import '../../../index.scss';
 import MainInfo from './main-info/MainInfo';
 import RoomReviews from './room-reviews/RoomReviews';
-import { roomContext } from '../../../store/context/roomContext';
-import roomPreviewLocalization from '../../../constants/roomPreviewLocalization';
 
-const RoomMain = () => {
-  const roomCtx = useContext(roomContext);
+const RoomMain = () => (
+  <div className="room-bg">
+    <div className="room-container">
 
-  if (!roomCtx) {
-    return roomPreviewLocalization.dataLoading;
-  }
+      <main>
+        <RoomAbout />
+        <MainInfo />
+      </main>
 
-  return (
-    <div className="room-bg">
-      <div className="room-container">
+      <nav>
+        <RoomLocation />
+        <RoomReviews />
+      </nav>
 
-        <main>
-          <RoomAbout />
-          <MainInfo />
-        </main>
-
-        <nav>
-          <RoomLocation />
-          <RoomReviews />
-        </nav>
-
-      </div>
     </div>
-  );
-};
+  </div>
+);
 
 export default RoomMain;

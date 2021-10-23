@@ -25,8 +25,8 @@ const RoomPreview = () => {
           }}
         >
           {roomCtx.images.map(({ id, picture }) => (
-            <SplideSlide>
-              <img className="slider-image" src={picture} alt="slider" key={id} />
+            <SplideSlide key={id}>
+              <img className="slider-image" src={picture} alt="slider" />
             </SplideSlide>
           ))}
         </Splide>
