@@ -4,18 +4,18 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
 import AccordionDetails from '@mui/material/AccordionDetails';
+import roomPreviewLocalization from '../../../../../constants/roomPreviewLocalization';
 
 const RoomPrice = () => (
   <Accordion className="accordion-item">
     <AccordionSummary
       expandIcon={<ExpandMoreIcon />}
     >
-      <Typography>Price</Typography>
+      <Typography>{roomPreviewLocalization.price}</Typography>
     </AccordionSummary>
     <AccordionDetails>
       <Typography>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
-        malesuada lacus ex, sit amet blandit leo lobortis eget.
+        {roomPreviewLocalization.loremText}
       </Typography>
     </AccordionDetails>
   </Accordion>

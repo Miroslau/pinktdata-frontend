@@ -5,12 +5,13 @@ import '../../../index.scss';
 import MainInfo from './main-info/MainInfo';
 import RoomReviews from './room-reviews/RoomReviews';
 import { roomContext } from '../../../store/context/roomContext';
+import roomPreviewLocalization from '../../../constants/roomPreviewLocalization';
 
 const RoomMain = () => {
   const roomCtx = useContext(roomContext);
 
   if (!roomCtx) {
-    return 'Data Loading...';
+    return roomPreviewLocalization.dataLoading;
   }
 
   return (

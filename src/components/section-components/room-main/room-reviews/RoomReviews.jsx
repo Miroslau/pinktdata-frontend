@@ -1,8 +1,9 @@
 import React from 'react';
+import roomPreviewLocalization from '../../../../constants/roomPreviewLocalization';
 
 const RoomReviews = () => (
   <div className="room-component">
-    <h1>Reviews</h1>
+    <h1>{roomPreviewLocalization.reviews}</h1>
   </div>
 );
 
