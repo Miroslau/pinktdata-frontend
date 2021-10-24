@@ -6,7 +6,6 @@ import Divider from '@mui/material/Divider';
 import { Button } from '@mui/material';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-// import ButtonMui from '../../ui-components/button-mui/ButtonMui';
 import useStyles from '../../../style/mapStyle';
 
 import { TABS } from '../../../constants/map_page';
@@ -22,7 +21,7 @@ const Tabs = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-  const handlerBtn = () => console.log('click');
+  const handlerBtn = () => {};
 
   return (
     <div className={classes.mapTabs}>

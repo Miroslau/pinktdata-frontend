@@ -1,16 +1,10 @@
-const axios = require('axios');
+import httpClient from '../index';
 
 export default {
-  // getAllData() {
-  //   return axios.get('/api/apartments/getAll');
-  // },
   searchApartments(location, page, limit = 999) {
-    return axios.get('/api/apartments/search', { params: { location, page, limit } });
+    return httpClient.get('/api/apartments/search', { params: { location, page, limit } });
   },
   renderOnTheMap() {
-    return axios.get('/api/apartments/renderOnTheMap');
+    return httpClient.get('/api/apartments/renderOnTheMap');
   },
-  // getAllDataRoom() {
-  //   return axios.get('/api/apartments/getAllRoom');
-  // },
 };
