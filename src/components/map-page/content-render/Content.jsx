@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
-import * as React from 'react';
-// import { useSelector } from 'react-redux';
+import { useEffect, useState, useRef } from 'react';
 
 import Divider from '@mui/material/Divider';
 import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
@@ -10,59 +8,61 @@ import Tabs from '../tabs/Tabs';
 import Card from '../card/Card';
 import { TEXT } from '../../../constants/map_page';
 import MapAPI from '../../../api/map/mapPageAPI';
-// import { getData } from '../../../store/slice/thunk';
-// import { mapPageActions } from '../../../store/slice/mapPageSlice';
 
 const Content = () => {
   const classes = useStyles();
-  const [apart, setApart] = React.useState([]);
-  const [currentPage, setCurrentPage] = React.useState(0);
-  // const [fetching, setFetching] = React.useState(true);
-  // const [totalCount, setTotalCount] = React.useState(0);
+  const ref = useRef();
+  const [apart, setApart] = useState([]);
+  const [fetching, setFetching] = useState(true);
+  const [totalCount, setTotalCount] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  // const dispatch = useDispatch();
-  // const allData = React.useCallback(() => {
-  //   dispatch(getData(mapPageActions.getAllData));
-  // }, [dispatch]);
+  useEffect(() => {
+    if (fetching) {
+      console.log('fetching');
+      MapAPI
+        .searchApartments('Philadelphia, PA, United States', currentPage)
+        .then((response) => {
+          setApart([...apart, ...response.data]);
+          setCurrentPage((prevState) => prevState + 1);
+          setTotalCount(response.headers['x-total-count']);
+        })
+        .finally(() => setFetching(false))
+        .catch((err) => console.error(err));
+    }
+  }, [currentPage]);
 
-  React.useEffect(() => {
-    MapAPI
-      .searchApartments('Philadelphia, PA, United States', currentPage)
-      .then((response) => {
-        setApart(response.data);
-        // setCurrentPage((prevState) => prevState + 1);
-        // setTotalCount(response.headers['x-total-count']);
-      })
-      // .finally(() => setFetching(false))
-      .catch((err) => console.error(err));
-  }, []);
-
-  const scrollHandler = (e) => {
+  const scrollHandler = () => {
+    if (
+      ref.current.scrollHeight
+      - (ref.current.scrollTop
+        + ref.current.innerHeight) < 100 && apart.length < totalCount) {
+      setFetching(true);
+    }
     // if (
     //   e.target.documentElement.scrollHeight
     //   - (e.target.documentElement.scrollTop
-    //   + window.innerHeight) < 100 && apart.length < totalCount) {
+    //     + window.innerHeight) < 100 && apart.length < totalCount) {
     //   setFetching(true);
     // }
     console.log('scroll');
   };
 
-  React.useEffect(() => {
-    document.addEventListener('scroll', scrollHandler);
-    return function () {
-      document.removeEventListener('scroll', scrollHandler);
-    };
+  useEffect(() => {
+    const el = ref.current;
+    el.addEventListener('scroll', scrollHandler);
+    return () => el.removeEventListener('scroll', scrollHandler);
   }, []);
 
   return (
     <div className={classes.mapContentWrapper}>
       <div className={classes.mapContent}>
-        <TypographyMui variant="h4" text={TEXT.TITLE} className={classes.title} />
+        <TypographyMui variant="h4" text={`${TEXT.TITLE} ${'Philadelphia, PA, United States'}`} className={classes.title} />
         <Tabs />
         <TypographyMui variant="h6" text={TEXT.SUBTITLE} />
       </div>
       <Divider />
-      <div className={classes.mapWrapper} onChange={scrollHandler}>
+      <div className={classes.mapWrapper} onChange={scrollHandler} ref={ref}>
         {apart.map((data) => (
           <Card
             key={data._id}
@@ -74,10 +74,10 @@ const Content = () => {
             city={data.city}
             address={data.address}
             price={data.price}
+            homeDetails={data.guestLabel}
           />
         ))}
       </div>
-
     </div>
   );
 };

@@ -1,7 +1,9 @@
-import * as React from 'react';
+import { useEffect, useState } from 'react';
 import {
   MapContainer, TileLayer, CircleMarker, Popup, Tooltip,
 } from 'react-leaflet';
+
+import { get } from 'lodash';
 
 import MapAPI from '../../../api/map/mapPageAPI';
 
@@ -9,28 +11,27 @@ import useStyles from '../../../style/mapStyle';
 
 const MapRender = () => {
   const classes = useStyles();
-  const [apart, setApart] = React.useState([]);
-  const [currentPage, setCurrentPage] = React.useState(0);
+  const [apart, setApart] = useState([]);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [location, setLocation] = useState([39.94977, -75.28529]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     MapAPI
       .searchApartments('Philadelphia, PA, United States', currentPage)
       .then(({ data }) => {
         setApart(data);
-        // setMapCenter(apart[0].location.lat, apart[0].location.lon);
         setCurrentPage((prevState) => prevState + 1);
+        const currApart = data.find((item) => item.address === 'Philadelphia, PA, United States');
+        const locationApart = get(currApart, 'location', {});
+        setLocation(locationApart);
       })
       .catch((err) => console.error(err));
   }, []);
 
-  // const coordinates = { lat: apart[0].location.lat, lng: apart[0].location.lon };
-
   return (
     <div className={classes.map}>
       <MapContainer
-        center={apart.length
-          ? [apart[0].location.lat, apart[0].location.lon]
-          : [38.70189, -78.20361]}
+        center={location}
         zoom={18}
         scrollWheelZoom
       >
@@ -62,7 +63,6 @@ const MapRender = () => {
           </CircleMarker>
         ))}
       </MapContainer>
-
     </div>
 
   );

@@ -1,5 +1,5 @@
 export const TEXT = {
-  TITLE: 'Places to buy near you',
+  TITLE: 'Apartments in',
   SUBTITLE: 'Explore all 300+ stays',
 };
 
@@ -10,6 +10,8 @@ export const TABS = [
   'Price',
   'Top Rated',
   'Filters',
+  'Price range',
+  'Number of bedrooms',
 ];
 
 export const DATA = [

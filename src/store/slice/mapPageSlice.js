@@ -1,42 +1,16 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import MapAPI from '../../api/Map/MapAPI';
+import { createSlice } from '@reduxjs/toolkit';
 
-export const mapPageData = createAsyncThunk(
-  'apartments/mapPage',
-  async ({ id, avgRating }, thunkAPI) => {
-    try {
-      const response = await MapAPI.getAllData({
-        id, avgRating,
-      });
-
-      const { status, data } = response;
-
-      if (status !== 200) {
-        return thunkAPI.rejectWithValue(data);
-      }
-
-      return data;
-    } catch (e) {
-      // console.error(e.response.data);
-      return thunkAPI.rejectWithValue(e.response.data);
-    }
-  },
-);
+import { mapPageData } from '../actions/mapAction';
 
 const mapPageSlice = createSlice({
   name: 'mapPage',
   initialState: {
-    rooms: [],
-    name: '',
-    publicAddress: '',
-    pictureUrl: '',
-    avgRating: '',
-    city: '',
-    localizedCity: '',
-    priceString: '',
-    reviewsCount: '',
+    apart: [],
+    currentPage: 0,
+    location: [39.94977, -75.28529],
+    currentApart: '',
     errorMessage: '',
     isFetching: false,
     isSuccess: false,
@@ -55,14 +29,9 @@ const mapPageSlice = createSlice({
     [mapPageData.fulfilled]: (state, { payload }) => {
       state.isFetching = false;
       state.isSuccess = true;
-      state.name = payload.name;
-      state.publicAddress = payload.publicAddress;
-      state.pictureUrl = payload.pictureUrl;
-      state.avgRating = payload.avgRating;
-      state.city = payload.city;
-      state.localizedCity = payload.localizedCity;
-      state.priceString = payload.priceString;
-      state.reviewsCount = payload.reviewsCount;
+      state.apart = payload.apart;
+      state.currentPage = [...state + 1];
+      state.location = payload.location;
     },
     [mapPageData.pending]: (state) => {
       state.isFetching = true;

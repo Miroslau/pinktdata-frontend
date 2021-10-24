@@ -15,6 +15,7 @@ const useStyles = makeStyles({
   mapWrapper: {
     overflow: 'scroll',
     overflowX: 'hidden',
+    transition: 'ease 0.5s',
   },
   mapContent: {
     padding: '0 40px',
@@ -89,6 +90,9 @@ const useStyles = makeStyles({
   address: {
     color: 'grey',
     padding: '10px 0 20px 0',
+    '&:hover': {
+      cursor: 'pointer',
+    },
   },
   available: {
     padding: '10px 0',
@@ -106,9 +110,17 @@ const useStyles = makeStyles({
   price: {
     fontSize: '1.3rem',
     fontWeight: '600',
+    '&:hover': {
+      cursor: 'pointer',
+    },
   },
   heart: {
     display: 'block',
+    '&:hover': {
+      cursor: 'pointer',
+    },
+  },
+  name: {
     '&:hover': {
       cursor: 'pointer',
     },
