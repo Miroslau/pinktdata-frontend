@@ -39,8 +39,21 @@ const MainSearch = () => {
   const [endDateValue, setEndDateValue] = useState(dateNowPlusOneDay);
 
   useEffect(async () => {
-    const { data } = await searchByBedroom.bedroom();
-    setBedroomData(data.bedroom);
+    let cleanupFunction = false;
+
+    const getArrBedroom = async () => {
+      try {
+        const { data } = await searchByBedroom.bedroom();
+        if (!cleanupFunction) {
+          setBedroomData(data.bedroom);
+        }
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+    getArrBedroom();
+    // eslint-disable-next-line no-return-assign
+    return () => cleanupFunction = true;
   }, []);
 
   return (

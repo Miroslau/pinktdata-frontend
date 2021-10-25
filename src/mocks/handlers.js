@@ -106,8 +106,7 @@ export const handlers = [
         value: 10,
       },
     ];
-
-    return res(ctx.status(200), ctx.json({
+    return res(ctx.delay(1300), ctx.status(200), ctx.json({
       bedroom,
     }));
   }),
