@@ -69,6 +69,27 @@ export const handlers = [
       count: 1184,
     },
   ]))),
+  rest.get('/api/apartments/search', (req, res, ctx) => {
+    const location = req.url.searchParams.get('location');
+    const apartments = [
+      {
+        id: 1,
+        location: 'Los Angeles',
+        name: 'BBBoy',
+      },
+      {
+        id: 2,
+        location: 'Los Angeles',
+        name: 'SSSb',
+      },
+      {
+        id: 3,
+        location: 'San Francisco',
+        name: 'Nuck',
+      },
+    ];
+    return res(ctx.json(apartments.filter((item) => item.location === location)));
+  }),
   rest.get('/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
   rest.get('/api/search/location', (req, res, ctx) => res(ctx.status(200), ctx.json({
     title: 'test',

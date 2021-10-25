@@ -7,12 +7,33 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Divider from '@mui/material/Divider';
 import Typography from '@mui/material/Typography';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { majorCitySelector } from '../../store/slice/majorCitySlice';
 import useStyles from '../../style/style';
 import Navigation from '../../components/section-components/main-screen/navigation/Navigation';
+import mapPageAPI from '../../api/map/mapPageAPI';
 
 const Map = () => {
   const classes = useStyles();
   const [alignment, setAlignment] = React.useState('all');
+  const { publicAddress } = useSelector(majorCitySelector);
+
+  useEffect(() => {
+    const obj = {
+      location: publicAddress,
+    };
+    const getMapPage = async () => {
+      try {
+        const { data } = await mapPageAPI.searchApartments(obj);
+        console.log(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+
+    getMapPage();
+  }, []);
 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
