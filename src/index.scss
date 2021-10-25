@@ -1,8 +1,5 @@
 *{
-  box-sizing: border-box;
   margin: 0;
-  padding: 0;
-  scroll-behavior: smooth;
 }
 
 body {
@@ -39,9 +36,4 @@ h3{
   &:hover {
     background-color: #1c8ac9;
   }
-}
-
-.leaflet-container {
-  width: 48.8vw;
-  height: 100vh;
 }
