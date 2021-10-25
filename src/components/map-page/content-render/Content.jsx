@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
 
 import Divider from '@mui/material/Divider';
+
+import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
 import useStyles from '../../../style/style';
 
 import Tabs from '../tabs/Tabs';
 import Card from '../card/Card';
-// import { TEXT } from '../../../constants/map_page';
+import { TEXT } from '../../../constants/map_page';
 import MapAPI from '../../../api/map/mapPageAPI';
 
 const Content = () => {
@@ -26,13 +28,13 @@ const Content = () => {
   return (
     <div className={classes.mapContentWrapper}>
       <div className={classes.mapContent}>
-        {/* <TypographyMui */}
-        {/*  variant="h4" */}
-        {/*  text={`${TEXT.TITLE} ${'Philadelphia, PA, United States'}`} */}
-        {/*  className={classes.title} */}
-        {/* /> */}
+        <TypographyMui
+          variant="h4"
+          text={`${TEXT.TITLE} ${'Philadelphia, PA, United States'}`}
+          className={classes.title}
+        />
         <Tabs />
-        {/* <TypographyMui variant="h6" text={TEXT.SUBTITLE} /> */}
+        <TypographyMui variant="h6" text={TEXT.SUBTITLE} />
       </div>
       <Divider />
       <div className={classes.mapWrapper}>

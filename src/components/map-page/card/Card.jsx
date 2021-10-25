@@ -4,14 +4,16 @@ import Divider from '@mui/material/Divider';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import PropTypes from 'prop-types';
 import StarIcon from '@mui/icons-material/Star';
-// import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
+import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
 import useStyles from '../../../style/style';
+
+import { DATA } from '../../../constants/map_page';
 
 const Card = (props) => {
   const classes = useStyles();
 
   const {
-    name, rating, img, reviews, price,
+    name, rating, img, reviews, city, address, price, homeDetails,
   } = props;
 
   return (
@@ -24,12 +26,10 @@ const Card = (props) => {
           <div className={classes.contentData}>
             <div className={classes.dataLeft}>
               <div className={classes.dataText}>
-                {/* <TypographyMui text={city} className={classes.city} /> */}
-                {/* <TypographyMui variant="h5" className={classes.name} text={name} /> */}
-                {/* eslint-disable-next-line max-len */}
-                {/* <TypographyMui color="#32CD32" text={DATA[0]} className={classes.available} /> */}
-                {/* eslint-disable-next-line max-len */}
-                {/* <TypographyMui text={`${homeDetails}.${address}`} className={classes.address} /> */}
+                <TypographyMui text={city} className={classes.city} />
+                <TypographyMui variant="h5" className={classes.name} text={name} />
+                <TypographyMui color="#32CD32" text={DATA[0]} className={classes.available} />
+                <TypographyMui text={`${homeDetails}.${address}`} className={classes.address} />
               </div>
               <div className={classes.rating}>
                 <StarIcon className={classes.starIcon} />
@@ -59,6 +59,10 @@ Card.defaultProps = {
   img: '',
   reviews: '',
   price: '',
+  city: '',
+  address: '',
+  price: '',
+  homeDetails: '',
 };
 
 Card.propTypes = {
@@ -67,6 +71,10 @@ Card.propTypes = {
   rating: PropTypes.number,
   reviews: PropTypes.number,
   price: PropTypes.string,
+  city: PropTypes.string,
+  address: PropTypes.string,
+  price: PropTypes.string,
+  homeDetails: PropTypes.string,
 };
 
 export default Card;

@@ -2,15 +2,15 @@ import React from 'react';
 
 import useStyles from '../../style/style';
 
-// import MapRender from '../../components/map-page/map-render/MapRender';
-// import Content from '../../components/map-page/content-render/Content';
+import MapRender from '../../components/map-page/map-render/MapRender';
+import Content from '../../components/map-page/content-render/Content';
 
 const Map = () => {
   const classes = useStyles();
   return (
     <section className={classes.wrapper}>
-      {/* <Content /> */}
-      {/* <MapRender /> */}
+      <Content />
+      <MapRender />
     </section>
   );
 };
