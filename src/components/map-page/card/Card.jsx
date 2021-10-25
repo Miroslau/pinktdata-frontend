@@ -61,7 +61,6 @@ Card.defaultProps = {
   price: '',
   city: '',
   address: '',
-  price: '',
   homeDetails: '',
 };
 
@@ -73,7 +72,6 @@ Card.propTypes = {
   price: PropTypes.string,
   city: PropTypes.string,
   address: PropTypes.string,
-  price: PropTypes.string,
   homeDetails: PropTypes.string,
 };
 
