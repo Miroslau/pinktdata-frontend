@@ -12,8 +12,21 @@ const RoomPage = () => {
   const [roomData, setRoomData] = useState();
 
   useEffect(async () => {
-    const response = await getRoom.getRoomById(id);
-    setRoomData(response);
+    let cleanupFunction = false;
+    const fetchRoom = async () => {
+      try {
+        const { data } = await getRoom.getRoomById(id);
+
+        if (!cleanupFunction) setRoomData(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+
+    fetchRoom();
+
+    // eslint-disable-next-line no-return-assign
+    return () => cleanupFunction = true;
   }, []);
 
   if (!roomData) {

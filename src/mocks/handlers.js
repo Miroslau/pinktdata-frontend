@@ -4,7 +4,7 @@ import mockDataForPreviewPage from './mocks-constants/mockDataForPreviewPage';
 import mockDataForPopularRooms from './mocks-constants/mockDataForPopularRooms';
 
 export const handlers = [
-  rest.post('http://localhost:3000/api/auth/registration', (req, res, ctx) => {
+  rest.post('/api/auth/registration', (req, res, ctx) => {
     const {
       firstName, lastName, email, password,
     } = req.body;
@@ -17,7 +17,7 @@ export const handlers = [
       accessToken: 'Bear f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
     }));
   }),
-  rest.post('http://localhost:3000/api/auth/login', (req, res, ctx) => {
+  rest.post('/api/auth/login', (req, res, ctx) => {
     const {
       email, password,
     } = req.body;
@@ -37,12 +37,12 @@ export const handlers = [
       accessToken: 'Bear f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
     }));
   }),
-  rest.post('http://localhost:3000/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
-  rest.get('http://localhost:3000/api/search/location', (req, res, ctx) => res(ctx.status(200), ctx.json({
+  rest.post('/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
+  rest.get('/api/search/location', (req, res, ctx) => res(ctx.status(200), ctx.json({
     title: 'test',
   }))),
 
-  rest.get('http://localhost:3000/api/apartments/popular/images', (req, res, ctx) => res(ctx.status(200), ctx.json(mockDataForPopularRooms))),
+  rest.get('/api/apartments/popular/images', (req, res, ctx) => res(ctx.status(200), ctx.json(mockDataForPopularRooms))),
 
-  rest.get('http://localhost:3000/api/apartments/:id', (req, res, ctx) => res(ctx.status(200), ctx.json(mockDataForPreviewPage))),
+  rest.get('/api/apartments/:id', (req, res, ctx) => res(ctx.status(200), ctx.json(mockDataForPreviewPage))),
 ];

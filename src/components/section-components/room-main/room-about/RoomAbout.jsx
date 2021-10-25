@@ -3,8 +3,6 @@ import { roomContext } from '../../../../store/context/roomContext';
 
 const RoomAbout = () => {
   const roomCtx = useContext(roomContext);
-  console.log('context');
-  console.log(roomCtx);
 
   return (
     <div className="room-component">
