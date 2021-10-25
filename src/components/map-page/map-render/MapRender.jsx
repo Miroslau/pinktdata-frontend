@@ -64,7 +64,6 @@ const MapRender = () => {
         ))}
       </MapContainer>
     </div>
-
   );
 };
 

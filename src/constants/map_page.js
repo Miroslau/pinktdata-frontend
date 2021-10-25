@@ -16,7 +16,4 @@ export const TABS = [
 
 export const DATA = [
   'Available',
-  'Air Conditioned',
 ];
-
-export const MARKER = ['A pretty CSS3 popup.', ' Easily customizable.'];

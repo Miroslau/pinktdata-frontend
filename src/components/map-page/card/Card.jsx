@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Divider from '@mui/material/Divider';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import PropTypes from 'prop-types';
 import StarIcon from '@mui/icons-material/Star';
 import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
 import useStyles from '../../../style/style';
@@ -45,6 +45,26 @@ const Card = (props) => {
           <div className={classes.dataRight}>
             <div className={classes.heart}><FavoriteBorderIcon htmlColor="pink" /></div>
             <div className={classes.price}>{price}</div>
+          <div className={classes.contentImg}>{img}</div>
+          <div className={classes.contentData}>
+            <div className={classes.dataLeft}>
+              <div className={classes.dataText}>
+                <TypographyMui text={city} />
+                <TypographyMui variant="subtitle2" text={name} />
+                <TypographyMui color="green" text={DATA[3]} />
+                <TypographyMui text={`${DATA[4]}.${address}`} />
+              </div>
+              <div>
+                {rating}
+                (
+                {reviews}
+                )
+              </div>
+            </div>
+            <div className={classes.dataRight}>
+              <div><FavoriteBorderIcon htmlColor="pink" /></div>
+              <div>{price}</div>
+            </div>
           </div>
         </div>
       </div>
