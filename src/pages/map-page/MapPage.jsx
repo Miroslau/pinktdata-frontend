@@ -12,11 +12,14 @@ import Navigation from '../../components/section-components/main-screen/navigati
 
 const Map = () => {
   const classes = useStyles();
+<<<<<<< HEAD
   const [alignment, setAlignment] = React.useState('all');
 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
+=======
+>>>>>>> parent of 8216fe1 (feat: add marker on the map)
 
   return (
     <div className="map-page">
