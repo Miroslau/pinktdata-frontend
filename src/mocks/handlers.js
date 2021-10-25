@@ -1,8 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { rest } from 'msw';
+import mockDataForPopularRooms from '../constants/mockDataForPopularRooms';
 
 export const handlers = [
-  rest.post('http://localhost:3000/api/auth/registration', (req, res, ctx) => {
+  rest.post('/api/auth/registration', (req, res, ctx) => {
     const {
       firstName, lastName, email, password,
     } = req.body;
@@ -12,10 +13,10 @@ export const handlers = [
       lastName,
       email,
       password,
-      accessToken: 'Bear f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
+      accessToken: 'f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
     }));
   }),
-  rest.post('http://localhost:3000/api/auth/login', (req, res, ctx) => {
+  rest.post('/api/auth/login', (req, res, ctx) => {
     const {
       email, password,
     } = req.body;
@@ -32,10 +33,64 @@ export const handlers = [
       lastName: 'Rabikau',
       email,
       password,
-      accessToken: 'Bear f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
+      accessToken: 'f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
     }));
   }),
-  rest.post('http://localhost:3000/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
+  rest.get('/api/apartments/popular/images', (req, res, ctx) => res(ctx.status(200), ctx.json(mockDataForPopularRooms))),
+  rest.get('/api/apartments/locations/most-apartments', (req, res, ctx) => res(ctx.json([
+    {
+      city: 'Los Angeles',
+      publicAddress: 'Los Angeles',
+      imageUrl: 'https://i.pinimg.com/564x/06/77/a7/0677a7a87420d91536f200d921694fb8.jpg',
+      count: 2229,
+    },
+    {
+      city: 'Miami',
+      publicAddress: 'Miami',
+      imageUrl: 'https://i.pinimg.com/564x/88/bb/cb/88bbcbf3579b880d81f7dcc969c89e44.jpg',
+      count: 1589,
+    },
+    {
+      city: 'San Francisco',
+      publicAddress: 'San Francisco',
+      imageUrl: 'https://i.pinimg.com/564x/23/84/66/238466913b4fdeb5eec4cd44b57307f2.jpg',
+      count: 1303,
+    },
+    {
+      city: 'Houston',
+      publicAddress: 'Houston',
+      imageUrl: 'https://i.pinimg.com/564x/14/7e/1d/147e1df9f7619e9e5d14398aaa7030ee.jpg',
+      count: 1254,
+    },
+    {
+      city: 'New York',
+      publicAddress: 'New York',
+      imageUrl: 'https://i.pinimg.com/564x/cc/30/74/cc30746029f69d8de4f88153e243888d.jpg',
+      count: 1184,
+    },
+  ]))),
+  rest.get('/api/apartments/search', (req, res, ctx) => {
+    const location = req.url.searchParams.get('location');
+    const apartments = [
+      {
+        id: 1,
+        location: 'Los Angeles',
+        name: 'BBBoy',
+      },
+      {
+        id: 2,
+        location: 'Los Angeles',
+        name: 'SSSb',
+      },
+      {
+        id: 3,
+        location: 'San Francisco',
+        name: 'Nuck',
+      },
+    ];
+    return res(ctx.json(apartments.filter((item) => item.location === location)));
+  }),
+  rest.get('/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
   rest.get('/api/search/location', (req, res, ctx) => res(ctx.status(200), ctx.json({
     title: 'test',
   }))),

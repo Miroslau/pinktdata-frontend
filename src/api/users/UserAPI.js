@@ -10,6 +10,6 @@ export default {
   },
 
   logOut() {
-    return httpClient.post('/auth/logout');
+    return httpClient.get('/auth/logout');
   },
 };

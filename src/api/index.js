@@ -7,10 +7,11 @@ const instanceAxios = axios.create({
 });
 
 export const setHttpToken = (token) => {
-  instanceAxios.interceptors.request.use((config) => {
-    config.headers.Authorization = token;
-    return config;
-  });
+  if (token) {
+    instanceAxios.defaults.headers.common.Authorization = `Bearer ${token}`;
+  } else {
+    delete instanceAxios.defaults.headers.common.Authorization;
+  }
 };
 
 export default instanceAxios;

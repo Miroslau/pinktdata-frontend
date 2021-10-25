@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import UserAPI from '../../api/users/UserAPI';
 
@@ -31,6 +32,7 @@ export const loginUser = createAsyncThunk(
     email, password,
   }, thunkAPI) => {
     try {
+      debugger;
       const response = await UserAPI.signIn({ email, password });
       const { data, status } = response;
       if (status !== 200) {

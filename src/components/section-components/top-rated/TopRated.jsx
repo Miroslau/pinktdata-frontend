@@ -8,8 +8,22 @@ export default function TopRated() {
   const [arrayOfPopularRooms, setArrayOfPopularRooms] = useState([]);
 
   useEffect(async () => {
-    const response = await popularRooms.popularRooms();
-    setArrayOfPopularRooms(response);
+    let cleanupFunction = false;
+    const getPopularRooms = async () => {
+      try {
+        const { data } = await popularRooms.popularRooms();
+        const rooms = data.map((room) => room);
+
+        if (!cleanupFunction) setArrayOfPopularRooms(rooms);
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+
+    getPopularRooms();
+
+    // eslint-disable-next-line no-return-assign
+    return () => cleanupFunction = true;
   }, []);
 
   return (
