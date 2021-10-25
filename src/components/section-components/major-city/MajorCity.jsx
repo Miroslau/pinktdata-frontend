@@ -43,7 +43,6 @@ const MajorCity = () => {
   }, []);
 
   const openMapPageWithCity = (city) => {
-    console.log('click in city: ', city);
     dispatch(setMajorCity(city));
     history.push(MAP_ROUTE);
   };
@@ -59,12 +58,11 @@ const MajorCity = () => {
           <div className="major-city-container__item major-city-container__item_left">
             {
               majorCities.map((city) => (
-                // eslint-disable-next-line max-len
-                // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
                 <div
                   key={city.id}
                   className="major-city-container__left"
                   onClick={() => openMapPageWithCity(city)}
+                  role="presentation"
                 >
                   <img className="major-city-container__img" src={city.imageUrl} alt={city.city} />
                   <h4 className="major-city-container__title">{city.city}</h4>
@@ -75,11 +73,10 @@ const MajorCity = () => {
           <div className="major-city-container__right">
             {
               majorCities.map((city) => (
-                // eslint-disable-next-line max-len
-                // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
                 <div
                   key={city.id}
                   onClick={() => openMapPageWithCity(city)}
+                  role="presentation"
                 >
                   <img
                     className="major-city-container__img

@@ -8,7 +8,7 @@ const instanceAxios = axios.create({
 
 export const setHttpToken = (token) => {
   if (token) {
-    instanceAxios.defaults.headers.common.Authorization = token;
+    instanceAxios.defaults.headers.common.Authorization = `Bearer ${token}`;
   } else {
     delete instanceAxios.defaults.headers.common.Authorization;
   }

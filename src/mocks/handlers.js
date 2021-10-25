@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { rest } from 'msw';
+import mockDataForPopularRooms from '../constants/mockDataForPopularRooms';
 
 export const handlers = [
   rest.post('/api/auth/registration', (req, res, ctx) => {
@@ -35,6 +36,7 @@ export const handlers = [
       accessToken: 'f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
     }));
   }),
+  rest.get('/api/apartments/popular/images', (req, res, ctx) => res(ctx.status(200), ctx.json(mockDataForPopularRooms))),
   rest.get('/api/apartments/locations/most-apartments', (req, res, ctx) => res(ctx.json([
     {
       city: 'Los Angeles',
@@ -67,7 +69,7 @@ export const handlers = [
       count: 1184,
     },
   ]))),
-  rest.post('/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
+  rest.get('/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
   rest.get('/api/search/location', (req, res, ctx) => res(ctx.status(200), ctx.json({
     title: 'test',
   }))),

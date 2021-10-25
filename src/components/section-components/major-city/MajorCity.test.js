@@ -1,10 +1,12 @@
 import '@testing-library/jest-dom';
 import { render } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { configureStore, createSlice, combineReducers } from '@reduxjs/toolkit';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, Router } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
 import MajorCity from './MajorCity';
 import { server } from '../../../mocks/server';
 
@@ -29,10 +31,10 @@ describe('MajorCity Component', () => {
     storage,
   };
 
-  const persistedReducer = persistReducer(persistConfig, majorCityReducer);
+  const persistedReducerCity = persistReducer(persistConfig, majorCityReducer);
 
   const reducers = combineReducers({
-    majorCity: persistedReducer,
+    majorCity: persistedReducerCity,
   });
 
   const rootReducer = (state, action) => reducers(state, action);
@@ -62,5 +64,16 @@ describe('MajorCity Component', () => {
     const { findByText } = render(<Provider store={store}><BrowserRouter><MajorCity /></BrowserRouter></Provider>);
     // eslint-disable-next-line no-undef
     expect(await findByText('Los Angeles')).toBeInTheDocument();
+  });
+
+  it('redirect to map page on click image major cities', async () => {
+    const history = createMemoryHistory();
+    // eslint-disable-next-line max-len
+    const { findAllByRole } = render(<Provider store={store}><BrowserRouter><Router history={history}><MajorCity /></Router></BrowserRouter></Provider>);
+    const image = await findAllByRole('presentation');
+
+    userEvent.click(image[0]);
+
+    expect(history.location.pathname).toBe('/map');
   });
 });
