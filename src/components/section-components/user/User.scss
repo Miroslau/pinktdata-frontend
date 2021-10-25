@@ -1,0 +1,35 @@
+@import '../../../sass/variables';
+
+.user {
+    position: relative;
+    display: grid;
+    align-items: center;
+    grid-template-columns: minmax(40px, 50px) auto;
+    cursor: pointer;
+
+    &-logo {
+        width: 38px;
+        height: 38px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &__image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            font-size: 38px;
+
+            &:before {
+                margin: 0;
+            }
+        }
+    }
+
+    &__name {
+        padding: 5px 5px;
+        background: $color-mercury;
+        border-radius: 5px;
+    }
+}
