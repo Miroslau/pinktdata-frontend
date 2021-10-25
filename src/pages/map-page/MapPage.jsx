@@ -14,11 +14,14 @@ const Map = () => {
   const classes = useStyles();
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
   const [alignment, setAlignment] = React.useState('all');
 
   const handleChange = (event, newAlignment) => {
     setAlignment(newAlignment);
   };
+=======
+>>>>>>> parent of 8216fe1 (feat: add marker on the map)
 =======
 >>>>>>> parent of 8216fe1 (feat: add marker on the map)
 =======
