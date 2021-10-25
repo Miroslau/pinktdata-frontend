@@ -5,11 +5,13 @@
 /.pnp
 .pnp.js
 /.idea
+/.env
 # testing
 /coverage
 
 # production
 /build
+/public/mockServiceWorker.js
 
 # misc
 .DS_Store
