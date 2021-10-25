@@ -1,0 +1,36 @@
+@import '../../../sass/variables';
+
+.main-screen {
+    background-image: url("../../../assets/mainBG.webp");
+    background-repeat: no-repeat;
+    background-size: 100% 100vh;
+    //width: 100vw;
+    height: 100vh;
+
+    h2 {
+        margin-top: 12rem;
+        font-size: 50px;
+        color: $color-white;
+        background-color: $color-titleBg;
+        width: 400px;
+        border-radius: 4px;
+
+        span {
+            display: block;
+            width: 530px;
+            background-color: $color-bg;
+            padding: 3px;
+            border-radius: 4px;
+        }
+    }
+    .button-seller {
+        margin-top: 2rem;
+    }
+}
+
+.btn-find {
+    background-color: $color-bg;
+    &:hover {
+        background-color: $color-hover;
+    }
+}
