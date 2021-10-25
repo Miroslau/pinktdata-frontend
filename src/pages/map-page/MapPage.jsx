@@ -11,7 +11,6 @@ import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { majorCitySelector } from '../../store/slice/majorCitySlice';
 import useStyles from '../../style/style';
-import Navigation from '../../components/section-components/main-screen/navigation/Navigation';
 import mapPageAPI from '../../api/map/mapPageAPI';
 
 const Map = () => {
@@ -41,7 +40,6 @@ const Map = () => {
 
   return (
     <div className="map-page">
-      <Navigation />
       <section className={classes.wrapper}>
         <div className={classes.mapContentWrapper}>
           <div className={classes.mapContent} />
