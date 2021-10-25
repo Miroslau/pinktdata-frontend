@@ -1,6 +1,4 @@
-import * as React from 'react';
-// import PropTypes from 'prop-types';
-// import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 
 import Divider from '@mui/material/Divider';
 import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
@@ -10,53 +8,51 @@ import Tabs from '../tabs/Tabs';
 import Card from '../card/Card';
 import { TEXT } from '../../../constants/map_page';
 import MapAPI from '../../../api/map/mapPageAPI';
-// import { getData } from '../../../store/slice/thunk';
-// import { mapPageActions } from '../../../store/slice/mapPageSlice';
 
 const Content = () => {
   const classes = useStyles();
-  const [apart, setApart] = React.useState([]);
 
-  // const dispatch = useDispatch();
-  // const allData = React.useCallback(() => {
-  //   dispatch(getData(mapPageActions.getAllData));
-  // }, [dispatch]);
+  const [apart, setApart] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
-  React.useEffect(() => {
-    MapAPI
-      .getAllData()
-      .then(({ data }) => setApart(data))
-      .catch((err) => console.error(err));
-  }, []);
+  useEffect(() => {
+    MapAPI.searchApartments('Philadelphia, PA, United States', currentPage)
+      .then((response) => {
+        setApart(response.data);
+        setCurrentPage((prevState) => prevState + 1);
+      })
+      .catch((e) => console.error(e));
 
   return (
     <div className={classes.mapContentWrapper}>
       <div className={classes.mapContent}>
-        <TypographyMui variant="h4" text={TEXT[0]} />
+        <TypographyMui
+          variant="h4"
+          text={`${TEXT.TITLE} ${'Philadelphia, PA, United States'}`}
+          className={classes.title}
+        />
         <Tabs />
-        <TypographyMui variant="subtitle1" text={TEXT[1]} />
+        <TypographyMui variant="h6" text={TEXT.SUBTITLE} />
       </div>
       <Divider />
-      {apart.map((data) => (
-        <Card
-          key={data._id}
-          id={data._id}
-          name={data.listing.name}
-          img={data.listing.pictureUrl}
-          rating={data.listing.avgRating}
-          reviews={data.listing.reviewsCount}
-          city={data.listing.city}
-          address={data.listing.publicAddress}
-          price={data.pricingQuote.priceString}
-        />
-      ))}
-
+      <div className={classes.mapWrapper}>
+        {apart.map((data) => (
+          <Card
+            key={data._id}
+            id={data._id}
+            name={data.name}
+            img={data.img}
+            rating={data.rating}
+            reviews={data.reviews}
+            city={data.city}
+            address={data.address}
+            price={data.price}
+            homeDetails={data.guestLabel}
+          />
+        ))}
+      </div>
     </div>
   );
 };
-
-// Content.propTypes = {
-//   apart: PropTypes.instanceOf(Array).isRequired,
-// };
 
 export default Content;
