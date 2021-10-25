@@ -7,15 +7,8 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
   },
   mapContentWrapper: {
-    height: '100vh',
-    width: '45.2vw',
+    width: '51.2vw',
     padding: '46px 0',
-    overflow: 'hidden',
-  },
-  mapWrapper: {
-    overflow: 'scroll',
-    overflowX: 'hidden',
-    transition: 'ease 0.5s',
   },
   mapContent: {
     padding: '0 40px',
@@ -40,6 +33,7 @@ const useStyles = makeStyles({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
   dialog: {
     display: 'grid',
@@ -51,17 +45,14 @@ const useStyles = makeStyles({
     flexDirection: 'row',
     justifyContent: 'space-between',
     columnGap: '1rem',
-    width: '505px',
   },
   dataRight: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    alignItems: 'center',
   },
   dataText: {
-    marginBottom: '32px',
-    columnGap: '10px',
+    marginBottom: '56px',
   },
   toggleButton: {
     borderLeft: '4px',
@@ -69,65 +60,9 @@ const useStyles = makeStyles({
     borderColor: 'black',
   },
   map: {
-    width: '53.8vw',
+    width: '48.8vw',
     height: '100vh',
   },
-  contentImg: {
-    width: '300px',
-    height: '300px',
-    marginBottom: '-90px',
-  },
-  img: {
-    objectFit: 'cover',
-    width: '100%',
-    maxHeight: '70%',
-    borderRadius: '10px',
-  },
-  city: {
-    color: 'grey',
-    paddingBottom: '10px',
-  },
-  address: {
-    color: 'grey',
-    padding: '10px 0 20px 0',
-    '&:hover': {
-      cursor: 'pointer',
-    },
-  },
-  available: {
-    padding: '10px 0',
-  },
-  rating: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  starIcon: {
-    color: '#FFD700',
-  },
-  reviews: {
-    color: 'grey',
-  },
-  price: {
-    fontSize: '1.3rem',
-    fontWeight: '600',
-    '&:hover': {
-      cursor: 'pointer',
-    },
-  },
-  heart: {
-    display: 'block',
-    '&:hover': {
-      cursor: 'pointer',
-    },
-  },
-  name: {
-    '&:hover': {
-      cursor: 'pointer',
-    },
-  },
-  // heartHover: {
-  //   display: 'none',
-  // },
 });
 
 export default useStyles;

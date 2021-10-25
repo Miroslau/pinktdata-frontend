@@ -5,9 +5,11 @@ import { LANDING_ROUTE } from '../../constants/routes';
 
 const AppRouter = () => (
   <Switch>
-    {publicRoutes.map(({ path, Component }) => (
-      <Route key={path} path={path} component={Component} exact />
-    ))}
+    {
+     publicRoutes.map(({ path, Component }) => (
+       <Route key={path} path={path} component={Component} exact />
+     ))
+    }
     <Redirect to={LANDING_ROUTE} />
   </Switch>
 );

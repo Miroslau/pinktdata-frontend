@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -6,7 +5,7 @@ import ModalWindowMui from '../../../ui-components/modal-window-mui/ModalWindowM
 import { authorizationLocalization } from '../../../../constants/authorizationLocalization';
 import Authorization from '../../../authorization/Authorization';
 import User from '../../user/User';
-import useStyles from '../../../../style/mapStyle';
+import useStyles from '../../../../style/style';
 import { LANDING_ROUTE } from '../../../../constants/routes';
 import {
   clearState, userSelector,
