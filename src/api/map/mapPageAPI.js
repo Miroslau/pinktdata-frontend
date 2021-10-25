@@ -1,10 +1,10 @@
 import httpClient from '../index';
 
 export default {
-  searchApartments(location, page, limit = 999) {
-    return httpClient.get('/api/apartments/search', { params: { location, page, limit } });
+  searchApartments(location, page = 1, limit = 999) {
+    return httpClient.get('apartments/search', { params: { location, page, limit } });
   },
   renderOnTheMap() {
-    return httpClient.get('/api/apartments/renderOnTheMap');
+    return httpClient.get('apartments/renderOnTheMap');
   },
 };
