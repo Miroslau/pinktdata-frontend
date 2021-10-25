@@ -21,7 +21,7 @@ const Content = () => {
         setApart(response.data);
         setCurrentPage((prevState) => prevState + 1);
       })
-      .catch((e) => console.error(e.response.data));
+      .catch((e) => console.error(e));
   }, []);
 
   return (
