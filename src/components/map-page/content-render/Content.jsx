@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import Divider from '@mui/material/Divider';
 import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
-import useStyles from '../../../style/mapStyle';
+import useStyles from '../../../style/style';
 
 import Tabs from '../tabs/Tabs';
 import Card from '../card/Card';
