@@ -4,12 +4,13 @@ import { BrowserRouter } from 'react-router-dom';
 import React from 'react';
 import httpClient from '../index';
 import RoomPage from '../../pages/room-page/RoomPage';
+import mockDataForPreviewPage from '../../mocks/mocks-constants/mockDataForPreviewPage';
 
 jest.mock('../index.js');
 
 describe('getRoomById function', () => {
-  test('should return text when data not passed', async () => {
-    httpClient.get.mockImplementationOnce(() => Promise.resolve({ data: null }));
+  test('should return skeleton when data loading', () => {
+    httpClient.get.mockImplementationOnce(() => Promise.resolve({ data: mockDataForPreviewPage }));
 
     render((
       <BrowserRouter>
@@ -17,7 +18,7 @@ describe('getRoomById function', () => {
       </BrowserRouter>
     ));
 
-    screen.debug();
-    expect(await screen.findByText(/Data loading.../i)).toBeTruthy();
+    const text = screen.getByTestId(/Skeleton/i);
+    expect(text).toBeInTheDocument();
   });
 });

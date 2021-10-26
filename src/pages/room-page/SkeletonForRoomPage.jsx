@@ -3,9 +3,11 @@ import Skeleton from '@mui/material/Skeleton';
 import Box from '@mui/material/Box';
 
 const SkeletonForRoomPage = () => (
-  <Box sx={{
-    display: 'flex', justifyContent: 'space-between', width: '1400px', margin: '2rem auto',
-  }}
+  <Box
+    data-testid="Skeleton"
+    sx={{
+      display: 'flex', justifyContent: 'space-between', width: '1400px', margin: '2rem auto',
+    }}
   >
     <Skeleton
       variant="rectangular"

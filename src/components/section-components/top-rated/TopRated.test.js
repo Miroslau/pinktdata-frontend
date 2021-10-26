@@ -1,5 +1,8 @@
 import '@testing-library/jest-dom';
-import { findByText, render } from '@testing-library/react';
+import {
+  findByText, getByTestId, render, screen,
+} from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import TopRated from './TopRated';
 
 describe('TopRated component', () => {
@@ -7,7 +10,11 @@ describe('TopRated component', () => {
   // eslint-disable-next-line no-unused-vars
   let container;
   beforeEach(() => {
-    const { container: currentContainer, unmount: currentUnmount } = render(<TopRated />);
+    const { container: currentContainer, unmount: currentUnmount } = render(
+      <BrowserRouter>
+        <TopRated />
+      </BrowserRouter>,
+    );
     container = currentContainer;
     unmount = currentUnmount;
   });
@@ -19,8 +26,8 @@ describe('TopRated component', () => {
     expect(text).toBeInTheDocument();
   });
 
-  test('should have the text "Rooms loading" when images loading', async () => {
-    const text = await findByText(container, 'Rooms loading...');
+  test('should have the loading skeleton when images loading', () => {
+    const text = getByTestId(container, 'Skeleton');
     expect(text).toBeInTheDocument();
   });
 });
