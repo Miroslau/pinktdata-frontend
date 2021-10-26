@@ -1,26 +1,31 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { roomContext } from '../../store/context/roomContext';
 import Navigation from '../../components/section-components/main-screen/navigation/Navigation';
 import './RoomPage.scss';
 import RoomMain from '../../components/section-components/room-main/RoomMain';
 import getRoom from '../../api/get-room-by-id/getRoomById';
-import { roomContext } from '../../store/context/roomContext';
-import roomPreviewLocalization from '../../constants/roomPreviewLocalization';
+import SkeletonForRoomPage from './SkeletonForRoomPage';
+import AlertError from '../../components/ui-components/alert-error/AlertError';
 
 const RoomPage = () => {
   const { id } = useParams();
-  const [roomData, setRoomData] = useState();
+  const [roomData, setRoomData] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(async () => {
     let cleanupFunction = false;
     const fetchRoom = async () => {
+      setIsLoading(true);
       try {
         const { data } = await getRoom.getRoomById(id);
 
         if (!cleanupFunction) setRoomData(data);
       } catch (err) {
-        console.error(err.message);
+        setError(err.message);
       }
+      setIsLoading(false);
     };
 
     fetchRoom();
@@ -29,17 +34,17 @@ const RoomPage = () => {
     return () => cleanupFunction = true;
   }, []);
 
-  if (!roomData) {
-    return <h1>{roomPreviewLocalization.dataLoading}</h1>;
-  }
+  if (error) return <AlertError />;
 
   return (
     <roomContext.Provider value={roomData}>
       <div className="room">
         <Navigation className="room-component" />
-        <RoomMain />
+        {isLoading && <SkeletonForRoomPage />}
+        {!isLoading && <RoomMain />}
       </div>
     </roomContext.Provider>
+
   );
 };
 export default RoomPage;

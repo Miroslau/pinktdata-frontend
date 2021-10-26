@@ -42,7 +42,7 @@ export const handlers = [
     title: 'test',
   }))),
 
-  rest.get('/api/apartments/popular/images', (req, res, ctx) => res(ctx.status(200), ctx.json(mockDataForPopularRooms))),
+  rest.get('/api/apartments/popular/images', (req, res, ctx) => setTimeout(() => res(ctx.status(200), ctx.json(mockDataForPopularRooms)), 1500)),
 
-  rest.get('/api/apartments/:id', (req, res, ctx) => res(ctx.status(200), ctx.json(mockDataForPreviewPage))),
+  rest.get('/api/apartments/:id', (req, res, ctx) => setTimeout(() => res(ctx.status(200), ctx.json(mockDataForPreviewPage)), 1500)),
 ];
