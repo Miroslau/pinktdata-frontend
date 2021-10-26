@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import {
-  MapContainer, TileLayer, CircleMarker, Popup, Tooltip,
+  MapContainer, TileLayer, CircleMarker, Popup, Tooltip, useMap,
 } from 'react-leaflet';
-
-import { get } from 'lodash';
+import { useSelector } from 'react-redux';
+import { apartmentSelector } from '../../../store/slice/apartmentSlice';
 
 import MapAPI from '../../../api/map/mapPageAPI';
 
@@ -15,18 +15,28 @@ const MapRender = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const [location, setLocation] = useState([39.94977, -75.28529]);
 
+  const { publicAddress } = useSelector(apartmentSelector);
+
   useEffect(() => {
     MapAPI
-      .searchApartments('Philadelphia, PA, United States', currentPage)
+      .searchApartments(publicAddress, currentPage)
       .then(({ data }) => {
+        console.log('data: ', data);
+        if (data.length) {
+          setLocation([data[0].location.lat, data[0].location.lon]);
+        }
         setApart(data);
         setCurrentPage((prevState) => prevState + 1);
-        const currApart = data.find((item) => item.address === 'Philadelphia, PA, United States');
-        const locationApart = get(currApart, 'location', {});
-        setLocation(locationApart);
       })
       .catch((err) => console.error(err));
   }, []);
+
+  const SetViewOnFetch = ({ coords }) => {
+    const map = useMap();
+    map.setView(coords, map.getZoom());
+
+    return null;
+  };
 
   return (
     <div className={classes.map}>
@@ -62,6 +72,7 @@ const MapRender = () => {
             </Popup>
           </CircleMarker>
         ))}
+        <SetViewOnFetch coords={location} />
       </MapContainer>
     </div>
   );

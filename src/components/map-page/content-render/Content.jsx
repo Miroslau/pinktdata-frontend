@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-
+import { useSelector } from 'react-redux';
 import Divider from '@mui/material/Divider';
+import { apartmentSelector } from '../../../store/slice/apartmentSlice';
 import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
 import useStyles from '../../../style/style';
-
 import Tabs from '../tabs/Tabs';
 import Card from '../card/Card';
 import { TEXT } from '../../../constants/map_page';
@@ -15,8 +15,10 @@ const Content = () => {
   const [apart, setApart] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
+  const { publicAddress, count } = useSelector(apartmentSelector);
+
   useEffect(() => {
-    MapAPI.searchApartments('Los Angeles', currentPage)
+    MapAPI.searchApartments(publicAddress, currentPage)
       .then((response) => {
         setApart(response.data);
         setCurrentPage((prevState) => prevState + 1);
@@ -29,11 +31,11 @@ const Content = () => {
       <div className={classes.mapContent}>
         <TypographyMui
           variant="h4"
-          text={`${TEXT.TITLE} ${'Philadelphia, PA, United States'}`}
+          text={`${TEXT.TITLE} ${publicAddress}`}
           className={classes.title}
         />
         <Tabs />
-        <TypographyMui variant="h6" text={TEXT.SUBTITLE} />
+        <TypographyMui variant="h6" text={`${TEXT.SUBTITLE} ${count} ${TEXT.STAYS}`} />
       </div>
       <Divider />
       <div className={classes.mapWrapper}>
