@@ -14,27 +14,25 @@ import { server } from '../../../mocks/server';
 describe('MajorCity Component', () => {
   process.env.REACT_APP_IS_MOCKING = true;
 
-  const majorCitySlice = createSlice({
-    name: 'majorCity',
+  const apartmentSlice = createSlice({
+    name: 'apartment',
     initialState: {
-      city: '',
       publicAddress: '',
-      imageUrl: '',
       count: 0,
     },
   });
 
-  const majorCityReducer = majorCitySlice.reducer;
+  const apartmentReducer = apartmentSlice.reducer;
 
   const persistConfig = {
     key: 'root',
     storage,
   };
 
-  const persistedReducerCity = persistReducer(persistConfig, majorCityReducer);
+  const persistedApartmentReducer = persistReducer(persistConfig, apartmentReducer);
 
   const reducers = combineReducers({
-    majorCity: persistedReducerCity,
+    apartment: persistedApartmentReducer,
   });
 
   const rootReducer = (state, action) => reducers(state, action);
@@ -63,7 +61,7 @@ describe('MajorCity Component', () => {
     // eslint-disable-next-line react/react-in-jsx-scope,max-len
     const { findByText } = render(<Provider store={store}><BrowserRouter><MajorCity /></BrowserRouter></Provider>);
     // eslint-disable-next-line no-undef
-    expect(await findByText('Los Angeles')).toBeInTheDocument();
+    expect(await findByText('Philadelphia')).toBeInTheDocument();
   });
 
   it('redirect to map page on click image major cities', async () => {
