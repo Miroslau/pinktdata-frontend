@@ -45,6 +45,7 @@ const Card = (props) => {
           <div className={classes.dataRight}>
             <div className={classes.heart}><FavoriteBorderIcon htmlColor="pink" /></div>
             <div className={classes.price}>{price}</div>
+          </div>
           <div className={classes.contentImg}>{img}</div>
           <div className={classes.contentData}>
             <div className={classes.dataLeft}>
@@ -52,7 +53,7 @@ const Card = (props) => {
                 <TypographyMui text={city} />
                 <TypographyMui variant="subtitle2" text={name} />
                 <TypographyMui color="green" text={DATA[3]} />
-                <TypographyMui text={`${DATA[4]}.${address}`} />
+                <TypographyMui text={`${homeDetails}.${address}`} />
               </div>
               <div>
                 {rating}
