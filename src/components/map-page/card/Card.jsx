@@ -1,41 +1,50 @@
-import * as React from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import Divider from '@mui/material/Divider';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import PropTypes from 'prop-types';
-// import { nanoid } from '@reduxjs/toolkit';
+import StarIcon from '@mui/icons-material/Star';
 import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
-import useStyles from '../../../style/mapStyle';
+import useStyles from '../../../style/style';
 
 import { DATA } from '../../../constants/map_page';
 
-// import { mapPageActions } from '../../../store/slice/mapPageSlice';
-
-// const Card = ({ apart }) => (
-//   <div>
-//     {apart.map((data) => (
-//       <div key={data._id}>
-//         <div>{data.listing.avgRating}</div>
-//       </div>
-//     ))}
-//   </div>
-// );
-
-// Card.propTypes = {
-//   apart: PropTypes.instanceOf(Array).isRequired,
-// };
-// export default Card;
-
 const Card = (props) => {
   const classes = useStyles();
+
   const {
-    name, img, rating, reviews, city, address, price,
+    name, rating, img, reviews, city, address, price, homeDetails,
   } = props;
 
   return (
     <>
       <div className={classes.mapContent}>
         <div className={classes.content}>
+          <div className={classes.contentImg}>
+            <img className={classes.img} src={img} alt={name} />
+          </div>
+          <div className={classes.contentData}>
+            <div className={classes.dataLeft}>
+              <div className={classes.dataText}>
+                <TypographyMui text={city} className={classes.city} />
+                <TypographyMui variant="h5" className={classes.name} text={name} />
+                <TypographyMui color="#32CD32" text={DATA[0]} className={classes.available} />
+                <TypographyMui text={`${homeDetails}.${address}`} className={classes.address} />
+              </div>
+              <div className={classes.rating}>
+                <StarIcon className={classes.starIcon} />
+                {rating}
+                <div className={classes.reviews}>
+                  (
+                  {reviews}
+                  )
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className={classes.dataRight}>
+            <div className={classes.heart}><FavoriteBorderIcon htmlColor="pink" /></div>
+            <div className={classes.price}>{price}</div>
           <div className={classes.contentImg}>{img}</div>
           <div className={classes.contentData}>
             <div className={classes.dataLeft}>
@@ -64,14 +73,26 @@ const Card = (props) => {
   );
 };
 
+Card.defaultProps = {
+  rating: '',
+  name: '',
+  img: '',
+  reviews: '',
+  price: '',
+  city: '',
+  address: '',
+  homeDetails: '',
+};
+
 Card.propTypes = {
-  name: PropTypes.string.isRequired,
-  img: PropTypes.string.isRequired,
-  rating: PropTypes.string.isRequired,
-  reviews: PropTypes.string.isRequired,
-  city: PropTypes.string.isRequired,
-  address: PropTypes.string.isRequired,
-  price: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  img: PropTypes.string,
+  rating: PropTypes.number,
+  reviews: PropTypes.number,
+  price: PropTypes.string,
+  city: PropTypes.string,
+  address: PropTypes.string,
+  homeDetails: PropTypes.string,
 };
 
 export default Card;
