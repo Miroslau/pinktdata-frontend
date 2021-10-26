@@ -42,7 +42,7 @@ const MapRender = () => {
     <div className={classes.map}>
       <MapContainer
         center={location}
-        zoom={18}
+        zoom={11}
         scrollWheelZoom
       >
         <TileLayer
