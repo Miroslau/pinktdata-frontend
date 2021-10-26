@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
+import {
+  useEffect, useState,
+} from 'react';
 import {
   MapContainer, TileLayer, CircleMarker, Popup, Tooltip, useMap,
 } from 'react-leaflet';
 import { useSelector } from 'react-redux';
 import { apartmentSelector } from '../../../store/slice/apartmentSlice';
+import useMountedState from '../../../hooks/useMountedState';
 
 import MapAPI from '../../../api/map/mapPageAPI';
 
@@ -14,6 +17,7 @@ const MapRender = () => {
   const [apart, setApart] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [location, setLocation] = useState([39.94977, -75.28529]);
+  const isMounted = useMountedState();
 
   const { publicAddress } = useSelector(apartmentSelector);
 
@@ -21,15 +25,14 @@ const MapRender = () => {
     MapAPI
       .searchApartments(publicAddress, currentPage)
       .then(({ data }) => {
-        console.log('data: ', data);
-        if (data.length) {
-          setLocation([data[0].location.lat, data[0].location.lon]);
+        if (isMounted()) {
+          if (data.length) setLocation([data[0].location.lat, data[0].location.lon]);
+          setApart(data);
+          setCurrentPage((prevState) => prevState + 1);
         }
-        setApart(data);
-        setCurrentPage((prevState) => prevState + 1);
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [isMounted]);
 
   const SetViewOnFetch = ({ coords }) => {
     const map = useMap();

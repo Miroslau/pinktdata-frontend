@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { setApartment } from '../../../store/slice/apartmentSlice';
 import majorCitiesAPI from '../../../api/major-cities/majorCitiesAPI';
+import useMountedState from '../../../hooks/useMountedState';
 
 import {
   TITLE_MAJORCITY, BTN_MAJORCITY,
@@ -18,29 +19,23 @@ const MajorCity = () => {
   const dispatch = useDispatch();
   const [majorCities, setMajorCities] = useState([]);
   const history = useHistory();
+  const isMounted = useMountedState();
 
   useEffect(() => {
-    let cleanupFunction = false;
-    const getMajorCities = async () => {
-      try {
-        const response = await majorCitiesAPI.getMajorCities();
-        const { data } = response;
-        const cities = data.map((city) => {
-          city.id = uniqueId(PREFIX);
-          return city;
-        });
-
-        if (!cleanupFunction) setMajorCities(cities);
-      } catch (err) {
+    majorCitiesAPI.getMajorCities()
+      .then(({ data }) => {
+        if (isMounted()) {
+          const cities = data.map((city) => {
+            city.id = uniqueId(PREFIX);
+            return city;
+          });
+          setMajorCities(cities);
+        }
+      })
+      .catch((err) => {
         console.error(err.message);
-      }
-    };
-
-    getMajorCities();
-
-    // eslint-disable-next-line no-return-assign
-    return () => cleanupFunction = true;
-  }, []);
+      });
+  }, [isMounted]);
 
   const openMapPageWithCity = (city) => {
     dispatch(setApartment(city));
