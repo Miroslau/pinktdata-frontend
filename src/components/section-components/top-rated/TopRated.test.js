@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import {
-  findByText, getByTestId, render, screen,
+  findByText, getByTestId, render,
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import TopRated from './TopRated';

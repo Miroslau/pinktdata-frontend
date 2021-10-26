@@ -6,7 +6,7 @@ const SkeletonForRoomPage = () => (
   <Box
     data-testid="Skeleton"
     sx={{
-      display: 'flex', justifyContent: 'space-between', width: '1400px', margin: '2rem auto',
+      display: 'flex', justifyContent: 'space-between', width: '1400px', margin: '0 auto', paddingTop: '8rem',
     }}
   >
     <Skeleton

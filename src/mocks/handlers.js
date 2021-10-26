@@ -2,6 +2,7 @@
 import { rest } from 'msw';
 import mockDataForPreviewPage from './mocks-constants/mockDataForPreviewPage';
 import mockDataForPopularRooms from './mocks-constants/mockDataForPopularRooms';
+import mockDataApartments from './mocks-constants/mockDataApartments';
 
 export const handlers = [
   rest.post('/api/auth/registration', (req, res, ctx) => {
