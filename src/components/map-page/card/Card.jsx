@@ -90,9 +90,9 @@ Card.propTypes = {
   img: PropTypes.string,
   rating: PropTypes.number,
   reviews: PropTypes.number,
-  price: PropTypes.string,
   city: PropTypes.string,
   address: PropTypes.string,
+  price: PropTypes.string,
   homeDetails: PropTypes.string,
 };
 

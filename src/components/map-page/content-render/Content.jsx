@@ -16,13 +16,13 @@ const Content = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
-    MapAPI.searchApartments('Philadelphia, PA, United States', currentPage)
+    MapAPI.searchApartments('Los Angeles', currentPage)
       .then((response) => {
         setApart(response.data);
         setCurrentPage((prevState) => prevState + 1);
       })
       .catch((e) => console.error(e));
-  });
+  }, []);
 
   return (
     <div className={classes.mapContentWrapper}>
