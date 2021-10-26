@@ -20,7 +20,7 @@ import useStyles from './MainSearch.style';
 const MainSearch = () => {
   const [personName, setPersonName] = React.useState([]);
   const [bedroomData, setBedroomData] = React.useState([]);
-  const handleChange = (event) => {
+  const handleBedroomChange = (event) => {
     const {
       target: { value },
     } = event;
@@ -93,13 +93,13 @@ const MainSearch = () => {
       <FormControl className={classes.bedroom}>
         <div>
           <FormControl sx={{ m: 1, width: 300 }}>
-            <InputLabel id="input-search-bedrooms">Label placement</InputLabel>
+            <InputLabel id="input-search-bedrooms">{TEXT.MAIN_SEARCH.LABEL_PLACEMENT}</InputLabel>
             <Select
               labelId="multiple-search-bedrooms"
               id="search-bedrooms"
               multiple
               value={personName}
-              onChange={handleChange}
+              onChange={handleBedroomChange}
               input={<OutlinedInput label="Name" />}
               MenuProps={{
                 classes: {
