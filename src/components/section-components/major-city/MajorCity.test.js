@@ -61,7 +61,7 @@ describe('MajorCity Component', () => {
     // eslint-disable-next-line react/react-in-jsx-scope,max-len
     const { findByText } = render(<Provider store={store}><BrowserRouter><MajorCity /></BrowserRouter></Provider>);
     // eslint-disable-next-line no-undef
-    expect(await findByText('Los Angeles')).toBeInTheDocument();
+    expect(await findByText('Philadelphia')).toBeInTheDocument();
   });
 
   it('redirect to map page on click image major cities', async () => {
