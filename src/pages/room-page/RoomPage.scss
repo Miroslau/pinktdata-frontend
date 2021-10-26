@@ -61,8 +61,10 @@
     .slider-image {
       object-fit: cover;
       border-radius: .3rem;
-      height: 8rem;
-      width: 11rem;
+      max-height: 8rem;
+      max-width: 11rem;
+      width: 100%;
+      height: 100%;
     }
 
     .splide__arrow--prev {
