@@ -38,7 +38,6 @@ export const handlers = [
     }));
   }),
   rest.post('/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
-  rest.get('/api/apartments/popular/images', (req, res, ctx) => res(ctx.status(200), ctx.json(mockDataForPopularRooms))),
   rest.get('/api/apartments/locations/most-apartments', (req, res, ctx) => res(ctx.json([
     {
       city: 'Los Angeles',

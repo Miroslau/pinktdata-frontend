@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { roomContext } from '../../store/context/roomContext';
-import Navigation from '../../components/section-components/main-screen/navigation/Navigation';
 import './RoomPage.scss';
 import RoomMain from '../../components/section-components/room-main/RoomMain';
 import getRoom from '../../api/get-room-by-id/getRoomById';
@@ -39,7 +38,6 @@ const RoomPage = () => {
   return (
     <roomContext.Provider value={roomData}>
       <div className="room">
-        <Navigation className="room-component" />
         {isLoading && <SkeletonForRoomPage />}
         {!isLoading && <RoomMain />}
       </div>
