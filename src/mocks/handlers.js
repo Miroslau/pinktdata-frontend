@@ -63,7 +63,7 @@ export const handlers = [
       images,
     }));
   }),
-  rest.get('/api/apartments/bedrooms-list', (req, res, ctx) => {
+  rest.get('/api/bedrooms', (req, res, ctx) => {
     const bedroom = [
       {
         type: 'One bedroom',
