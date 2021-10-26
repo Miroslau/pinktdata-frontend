@@ -4,7 +4,7 @@ import Navigation from './navigation/Navigation';
 import './MainScreen.scss';
 import MainSearch from './main-search/MainSearch';
 import { TITLE_MAINSCREEN, TITLE_SPAN_MAINSCREEN, BTN_MAINSCREEN } from '../../../constants/mainPageConst';
-import { clearState } from '../../../store/slice/majorCitySlice';
+import { clearState } from '../../../store/slice/apartmentSlice';
 
 export default function MainScreen() {
   const dispatch = useDispatch();

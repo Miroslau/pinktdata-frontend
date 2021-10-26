@@ -1,6 +1,7 @@
 export const TEXT = {
   TITLE: 'Apartments in',
-  SUBTITLE: 'Explore all 300+ stays',
+  SUBTITLE: 'Explore all',
+  STAYS: 'stays',
 };
 
 export const TABS = [

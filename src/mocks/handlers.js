@@ -72,24 +72,8 @@ export const handlers = [
   ]))),
   rest.get('/api/apartments/search', (req, res, ctx) => {
     const location = req.url.searchParams.get('location');
-    const apartments = [
-      {
-        id: 1,
-        location: 'Los Angeles',
-        name: 'BBBoy',
-      },
-      {
-        id: 2,
-        location: 'Los Angeles',
-        name: 'SSSb',
-      },
-      {
-        id: 3,
-        location: 'San Francisco',
-        name: 'Nuck',
-      },
-    ];
-    return res(ctx.json(apartments.filter((item) => item.location === location)));
+    // eslint-disable-next-line max-len
+    return res(ctx.delay(), ctx.status(200), ctx.json(mockDataApartments.filter((item) => item.address === location)));
   }),
 
   rest.get('/api/apartments/popular/images', (req, res, ctx) => setTimeout(() => res(ctx.status(200), ctx.json(mockDataForPopularRooms)), 1500)),

@@ -1,9 +1,12 @@
-import { useEffect, useState } from 'react';
 import {
-  MapContainer, TileLayer, CircleMarker, Popup, Tooltip,
+  useEffect, useState,
+} from 'react';
+import {
+  MapContainer, TileLayer, CircleMarker, Popup, Tooltip, useMap,
 } from 'react-leaflet';
-
-import { get } from 'lodash';
+import { useSelector } from 'react-redux';
+import { apartmentSelector } from '../../../store/slice/apartmentSlice';
+import useMountedState from '../../../hooks/useMountedState';
 
 import MapAPI from '../../../api/map/mapPageAPI';
 
@@ -14,25 +17,35 @@ const MapRender = () => {
   const [apart, setApart] = useState([]);
   const [currentPage, setCurrentPage] = useState(0);
   const [location, setLocation] = useState([39.94977, -75.28529]);
+  const isMounted = useMountedState();
+
+  const { publicAddress } = useSelector(apartmentSelector);
 
   useEffect(() => {
     MapAPI
-      .searchApartments('Philadelphia, PA, United States', currentPage)
+      .searchApartments(publicAddress, currentPage)
       .then(({ data }) => {
-        setApart(data);
-        setCurrentPage((prevState) => prevState + 1);
-        const currApart = data.find((item) => item.address === 'Philadelphia, PA, United States');
-        const locationApart = get(currApart, 'location', {});
-        setLocation(locationApart);
+        if (isMounted()) {
+          if (data.length) setLocation([data[0].location.lat, data[0].location.lon]);
+          setApart(data);
+          setCurrentPage((prevState) => prevState + 1);
+        }
       })
       .catch((err) => console.error(err));
-  }, []);
+  }, [isMounted]);
+
+  const SetViewOnFetch = ({ coords }) => {
+    const map = useMap();
+    map.setView(coords, map.getZoom());
+
+    return null;
+  };
 
   return (
     <div className={classes.map}>
       <MapContainer
         center={location}
-        zoom={18}
+        zoom={11}
         scrollWheelZoom
       >
         <TileLayer
@@ -62,6 +75,7 @@ const MapRender = () => {
             </Popup>
           </CircleMarker>
         ))}
+        <SetViewOnFetch coords={location} />
       </MapContainer>
     </div>
   );
