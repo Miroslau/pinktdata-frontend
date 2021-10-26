@@ -14,27 +14,25 @@ import { server } from '../../../mocks/server';
 describe('MajorCity Component', () => {
   process.env.REACT_APP_IS_MOCKING = true;
 
-  const majorCitySlice = createSlice({
-    name: 'majorCity',
+  const apartmentSlice = createSlice({
+    name: 'apartment',
     initialState: {
-      city: '',
       publicAddress: '',
-      imageUrl: '',
       count: 0,
     },
   });
 
-  const majorCityReducer = majorCitySlice.reducer;
+  const apartmentReducer = apartmentSlice.reducer;
 
   const persistConfig = {
     key: 'root',
     storage,
   };
 
-  const persistedReducerCity = persistReducer(persistConfig, majorCityReducer);
+  const persistedApartmentReducer = persistReducer(persistConfig, apartmentReducer);
 
   const reducers = combineReducers({
-    majorCity: persistedReducerCity,
+    apartment: persistedApartmentReducer,
   });
 
   const rootReducer = (state, action) => reducers(state, action);
