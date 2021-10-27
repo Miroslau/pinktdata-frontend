@@ -2,8 +2,11 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   wrapper: {
+    position: 'relative',
+    zIndex: 2,
     display: 'flex',
     flexDirection: 'row',
+    paddingTop: '90px',
     justifyContent: 'space-between',
   },
   mapContentWrapper: {
