@@ -50,7 +50,7 @@ describe('Navigation Component', () => {
   });
 
   // eslint-disable-next-line no-undef
-  it('it opens modal on click button Sign In', async () => {
+  it('opens modal on click button Sign In', async () => {
     // eslint-disable-next-line react/react-in-jsx-scope,max-len
     render(<Provider store={store}><BrowserRouter><Navigation /></BrowserRouter></Provider>);
     const button = screen.getByText('Sign in');

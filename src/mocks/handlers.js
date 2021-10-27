@@ -1,8 +1,11 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { rest } from 'msw';
+import mockDataForPopularRooms from './mocks-constants/mockDataForPopularRooms';
+import mockDataMajorCities from './mocks-constants/mockDataMajorCities';
+import mockDataApartments from './mocks-constants/mockDataApartments';
 
 export const handlers = [
-  rest.post('http://localhost:3000/api/auth/registration', (req, res, ctx) => {
+  rest.post('/api/auth/registration', (req, res, ctx) => {
     const {
       firstName, lastName, email, password,
     } = req.body;
@@ -12,10 +15,10 @@ export const handlers = [
       lastName,
       email,
       password,
-      accessToken: 'Bear f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
+      accessToken: 'f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
     }));
   }),
-  rest.post('http://localhost:3000/api/auth/login', (req, res, ctx) => {
+  rest.post('/api/auth/login', (req, res, ctx) => {
     const {
       email, password,
     } = req.body;
@@ -32,10 +35,17 @@ export const handlers = [
       lastName: 'Rabikau',
       email,
       password,
-      accessToken: 'Bear f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
+      accessToken: 'f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
     }));
   }),
-  rest.post('http://localhost:3000/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
+  rest.get('/api/apartments/popular/images', (req, res, ctx) => res(ctx.status(200), ctx.json(mockDataForPopularRooms))),
+  rest.get('/api/apartments/locations/most-apartments', (req, res, ctx) => res(ctx.delay(), ctx.status(200), ctx.json(mockDataMajorCities))),
+  rest.get('/api/apartments/search', (req, res, ctx) => {
+    const location = req.url.searchParams.get('location');
+    // eslint-disable-next-line max-len
+    return res(ctx.delay(), ctx.status(200), ctx.json(mockDataApartments.filter((item) => item.address === location)));
+  }),
+  rest.get('/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
   rest.get('/api/search/location', (req, res, ctx) => res(ctx.status(200), ctx.json({
     title: 'test',
   }))),
