@@ -41,8 +41,8 @@ export const handlers = [
   rest.post('/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
   rest.get('/api/apartments/locations/most-apartments', (req, res, ctx) => res(ctx.json([
     {
-      city: 'Los Angeles',
-      publicAddress: 'Los Angeles',
+      city: 'Philadelphia',
+      publicAddress: 'Philadelphia',
       imageUrl: 'https://i.pinimg.com/564x/06/77/a7/0677a7a87420d91536f200d921694fb8.jpg',
       count: 2229,
     },
@@ -77,7 +77,7 @@ export const handlers = [
     return res(ctx.delay(), ctx.status(200), ctx.json(mockDataApartments.filter((item) => item.address === location)));
   }),
 
-  rest.get('/api/apartments/popular/images', (req, res, ctx) => setTimeout(() => res(ctx.status(200), ctx.json(mockDataForPopularRooms)), 1500)),
+  rest.get('/api/apartments/popular/images', (req, res, ctx) => res(ctx.delay(1500), ctx.status(200), ctx.json(mockDataForPopularRooms))),
 
-  rest.get('/api/apartments/:id', (req, res, ctx) => setTimeout(() => res(ctx.status(200), ctx.json(mockDataForPreviewPage)), 1500)),
+  rest.get('/api/apartments/:id', (req, res, ctx) => res(ctx.delay(1500), ctx.status(200), ctx.json(mockDataForPreviewPage))),
 ];
