@@ -34,6 +34,7 @@ const images = [
 ];
 
 const data = {
+  id: '123',
   img: 'https://media-cdn.tripadvisor.com/media/photo-s/16/45/16/dd/the-mood-luxury-rooms.jpg',
   images,
   name: 'test name for room',
