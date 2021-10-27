@@ -13,13 +13,11 @@ export default function TopRated() {
 
   useEffect(async () => {
     let cleanupFunction = false;
-    setIsLoading(true);
     try {
       const { data } = await popularRooms.popularRooms();
 
       if (!cleanupFunction) setArrayOfPopularRooms(data);
     } catch (err) {
-      console.error(err.message);
       setError(err.message);
     }
 

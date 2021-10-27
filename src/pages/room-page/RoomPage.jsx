@@ -15,7 +15,7 @@ const RoomPage = () => {
 
   useEffect(async () => {
     let cleanupFunction = false;
-    setIsLoading(true);
+    setError(null);
     try {
       const { data } = await getRoom.getRoomById(id);
 

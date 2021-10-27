@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import {
-  findByText, getByTestId, render,
+  findByText, getByTestId, render, waitFor,
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import TopRated from './TopRated';
@@ -21,13 +21,16 @@ describe('TopRated component', () => {
   afterEach(() => {
     unmount();
   });
-  test('should have the text "Top Rated"', async () => {
-    const text = await findByText(container, 'Top Rated');
-    expect(text).toBeInTheDocument();
-  });
 
   test('should have the loading skeleton when images loading', () => {
     const text = getByTestId(container, 'Skeleton');
-    expect(text).toBeInTheDocument();
+    expect(text).toBeTruthy();
+  });
+
+  test('should have the text "Top Rated"', async () => {
+    await waitFor(() => {
+      const text = findByText(container, 'Top Rated');
+      expect(text).toBeTruthy();
+    });
   });
 });
