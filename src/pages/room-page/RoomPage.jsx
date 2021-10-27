@@ -15,19 +15,15 @@ const RoomPage = () => {
 
   useEffect(async () => {
     let cleanupFunction = false;
-    const fetchRoom = async () => {
-      setIsLoading(true);
-      try {
-        const { data } = await getRoom.getRoomById(id);
+    setIsLoading(true);
+    try {
+      const { data } = await getRoom.getRoomById(id);
 
-        if (!cleanupFunction) setRoomData(data);
-      } catch (err) {
-        setError(err.message);
-      }
-      setIsLoading(false);
-    };
-
-    fetchRoom();
+      if (!cleanupFunction) setRoomData(data);
+    } catch (err) {
+      setError(err.message);
+    }
+    setIsLoading(false);
 
     // eslint-disable-next-line no-return-assign
     return () => cleanupFunction = true;

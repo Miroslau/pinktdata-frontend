@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import React from 'react';
 import httpClient from '../index';
@@ -9,7 +9,7 @@ import mockDataForPreviewPage from '../../mocks/mocks-constants/mockDataForPrevi
 jest.mock('../index.js');
 
 describe('getRoomById function', () => {
-  test('should return skeleton when data loading', () => {
+  test('should return skeleton when data loading', async () => {
     httpClient.get.mockImplementationOnce(() => Promise.resolve({ data: mockDataForPreviewPage }));
 
     render((
@@ -18,7 +18,9 @@ describe('getRoomById function', () => {
       </BrowserRouter>
     ));
 
-    const text = screen.getByTestId(/Skeleton/i);
-    expect(text).toBeInTheDocument();
+    await waitFor(() => {
+      const text = screen.getByTestId(/Skeleton/i);
+      expect(text).toBeInTheDocument();
+    });
   });
 });

@@ -13,21 +13,17 @@ export default function TopRated() {
 
   useEffect(async () => {
     let cleanupFunction = false;
-    const getPopularRooms = async () => {
-      setIsLoading(true);
-      try {
-        const { data } = await popularRooms.popularRooms();
+    setIsLoading(true);
+    try {
+      const { data } = await popularRooms.popularRooms();
 
-        if (!cleanupFunction) setArrayOfPopularRooms(data);
-      } catch (err) {
-        console.error(err.message);
-        setError(err.message);
-      }
+      if (!cleanupFunction) setArrayOfPopularRooms(data);
+    } catch (err) {
+      console.error(err.message);
+      setError(err.message);
+    }
 
-      setIsLoading(false);
-    };
-
-    getPopularRooms();
+    setIsLoading(false);
 
     // eslint-disable-next-line no-return-assign
     return () => cleanupFunction = true;
