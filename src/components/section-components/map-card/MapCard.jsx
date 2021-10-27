@@ -12,17 +12,12 @@ const MapCard = ({ id }) => {
 
   useEffect(async () => {
     let cleanupFunction = false;
-    const fetchRoom = async () => {
-      try {
-        const { data } = await getRoom.getRoomById(id);
-        console.log(data);
-        if (!cleanupFunction) setRoomData(data);
-      } catch (err) {
-        console.error(err.message);
-      }
-    };
-
-    fetchRoom();
+    try {
+      const { data } = await getRoom.getRoomById(id);
+      if (!cleanupFunction) setRoomData(data);
+    } catch (err) {
+      console.error(err.message);
+    }
 
     // eslint-disable-next-line no-return-assign
     return () => cleanupFunction = true;
