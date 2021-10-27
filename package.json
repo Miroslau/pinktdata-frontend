@@ -55,7 +55,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@testing-library/dom": "^8.10.1",
     "@testing-library/jest-dom": "^5.14.1",
     "cross-env": "^7.0.3",
     "eslint": "^7.32.0",
