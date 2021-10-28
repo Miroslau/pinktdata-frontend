@@ -7,7 +7,7 @@ import RangeSliderMui from '../../../ui-components/range-slider-mui/RangeSliderM
 import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
 import { apartmentFilterLocalization } from '../../../../constants/Localizations/apartmentFilterLocalization';
 
-const ApartmentFilters = ({ myFilter }) => {
+const ApartmentFilters = ({ apartmentFilter }) => {
   const [rangeValue, setRangeValue] = useState([0, 16000]);
   const [countRooms, setCountRooms] = useState(1);
 
@@ -29,7 +29,7 @@ const ApartmentFilters = ({ myFilter }) => {
       priceRange: rangeValue,
       countRoom: countRooms,
     };
-    myFilter(filtersParams);
+    apartmentFilter(filtersParams);
   };
 
   return (
@@ -92,7 +92,7 @@ const ApartmentFilters = ({ myFilter }) => {
 };
 
 ApartmentFilters.propTypes = {
-  myFilter: PropTypes.func.isRequired,
+  apartmentFilter: PropTypes.func.isRequired,
 };
 
 export default ApartmentFilters;

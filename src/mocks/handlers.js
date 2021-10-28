@@ -42,6 +42,14 @@ export const handlers = [
   rest.get('/api/apartments/locations/most-apartments', (req, res, ctx) => res(ctx.delay(), ctx.status(200), ctx.json(mockDataMajorCities))),
   rest.get('/api/apartments/search', (req, res, ctx) => {
     const location = req.url.searchParams.get('location');
+    const filter = req.url.searchParams.get('filterParams');
+    console.log('filter: ', filter);
+    // eslint-disable-next-line max-len
+    if (filter) {
+      const prices = [0, 810];
+      // eslint-disable-next-line max-len
+      return res(ctx.delay(), ctx.status(200), ctx.json(mockDataApartments.filter((item) => item.address === location && item.priceValue <= prices[1])));
+    }
     // eslint-disable-next-line max-len
     return res(ctx.delay(), ctx.status(200), ctx.json(mockDataApartments.filter((item) => item.address === location)));
   }),

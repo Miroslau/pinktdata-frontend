@@ -20,6 +20,19 @@ const Map = () => {
     setModalActive(value);
   };
 
+  const handlerFilter = (filterParams = null) => {
+    const limit = 10;
+    MapAPI.searchApartments(publicAddress, currentPage, limit, filterParams)
+      .then(({ data }) => {
+        setApart(data);
+        setCurrentPage((prevState) => prevState + 1);
+        handleModal(false);
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
+  };
+
   useEffect(() => {
     if (isFetching) {
       MapAPI.searchApartments(publicAddress, currentPage)
@@ -59,6 +72,7 @@ const Map = () => {
         publicAddress={publicAddress}
         isActiveModal={isActiveModal}
         setModalActive={handleModal}
+        apartmentFilter={handlerFilter}
       />
       <MapRender apart={apart} />
     </section>

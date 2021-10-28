@@ -7,7 +7,8 @@ const apartments = [
     reviews: 13,
     city: 'Philadelphia',
     address: 'Philadelphia, PA, United States',
-    price: '$45',
+    price: '$520',
+    priceValue: 520,
     location: {
       lat: 39.93034,
       lon: -75.19131,
@@ -22,7 +23,8 @@ const apartments = [
     reviews: 114,
     city: 'Philadelphia',
     address: 'Philadelphia, PA, United States',
-    price: '$29',
+    price: '$645',
+    priceValue: 645,
     location: {
       lat: 39.93009,
       lon: -75.19098,
@@ -37,8 +39,8 @@ const apartments = [
     reviews: 0,
     city: 'Philadelphia',
     address: 'Philadelphia, PA, United States',
-    price: '$118',
-    priceValue: 118,
+    price: '$920',
+    priceValue: 920,
     location: { lat: 39.94086, lon: -75.1867 },
     guestLabel: '6 guests',
   }, {
@@ -107,6 +109,7 @@ const apartments = [
     city: 'Brooklyn',
     address: 'Brooklyn, NY, United States',
     price: '$74',
+    priceValue: 74,
     location: {
       lat: 40.66028,
       lon: -73.99124,
@@ -122,6 +125,7 @@ const apartments = [
     city: 'Brooklyn',
     address: 'Brooklyn, NY, United States',
     price: '$61',
+    priceValue: 61,
     location: {
       lat: 40.6448,
       lon: -74.01448,
@@ -137,6 +141,7 @@ const apartments = [
     city: 'Brooklyn',
     address: 'Brooklyn, NY, United States',
     price: '$74',
+    priceValue: 74,
     location: {
       lat: 40.66028,
       lon: -73.99124,
@@ -152,6 +157,7 @@ const apartments = [
     city: 'Brooklyn',
     address: 'Brooklyn, NY, United States',
     price: '$61',
+    priceValue: 61,
     location: {
       lat: 40.6448,
       lon: -74.01448,

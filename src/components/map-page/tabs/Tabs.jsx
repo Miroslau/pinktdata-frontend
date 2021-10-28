@@ -13,7 +13,7 @@ import { TABS } from '../../../constants/map_page';
 
 const TITLE_FILTERS = TABS.find((item) => item === 'More filters');
 
-const Tabs = ({ isActiveModal, setModalActive }) => {
+const Tabs = ({ isActiveModal, setModalActive, apartmentFilter }) => {
   const classes = useStyles();
 
   const handleClick = () => {
@@ -22,10 +22,6 @@ const Tabs = ({ isActiveModal, setModalActive }) => {
 
   const closeModal = () => {
     setModalActive(false);
-  };
-
-  const filterData = (data) => {
-    console.log('data: ', data);
   };
 
   const handlerBtn = () => {};
@@ -59,7 +55,7 @@ const Tabs = ({ isActiveModal, setModalActive }) => {
           isActiveModal={isActiveModal}
           sx={classes.filter}
         >
-          <ApartmentFilters myFilter={filterData} />
+          <ApartmentFilters apartmentFilter={apartmentFilter} />
         </ModalWindowMui>
       </Stack>
 
@@ -70,11 +66,13 @@ const Tabs = ({ isActiveModal, setModalActive }) => {
 Tabs.defaultProps = {
   isActiveModal: false,
   setModalActive: null,
+  apartmentFilter: null,
 };
 
 Tabs.propTypes = {
   isActiveModal: PropTypes.bool,
   setModalActive: PropTypes.func,
+  apartmentFilter: PropTypes.func,
 };
 
 export default Tabs;
