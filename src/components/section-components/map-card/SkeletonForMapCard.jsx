@@ -5,8 +5,8 @@ const SkeletonForMapCard = () => (
   <Skeleton
     data-testid="Skeleton"
     variant="rectangular"
-    width={290}
-    height={390}
+    width={300}
+    height={300}
   />
 );
 

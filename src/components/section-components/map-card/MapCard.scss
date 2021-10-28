@@ -1,11 +1,12 @@
 @import "../../../sass/variables";
 
 .map-card {
-  max-width: 300px;
-  width: 100%;
+  //max-width: 300px;
+  width: 300px;
   box-shadow: $box-shadow2;
   margin: 0 auto;
   border-radius: .5rem;
+  background-color: #fff;
 
   .slider-image {
     object-fit: cover;
@@ -100,4 +101,20 @@
     }
 
   }
+}
+
+.leaflet-popup-content {
+  margin: 0;
+  background-color: transparent;
+  width: 300px;
+}
+
+.leaflet-container {
+  font: inherit;
+}
+
+.leaflet-popup-content-wrapper {
+  padding: 0;
+  background: white;
+  color: inherit;
 }
