@@ -1,4 +1,3 @@
-/* eslint-disable import/no-unresolved */
 import {
   useEffect, useState,
 } from 'react';
@@ -8,12 +7,12 @@ import {
 } from 'react-leaflet';
 import MarkerClusterGroup from 'react-leaflet-markercluster/src/react-leaflet-markercluster';
 import { useSelector } from 'react-redux';
+
 import { apartmentSelector } from '../../../store/slice/apartmentSlice';
 import useMountedState from '../../../hooks/useMountedState';
-import pointMarker from '../../../assets/svg/pointMarker.svg';
-
 import MapAPI from '../../../api/map/mapPageAPI';
 
+import pointMarker from '../../../assets/svg/pointMarker.svg';
 import useStyles from '../../../style/style';
 
 const markerIcon = new L.Icon({
@@ -48,8 +47,7 @@ const MapRender = () => {
           setApart(data);
           setCurrentPage((prevState) => prevState + 1);
         }
-      })
-      .catch((err) => console.error(err));
+      });
   }, [isMounted]);
 
   const SetViewOnFetch = ({ coords }) => {
