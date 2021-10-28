@@ -24,6 +24,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-leaflet": "^3.2.2",
+    "react-leaflet-markercluster": "^3.0.0-rc1",
     "react-redux": "^7.2.5",
     "react-router-dom": "^5.3.0",
     "react-scripts": "4.0.3",
@@ -37,7 +38,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "lint": "eslint .",
-    "lint:fix": "eslint --fix --ext .js .",
+    "lint:fix": "eslint --fix --ext .js,.jsx .",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
