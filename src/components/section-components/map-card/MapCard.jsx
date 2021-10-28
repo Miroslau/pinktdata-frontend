@@ -27,8 +27,9 @@ const MapCard = ({ id }) => {
 
     setIsLoading(false);
 
-    // eslint-disable-next-line no-return-assign
-    return () => cleanupFunction = true;
+    return () => {
+      cleanupFunction = true;
+    };
   }, []);
 
   if (error) return <AlertError />;
@@ -53,11 +54,11 @@ const MapCard = ({ id }) => {
           {roomData.images.map(({ id: imageId, picture }, index) => {
             if (index < 5) {
               return (
-                <SplideSlide key={imageId} onClick={() => history.push(`/apartments/${id}`)}>
+                <SplideSlide data-testid="map-card-slider" key={imageId} onClick={() => history.push(`/apartments/${id}`)}>
                   <img
                     className="slider-image"
                     src={picture}
-                    alt="slider"
+                    alt="map-card-slider"
                   />
                 </SplideSlide>
               );
