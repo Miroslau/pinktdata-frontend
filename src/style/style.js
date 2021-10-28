@@ -55,6 +55,7 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
     columnGap: '1rem',
     width: '505px',
+    padding: '0 0 0 20px',
   },
   dataRight: {
     display: 'flex',
