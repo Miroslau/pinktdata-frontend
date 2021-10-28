@@ -2,6 +2,8 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   wrapper: {
+    height: '100vh',
+    overflow: 'hidden',
     position: 'relative',
     zIndex: 2,
     display: 'flex',
@@ -19,6 +21,7 @@ const useStyles = makeStyles({
     overflow: 'scroll',
     overflowX: 'hidden',
     transition: 'ease 0.5s',
+    height: '100vh',
   },
   mapContent: {
     padding: '0 40px',
