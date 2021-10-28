@@ -3,12 +3,12 @@ import { useLocation } from 'react-router-dom';
 import { get } from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
 import ModalWindowMui from '../../../ui-components/modal-window-mui/ModalWindowMui';
-import { authorizationLocalization } from '../../../../constants/authorizationLocalization';
+import { authorizationLocalization } from '../../../../constants/Localizations/authorizationLocalization';
 import Authorization from '../../../authorization/Authorization';
 import User from '../../user/User';
 import useStyles from '../../../../style/style';
 import { LANDING_ROUTE } from '../../../../constants/routes';
-import { userMenuLocalization } from '../../../../constants/userMenuLocalization';
+import { userMenuLocalization } from '../../../../constants/Localizations/userMenuLocalization';
 import {
   clearState, userSelector,
 } from '../../../../store/slice/userSlice';

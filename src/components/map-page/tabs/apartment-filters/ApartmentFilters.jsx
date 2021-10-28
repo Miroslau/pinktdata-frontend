@@ -4,10 +4,11 @@ import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
 import RangeSliderMui from '../../../ui-components/range-slider-mui/RangeSliderMui';
 import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
+import { apartmentFilterLocalization } from '../../../../constants/Localizations/apartmentFilterLocalization';
 
 const ApartmentFilters = () => {
   const [rangeValue, setRangeValue] = useState([0, 16000]);
-  const [countRooms, setCountRooms] = useState(0);
+  const [countRooms, setCountRooms] = useState(1);
 
   const rangeChange = (event, newValue) => {
     setRangeValue(newValue);
@@ -18,6 +19,11 @@ const ApartmentFilters = () => {
   const addRoom = () => setCountRooms((prevCount) => prevCount + 1);
 
   const removeRoom = () => setCountRooms((prevCount) => prevCount - 1);
+
+  const clearState = () => {
+    setRangeValue([0, 16000]);
+    setCountRooms(0);
+  };
 
   return (
     <div className="apartment-filters">
@@ -38,18 +44,18 @@ const ApartmentFilters = () => {
       </div>
       <div className="apartment-filters-number-of-bedrooms">
         <div className="apartment-filters__title">
-          Rooms and beds
+          {apartmentFilterLocalization.ROOMS_AND_BEDS}
         </div>
         <div className="apartment-filters-number-of-bedrooms-settings">
           <div className="apartment-filters-number-of-bedrooms-settings__title">
-            Bedrooms
+            {apartmentFilterLocalization.BEDROOMS}
           </div>
           <div className="apartment-filters-number-of-bedrooms-settings__buttons">
             <ButtonMui
               aria-label="remove"
               clickButton={removeRoom}
               size="small"
-              disabled={countRooms === 0}
+              disabled={countRooms === 1}
               className="apartment-filters__button"
             >
               <RemoveIcon />
@@ -58,6 +64,7 @@ const ApartmentFilters = () => {
             <ButtonMui
               aria-label="add"
               clickButton={addRoom}
+              disabled={countRooms === 5}
               size="small"
               className="apartment-filters__button"
             >
@@ -67,8 +74,8 @@ const ApartmentFilters = () => {
         </div>
       </div>
       <div className="apartment-filters-footer">
-        <div>2</div>
-        <div>4</div>
+        <ButtonMui title={apartmentFilterLocalization.CLEAR} clickButton={clearState} />
+        <ButtonMui title={apartmentFilterLocalization.APPLY} clickButton={clearState} />
       </div>
     </div>
   );
