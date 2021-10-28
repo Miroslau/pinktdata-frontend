@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import Stack from '@mui/material/Stack';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Divider from '@mui/material/Divider';
 import { Button } from '@mui/material';
+import PropTypes from 'prop-types';
 import useStyles from '../../../style/style';
 import ApartmentFilters from './apartment-filters/ApartmentFilters';
 import ModalWindowMui from '../../ui-components/modal-window-mui/ModalWindowMui';
@@ -12,16 +13,19 @@ import { TABS } from '../../../constants/map_page';
 
 const TITLE_FILTERS = TABS.find((item) => item === 'More filters');
 
-const Tabs = () => {
+const Tabs = ({ isActiveModal, setModalActive }) => {
   const classes = useStyles();
 
-  const [isActiveModal, setModalActive] = useState(false);
   const handleClick = () => {
     setModalActive(true);
   };
 
   const closeModal = () => {
     setModalActive(false);
+  };
+
+  const filterData = (data) => {
+    console.log('data: ', data);
   };
 
   const handlerBtn = () => {};
@@ -55,12 +59,22 @@ const Tabs = () => {
           isActiveModal={isActiveModal}
           sx={classes.filter}
         >
-          <ApartmentFilters />
+          <ApartmentFilters myFilter={filterData} />
         </ModalWindowMui>
       </Stack>
 
     </div>
   );
+};
+
+Tabs.defaultProps = {
+  isActiveModal: false,
+  setModalActive: null,
+};
+
+Tabs.propTypes = {
+  isActiveModal: PropTypes.bool,
+  setModalActive: PropTypes.func,
 };
 
 export default Tabs;

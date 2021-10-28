@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import UserAPI from '../../api/users/UserAPI';
 

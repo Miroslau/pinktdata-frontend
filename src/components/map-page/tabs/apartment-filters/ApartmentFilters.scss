@@ -20,12 +20,22 @@
     display: grid;
     grid-gap: 35px;
     padding: 0 8px;
+
+    &__label {
+      display: inline-flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      font-weight: bold;
+      color: $color-denim;
+      width: 100%;
+    }
   }
 
   &-number-of-bedrooms {
     display: grid;
     grid-gap: 35px;
-    padding: 0 20px;
+    padding: 0 8px;
 
     &-settings {
       display: grid;
@@ -47,4 +57,8 @@
     justify-content: space-between;
     align-items: center;
   }
+}
+
+.slider-label {
+
 }
