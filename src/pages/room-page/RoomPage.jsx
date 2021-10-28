@@ -25,8 +25,9 @@ const RoomPage = () => {
     }
     setIsLoading(false);
 
-    // eslint-disable-next-line no-return-assign
-    return () => cleanupFunction = true;
+    return () => {
+      cleanupFunction = true;
+    };
   }, []);
 
   if (error) return <AlertError />;

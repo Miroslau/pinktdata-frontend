@@ -46,27 +46,6 @@ const Card = (props) => {
             <div className={classes.heart}><FavoriteBorderIcon htmlColor="pink" /></div>
             <div className={classes.price}>{price}</div>
           </div>
-          <div className={classes.contentImg}>{img}</div>
-          <div className={classes.contentData}>
-            <div className={classes.dataLeft}>
-              <div className={classes.dataText}>
-                <TypographyMui text={city} />
-                <TypographyMui variant="subtitle2" text={name} />
-                <TypographyMui color="green" text={DATA[3]} />
-                <TypographyMui text={`${homeDetails}.${address}`} />
-              </div>
-              <div>
-                {rating}
-                (
-                {reviews}
-                )
-              </div>
-            </div>
-            <div className={classes.dataRight}>
-              <div><FavoriteBorderIcon htmlColor="pink" /></div>
-              <div>{price}</div>
-            </div>
-          </div>
         </div>
       </div>
       <Divider />
