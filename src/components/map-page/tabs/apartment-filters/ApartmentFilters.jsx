@@ -14,8 +14,6 @@ const ApartmentFilters = () => {
     setRangeValue(newValue);
   };
 
-  const valueText = (value) => `${value}`;
-
   const addRoom = () => setCountRooms((prevCount) => prevCount + 1);
 
   const removeRoom = () => setCountRooms((prevCount) => prevCount - 1);
@@ -36,7 +34,6 @@ const ApartmentFilters = () => {
             value={rangeValue}
             handleChange={rangeChange}
             valueLabelDisplay="auto"
-            valuetext={valueText}
             min={0}
             max={16000}
           />

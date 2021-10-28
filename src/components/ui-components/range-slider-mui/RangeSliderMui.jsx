@@ -4,14 +4,13 @@ import PropTypes from 'prop-types';
 
 const RangeSliderMui = (props) => {
   const {
-    value, handleChange, valueLabelDisplay, valuetext, ...other
+    value, handleChange, valueLabelDisplay, ...other
   } = props;
   return (
     <Slider
       value={value}
       onChange={handleChange}
       valueLabelDisplay={valueLabelDisplay}
-      getAriaValueText={valuetext}
       {...other}
     />
   );
@@ -20,14 +19,12 @@ const RangeSliderMui = (props) => {
 RangeSliderMui.defaultProps = {
   value: [] || null,
   valueLabelDisplay: null,
-  valuetext: null,
 };
 
 RangeSliderMui.propTypes = {
   value: PropTypes.instanceOf(Array) || PropTypes.number,
   handleChange: PropTypes.func.isRequired,
   valueLabelDisplay: PropTypes.string,
-  valuetext: PropTypes.func,
 };
 
 export default RangeSliderMui;
