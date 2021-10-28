@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import StarIcon from '@mui/icons-material/Star';
@@ -9,6 +10,7 @@ import AlertError from '../../ui-components/alert-error/AlertError';
 import SkeletonForMapCard from './SkeletonForMapCard';
 
 const MapCard = ({ id }) => {
+  const history = useHistory();
   const [roomData, setRoomData] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -51,8 +53,12 @@ const MapCard = ({ id }) => {
           {roomData.images.map(({ id: imageId, picture }, index) => {
             if (index < 5) {
               return (
-                <SplideSlide key={imageId}>
-                  <img className="slider-image" src={picture} alt="slider" />
+                <SplideSlide key={imageId} onClick={() => history.push(`/apartments/${id}`)}>
+                  <img
+                    className="slider-image"
+                    src={picture}
+                    alt="slider"
+                  />
                 </SplideSlide>
               );
             }
