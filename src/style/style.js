@@ -22,6 +22,23 @@ const useStyles = makeStyles({
     overflowX: 'hidden',
     transition: 'ease 0.5s',
     height: '100vh',
+    '&:hover': {
+      '-webkit-overflow-scrolling': 'touch',
+      '-moz-overflow-scrolling': 'touch',
+      '-ms-overflow-scrolling': 'touch',
+      '-o-overflow-scrolling': 'touch',
+      overflowScrolling: 'touch',
+      '&::-webkit-scrollbar-thumb': {
+        borderRadius: '4px',
+        backgroundColor: 'rgba(0, 0, 0, 0.1)',
+        '&::-webkit-box-shadow': '0 0 1px rgba(255,255,255,0.5)',
+      },
+    },
+    '&::-webkit-scrollbar': {
+      '-webkit-appearance': 'none',
+      width: '7px',
+    },
+
   },
   mapContent: {
     padding: '0 40px',
