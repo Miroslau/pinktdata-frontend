@@ -13,6 +13,7 @@ export const TABS = [
   'Filters',
   'Price range',
   'Number of bedrooms',
+  'More filters',
 ];
 
 export const DATA = [

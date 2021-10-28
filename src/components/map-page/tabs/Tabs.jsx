@@ -1,26 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Stack from '@mui/material/Stack';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Divider from '@mui/material/Divider';
 import { Button } from '@mui/material';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
 import useStyles from '../../../style/style';
+import ApartmentFilters from './apartment-filters/ApartmentFilters';
+import ModalWindowMui from '../../ui-components/modal-window-mui/ModalWindowMui';
 
 import { TABS } from '../../../constants/map_page';
+
+const TITLE_FILTERS = TABS.find((item) => item === 'More filters');
 
 const Tabs = () => {
   const classes = useStyles();
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const [isActiveModal, setModalActive] = useState(false);
+  const handleClick = () => {
+    setModalActive(true);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
+
+  const closeModal = () => {
+    setModalActive(false);
   };
+
   const handlerBtn = () => {};
 
   return (
@@ -39,27 +42,21 @@ const Tabs = () => {
           id="filters"
           aria-controls="basic-menu"
           aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
+          aria-expanded={isActiveModal ? 'true' : undefined}
           onClick={handleClick}
           variant="contained"
         >
           <FilterListIcon />
           {TABS[5]}
         </Button>
-
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClick={handleClose}
-          MenuListProps={{
-            'aria-labelledby': 'basic-button',
-          }}
+        <ModalWindowMui
+          clickButton={closeModal}
+          title={TITLE_FILTERS}
+          isActiveModal={isActiveModal}
+          sx={classes.filter}
         >
-          <MenuItem onClick={handleClose}>{TABS[6]}</MenuItem>
-          <MenuItem onClick={handleClose}>{TABS[7]}</MenuItem>
-        </Menu>
-
+          <ApartmentFilters />
+        </ModalWindowMui>
       </Stack>
 
     </div>

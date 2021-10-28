@@ -49,6 +49,12 @@ const useStyles = makeStyles({
     gridTemplateColumns: '1fr auto',
     alignItems: 'center',
   },
+  filter: {
+    display: 'grid',
+    gridTemplateColumns: '1fr auto',
+    alignItems: 'center',
+    width: '400px',
+  },
   contentData: {
     display: 'flex',
     flexDirection: 'row',

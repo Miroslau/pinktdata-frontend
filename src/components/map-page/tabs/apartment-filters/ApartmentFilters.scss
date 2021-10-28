@@ -1,0 +1,50 @@
+@import '../../../../sass/variables';
+
+.apartment-filters {
+  position: relative;
+  display: grid;
+  grid-gap: 30px;
+
+  &__title {
+    font-size: 25px;
+    font-weight: 600;
+  }
+
+  &__button {
+    border-radius: 50% !important;
+    padding: 5px 5px !important;
+    min-width: 0 !important;
+  }
+
+  &-price-range {
+    display: grid;
+    grid-gap: 35px;
+    padding: 0 20px;
+  }
+
+  &-number-of-bedrooms {
+    display: grid;
+    grid-gap: 35px;
+    padding: 0 20px;
+
+    &-settings {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+
+      &__buttons {
+        display: inline-flex;
+        justify-content: space-between;
+        column-gap: 10px;
+        align-items: center;
+      }
+    }
+  }
+
+  &-footer {
+    padding: 0 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
