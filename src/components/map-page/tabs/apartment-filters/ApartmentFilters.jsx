@@ -9,7 +9,7 @@ import { apartmentFilterLocalization } from '../../../../constants/Localizations
 
 const ApartmentFilters = ({ apartmentFilter }) => {
   const [rangeValue, setRangeValue] = useState([0, 16000]);
-  const [countRooms, setCountRooms] = useState(1);
+  const [countRooms, setCountRooms] = useState(0);
 
   const rangeChange = (event, newValue) => {
     setRangeValue(newValue);
@@ -23,6 +23,10 @@ const ApartmentFilters = ({ apartmentFilter }) => {
     setRangeValue([0, 16000]);
     setCountRooms(1);
   };
+
+  const calculateStep = () => (rangeValue[1] <= 5000 ? 100 : 1000);
+
+  const step = calculateStep();
 
   const filterApartment = () => {
     const filtersParams = {
@@ -47,6 +51,7 @@ const ApartmentFilters = ({ apartmentFilter }) => {
             value={rangeValue}
             handleChange={rangeChange}
             valueLabelDisplay="auto"
+            step={step}
             min={0}
             max={16000}
           />
@@ -65,7 +70,7 @@ const ApartmentFilters = ({ apartmentFilter }) => {
               aria-label="remove"
               clickButton={removeRoom}
               size="small"
-              disabled={countRooms === 1}
+              disabled={countRooms === 0}
               className="apartment-filters__button"
             >
               <RemoveIcon />

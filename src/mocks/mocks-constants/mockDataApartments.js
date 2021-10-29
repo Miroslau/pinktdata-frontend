@@ -9,6 +9,7 @@ const apartments = [
     address: 'Philadelphia, PA, United States',
     price: '$520',
     priceValue: 520,
+    bedrooms: 2,
     location: {
       lat: 39.93034,
       lon: -75.19131,
@@ -25,6 +26,7 @@ const apartments = [
     address: 'Philadelphia, PA, United States',
     price: '$645',
     priceValue: 645,
+    bedrooms: 1,
     location: {
       lat: 39.93009,
       lon: -75.19098,
@@ -41,6 +43,7 @@ const apartments = [
     address: 'Philadelphia, PA, United States',
     price: '$920',
     priceValue: 920,
+    bedrooms: 5,
     location: { lat: 39.94086, lon: -75.1867 },
     guestLabel: '6 guests',
   }, {
@@ -53,6 +56,7 @@ const apartments = [
     address: 'Philadelphia, PA, United States',
     price: '$70',
     priceValue: 70,
+    bedrooms: 2,
     location: { lat: 39.92571, lon: -75.15523 },
     guestLabel: '4 guests',
   }, {
@@ -65,6 +69,7 @@ const apartments = [
     address: 'Philadelphia, PA, United States',
     price: '$35',
     priceValue: 35,
+    bedrooms: 1,
     location: { lat: 39.94249, lon: -75.16357 },
     guestLabel: '1 guest',
   },
@@ -78,6 +83,7 @@ const apartments = [
     address: 'Brooklyn, NY, United States',
     price: '$74',
     priceValue: 74,
+    bedrooms: 3,
     location: {
       lat: 40.66028,
       lon: -73.99124,
@@ -94,6 +100,7 @@ const apartments = [
     address: 'Brooklyn, NY, United States',
     price: '$61',
     priceValue: 61,
+    bedrooms: 3,
     location: {
       lat: 40.6448,
       lon: -74.01448,
@@ -110,6 +117,7 @@ const apartments = [
     address: 'Brooklyn, NY, United States',
     price: '$74',
     priceValue: 74,
+    bedrooms: 2,
     location: {
       lat: 40.66028,
       lon: -73.99124,
@@ -126,6 +134,7 @@ const apartments = [
     address: 'Brooklyn, NY, United States',
     price: '$61',
     priceValue: 61,
+    bedrooms: 3,
     location: {
       lat: 40.6448,
       lon: -74.01448,
@@ -142,6 +151,7 @@ const apartments = [
     address: 'Brooklyn, NY, United States',
     price: '$74',
     priceValue: 74,
+    bedrooms: 3,
     location: {
       lat: 40.66028,
       lon: -73.99124,
@@ -158,6 +168,7 @@ const apartments = [
     address: 'Brooklyn, NY, United States',
     price: '$61',
     priceValue: 61,
+    bedrooms: 2,
     location: {
       lat: 40.6448,
       lon: -74.01448,
@@ -174,6 +185,7 @@ const apartments = [
     address: 'Queens, NY, United States',
     price: '$61',
     priceValue: 61,
+    bedrooms: 1,
     location: {
       lat: 40.65536,
       lon: -73.74467,
@@ -190,6 +202,7 @@ const apartments = [
     address: 'Queens, NY, United States',
     price: '$65',
     priceValue: 65,
+    bedrooms: 2,
     location: {
       lat: 40.6528,
       lon: -73.73308,

@@ -52,7 +52,7 @@ const Content = ({
             city={data.city}
             address={data.address}
             price={data.price}
-            homeDetails={data.guestLabel}
+            bedrooms={data.bedrooms}
           />
         ))}
       </div>

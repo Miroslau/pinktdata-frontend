@@ -13,7 +13,7 @@ const Card = (props) => {
   const classes = useStyles();
 
   const {
-    name, rating, img, reviews, city, address, price, homeDetails,
+    name, rating, img, reviews, city, address, price, bedrooms,
   } = props;
 
   return (
@@ -29,7 +29,7 @@ const Card = (props) => {
                 <TypographyMui text={city} className={classes.city} />
                 <TypographyMui variant="h5" className={classes.name} text={name} />
                 <TypographyMui color="#32CD32" text={DATA[0]} className={classes.available} />
-                <TypographyMui text={`${homeDetails}.${address}`} className={classes.address} />
+                <TypographyMui text={`${bedrooms}.${address}`} className={classes.address} />
               </div>
               <div className={classes.rating}>
                 <StarIcon className={classes.starIcon} />
@@ -61,7 +61,7 @@ Card.defaultProps = {
   price: '',
   city: '',
   address: '',
-  homeDetails: '',
+  bedrooms: 0,
 };
 
 Card.propTypes = {
@@ -72,7 +72,7 @@ Card.propTypes = {
   city: PropTypes.string,
   address: PropTypes.string,
   price: PropTypes.string,
-  homeDetails: PropTypes.string,
+  bedrooms: PropTypes.number,
 };
 
 export default Card;

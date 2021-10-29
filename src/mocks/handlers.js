@@ -42,16 +42,20 @@ export const handlers = [
   rest.get('/api/apartments/locations/most-apartments', (req, res, ctx) => res(ctx.delay(), ctx.status(200), ctx.json(mockDataMajorCities))),
   rest.get('/api/apartments/search', (req, res, ctx) => {
     const location = req.url.searchParams.get('location');
-    const filter = req.url.searchParams.get('filterParams');
-    console.log('filter: ', filter);
-    // eslint-disable-next-line max-len
-    if (filter) {
-      const prices = [0, 810];
-      // eslint-disable-next-line max-len
-      return res(ctx.delay(), ctx.status(200), ctx.json(mockDataApartments.filter((item) => item.address === location && item.priceValue <= prices[1])));
+    const priceFrom = req.url.searchParams.get('priceFrom');
+    const priceTo = req.url.searchParams.get('priceTo');
+    const bedrooms = req.url.searchParams.get('bedrooms');
+    let aparts = [...mockDataApartments];
+    if (location) {
+      aparts = aparts.filter((item) => item.address === location);
     }
-    // eslint-disable-next-line max-len
-    return res(ctx.delay(), ctx.status(200), ctx.json(mockDataApartments.filter((item) => item.address === location)));
+    if (priceFrom && priceTo) {
+      aparts = aparts.filter((item) => item.priceValue >= priceFrom && item.priceValue <= priceTo);
+    }
+    if (bedrooms) {
+      aparts = aparts.filter((item) => item.bedrooms === +bedrooms);
+    }
+    return res(ctx.delay(), ctx.status(200), ctx.json(aparts));
   }),
   rest.get('/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
   rest.get('/api/search/location', (req, res, ctx) => res(ctx.status(200), ctx.json({

@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { get } from 'lodash';
 import { apartmentSelector } from '../../store/slice/apartmentSlice';
 import useStyles from '../../style/style';
 import MapRender from '../../components/map-page/map-render/MapRender';
@@ -21,8 +22,12 @@ const Map = () => {
   };
 
   const handlerFilter = (filterParams = null) => {
-    const limit = 10;
-    MapAPI.searchApartments(publicAddress, currentPage, limit, filterParams)
+    console.log('filterParams: ', filterParams);
+    const bedrooms = get(filterParams, 'countRoom', 0);
+    const prices = get(filterParams, 'priceRange', [0, 16000]);
+    const priceFrom = prices[0];
+    const priceTo = prices[1];
+    MapAPI.searchApartments(publicAddress, currentPage, priceFrom, priceTo, bedrooms)
       .then(({ data }) => {
         setApart(data);
         setCurrentPage((prevState) => prevState + 1);
