@@ -48,6 +48,9 @@ const useStyles = makeStyles({
     '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
       border: 'none',
     },
+    '& #input-search-bedrooms': {
+      width: 130,
+    },
   },
   roomIcon: {
     marginTop: 17,
