@@ -51,6 +51,8 @@ export const handlers = [
     }
     if (priceFrom && priceTo) {
       aparts = aparts.filter((item) => item.priceValue >= priceFrom && item.priceValue <= priceTo);
+    } else if (priceFrom) {
+      aparts = aparts.filter((item) => item.priceValue >= priceFrom);
     }
     if (bedrooms) {
       aparts = aparts.filter((item) => item.bedrooms === +bedrooms);

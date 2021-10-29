@@ -30,6 +30,10 @@
       color: $color-denim;
       width: 100%;
     }
+
+    &__item {
+      cursor: pointer;
+    }
   }
 
   &-number-of-bedrooms {

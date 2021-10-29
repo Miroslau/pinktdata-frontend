@@ -1,38 +1,76 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ApartmentFilters.scss';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
+import InputMui from '../../../ui-components/input-mui/InputMui';
 import RangeSliderMui from '../../../ui-components/range-slider-mui/RangeSliderMui';
 import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
 import { apartmentFilterLocalization } from '../../../../constants/Localizations/apartmentFilterLocalization';
 
+const Input = styled(InputMui)`
+  width: 70px;
+`;
+
 const ApartmentFilters = ({ apartmentFilter }) => {
-  const [rangeValue, setRangeValue] = useState([0, 16000]);
-  const [countRooms, setCountRooms] = useState(0);
+  const [isMinInput, setMinInput] = useState(false);
+  const [isMaxInput, setMaxInput] = useState(false);
+  const [filtersParams, setFilterParams] = useState({
+    priceRange: [10, 1000],
+    bedrooms: 0,
+    isMax: true,
+  });
+
+  useEffect(() => {
+    let isMax = true;
+    if (!isMaxInput && filtersParams.priceRange[1] === 1000) isMax = false;
+    setFilterParams(((prevState) => ({ ...prevState, isMax })));
+  }, [filtersParams.priceRange]);
+
+  const openInput = () => {
+    setMaxInput(false);
+    setMinInput(true);
+  };
+
+  const openInputTwo = () => {
+    setMinInput(false);
+    setMaxInput(true);
+  };
 
   const rangeChange = (event, newValue) => {
-    setRangeValue(newValue);
+    setMinInput(false);
+    setMaxInput(false);
+    setFilterParams(((prevState) => ({ ...prevState, priceRange: newValue })));
   };
 
-  const addRoom = () => setCountRooms((prevCount) => prevCount + 1);
+  // eslint-disable-next-line max-len
+  const addRoom = () => setFilterParams(((prevState) => ({ ...prevState, bedrooms: prevState.bedrooms + 1 })));
 
-  const removeRoom = () => setCountRooms((prevCount) => prevCount - 1);
+  // eslint-disable-next-line max-len
+  const removeRoom = () => setFilterParams(((prevState) => ({ ...prevState, bedrooms: prevState.bedrooms - 1 })));
 
   const clearState = () => {
-    setRangeValue([0, 16000]);
-    setCountRooms(1);
+    setFilterParams({
+      priceRange: [10, 1000],
+      bedrooms: 0,
+      isMax: true,
+    });
   };
 
-  const calculateStep = () => (rangeValue[1] <= 5000 ? 100 : 1000);
-
-  const step = calculateStep();
+  const handleInputChange = (event) => {
+    const value = Number(event.target.value);
+    const priceRangeValue = [...filtersParams.priceRange];
+    if (isMinInput) {
+      priceRangeValue[0] = value;
+    }
+    if (isMaxInput) {
+      priceRangeValue[1] = value;
+    }
+    setFilterParams(((prevState) => ({ ...prevState, priceRange: priceRangeValue })));
+  };
 
   const filterApartment = () => {
-    const filtersParams = {
-      priceRange: rangeValue,
-      countRoom: countRooms,
-    };
     apartmentFilter(filtersParams);
   };
 
@@ -44,16 +82,60 @@ const ApartmentFilters = ({ apartmentFilter }) => {
         </div>
         <div className="apartment-filters-price-range__slider">
           <div className="apartment-filters-price-range__label">
-            <span>{`Min price: ${rangeValue[0]}`}</span>
-            <span>{`Max price: ${rangeValue[1]}`}</span>
+            {
+              !isMinInput ? (
+                <span
+                  className="apartment-filters-price-range__item"
+                  onClick={openInput}
+                  role="presentation"
+                >
+                  {`Min price: ${filtersParams.priceRange[0]}`}
+                </span>
+              ) : (
+                <Input
+                  value={filtersParams.priceRange[0]}
+                  size="small"
+                  onChange={handleInputChange}
+                  inputProps={{
+                    step: 10,
+                    min: 10,
+                    type: 'number',
+                    'aria-labelledby': 'input-slider',
+                  }}
+                />
+              )
+            }
+            {
+              !isMaxInput ? (
+                <span
+                  className="apartment-filters-price-range__item"
+                  onClick={openInputTwo}
+                  role="presentation"
+                >
+                  {`Max price: ${(filtersParams.priceRange[1] === 1000 ? `${filtersParams.priceRange[1]}+` : filtersParams.priceRange[1])}`}
+                </span>
+              ) : (
+                <Input
+                  value={filtersParams.priceRange[1]}
+                  size="small"
+                  onChange={handleInputChange}
+                  inputProps={{
+                    step: 10,
+                    min: 10,
+                    type: 'number',
+                    'aria-labelledby': 'input-slider',
+                  }}
+                />
+              )
+            }
           </div>
           <RangeSliderMui
-            value={rangeValue}
+            value={filtersParams.priceRange}
             handleChange={rangeChange}
             valueLabelDisplay="auto"
-            step={step}
-            min={0}
-            max={16000}
+            step={10}
+            min={10}
+            max={1000}
           />
         </div>
       </div>
@@ -70,16 +152,16 @@ const ApartmentFilters = ({ apartmentFilter }) => {
               aria-label="remove"
               clickButton={removeRoom}
               size="small"
-              disabled={countRooms === 0}
+              disabled={filtersParams.bedrooms === 0}
               className="apartment-filters__button"
             >
               <RemoveIcon />
             </ButtonMui>
-            <div>{countRooms}</div>
+            <div>{filtersParams.bedrooms}</div>
             <ButtonMui
               aria-label="add"
               clickButton={addRoom}
-              disabled={countRooms === 5}
+              disabled={filtersParams.bedrooms === 5}
               size="small"
               className="apartment-filters__button"
             >

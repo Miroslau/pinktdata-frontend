@@ -7,10 +7,10 @@ export default {
     priceFrom,
     priceTo,
     bedrooms,
+    isMax,
   ) {
-    const params = {
-      location, page, priceFrom, priceTo,
-    };
+    const params = { location, page, priceFrom };
+    if (isMax) params.priceTo = priceTo;
     if (bedrooms !== 0) params.bedrooms = bedrooms;
     return httpClient.get('/apartments/search', {
       params,
