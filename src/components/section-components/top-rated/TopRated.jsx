@@ -5,27 +5,24 @@ import popularRooms from '../../../api/popular-rooms/popularRooms';
 import './TopRated.scss';
 import AlertError from '../../ui-components/alert-error/AlertError';
 import SkeletonForTopRated from './SkeletonForTopRated';
+import useMountedState from '../../../hooks/useMountedState';
 
 export default function TopRated() {
   const [arrayOfPopularRooms, setArrayOfPopularRooms] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const isMounted = useMountedState();
 
   useEffect(async () => {
-    let cleanupFunction = false;
+    setIsLoading(true);
     try {
       const { data } = await popularRooms.popularRooms();
-
-      if (!cleanupFunction) setArrayOfPopularRooms(data);
+      if (isMounted()) setArrayOfPopularRooms(data);
     } catch (err) {
       setError(err.message);
     }
-
     setIsLoading(false);
-
-    // eslint-disable-next-line no-return-assign
-    return () => cleanupFunction = true;
-  }, []);
+  }, [isMounted]);
 
   if (error) return <AlertError />;
 

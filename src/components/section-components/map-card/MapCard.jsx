@@ -8,29 +8,25 @@ import '@splidejs/splide/dist/css/themes/splide-skyblue.min.css';
 import './MapCard.scss';
 import AlertError from '../../ui-components/alert-error/AlertError';
 import SkeletonForMapCard from './SkeletonForMapCard';
+import useMountedState from '../../../hooks/useMountedState';
 
 const MapCard = ({ id }) => {
   const history = useHistory();
   const [roomData, setRoomData] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const isMounted = useMountedState();
 
   useEffect(async () => {
-    let cleanupFunction = false;
+    setIsLoading(true);
     try {
       const { data } = await getRoom.getRoomById(id);
-      if (!cleanupFunction) setRoomData(data);
+      if (isMounted()) setRoomData(data);
     } catch (err) {
-      console.error(err.message);
       setError(err.message);
     }
-
     setIsLoading(false);
-
-    return () => {
-      cleanupFunction = true;
-    };
-  }, []);
+  }, [isMounted]);
 
   if (error) return <AlertError />;
 
@@ -51,20 +47,15 @@ const MapCard = ({ id }) => {
             pagination: true,
           }}
         >
-          {roomData.images.map(({ id: imageId, picture }, index) => {
-            if (index < 5) {
-              return (
-                <SplideSlide data-testid="map-card-slider" key={imageId} onClick={() => history.push(`/apartments/${id}`)}>
-                  <img
-                    className="slider-image"
-                    src={picture}
-                    alt="map-card-slider"
-                  />
-                </SplideSlide>
-              );
-            }
-            return null;
-          })}
+          {roomData.images.map(({ id: imageId, picture }) => (
+            <SplideSlide data-testid="map-card-slider" key={imageId} onClick={() => history.push(`/apartments/${id}`)}>
+              <img
+                className="slider-image"
+                src={picture}
+                alt="map-card-slider"
+              />
+            </SplideSlide>
+          )).splice(0, 5)}
         </Splide>
         )}
 

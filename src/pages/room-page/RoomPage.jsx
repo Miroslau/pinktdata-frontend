@@ -6,29 +6,25 @@ import RoomMain from '../../components/section-components/room-main/RoomMain';
 import getRoom from '../../api/get-room-by-id/getRoomById';
 import SkeletonForRoomPage from './SkeletonForRoomPage';
 import AlertError from '../../components/ui-components/alert-error/AlertError';
+import useMountedState from '../../hooks/useMountedState';
 
 const RoomPage = () => {
   const { id } = useParams();
   const [roomData, setRoomData] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
+  const isMounted = useMountedState();
 
   useEffect(async () => {
-    let cleanupFunction = false;
-    setError(null);
+    setIsLoading(true);
     try {
       const { data } = await getRoom.getRoomById(id);
-
-      if (!cleanupFunction) setRoomData(data);
+      if (isMounted()) setRoomData(data);
     } catch (err) {
       setError(err.message);
     }
     setIsLoading(false);
-
-    return () => {
-      cleanupFunction = true;
-    };
-  }, []);
+  }, [isMounted]);
 
   if (error) return <AlertError />;
 
