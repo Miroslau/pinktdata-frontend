@@ -20,7 +20,7 @@ const Card = (props) => {
     <>
       <div className={classes.mapContent}>
         <div className={classes.content}>
-          <div className={classes.contentImg}>
+          <div className={classes.contentImg} role="presentation">
             <img className={classes.img} src={img} alt={name} />
           </div>
           <div className={classes.contentData}>
@@ -54,10 +54,10 @@ const Card = (props) => {
 };
 
 Card.defaultProps = {
-  rating: '',
+  rating: 0,
   name: '',
   img: '',
-  reviews: '',
+  reviews: 0,
   price: '',
   city: '',
   address: '',

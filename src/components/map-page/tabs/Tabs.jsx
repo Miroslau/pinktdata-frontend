@@ -34,11 +34,11 @@ const Tabs = ({ isActiveModal, setModalActive }) => {
     <div className={classes.mapTabs}>
       <Stack direction="row" spacing={1}>
 
-        <Button id="all" variant="contained" onClick={handlerBtn}>{TABS[0]}</Button>
-        <Button id="available" variant="outlined" title={TABS[1]} onClick={handlerBtn}>{TABS[1]}</Button>
-        <Button id="star" variant="contained">{TABS[2]}</Button>
-        <Button id="price" variant="outlined" onClick={handlerBtn}>{TABS[3]}</Button>
-        <Button id="rated" variant="outlined" onClick={handlerBtn}>{TABS[4]}</Button>
+        <Button data-testid="all" variant="contained" onClick={handlerBtn}>{TABS[0]}</Button>
+        <Button data-testid="available" variant="outlined" title={TABS[1]} onClick={handlerBtn}>{TABS[1]}</Button>
+        <Button data-testid="star" variant="contained">{TABS[2]}</Button>
+        <Button data-testid="price" variant="outlined" onClick={handlerBtn}>{TABS[3]}</Button>
+        <Button data-testid="rated" variant="outlined" onClick={handlerBtn}>{TABS[4]}</Button>
 
         <Divider className={classes.divider} />
 
