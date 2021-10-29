@@ -56,8 +56,6 @@ describe('Tabs Component', () => {
 
     const resultText = await screen.getByText('Price');
 
-    console.log(resultText);
-
     expect(resultText).toBeInTheDocument();
   });
 });
