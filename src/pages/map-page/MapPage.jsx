@@ -21,7 +21,6 @@ const Map = () => {
   };
 
   const handlerFilter = (filterParams = null) => {
-    console.log('filterParams: ', filterParams);
     const { bedrooms, priceRange, isMax } = filterParams;
     const priceFrom = priceRange[0];
     const priceTo = priceRange[1];

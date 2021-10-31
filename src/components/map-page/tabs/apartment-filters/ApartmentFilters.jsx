@@ -51,6 +51,8 @@ const ApartmentFilters = ({ apartmentFilter }) => {
   const removeRoom = () => setFilterParams(((prevState) => ({ ...prevState, bedrooms: prevState.bedrooms - 1 })));
 
   const clearState = () => {
+    setMinInput(false);
+    setMaxInput(false);
     setFilterParams({
       priceRange: [10, 1000],
       bedrooms: 0,
