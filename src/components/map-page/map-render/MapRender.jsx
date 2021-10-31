@@ -5,7 +5,7 @@ import L from 'leaflet';
 import {
   MapContainer, TileLayer, Popup, Tooltip, useMap, Marker,
 } from 'react-leaflet';
-import MarkerClusterGroup from 'react-leaflet-markercluster/src/react-leaflet-markercluster';
+import MarkerClusterGroup from 'react-leaflet-markercluster';
 import { useSelector } from 'react-redux';
 
 import { apartmentSelector } from '../../../store/slice/apartmentSlice';
