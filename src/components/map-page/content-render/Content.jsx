@@ -60,7 +60,10 @@ const Content = () => {
           className={classes.title}
         />
         <Tabs />
-        <TypographyMui variant="h6" text={`${TEXT.SUBTITLE} ${count} ${TEXT.STAYS}`} />
+        <TypographyMui
+          variant="h6"
+          text={`${TEXT.SUBTITLE} ${count} ${TEXT.STAYS}`}
+        />
       </div>
       <Divider />
       <div className={classes.mapWrapper} ref={listRoomBlock}>
@@ -76,6 +79,7 @@ const Content = () => {
             address={data.address}
             price={data.price}
             homeDetails={data.guestLabel}
+            images={data.images}
           />
         ))}
       </div>
