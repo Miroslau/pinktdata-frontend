@@ -27,6 +27,11 @@ const useStyles = makeStyles({
     padding: '0 40px',
     margin: '17px 0',
   },
+  contentImgSlider: {
+    width: '350px',
+    height: '250px',
+    marginRight: '20px',
+  },
   mapTabs: {
     margin: '27px 0',
   },

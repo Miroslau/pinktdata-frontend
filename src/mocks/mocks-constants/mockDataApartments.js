@@ -15,6 +15,19 @@ const apartments = [
       lon: -75.19131,
     },
     guestLabel: '2 guests',
+    images: [
+      {
+        id: '765462066',
+        picture: 'https://a0.muscache.com/im/pictures/506758b1-e17f-4074-bd8d-70e08cff4330.jpg?im_w=720',
+      },
+      {
+        id: '765462082',
+        picture: 'https://a0.muscache.com/im/pictures/319478af-c52a-49d0-a2ef-61bf198209bd.jpg?im_w=720',
+      },
+      {
+        id: '765462109',
+        picture: 'https://a0.muscache.com/im/pictures/e8de9519-3257-4561-9e1e-87733c579c14.jpg?im_w=720',
+      }],
   },
   {
     _id: '6017d723055800005800986f',
@@ -32,6 +45,20 @@ const apartments = [
       lon: -75.19098,
     },
     guestLabel: '2 guests',
+    images: [
+      {
+        id: '765462142',
+        picture: 'https://a0.muscache.com/im/pictures/7e680422-ec2f-43e1-8c0d-9ff1220d7469.jpg?im_w=720',
+      },
+      {
+        id: '765462160',
+        picture: 'https://a0.muscache.com/im/pictures/cdb2e1c8-8664-4a41-a3ec-feffdd4a753e.jpg?im_w=720',
+      },
+      {
+        id: '765462192',
+        picture: 'https://a0.muscache.com/im/pictures/fb9c1dbc-6fda-45ee-9796-433d8b31a5ba.jpg?im_w=720',
+      },
+    ],
   },
   {
     _id: '6017d7240558000058009872',
@@ -89,6 +116,20 @@ const apartments = [
       lon: -73.99124,
     },
     guestLabel: '2 guests',
+    images: [
+      {
+        id: '1087112657',
+        picture: 'https://a0.muscache.com/im/pictures/791e6c34-c71c-4090-92d4-c87a7a803162.jpg?im_w=720',
+      },
+      {
+        id: '1087111910',
+        picture: 'https://a0.muscache.com/im/pictures/f4209886-fc07-4a7c-900b-d546da4cf76a.jpg?im_w=720',
+      },
+      {
+        id: '1087111934',
+        picture: 'https://a0.muscache.com/im/pictures/c881dd64-8ebf-42fa-8f25-a4a9322a4ec9.jpg?im_w=720',
+      },
+    ],
   },
   {
     _id: '6017db0e055800005800bdec',
@@ -106,6 +147,19 @@ const apartments = [
       lon: -74.01448,
     },
     guestLabel: '3 guests',
+    images: [
+      {
+        id: '1117796693',
+        picture: 'https://a0.muscache.com/im/pictures/63d2ce8b-8786-442b-a15a-1358e8905803.jpg?im_w=720',
+      },
+      {
+        id: '1117796694',
+        picture: 'https://a0.muscache.com/im/pictures/miso/Hosting-47441942/original/50182c06-434a-4056-95a5-9da937c19971.jpeg?im_w=720',
+      },
+      {
+        id: '1117796695',
+        picture: 'https://a0.muscache.com/im/pictures/8ef535ef-1ec7-48dc-925f-1a2efeb0867c.jpg?im_w=720',
+      }],
   },
   {
     _id: '6017db0e055800005800bdea1',
@@ -191,6 +245,21 @@ const apartments = [
       lon: -73.74467,
     },
     guestLabel: '4 guests',
+    images:
+      [
+        {
+          id: '1092180964',
+          picture: 'https://a0.muscache.com/im/pictures/dea2b0b2-3587-4e51-8f05-a7549a773d8b.jpg?im_w=720',
+        },
+        {
+          id: '1092180980',
+          picture: 'https://a0.muscache.com/im/pictures/cab0a45f-c008-462b-85a0-7a42d67193c1.jpg?im_w=720',
+        },
+        {
+          id: '1092180999',
+          picture: 'https://a0.muscache.com/im/pictures/3084148d-7347-4ab7-81c6-7dbb5f925217.jpg?im_w=720',
+        },
+      ],
   },
   {
     _id: '6017db9e055800005800c48d',
@@ -208,6 +277,20 @@ const apartments = [
       lon: -73.73308,
     },
     guestLabel: '2 guests',
+    images: [
+      {
+        id: '1092181017',
+        picture: 'https://a0.muscache.com/im/pictures/f86b6912-7747-416d-9d8f-f7adc9a485c3.jpg?im_w=720',
+      },
+      {
+        id: '1092181045',
+        picture: 'https://a0.muscache.com/im/pictures/a7714f1c-75d9-4e27-a874-0e843b63daca.jpg?im_w=720',
+      },
+      {
+        id: '1092181057',
+        picture: 'https://a0.muscache.com/im/pictures/b6716182-3831-48f5-8d9f-8388c9095eac.jpg?im_w=720',
+      },
+    ],
   },
 ];
 
