@@ -13,7 +13,6 @@
     "@mui/styles": "^5.0.1",
     "@reduxjs/toolkit": "^1.6.2",
     "@testing-library/react": "^11.2.7",
-    "@testing-library/user-event": "^12.8.3",
     "axios": "^0.22.0",
     "date-fns": "^2.25.0",
     "leaflet": "^1.7.1",
@@ -52,8 +51,12 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "@testing-library/dom": "^8.10.1",
     "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/user-event": "^13.5.0",
     "cross-env": "^7.0.3",
+    "enzyme": "^3.11.0",
+    "enzyme-adapter-react-16": "^1.15.6",
     "eslint": "^7.32.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.24.2",

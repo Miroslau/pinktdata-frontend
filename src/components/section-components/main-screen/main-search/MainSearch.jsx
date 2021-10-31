@@ -65,6 +65,7 @@ const MainSearch = () => {
       try {
         const response = await LocationAPI.search(location);
         if (isMounted.current) {
+          console.log(response.cities);
           setDataLocation(response.cities);
         }
       } catch (error) {
@@ -100,6 +101,8 @@ const MainSearch = () => {
           disableClearable
           renderInput={(params) => (
             <TextField
+              data-testid="Location"
+              placeholder="Location"
               {...params}
               onChange={searchChangeHandler}
               value={location}
