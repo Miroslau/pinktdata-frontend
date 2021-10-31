@@ -12,6 +12,8 @@
     "@mui/material": "^5.0.6",
     "@mui/styles": "^5.0.2",
     "@reduxjs/toolkit": "^1.6.2",
+    "@splidejs/react-splide": "^0.6.5",
+    "@splidejs/splide": "^3.2.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.22.0",
@@ -36,7 +38,7 @@
     "start-mock": "cross-env REACT_APP_IS_MOCKING=true react-scripts start",
     "update": "npx msw init public --no-save",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!@toolz/allow-react)/\" --env=jsdom",
     "lint": "eslint .",
     "lint:fix": "eslint --fix --ext .js,.jsx .",
     "eject": "react-scripts eject"
