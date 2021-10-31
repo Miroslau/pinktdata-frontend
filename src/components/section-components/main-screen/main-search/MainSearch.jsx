@@ -123,13 +123,9 @@ const MainSearch = () => {
                 <Typography variant="body2" color="text.secondary">
                   {TEXT.MAIN_SEARCH.SELECT_NUMBER}
                 </Typography>
-                <Typography variant="caption" display="none" color="red" gutterBottom>
-                  caption text
-                </Typography>
-
               </Grid>
               <Grid item>
-                <Fab size="small" color="primary" aria-label="add" name="add" onClick={handleAddBedroom}>
+                <Fab size="small" color="primary" disabled={bedroom >= MAX_BEDROOM} aria-label="add" name="add" onClick={handleAddBedroom}>
                   <AddIcon />
                 </Fab>
               </Grid>
