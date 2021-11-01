@@ -10,11 +10,11 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import RoomIcon from '@mui/icons-material/Room';
 import SearchIcon from '@mui/icons-material/Search';
-import debounce from 'lodash.debounce';
 import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
 import TEXT from '../../../../constants/mainScreen';
 import useStyles from './MainSearch.style';
 import LocationAPI from '../../../../api/main-search/LocationAPI';
+import { doWithUserDelay } from '../../../../utils/doWithUserDelay';
 
 const bedroomItems = [
   {
@@ -48,6 +48,7 @@ const MainSearch = () => {
   const [endDateValue, setEndDateValue] = useState(dateNowPlusOneDay);
   const [bedroomValue, setBedroomValue] = useState('');
   const [isError, setIsError] = useState(false);
+  let userDelay;
 
   const defaultProps = {
     options: dataLocation,
@@ -57,15 +58,17 @@ const MainSearch = () => {
     isMounted.current = true;
     return () => {
       isMounted.current = false;
+      if (userDelay) {
+        clearTimeout(userDelay);
+      }
     };
-  });
+  }, []);
 
   useEffect(async () => {
     if (location) {
       try {
         const response = await LocationAPI.search(location);
         if (isMounted.current) {
-          console.log(response.cities);
           setDataLocation(response.cities);
         }
       } catch (error) {
@@ -88,7 +91,10 @@ const MainSearch = () => {
       setLocation(value);
     }
   };
-  const searchChangeHandler = debounce(handleChange, 500);
+
+  const searchChangeHandler = (e) => {
+    userDelay = doWithUserDelay(() => handleChange(e), userDelay);
+  };
 
   return (
     <form className={classes.form}>
