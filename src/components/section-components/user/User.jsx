@@ -5,8 +5,10 @@ import userIcon from '../../../assets/user.webp';
 import MenuMui from '../../ui-components/menu-mui/MenuMui';
 import ButtonMui from '../../ui-components/button-mui/ButtonMui';
 import useStyle from '../../../style/style';
+import { userMenu } from '../../../constants/menu/userMenu';
 
-const User = ({ userName, logOut }) => {
+// eslint-disable-next-line no-unused-vars
+const User = ({ userName, itemClick }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const isOpenMenu = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -33,7 +35,8 @@ const User = ({ userName, logOut }) => {
         isOpen={isOpenMenu}
         anchorEl={anchorEl}
         handleClose={handleClose}
-        logOutUser={logOut}
+        handleClick={itemClick}
+        items={userMenu}
       />
     </div>
   );
@@ -41,12 +44,12 @@ const User = ({ userName, logOut }) => {
 
 User.defaultProps = {
   userName: 'userName',
-  logOut: null,
+  itemClick: null,
 };
 
 User.propTypes = {
   userName: PropTypes.string,
-  logOut: PropTypes.func,
+  itemClick: PropTypes.func,
 };
 
 export default User;

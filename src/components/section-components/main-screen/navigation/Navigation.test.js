@@ -8,7 +8,6 @@ import { BrowserRouter } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import Navigation from './Navigation';
 
-// eslint-disable-next-line no-undef
 describe('Navigation Component', () => {
   const userSlice = createSlice({
     name: 'user',
@@ -43,22 +42,17 @@ describe('Navigation Component', () => {
     reducer: rootReducer,
   });
 
-  // eslint-disable-next-line no-undef
   it('renders component navigation', () => {
-    // eslint-disable-next-line react/react-in-jsx-scope
     render(<Provider store={store}><BrowserRouter><Navigation /></BrowserRouter></Provider>);
   });
 
-  // eslint-disable-next-line no-undef
   it('opens modal on click button Sign In', async () => {
-    // eslint-disable-next-line react/react-in-jsx-scope,max-len
     render(<Provider store={store}><BrowserRouter><Navigation /></BrowserRouter></Provider>);
     const button = screen.getByText('Sign in');
 
     userEvent.click(button);
 
     const result = await screen.getByText('Enter email');
-    // eslint-disable-next-line no-undef
     expect(result).toBeInTheDocument();
   });
 });
