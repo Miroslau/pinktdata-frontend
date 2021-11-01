@@ -8,7 +8,7 @@ import useMountedState from '../../hooks/useMountedState';
 import MapAPI from '../../api/map/mapPageAPI';
 
 const Map = () => {
-  const isMounted = useMountedState();
+  const hasMounted = useMountedState();
   const listRoomBlock = useRef();
   const { publicAddress, count } = useSelector(apartmentSelector);
   const [currentPage, setCurrentPage] = useState(1);
@@ -20,11 +20,28 @@ const Map = () => {
     setModalActive(value);
   };
 
+  const handlerFilter = (filterParams = null) => {
+    const { bedrooms, priceRange, isMax } = filterParams;
+    const priceFrom = priceRange[0];
+    const priceTo = priceRange[1];
+    MapAPI.searchApartments(publicAddress, currentPage, priceFrom, priceTo, bedrooms, isMax)
+      .then(({ data }) => {
+        if (hasMounted()) {
+          setApart(data);
+          setCurrentPage((prevState) => prevState + 1);
+          handleModal(false);
+        }
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
+  };
+
   useEffect(() => {
     if (isFetching) {
       MapAPI.searchApartments(publicAddress, currentPage)
         .then(({ data }) => {
-          if (isMounted()) {
+          if (hasMounted()) {
             setApart(data);
             setCurrentPage((prevState) => prevState + 1);
           }
@@ -32,9 +49,13 @@ const Map = () => {
         .catch((err) => {
           console.err(err.message);
         })
-        .finally(() => setIsFetching(false));
+        .finally(() => {
+          if (hasMounted()) {
+            setIsFetching(false);
+          }
+        });
     }
-  }, [isMounted, isFetching]);
+  }, [hasMounted, isFetching]);
 
   const scrollHandler = () => {
     const el = listRoomBlock.current;
@@ -59,6 +80,7 @@ const Map = () => {
         publicAddress={publicAddress}
         isActiveModal={isActiveModal}
         setModalActive={handleModal}
+        apartmentFilter={handlerFilter}
       />
       <MapRender apart={apart} />
     </section>

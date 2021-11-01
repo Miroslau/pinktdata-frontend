@@ -8,7 +8,14 @@ import Card from '../card/Card';
 import { TEXT } from '../../../constants/map_page';
 
 const Content = ({
-  apart, count, scrollHandler, listRoomBlock, publicAddress, isActiveModal, setModalActive,
+  apart,
+  count,
+  scrollHandler,
+  listRoomBlock,
+  publicAddress,
+  isActiveModal,
+  setModalActive,
+  apartmentFilter,
 }) => {
   const classes = useStyles();
 
@@ -28,6 +35,7 @@ const Content = ({
         <Tabs
           isActiveModal={isActiveModal}
           setModalActive={setModalActive}
+          apartmentFilter={apartmentFilter}
         />
         <TypographyMui variant="h6" text={`${TEXT.SUBTITLE} ${count} ${TEXT.STAYS}`} />
       </div>
@@ -45,6 +53,7 @@ const Content = ({
             address={data.address}
             price={data.price}
             homeDetails={data.guestLabel}
+            images={data.images}
           />
         ))}
       </div>
@@ -55,6 +64,7 @@ const Content = ({
 Content.defaultProps = {
   isActiveModal: false,
   setModalActive: null,
+  apartmentFilter: null,
 };
 
 Content.propTypes = {
@@ -65,6 +75,7 @@ Content.propTypes = {
   publicAddress: PropTypes.string.isRequired,
   isActiveModal: PropTypes.bool,
   setModalActive: PropTypes.func,
+  apartmentFilter: PropTypes.func,
 };
 
 export default Content;

@@ -1,11 +1,16 @@
 import '@testing-library/jest-dom';
-import { render } from '@testing-library/react';
+import {
+  render, fireEvent,
+} from '@testing-library/react';
+import { Splide, SplideSlide } from '@splidejs/react-splide';
 
 import { server } from '../../../mocks/server';
+import apartments from '../../../mocks/mocks-constants/mockDataApartments';
 import Card from './Card';
 
 describe('Card Component', () => {
   process.env.REACT_APP_IS_MOCKING = true;
+  const mockData = apartments[0];
 
   beforeAll(() => server.listen({
     onUnhandledRequest: 'error',
@@ -18,18 +23,105 @@ describe('Card Component', () => {
   });
 
   it('city has in card component', async () => {
-    const { findByText } = render(<Card city="Philadelphia" />);
+    const { findByText } = render(<Card city={mockData.city} />);
     expect(await findByText('Philadelphia')).toBeInTheDocument();
   });
 
   it('name has in card component', async () => {
-    const { findByText } = render(<Card name="Free Parking guaranteed" />);
+    const { findByText } = render(<Card name={mockData.name} />);
     expect(await findByText('Free Parking guaranteed')).toBeInTheDocument();
   });
 
-  it('image has in card component', async () => {
-    const { findByRole } = render(<Card img="https://a0.muscache.com/im/pictures/791e6c34-c71c-4090-92d4-c87a7a803162.jpg?im_w=720" />);
-    const image = await findByRole('presentation');
-    expect(image).toBeInTheDocument();
+  describe('image slider', () => {
+    let container;
+    let unmount;
+
+    beforeEach(() => {
+      const options = {
+        perPage: 1,
+        perMove: 1,
+        rewind: true,
+        fixedWidth: '350px',
+        fixedHeight: '250px',
+        cover: 'true',
+        pagination: true,
+      };
+      const component = render(
+        <Splide options={options}>
+          <SplideSlide><img src={mockData.images[0].picture} alt={mockData.name} /></SplideSlide>
+          <SplideSlide><img src={mockData.images[1].picture} alt={mockData.name} /></SplideSlide>
+        </Splide>,
+      );
+      container = component.container;
+      unmount = component.unmount;
+    });
+
+    afterEach(() => {
+      unmount();
+    });
+
+    it('should render Image Slider', () => {
+      expect(container.firstChild).toBeInTheDocument();
+    });
+
+    it('should switch slides when arrow button clicked', () => {
+      const button = container.querySelector('.splide__arrow--next');
+      const slides = container.querySelector('.splide__list');
+      expect(slides.firstChild.classList.contains('is-active')).toBe(true);
+      fireEvent.click(button);
+      expect(slides.firstChild.classList.contains('is-active')).toBe(false);
+      expect(slides.firstChild.classList.contains('is-prev')).toBe(true);
+    });
   });
 });
+
+/* eslint-disable react/jsx-one-expression-per-line */
+/* eslint-disable max-len */
+// import '@testing-library/jest-dom';
+// import {
+//   render, fireEvent,
+// } from '@testing-library/react';
+// import { Splide, SplideSlide } from '@splidejs/react-splide';
+// import apartments from '../../../mocks/mocks-constants/mockDataApartments';
+
+// describe('Card component', () => {
+//   const mockData = apartments[0];
+
+//   describe('image slider', () => {
+//     let container;
+//     let unmount;
+
+//     beforeEach(() => {
+//       const options = {
+//         perPage: 1,
+//         perMove: 1,
+//         rewind: true,
+//         fixedWidth: '350px',
+//         fixedHeight: '250px',
+//         cover: 'true',
+//         pagination: true,
+//       };
+//       const component = render(<Splide options={options}><SplideSlide><img src={mockData.images[0].picture} alt={mockData.name} /></SplideSlide><SplideSlide><img src={mockData.images[1].picture} alt={mockData.name} /></SplideSlide></Splide>);
+//       container = component.container;
+//       unmount = component.unmount;
+//     });
+
+//     afterEach(() => {
+//       unmount();
+//     });
+
+//     it('should render Image Slider', () => {
+//       expect(container.firstChild).toBeInTheDocument();
+//     });
+
+//     it('should switch slides when arrow button clicked', () => {
+//       const button = container.querySelector('.splide__arrow--next');
+//       const slides = container.querySelector('.splide__list');
+//       expect(slides.firstChild.classList.contains('is-active')).toBe(true);
+//       fireEvent.click(button);
+//       expect(slides.firstChild.classList.contains('is-active')).toBe(false);
+//       expect(slides.firstChild.classList.contains('is-prev')).toBe(true);
+//     });
+// >>>>>>> 0ecdde64a01834c6a0d8c5a659f19e207d83028a
+//   });
+// });

@@ -13,7 +13,7 @@ export const validateErrors = (values, isSignIn) => {
     if (!values.firstName.trim()) {
       errors.firstName = 'First Name required';
     } else if (!REGX_ONLY_LETTER.test(values.firstName.trim())) {
-      errors.firstName = 'Enter a valid name';
+      errors.firstName = 'First Name must be alphabets only';
     } else if (!REGEX_MIN_MAX_LETTERS_NAME.test(values.firstName)) {
       errors.firstName = 'Must be of length 5 to 32';
     }
@@ -21,7 +21,7 @@ export const validateErrors = (values, isSignIn) => {
     if (!values.lastName.trim()) {
       errors.lastName = 'Last Name required';
     } else if (!REGX_ONLY_LETTER.test(values.lastName.trim())) {
-      errors.lastName = 'Enter a valid name';
+      errors.lastName = 'Last Name must be alphabets only';
     } else if (!REGEX_MIN_MAX_LETTERS_NAME.test(values.lastName)) {
       errors.lastName = 'Must be of length 5 to 32';
     }

@@ -1,54 +1,146 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ApartmentFilters.scss';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import { styled } from '@mui/material/styles';
 import PropTypes from 'prop-types';
+import InputMui from '../../../ui-components/input-mui/InputMui';
 import RangeSliderMui from '../../../ui-components/range-slider-mui/RangeSliderMui';
 import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
 import { apartmentFilterLocalization } from '../../../../constants/Localizations/apartmentFilterLocalization';
 
-const ApartmentFilters = ({ myFilter }) => {
-  const [rangeValue, setRangeValue] = useState([0, 16000]);
-  const [countRooms, setCountRooms] = useState(1);
+const Input = styled(InputMui)`
+  width: 70px;
+`;
 
-  const rangeChange = (event, newValue) => {
-    setRangeValue(newValue);
+const MIN_BEDROOMS = 0;
+const MAX_BEDROOMS = 5;
+
+const MIN_PRICE = 10;
+const MAX_PRICE = 1000;
+const STEP = 10;
+
+const inputProps = {
+  step: STEP,
+  min: MIN_PRICE,
+  type: 'number',
+  'aria-labelledby': 'input-slider',
+};
+
+const ApartmentFilters = ({ apartmentFilter }) => {
+  const [filtersParams, setFilterParams] = useState({
+    priceRange: [10, 1000],
+    bedrooms: 0,
+    isMax: true,
+    isMinInput: false,
+    isMaxInput: false,
+  });
+
+  useEffect(() => {
+    let isMax = true;
+    if (!filtersParams.isMaxInput && filtersParams.priceRange[1] === MAX_PRICE) isMax = false;
+    setFilterParams(((prevState) => ({ ...prevState, isMax })));
+  }, [filtersParams.priceRange]);
+
+  const openInputLeft = () => {
+    setFilterParams(((prevState) => ({ ...prevState, isMinInput: true, isMaxInput: false })));
   };
 
-  const addRoom = () => setCountRooms((prevCount) => prevCount + 1);
+  const openInputRight = () => {
+    setFilterParams(((prevState) => ({ ...prevState, isMinInput: false, isMaxInput: true })));
+  };
 
-  const removeRoom = () => setCountRooms((prevCount) => prevCount - 1);
+  const rangeChange = (event, newValue) => {
+    // eslint-disable-next-line max-len
+    setFilterParams(((prevState) => ({
+      ...prevState, priceRange: newValue, isMinInput: false, isMaxInput: false,
+    })));
+  };
+
+  // eslint-disable-next-line max-len
+  const addRoom = () => setFilterParams(((prevState) => ({ ...prevState, bedrooms: prevState.bedrooms + 1 })));
+
+  // eslint-disable-next-line max-len
+  const removeRoom = () => setFilterParams(((prevState) => ({ ...prevState, bedrooms: prevState.bedrooms - 1 })));
 
   const clearState = () => {
-    setRangeValue([0, 16000]);
-    setCountRooms(1);
+    setFilterParams({
+      priceRange: [10, 1000],
+      bedrooms: 0,
+      isMax: true,
+      isMinInput: false,
+      isMaxInput: false,
+    });
+  };
+
+  const handleInputChange = (event) => {
+    const value = Number(event.target.value);
+    const priceRangeValue = [...filtersParams.priceRange];
+    if (filtersParams.isMinInput) {
+      priceRangeValue[0] = value;
+    }
+    if (filtersParams.isMaxInput) {
+      priceRangeValue[1] = value;
+    }
+    setFilterParams(((prevState) => ({ ...prevState, priceRange: priceRangeValue })));
   };
 
   const filterApartment = () => {
-    const filtersParams = {
-      priceRange: rangeValue,
-      countRoom: countRooms,
-    };
-    myFilter(filtersParams);
+    apartmentFilter(filtersParams);
   };
 
   return (
     <div className="apartment-filters">
       <div className="apartment-filters-price-range">
         <div className="apartment-filters__title">
-          Price range
+          {apartmentFilterLocalization.PRICE_RANGE}
         </div>
         <div className="apartment-filters-price-range__slider">
           <div className="apartment-filters-price-range__label">
-            <span>{`Min price: ${rangeValue[0]}`}</span>
-            <span>{`Max price: ${rangeValue[1]}`}</span>
+            {
+              !filtersParams.isMinInput ? (
+                <span
+                  className="apartment-filters-price-range__item"
+                  onClick={openInputLeft}
+                  role="presentation"
+                >
+                  {`Min price: ${filtersParams.priceRange[0]}`}
+                </span>
+              ) : (
+                <Input
+                  value={filtersParams.priceRange[0]}
+                  size="small"
+                  onChange={handleInputChange}
+                  inputProps={inputProps}
+                />
+              )
+            }
+            {
+              !filtersParams.isMaxInput ? (
+                <span
+                  className="apartment-filters-price-range__item"
+                  onClick={openInputRight}
+                  role="presentation"
+                >
+                  {`Max price: ${(filtersParams.priceRange[1] === MAX_PRICE ? `${filtersParams.priceRange[1]}+` : filtersParams.priceRange[1])}`}
+                </span>
+              ) : (
+                <Input
+                  value={filtersParams.priceRange[1]}
+                  size="small"
+                  onChange={handleInputChange}
+                  inputProps={inputProps}
+                />
+              )
+            }
           </div>
           <RangeSliderMui
-            value={rangeValue}
+            value={filtersParams.priceRange}
             handleChange={rangeChange}
             valueLabelDisplay="auto"
-            min={0}
-            max={16000}
+            step={STEP}
+            min={MIN_PRICE}
+            max={MAX_PRICE}
           />
         </div>
       </div>
@@ -65,16 +157,16 @@ const ApartmentFilters = ({ myFilter }) => {
               aria-label="remove"
               clickButton={removeRoom}
               size="small"
-              disabled={countRooms === 1}
+              disabled={filtersParams.bedrooms === MIN_BEDROOMS}
               className="apartment-filters__button"
             >
               <RemoveIcon />
             </ButtonMui>
-            <div>{countRooms}</div>
+            <div>{filtersParams.bedrooms}</div>
             <ButtonMui
               aria-label="add"
               clickButton={addRoom}
-              disabled={countRooms === 5}
+              disabled={filtersParams.bedrooms === MAX_BEDROOMS}
               size="small"
               className="apartment-filters__button"
             >
@@ -92,7 +184,7 @@ const ApartmentFilters = ({ myFilter }) => {
 };
 
 ApartmentFilters.propTypes = {
-  myFilter: PropTypes.func.isRequired,
+  apartmentFilter: PropTypes.func.isRequired,
 };
 
 export default ApartmentFilters;
