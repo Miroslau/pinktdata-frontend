@@ -1,5 +1,9 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { rest } from 'msw';
+import mockDataMajorCities from './mocks-constants/mockDataMajorCities';
+import mockDataApartments from './mocks-constants/mockDataApartments';
+import mockDataForPopularRooms from './mocks-constants/mockDataForPopularRooms';
+import mockDataForPreviewPage from './mocks-constants/mockDataForPreviewPage';
 
 export const handlers = [
   rest.post('/api/auth/registration', (req, res, ctx) => {
@@ -43,6 +47,7 @@ export const handlers = [
     const priceTo = req.url.searchParams.get('priceTo');
     const bedrooms = req.url.searchParams.get('bedrooms');
     let aparts = [...mockDataApartments];
+
     if (location) {
       aparts = aparts.filter((item) => item.address === location);
     }
