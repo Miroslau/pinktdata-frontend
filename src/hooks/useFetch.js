@@ -7,14 +7,15 @@ const useFetch = (getData, setData) => {
   const isMounted = useMountedState();
 
   useEffect(async () => {
-    if (isMounted()) {
+    if (isLoading) {
       try {
         const { data } = await getData();
-        setData(data);
+        if (isMounted()) setData(data);
       } catch (err) {
-        setError(err.message);
+        if (isMounted()) setError(err.message);
+      } finally {
+        if (isMounted()) setIsLoading(false);
       }
-      setIsLoading(false);
     }
   }, [isMounted]);
 
