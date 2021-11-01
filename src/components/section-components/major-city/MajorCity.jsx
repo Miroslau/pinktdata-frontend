@@ -1,20 +1,47 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './MajorCity.scss';
-
-import NewYork from '../../../assets/New-York.webp';
-import Miami from '../../../assets/Miami.webp';
-import SanFrancisco from '../../../assets/San-Francisco.webp';
-import Houston from '../../../assets/Houston.webp';
-import LosAngeles from '../../../assets/Los-Angeles.webp';
+import { uniqueId } from 'lodash';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { setApartment } from '../../../store/slice/apartmentSlice';
+import majorCitiesAPI from '../../../api/major-cities/majorCitiesAPI';
+import useMountedState from '../../../hooks/useMountedState';
 
 import {
-  TITLE_MAJORCITY, BTN_MAJORCITY, LOSANGELES_CITY_MAJORCITY,
-  MIAMI_CITY_MAJORCITY, SAN_FRANCISCO_CITY_MAJORCITY,
-  HOUSTON_CITY_MAJORCITY, NEW_YOURK_CITY_MAJORCITY,
+  TITLE_MAJORCITY, BTN_MAJORCITY,
 }
 from '../../../constants/mainPageConst';
+import { MAP_ROUTE } from '../../../constants/routes';
 
-export default function MajorCity() {
+const PREFIX = 'major_cities_';
+
+const MajorCity = () => {
+  const dispatch = useDispatch();
+  const [majorCities, setMajorCities] = useState([]);
+  const history = useHistory();
+  const hasMounted = useMountedState();
+
+  useEffect(() => {
+    majorCitiesAPI.getMajorCities()
+      .then(({ data }) => {
+        if (hasMounted()) {
+          const cities = data.map((city) => {
+            city.id = uniqueId(PREFIX);
+            return city;
+          });
+          setMajorCities(cities);
+        }
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
+  }, [hasMounted]);
+
+  const openMapPageWithCity = (city) => {
+    dispatch(setApartment(city));
+    history.push(MAP_ROUTE);
+  };
+
   return (
     <div className="major-city">
       <div className="wrapper">
@@ -22,33 +49,45 @@ export default function MajorCity() {
           <h3>{TITLE_MAJORCITY}</h3>
           <button type="button" className="button ">{BTN_MAJORCITY}</button>
         </div>
-        <div className="major-city-hotels-containet">
-          <div className="major-city-hotels-containet-left">
-            <div className="major-city-hotels-containet-up">
-              <div className="major-city-hotels-xs img-container">
-                <img src={LosAngeles} alt="Los Angeles" />
-                <h4>{LOSANGELES_CITY_MAJORCITY}</h4>
-              </div>
-              <div className="major-city-hotels-xs img-container">
-                <img src={Miami} alt="Miami" />
-                <h4>{MIAMI_CITY_MAJORCITY}</h4>
-              </div>
-            </div>
-            <div className="major-city-hotels-m img-container">
-              <img src={SanFrancisco} alt="San Francisco" />
-              <h4>{SAN_FRANCISCO_CITY_MAJORCITY}</h4>
-            </div>
+        <div className="major-city-container">
+          <div className="major-city-container__item major-city-container__item_left">
+            {
+              majorCities.map((city) => (
+                <div
+                  key={city.id}
+                  className="major-city-container__left"
+                  onClick={() => openMapPageWithCity(city)}
+                  role="presentation"
+                >
+                  <img className="major-city-container__img" src={city.imageUrl} alt={city.city} />
+                  <h4 className="major-city-container__title">{city.city}</h4>
+                </div>
+              )).slice(0, 3)
+             }
           </div>
-          <div className="major-city-hotels-big img-container">
-            <img src={Houston} alt="Houston" />
-            <h4>{HOUSTON_CITY_MAJORCITY}</h4>
-          </div>
-          <div className="major-city-hotels-big img-container">
-            <img src={NewYork} alt="New York" />
-            <h4>{NEW_YOURK_CITY_MAJORCITY}</h4>
+          <div className="major-city-container__right">
+            {
+              majorCities.map((city) => (
+                <div
+                  key={city.id}
+                  onClick={() => openMapPageWithCity(city)}
+                  role="presentation"
+                >
+                  <img
+                    className="major-city-container__img
+                               major-city-container__img_big"
+                    src={city.imageUrl}
+                    alt={city.city}
+                  />
+                  <h4 className="major-city-container__title">{city.city}</h4>
+                </div>
+              )).slice(3, 5)
+             }
           </div>
         </div>
       </div>
     </div>
   );
-}
+};
+
+export default MajorCity;

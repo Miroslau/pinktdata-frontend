@@ -1,102 +1,89 @@
-import * as React from 'react';
-import {
-  MapContainer, TileLayer, Marker, Popup,
-} from 'react-leaflet';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import Divider from '@mui/material/Divider';
-import Typography from '@mui/material/Typography';
+import React, { useEffect, useRef, useState } from 'react';
+import { useSelector } from 'react-redux';
+import { apartmentSelector } from '../../store/slice/apartmentSlice';
 import useStyles from '../../style/style';
-import Navigation from '../../components/section-components/main-screen/navigation/Navigation';
+import MapRender from '../../components/map-page/map-render/MapRender';
+import Content from '../../components/map-page/content-render/Content';
+import useMountedState from '../../hooks/useMountedState';
+import MapAPI from '../../api/map/mapPageAPI';
 
 const Map = () => {
-  const classes = useStyles();
-  const [alignment, setAlignment] = React.useState('all');
+  const hasMounted = useMountedState();
+  const listRoomBlock = useRef();
+  const { publicAddress, count } = useSelector(apartmentSelector);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [apart, setApart] = useState([]);
+  const [isFetching, setIsFetching] = useState(true);
+  const [isActiveModal, setModalActive] = useState(false);
 
-  const handleChange = (event, newAlignment) => {
-    setAlignment(newAlignment);
+  const handleModal = (value) => {
+    setModalActive(value);
   };
 
-  return (
-    <div className="map-page">
-      <Navigation />
-      <section className={classes.wrapper}>
-        <div className={classes.mapContentWrapper}>
-          <div className={classes.mapContent} />
-          <div className={classes.mapContent}>
-            <Typography variant="h3">Places to buy near you</Typography>
-            <div className={classes.mapTabs}>
-              <ToggleButtonGroup
-                color="primary"
-                value={alignment}
-                exclusive
-                onChange={handleChange}
-                className={classes.contentButton}
-              >
-                <ToggleButton value="all">All</ToggleButton>
-                <ToggleButton value="available">Available</ToggleButton>
-                <ToggleButton value="star">3 Star</ToggleButton>
-                <ToggleButton value="price">Price</ToggleButton>
-                <ToggleButton value="rated">Top Rated</ToggleButton>
-                <Divider className={classes.divider} />
-                <ToggleButton value="filter">
-                  <FilterListIcon />
-                  Filters
-                </ToggleButton>
-              </ToggleButtonGroup>
-            </div>
-            <Typography variant="subtitle1">Explore all 300+ stays</Typography>
-          </div>
-          <Divider />
-          <div className={classes.mapContent}>
-            <div className={classes.content}>
-              <div className={classes.contentImg}>img</div>
-              <div className={classes.contentData}>
-                <div className={classes.dataLeft}>
-                  <div className={classes.dataText}>
-                    <Typography variant="body2">
-                      PATH trains and lower Manhattan
-                    </Typography>
-                    <Typography variant="subtitle2">
-                      DoubleTree by Hilton Hotel
-                    </Typography>
-                    <Typography variant="body2" color="green">
-                      Available
-                    </Typography>
-                    <Typography variant="body2">Air Conditioned</Typography>
-                  </div>
-                  <div>rating</div>
-                </div>
-                <div className={classes.dataRight}>
-                  <div>heartImg</div>
-                  <div>price</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <Divider />
-        </div>
+  const handlerFilter = (filterParams = null) => {
+    const { bedrooms, priceRange, isMax } = filterParams;
+    const priceFrom = priceRange[0];
+    const priceTo = priceRange[1];
+    MapAPI.searchApartments(publicAddress, currentPage, priceFrom, priceTo, bedrooms, isMax)
+      .then(({ data }) => {
+        if (hasMounted()) {
+          setApart(data);
+          setCurrentPage((prevState) => prevState + 1);
+          handleModal(false);
+        }
+      })
+      .catch((err) => {
+        console.error(err.message);
+      });
+  };
 
-        <div className={classes.map}>
-          <MapContainer center={[51.505, -0.09]} zoom={13} scrollWheelZoom={false}>
-            <TileLayer
-              attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            <Marker position={[51.505, -0.09]}>
-              <Popup>
-                A pretty CSS3 popup.
-                {' '}
-                <br />
-                {' '}
-                Easily customizable.
-              </Popup>
-            </Marker>
-          </MapContainer>
-        </div>
-      </section>
-    </div>
+  useEffect(() => {
+    if (isFetching) {
+      MapAPI.searchApartments(publicAddress, currentPage)
+        .then(({ data }) => {
+          if (hasMounted()) {
+            setApart(data);
+            setCurrentPage((prevState) => prevState + 1);
+          }
+        })
+        .catch((err) => {
+          console.error(err.message);
+        })
+        .finally(() => {
+          if (hasMounted()) {
+            setIsFetching(false);
+          }
+        });
+    }
+  }, [hasMounted, isFetching]);
+
+  const scrollHandler = () => {
+    const el = listRoomBlock.current;
+
+    const scrollPosition = el.scrollHeight
+        - (el.scrollTop + window.innerHeight)
+        < 100 && apart.length < count;
+
+    if (scrollPosition) {
+      setIsFetching(true);
+    }
+  };
+
+  const classes = useStyles();
+  return (
+    <section className={classes.wrapper}>
+      <Content
+        apart={apart}
+        count={count}
+        scrollHandler={scrollHandler}
+        listRoomBlock={listRoomBlock}
+        publicAddress={publicAddress}
+        isActiveModal={isActiveModal}
+        setModalActive={handleModal}
+        apartmentFilter={handlerFilter}
+      />
+      <MapRender apart={apart} />
+    </section>
   );
 };
 

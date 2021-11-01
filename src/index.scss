@@ -20,6 +20,17 @@ body {
 
 }
 
+.marker-cluster-custom {
+  background: #9370db;
+  border: 3px solid #ededed;
+  border-radius: 50%;
+  color: #ededed;
+  height: 40px;
+  line-height: 37px;
+  text-align: center;
+  width: 40px;
+}
+
 h3{
   font-size: 30px;
 }
@@ -42,6 +53,6 @@ h3{
 }
 
 .leaflet-container {
-  width: 48.8vw;
+  width: 54.8vw;
   height: 100vh;
 }
