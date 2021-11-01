@@ -19,7 +19,6 @@ const Tabs = ({ isActiveModal, setModalActive, apartmentFilter }) => {
   };
 
   const closeModal = () => {
-    console.log('close modal');
     setModalActive(false);
   };
 
