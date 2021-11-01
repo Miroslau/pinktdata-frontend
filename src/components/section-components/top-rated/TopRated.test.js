@@ -1,5 +1,8 @@
 import '@testing-library/jest-dom';
-import { findByText, render } from '@testing-library/react';
+import {
+  findByText, getByTestId, render, waitFor,
+} from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
 import TopRated from './TopRated';
 
 describe('TopRated component', () => {
@@ -7,20 +10,27 @@ describe('TopRated component', () => {
   // eslint-disable-next-line no-unused-vars
   let container;
   beforeEach(() => {
-    const { container: currentContainer, unmount: currentUnmount } = render(<TopRated />);
+    const { container: currentContainer, unmount: currentUnmount } = render(
+      <BrowserRouter>
+        <TopRated />
+      </BrowserRouter>,
+    );
     container = currentContainer;
     unmount = currentUnmount;
   });
   afterEach(() => {
     unmount();
   });
-  test('should have the text "Top Rated"', async () => {
-    const text = await findByText(container, 'Top Rated');
-    expect(text).toBeInTheDocument();
+
+  test('should have the loading skeleton when images loading', () => {
+    const text = getByTestId(container, 'Skeleton');
+    expect(text).toBeTruthy();
   });
 
-  test('should have the text "Rooms loading" when images loading', async () => {
-    const text = await findByText(container, 'Rooms loading...');
-    expect(text).toBeInTheDocument();
+  test('should have the text "Top Rated"', async () => {
+    await waitFor(() => {
+      const text = findByText(container, 'Top Rated');
+      expect(text).toBeTruthy();
+    });
   });
 });
