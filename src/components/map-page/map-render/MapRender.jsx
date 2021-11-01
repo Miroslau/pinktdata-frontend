@@ -9,6 +9,7 @@ import MarkerClusterGroup from 'react-leaflet-markercluster/src/react-leaflet-ma
 import PropTypes from 'prop-types';
 import pointMarker from '../../../assets/svg/pointMarker.svg';
 import useStyles from '../../../style/style';
+import MapCard from '../../section-components/map-card/MapCard';
 
 const markerIcon = new L.Icon({
   iconUrl: pointMarker,
@@ -64,11 +65,7 @@ const MapRender = ({ apart }) => {
             >
               <Tooltip direction="top" offset={[0, -5]} permanent>{data.price}</Tooltip>
               <Popup>
-                {data.address}
-                {' '}
-                <br />
-                {' '}
-                {data.price}
+                <MapCard id={data._id} />
               </Popup>
             </Marker>
           ))}

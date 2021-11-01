@@ -34,9 +34,16 @@ const images = [
 ];
 
 const data = {
+  id: '123',
   img: 'https://media-cdn.tripadvisor.com/media/photo-s/16/45/16/dd/the-mood-luxury-rooms.jpg',
   images,
   name: 'test name for room',
+  rating: '4.99',
+  reviews: '1010',
+  spaceType: 'Test room',
+  city: 'Gomel',
+  price: '$42',
+  rateType: 'daily',
 };
 
 export default data;

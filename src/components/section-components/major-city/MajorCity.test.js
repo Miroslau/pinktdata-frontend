@@ -53,7 +53,7 @@ describe('MajorCity Component', () => {
   // eslint-disable-next-line no-undef
   it('renders component Major cities', () => {
     // eslint-disable-next-line react/react-in-jsx-scope
-    render(<Provider store={store}><BrowserRouter><MajorCity /></BrowserRouter></Provider>);
+    render(<Provider store={store}><BrowserRouter /></Provider>);
   });
 
   // eslint-disable-next-line no-undef
