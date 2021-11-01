@@ -43,8 +43,22 @@ export const handlers = [
   rest.get('/api/apartments/locations/most-apartments', (req, res, ctx) => res(ctx.json(mockDataMajorCities))),
   rest.get('/api/apartments/search', (req, res, ctx) => {
     const location = req.url.searchParams.get('location');
-    // eslint-disable-next-line max-len
-    return res(ctx.delay(), ctx.status(200), ctx.json(mockDataApartments.filter((item) => item.address === location)));
+    const priceFrom = req.url.searchParams.get('priceFrom');
+    const priceTo = req.url.searchParams.get('priceTo');
+    const bedrooms = req.url.searchParams.get('bedrooms');
+    let aparts = [...mockDataApartments];
+    if (location) {
+      aparts = aparts.filter((item) => item.address === location);
+    }
+    if (priceFrom && priceTo) {
+      aparts = aparts.filter((item) => item.priceValue >= priceFrom && item.priceValue <= priceTo);
+    } else if (priceFrom) {
+      aparts = aparts.filter((item) => item.priceValue >= priceFrom);
+    }
+    if (bedrooms) {
+      aparts = aparts.filter((item) => item.bedrooms === +bedrooms);
+    }
+    return res(ctx.delay(), ctx.status(200), ctx.json(aparts));
   }),
 
   rest.get('/api/apartments/popular/images', (req, res, ctx) => res(ctx.delay(1500), ctx.status(200), ctx.json(mockDataForPopularRooms))),

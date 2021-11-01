@@ -1,50 +1,23 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
-
+import React, { useEffect } from 'react';
 import Divider from '@mui/material/Divider';
-import { apartmentSelector } from '../../../store/slice/apartmentSlice';
+import PropTypes from 'prop-types';
 import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
 import useStyles from '../../../style/style';
-
 import Tabs from '../tabs/Tabs';
 import Card from '../card/Card';
 import { TEXT } from '../../../constants/map_page';
-import MapAPI from '../../../api/map/mapPageAPI';
-import useMountedState from '../../../hooks/useMountedState';
 
-const Content = () => {
+const Content = ({
+  apart,
+  count,
+  scrollHandler,
+  listRoomBlock,
+  publicAddress,
+  isActiveModal,
+  setModalActive,
+  apartmentFilter,
+}) => {
   const classes = useStyles();
-  const listRoomBlock = useRef();
-  const [apart, setApart] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [isFetching, setIsFetching] = useState(true);
-  const { publicAddress, count } = useSelector(apartmentSelector);
-  const isMounted = useMountedState();
-
-  useEffect(() => {
-    if (isFetching) {
-      MapAPI.searchApartments(publicAddress, currentPage)
-        .then((response) => {
-          if (isMounted()) {
-            setApart(response.data);
-            setCurrentPage((prevState) => prevState + 1);
-          }
-        })
-        .finally(() => setIsFetching(false));
-    }
-  }, [isMounted, isFetching]);
-
-  const scrollHandler = () => {
-    const el = listRoomBlock.current;
-
-    const scrollPosition = el.scrollHeight
-    - (el.scrollTop + window.innerHeight)
-    < 100 && apart.length < count;
-
-    if (scrollPosition) {
-      setIsFetching(true);
-    }
-  };
 
   useEffect(() => {
     document.addEventListener('scroll', scrollHandler);
@@ -59,11 +32,12 @@ const Content = () => {
           text={`${TEXT.TITLE} ${publicAddress}`}
           className={classes.title}
         />
-        <Tabs />
-        <TypographyMui
-          variant="h6"
-          text={`${TEXT.SUBTITLE} ${count} ${TEXT.STAYS}`}
+        <Tabs
+          isActiveModal={isActiveModal}
+          setModalActive={setModalActive}
+          apartmentFilter={apartmentFilter}
         />
+        <TypographyMui variant="h6" text={`${TEXT.SUBTITLE} ${count} ${TEXT.STAYS}`} />
       </div>
       <Divider />
       <div className={classes.mapWrapper} ref={listRoomBlock}>
@@ -85,6 +59,23 @@ const Content = () => {
       </div>
     </div>
   );
+};
+
+Content.defaultProps = {
+  isActiveModal: false,
+  setModalActive: null,
+  apartmentFilter: null,
+};
+
+Content.propTypes = {
+  apart: PropTypes.instanceOf(Array).isRequired,
+  count: PropTypes.number.isRequired,
+  scrollHandler: PropTypes.func.isRequired,
+  listRoomBlock: PropTypes.instanceOf(Object).isRequired,
+  publicAddress: PropTypes.string.isRequired,
+  isActiveModal: PropTypes.bool,
+  setModalActive: PropTypes.func,
+  apartmentFilter: PropTypes.func,
 };
 
 export default Content;
