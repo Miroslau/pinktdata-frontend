@@ -47,7 +47,7 @@ const Map = () => {
           }
         })
         .catch((err) => {
-          console.err(err.message);
+          console.error(err.message);
         })
         .finally(() => {
           if (hasMounted()) {
