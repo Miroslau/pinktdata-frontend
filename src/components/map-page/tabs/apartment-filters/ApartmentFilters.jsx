@@ -13,6 +13,20 @@ const Input = styled(InputMui)`
   width: 70px;
 `;
 
+const MIN_BEDROOMS = 0;
+const MAX_BEDROOMS = 5;
+
+const MIN_PRICE = 10;
+const MAX_PRICE = 1000;
+const STEP = 10;
+
+const inputProps = {
+  step: STEP,
+  min: MIN_PRICE,
+  type: 'number',
+  'aria-labelledby': 'input-slider',
+};
+
 const ApartmentFilters = ({ apartmentFilter }) => {
   const [isMinInput, setMinInput] = useState(false);
   const [isMaxInput, setMaxInput] = useState(false);
@@ -24,7 +38,7 @@ const ApartmentFilters = ({ apartmentFilter }) => {
 
   useEffect(() => {
     let isMax = true;
-    if (!isMaxInput && filtersParams.priceRange[1] === 1000) isMax = false;
+    if (!isMaxInput && filtersParams.priceRange[1] === MAX_PRICE) isMax = false;
     setFilterParams(((prevState) => ({ ...prevState, isMax })));
   }, [filtersParams.priceRange]);
 
@@ -98,12 +112,7 @@ const ApartmentFilters = ({ apartmentFilter }) => {
                   value={filtersParams.priceRange[0]}
                   size="small"
                   onChange={handleInputChange}
-                  inputProps={{
-                    step: 10,
-                    min: 10,
-                    type: 'number',
-                    'aria-labelledby': 'input-slider',
-                  }}
+                  inputProps={inputProps}
                 />
               )
             }
@@ -114,19 +123,14 @@ const ApartmentFilters = ({ apartmentFilter }) => {
                   onClick={openInputTwo}
                   role="presentation"
                 >
-                  {`Max price: ${(filtersParams.priceRange[1] === 1000 ? `${filtersParams.priceRange[1]}+` : filtersParams.priceRange[1])}`}
+                  {`Max price: ${(filtersParams.priceRange[1] === MAX_PRICE ? `${filtersParams.priceRange[1]}+` : filtersParams.priceRange[1])}`}
                 </span>
               ) : (
                 <Input
                   value={filtersParams.priceRange[1]}
                   size="small"
                   onChange={handleInputChange}
-                  inputProps={{
-                    step: 10,
-                    min: 10,
-                    type: 'number',
-                    'aria-labelledby': 'input-slider',
-                  }}
+                  inputProps={inputProps}
                 />
               )
             }
@@ -135,9 +139,9 @@ const ApartmentFilters = ({ apartmentFilter }) => {
             value={filtersParams.priceRange}
             handleChange={rangeChange}
             valueLabelDisplay="auto"
-            step={10}
-            min={10}
-            max={1000}
+            step={STEP}
+            min={MIN_PRICE}
+            max={MAX_PRICE}
           />
         </div>
       </div>
@@ -154,7 +158,7 @@ const ApartmentFilters = ({ apartmentFilter }) => {
               aria-label="remove"
               clickButton={removeRoom}
               size="small"
-              disabled={filtersParams.bedrooms === 0}
+              disabled={filtersParams.bedrooms === MIN_BEDROOMS}
               className="apartment-filters__button"
             >
               <RemoveIcon />
@@ -163,7 +167,7 @@ const ApartmentFilters = ({ apartmentFilter }) => {
             <ButtonMui
               aria-label="add"
               clickButton={addRoom}
-              disabled={filtersParams.bedrooms === 5}
+              disabled={filtersParams.bedrooms === MAX_BEDROOMS}
               size="small"
               className="apartment-filters__button"
             >
