@@ -73,6 +73,14 @@ describe('user registration', () => {
     expect(error).toBeInTheDocument();
   });
 
+  it('has correct First name must including only alphabetical characters', async () => {
+    fireEvent.change(elementsAuthorization.inputName, { target: { value: 'Test123' } });
+    fireEvent.blur(elementsAuthorization.inputName);
+    fireEvent.click(elementsAuthorization.submit);
+    const error = await findByText(container, 'First Name must be alphabets only');
+    expect(error).toBeInTheDocument();
+  });
+
   it('has correct input Last name', async () => {
     fireEvent.change(elementsAuthorization.inputLastName, { target: { value: 'Pusick' } });
     fireEvent.blur(elementsAuthorization.inputLastName);
@@ -97,11 +105,11 @@ describe('user registration', () => {
     expect(error).toBeInTheDocument();
   });
 
-  it('has correct Last name  must including only alphabetical characters', async () => {
+  it('has correct Last name must including only alphabetical characters', async () => {
     fireEvent.change(elementsAuthorization.inputLastName, { target: { value: 'Test123' } });
     fireEvent.blur(elementsAuthorization.inputLastName);
     fireEvent.click(elementsAuthorization.submit);
-    const error = await findByText(container, 'Enter a valid name');
+    const error = await findByText(container, 'Last Name must be alphabets only');
     expect(error).toBeInTheDocument();
   });
 
@@ -249,7 +257,6 @@ describe('user login', () => {
     expect(result).toBeInTheDocument();
   });
 
-  // eslint-disable-next-line no-undef
   it('has correct Email must be required', async () => {
     fireEvent.change(elementsAuthorization.inputEmail, { target: { value: '' } });
     fireEvent.blur(elementsAuthorization.inputEmail);

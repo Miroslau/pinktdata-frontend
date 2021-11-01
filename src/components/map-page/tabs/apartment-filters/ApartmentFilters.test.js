@@ -3,6 +3,8 @@ import {
   fireEvent, render, screen, findByText,
 } from '@testing-library/react';
 import ApartmentFilters from './ApartmentFilters';
+import Content from '../../content-render/Content';
+import mockDataApartments from '../../../../mocks/mocks-constants/mockDataApartments';
 
 describe('Apartment filter component', () => {
   const apartmentFilter = () => {};
@@ -118,12 +120,60 @@ describe('Apartment filter component', () => {
     expect(result).toBeInTheDocument();
   });
 
+  it('has clear settings price range input left when click button clear', async () => {
+    const textLabel = await screen.findByText('Min price: 10');
+    fireEvent.click(textLabel);
+    const rightInput = await container.querySelectorAll('input')[0];
+    fireEvent.change(rightInput, { target: { value: '500' } });
+    fireEvent.blur(rightInput);
+    const clearButton = await findByText(container, 'Clear');
+    fireEvent.click(clearButton);
+    const result = await findByText(container, 'Min price: 10');
+    expect(result).toBeInTheDocument();
+  });
+
+  it('has clear settings price range input right when click button clear', async () => {
+    const textLabel = await screen.findByText('Max price: 1000+');
+    fireEvent.click(textLabel);
+    const rightInput = await container.querySelectorAll('input')[0];
+    fireEvent.change(rightInput, { target: { value: '500' } });
+    fireEvent.blur(rightInput);
+    const clearButton = await findByText(container, 'Clear');
+    fireEvent.click(clearButton);
+    const result = await findByText(container, 'Max price: 1000+');
+    expect(result).toBeInTheDocument();
+  });
+
   it('has clear settings count bedrooms when click button clear', async () => {
     const buttonPlus = await container.querySelectorAll('.MuiButton-root')[1];
     fireEvent.click(buttonPlus);
     const clearButton = await findByText(container, 'Clear');
     fireEvent.click(clearButton);
     const result = await findByText(container, '0');
+    expect(result).toBeInTheDocument();
+  });
+
+  it('has filter by params when click button apply', async () => {
+    const slideRight = await container.querySelectorAll('input')[1];
+    fireEvent.change(slideRight, { target: { value: '700' } });
+    fireEvent.blur(slideRight);
+    const slideLeft = await container.querySelectorAll('input')[0];
+    fireEvent.change(slideLeft, { target: { value: '100' } });
+    fireEvent.blur(slideLeft);
+    const buttonPlus = await container.querySelectorAll('.MuiButton-root')[1];
+    fireEvent.click(buttonPlus);
+    const applyButton = await findByText(container, 'Apply');
+    fireEvent.click(applyButton);
+    const publicAddress = 'Philadelphia, PA, United States';
+    const count = 2229;
+    render(<Content
+      publicAddress={publicAddress}
+      count={count}
+      listRoomBlock={null}
+      apart={mockDataApartments}
+      scrollHandler={null}
+    />);
+    const result = await screen.getAllByText('Your Quiet Cozy Space in South Philly')[0];
     expect(result).toBeInTheDocument();
   });
 });
