@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Divider from '@mui/material/Divider';
 import PropTypes from 'prop-types';
 import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
@@ -10,7 +10,7 @@ import { TEXT } from '../../../constants/map_page';
 const Content = ({
   apart,
   count,
-  scrollHandler,
+  inViewRef,
   listRoomBlock,
   publicAddress,
   isActiveModal,
@@ -19,10 +19,10 @@ const Content = ({
 }) => {
   const classes = useStyles();
 
-  useEffect(() => {
-    document.addEventListener('scroll', scrollHandler);
-    return () => document.removeEventListener('scroll', scrollHandler);
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener('scroll', scrollHandler);
+  //   return () => document.removeEventListener('scroll', scrollHandler);
+  // }, []);
 
   return (
     <div className={classes.mapContentWrapper}>
@@ -37,7 +37,10 @@ const Content = ({
           setModalActive={setModalActive}
           apartmentFilter={apartmentFilter}
         />
-        <TypographyMui variant="h6" text={`${TEXT.SUBTITLE} ${count} ${TEXT.STAYS}`} />
+        <TypographyMui
+          variant="h6"
+          text={`${TEXT.SUBTITLE} ${count} ${TEXT.STAYS}`}
+        />
       </div>
       <Divider />
       <div className={classes.mapWrapper} ref={listRoomBlock}>
@@ -56,6 +59,7 @@ const Content = ({
             images={data.images}
           />
         ))}
+        <div ref={inViewRef} />
       </div>
     </div>
   );
@@ -65,12 +69,13 @@ Content.defaultProps = {
   isActiveModal: false,
   setModalActive: null,
   apartmentFilter: null,
+  inViewRef: () => {},
 };
 
 Content.propTypes = {
   apart: PropTypes.instanceOf(Array).isRequired,
   count: PropTypes.number.isRequired,
-  scrollHandler: PropTypes.func.isRequired,
+  inViewRef: PropTypes.func,
   listRoomBlock: PropTypes.instanceOf(Object).isRequired,
   publicAddress: PropTypes.string.isRequired,
   isActiveModal: PropTypes.bool,
