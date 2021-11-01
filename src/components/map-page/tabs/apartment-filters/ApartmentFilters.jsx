@@ -28,34 +28,33 @@ const inputProps = {
 };
 
 const ApartmentFilters = ({ apartmentFilter }) => {
-  const [isMinInput, setMinInput] = useState(false);
-  const [isMaxInput, setMaxInput] = useState(false);
   const [filtersParams, setFilterParams] = useState({
     priceRange: [10, 1000],
     bedrooms: 0,
     isMax: true,
+    isMinInput: false,
+    isMaxInput: false,
   });
 
   useEffect(() => {
     let isMax = true;
-    if (!isMaxInput && filtersParams.priceRange[1] === MAX_PRICE) isMax = false;
+    if (!filtersParams.isMaxInput && filtersParams.priceRange[1] === MAX_PRICE) isMax = false;
     setFilterParams(((prevState) => ({ ...prevState, isMax })));
   }, [filtersParams.priceRange]);
 
-  const openInput = () => {
-    setMaxInput(false);
-    setMinInput(true);
+  const openInputLeft = () => {
+    setFilterParams(((prevState) => ({ ...prevState, isMinInput: true, isMaxInput: false })));
   };
 
-  const openInputTwo = () => {
-    setMinInput(false);
-    setMaxInput(true);
+  const openInputRight = () => {
+    setFilterParams(((prevState) => ({ ...prevState, isMinInput: false, isMaxInput: true })));
   };
 
   const rangeChange = (event, newValue) => {
-    setMinInput(false);
-    setMaxInput(false);
-    setFilterParams(((prevState) => ({ ...prevState, priceRange: newValue })));
+    // eslint-disable-next-line max-len
+    setFilterParams(((prevState) => ({
+      ...prevState, priceRange: newValue, isMinInput: false, isMaxInput: false,
+    })));
   };
 
   // eslint-disable-next-line max-len
@@ -65,22 +64,22 @@ const ApartmentFilters = ({ apartmentFilter }) => {
   const removeRoom = () => setFilterParams(((prevState) => ({ ...prevState, bedrooms: prevState.bedrooms - 1 })));
 
   const clearState = () => {
-    setMinInput(false);
-    setMaxInput(false);
     setFilterParams({
       priceRange: [10, 1000],
       bedrooms: 0,
       isMax: true,
+      isMinInput: false,
+      isMaxInput: false,
     });
   };
 
   const handleInputChange = (event) => {
     const value = Number(event.target.value);
     const priceRangeValue = [...filtersParams.priceRange];
-    if (isMinInput) {
+    if (filtersParams.isMinInput) {
       priceRangeValue[0] = value;
     }
-    if (isMaxInput) {
+    if (filtersParams.isMaxInput) {
       priceRangeValue[1] = value;
     }
     setFilterParams(((prevState) => ({ ...prevState, priceRange: priceRangeValue })));
@@ -99,10 +98,10 @@ const ApartmentFilters = ({ apartmentFilter }) => {
         <div className="apartment-filters-price-range__slider">
           <div className="apartment-filters-price-range__label">
             {
-              !isMinInput ? (
+              !filtersParams.isMinInput ? (
                 <span
                   className="apartment-filters-price-range__item"
-                  onClick={openInput}
+                  onClick={openInputLeft}
                   role="presentation"
                 >
                   {`Min price: ${filtersParams.priceRange[0]}`}
@@ -117,10 +116,10 @@ const ApartmentFilters = ({ apartmentFilter }) => {
               )
             }
             {
-              !isMaxInput ? (
+              !filtersParams.isMaxInput ? (
                 <span
                   className="apartment-filters-price-range__item"
-                  onClick={openInputTwo}
+                  onClick={openInputRight}
                   role="presentation"
                 >
                   {`Max price: ${(filtersParams.priceRange[1] === MAX_PRICE ? `${filtersParams.priceRange[1]}+` : filtersParams.priceRange[1])}`}
