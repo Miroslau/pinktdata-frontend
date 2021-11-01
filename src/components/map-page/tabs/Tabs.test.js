@@ -6,16 +6,19 @@ import Tabs from './Tabs';
 describe('Tabs Component', () => {
   let isActiveModal = false;
   const apartmentFilter = () => {};
-  const setModalActive = () => true;
+  const setModalActive = () => {
+    // eslint-disable-next-line no-return-assign
+    const mockSetModalActive = jest.fn().mockImplementation((value) => value);
+    isActiveModal = mockSetModalActive(!isActiveModal);
+  };
 
   it('renders component tabs', () => {
-    render(<Tabs apartmentFilter={apartmentFilter} />);
+    const { container } = render(<Tabs apartmentFilter={apartmentFilter} />);
+    expect(container.firstChild).toBeInTheDocument();
   });
 
   it('open modal on click button Filters', async () => {
-    isActiveModal = setModalActive();
-
-    render(<Tabs
+    const { rerender } = render(<Tabs
       apartmentFilter={apartmentFilter}
       isActiveModal={isActiveModal}
       setModalActive={setModalActive}
@@ -23,6 +26,12 @@ describe('Tabs Component', () => {
     const button = screen.getByText('Filters');
 
     userEvent.click(button);
+
+    rerender(<Tabs
+      apartmentFilter={apartmentFilter}
+      isActiveModal={isActiveModal}
+      setModalActive={setModalActive}
+    />);
 
     const result = await screen.getByText('Price range');
 
@@ -30,9 +39,7 @@ describe('Tabs Component', () => {
   });
 
   it('close modal on click button close', async () => {
-    isActiveModal = setModalActive();
-
-    const { rerender } = render(<Tabs
+    const { rerender, container } = render(<Tabs
       apartmentFilter={apartmentFilter}
       isActiveModal={isActiveModal}
       setModalActive={setModalActive}
@@ -42,11 +49,15 @@ describe('Tabs Component', () => {
 
     userEvent.click(button);
 
-    const closeButton = await screen.getByLabelText('remove', { selector: 'button' });
+    rerender(<Tabs
+      apartmentFilter={apartmentFilter}
+      isActiveModal={isActiveModal}
+      setModalActive={setModalActive}
+    />);
+
+    const closeButton = await container.querySelectorAll('.MuiButtonBase-root')[0];
 
     userEvent.click(closeButton);
-
-    isActiveModal = false;
 
     rerender(<Tabs
       apartmentFilter={apartmentFilter}

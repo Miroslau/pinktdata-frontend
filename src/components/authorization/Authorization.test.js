@@ -45,7 +45,8 @@ describe('user registration', () => {
   });
 
   it('renders component authorization', () => {
-    render(<Authorization openForm={openForm} isSignIn={isSign} submitForm={sendForm} />);
+    // eslint-disable-next-line max-len,no-shadow
+    const { container } = render(<Authorization openForm={openForm} isSignIn={isSign} submitForm={sendForm} />);
     expect(container.firstChild).toBeInTheDocument();
   });
 

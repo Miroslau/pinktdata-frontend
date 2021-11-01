@@ -93,7 +93,7 @@ const ApartmentFilters = ({ apartmentFilter }) => {
     <div className="apartment-filters">
       <div className="apartment-filters-price-range">
         <div className="apartment-filters__title">
-          Price range
+          {apartmentFilterLocalization.PRICE_RANGE}
         </div>
         <div className="apartment-filters-price-range__slider">
           <div className="apartment-filters-price-range__label">

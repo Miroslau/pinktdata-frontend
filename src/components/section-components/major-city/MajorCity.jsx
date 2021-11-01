@@ -19,12 +19,12 @@ const MajorCity = () => {
   const dispatch = useDispatch();
   const [majorCities, setMajorCities] = useState([]);
   const history = useHistory();
-  const isMounted = useMountedState();
+  const hasMounted = useMountedState();
 
   useEffect(() => {
     majorCitiesAPI.getMajorCities()
       .then(({ data }) => {
-        if (isMounted()) {
+        if (hasMounted()) {
           const cities = data.map((city) => {
             city.id = uniqueId(PREFIX);
             return city;
@@ -35,7 +35,7 @@ const MajorCity = () => {
       .catch((err) => {
         console.error(err.message);
       });
-  }, [isMounted]);
+  }, [hasMounted]);
 
   const openMapPageWithCity = (city) => {
     dispatch(setApartment(city));

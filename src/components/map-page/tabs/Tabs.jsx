@@ -11,8 +11,6 @@ import ModalWindowMui from '../../ui-components/modal-window-mui/ModalWindowMui'
 
 import { TABS } from '../../../constants/map_page';
 
-const TITLE_FILTERS = TABS.find((item) => item === 'More filters');
-
 const Tabs = ({ isActiveModal, setModalActive, apartmentFilter }) => {
   const classes = useStyles();
 
@@ -21,6 +19,7 @@ const Tabs = ({ isActiveModal, setModalActive, apartmentFilter }) => {
   };
 
   const closeModal = () => {
+    console.log('close modal');
     setModalActive(false);
   };
 
@@ -30,11 +29,11 @@ const Tabs = ({ isActiveModal, setModalActive, apartmentFilter }) => {
     <div className={classes.mapTabs}>
       <Stack direction="row" spacing={1}>
 
-        <Button id="all" variant="contained" onClick={handlerBtn}>{TABS[0]}</Button>
-        <Button id="available" variant="outlined" title={TABS[1]} onClick={handlerBtn}>{TABS[1]}</Button>
-        <Button id="star" variant="contained">{TABS[2]}</Button>
-        <Button id="price" variant="outlined" onClick={handlerBtn}>{TABS[3]}</Button>
-        <Button id="rated" variant="outlined" onClick={handlerBtn}>{TABS[4]}</Button>
+        <Button id="all" variant="contained" onClick={handlerBtn}>{TABS.ALL}</Button>
+        <Button id="available" variant="outlined" title={TABS.AVAILABLE} onClick={handlerBtn}>{TABS.AVAILABLE}</Button>
+        <Button id="star" variant="contained">{TABS.STAR}</Button>
+        <Button id="price" variant="outlined" onClick={handlerBtn}>{TABS.PRICE}</Button>
+        <Button id="rated" variant="outlined" onClick={handlerBtn}>{TABS.TOP_RATED}</Button>
 
         <Divider className={classes.divider} />
 
@@ -47,11 +46,11 @@ const Tabs = ({ isActiveModal, setModalActive, apartmentFilter }) => {
           variant="contained"
         >
           <FilterListIcon />
-          {TABS[5]}
+          {TABS.FILTERS}
         </Button>
         <ModalWindowMui
           clickButton={closeModal}
-          title={TITLE_FILTERS}
+          title={TABS.MORE_FILTERS}
           isActiveModal={isActiveModal}
           sx={classes.filter}
         >

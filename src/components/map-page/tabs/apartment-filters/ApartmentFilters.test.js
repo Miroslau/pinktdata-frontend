@@ -24,24 +24,26 @@ describe('Apartment filter component', () => {
   });
 
   it('renders component Apartment filter', () => {
-    render(<ApartmentFilters apartmentFilter={apartmentFilter} />);
+    // eslint-disable-next-line no-shadow
+    const { container } = render(<ApartmentFilters apartmentFilter={apartmentFilter} />);
+    expect(container.firstChild).toBeInTheDocument();
   });
 
-  it('has open input when click on right label', async () => {
+  it('has open input when click on min price label', async () => {
     const textLabel = await screen.findByText('Max price: 1000+');
     fireEvent.click(textLabel);
     const result = await screen.getByText('1000');
     expect(result).toBeInTheDocument();
   });
 
-  it('has open input when click on left label', async () => {
+  it('has open input when click on max price label', async () => {
     const textLabel = await screen.findByText('Min price: 10');
     fireEvent.click(textLabel);
     const result = await screen.getByText('10');
     expect(result).toBeInTheDocument();
   });
 
-  it('has close inputs when change slider', async () => {
+  it('has close inputs prices when change slider', async () => {
     const textLabel = await screen.findByText('Max price: 1000+');
     fireEvent.click(textLabel);
     const slide = await container.querySelectorAll('input')[1];
@@ -51,7 +53,7 @@ describe('Apartment filter component', () => {
     expect(result).toBeInTheDocument();
   });
 
-  it('has close right input when click on left label', async () => {
+  it('has close max price input when click on min price label', async () => {
     const textLabel = await screen.findByText('Max price: 1000+');
     fireEvent.click(textLabel);
     const rightInput = await container.querySelectorAll('input')[0];
@@ -63,7 +65,7 @@ describe('Apartment filter component', () => {
     expect(result).toBeInTheDocument();
   });
 
-  it('has close left input when click on right label', async () => {
+  it('has close min price input when click on max price label', async () => {
     const textLabel = await screen.findByText('Min price: 10');
     fireEvent.click(textLabel);
     const rightInput = await container.querySelectorAll('input')[0];
@@ -120,7 +122,7 @@ describe('Apartment filter component', () => {
     expect(result).toBeInTheDocument();
   });
 
-  it('has clear settings price range input left when click button clear', async () => {
+  it('has clear settings price range min price input when click button clear', async () => {
     const textLabel = await screen.findByText('Min price: 10');
     fireEvent.click(textLabel);
     const rightInput = await container.querySelectorAll('input')[0];
@@ -132,7 +134,7 @@ describe('Apartment filter component', () => {
     expect(result).toBeInTheDocument();
   });
 
-  it('has clear settings price range input right when click button clear', async () => {
+  it('has clear settings price range max price input when click button clear', async () => {
     const textLabel = await screen.findByText('Max price: 1000+');
     fireEvent.click(textLabel);
     const rightInput = await container.querySelectorAll('input')[0];
