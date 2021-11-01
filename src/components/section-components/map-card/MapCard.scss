@@ -1,8 +1,6 @@
 @import "../../../sass/variables";
 
 .map-card {
-  //max-width: 300px;
-  width: 300px;
   box-shadow: $box-shadow2;
   margin: 0 auto;
   border-radius: .5rem;
@@ -22,22 +20,16 @@
   }
 
   .splide__arrow--prev {
-    left: 0;
+    left: .5rem;
   }
 
   .splide__arrow--next {
-    right: 0;
+    right: .5rem;
   }
 
   .splide__arrow {
+    background-color: #fff;
     svg {
-      fill: #fff;
-    }
-  }
-
-  .splide__arrow:hover {
-    svg {
-      fill: $color-grey;
     }
   }
 
@@ -100,7 +92,25 @@
     .room-rateType {
       margin-left: 5px;
     }
+  }
+  .heart-icon {
+    display: block;
+    position: absolute;
+    z-index: 10;
+    margin: .5rem;
+    right: 0;
+    svg {
+      fill: transparent;
+      stroke: white;
+    }
+  }
 
+  .heart-icon:hover{
+    cursor: pointer;
+    svg {
+      stroke: none;
+      fill: pink;
+    }
   }
 }
 
@@ -118,4 +128,8 @@
   padding: 0;
   background: white;
   color: inherit;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  display: none;
 }
