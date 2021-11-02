@@ -28,7 +28,7 @@ const Content = ({
     <div className={classes.mapContentWrapper}>
       <div className={classes.mapContent}>
         <TypographyMui
-          variant="h4"
+          variant="h5"
           text={`${TEXT.TITLE} ${publicAddress}`}
           className={classes.title}
         />
@@ -44,22 +44,24 @@ const Content = ({
       </div>
       <Divider />
       <div className={classes.mapWrapper} ref={listRoomBlock}>
-        {apart.map((data) => (
-          <Card
-            key={data._id}
-            id={data._id}
-            name={data.name}
-            img={data.img}
-            rating={data.rating}
-            reviews={data.reviews}
-            city={data.city}
-            address={data.address}
-            price={data.price}
-            homeDetails={data.guestLabel}
-            images={data.images}
-          />
-        ))}
-        <div ref={inViewRef} />
+        <>
+          {apart.map((data) => (
+            <Card
+              key={data._id}
+              id={data._id}
+              name={data.name}
+              img={data.img}
+              rating={data.rating}
+              reviews={data.reviews}
+              city={data.city}
+              address={data.address}
+              price={data.price}
+              homeDetails={data.guestLabel}
+              images={data.images}
+            />
+          ))}
+          <div className={classes.loadDivider} ref={inViewRef} />
+        </>
       </div>
     </div>
   );

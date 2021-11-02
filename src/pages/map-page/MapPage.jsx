@@ -14,7 +14,7 @@ const Map = () => {
   const { publicAddress, count } = useSelector(apartmentSelector);
   const [currentPage, setCurrentPage] = useState(0);
   const [apart, setApart] = useState([]);
-  const [isFetching, setIsFetching] = useState(true);
+  const [isFetching, setIsFetching] = useState(false);
   const [isActiveModal, setModalActive] = useState(false);
 
   const { ref, inView } = useInView();
@@ -48,12 +48,11 @@ const Map = () => {
   };
 
   useEffect(() => {
-    console.log('INVIEW ', inView);
     if (isFetching) {
       MapAPI.searchApartments(publicAddress, currentPage)
         .then(({ data }) => {
           if (hasMounted()) {
-            setApart(data);
+            setApart([...apart, ...data]);
             setCurrentPage((prevState) => prevState + 1);
           }
         })
@@ -66,10 +65,13 @@ const Map = () => {
           }
         });
     }
-  }, [hasMounted, isFetching, inView]);
+  }, [hasMounted, isFetching]);
+
+  useEffect(() => {
+    if (inView) setIsFetching(true);
+  }, [inView]);
 
   const scrollHandler = () => {
-    console.log('1123');
     const el = listRoomBlock.current;
     const scrollPosition = el.scrollHeight - (el.scrollTop + window.innerHeight) < 100
       && apart.length < count;
