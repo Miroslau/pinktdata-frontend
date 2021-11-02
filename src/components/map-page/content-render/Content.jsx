@@ -19,11 +19,6 @@ const Content = ({
 }) => {
   const classes = useStyles();
 
-  // useEffect(() => {
-  //   document.addEventListener('scroll', scrollHandler);
-  //   return () => document.removeEventListener('scroll', scrollHandler);
-  // }, []);
-
   return (
     <div className={classes.mapContentWrapper}>
       <div className={classes.mapContent}>

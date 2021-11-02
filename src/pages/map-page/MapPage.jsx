@@ -71,16 +71,6 @@ const Map = () => {
     if (inView) setIsFetching(true);
   }, [inView]);
 
-  const scrollHandler = () => {
-    const el = listRoomBlock.current;
-    const scrollPosition = el.scrollHeight - (el.scrollTop + window.innerHeight) < 100
-      && apart.length < count;
-
-    if (scrollPosition) {
-      setIsFetching(true);
-    }
-  };
-
   const classes = useStyles();
   return (
     <section className={classes.wrapper}>
@@ -88,7 +78,6 @@ const Map = () => {
         apart={apart}
         count={count}
         inViewRef={ref}
-        scrollHandler={scrollHandler}
         listRoomBlock={listRoomBlock}
         publicAddress={publicAddress}
         isActiveModal={isActiveModal}
