@@ -12,24 +12,30 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
   },
   mapContentWrapper: {
-    height: '100vh',
     width: '45.2vw',
-    padding: '46px 0',
-    overflow: 'hidden',
+    overflowX: 'hidden',
   },
   mapWrapper: {
-    overflow: 'scroll',
-    overflowX: 'hidden',
     transition: 'ease 0.5s',
-    height: '100vh',
+  },
+  loadDivider: {
+    display: 'block',
+    height: '50px',
   },
   mapContent: {
-    padding: '0 40px',
-    margin: '17px 0',
+    position: 'sticky',
+    background: '#ffffff',
+    zIndex: '10',
+    top: '0',
+    padding: '15px 40px',
+    borderBottom: '1px solid #cdcdcd',
+  },
+  cardContent: {
+    padding: '15px 40px',
   },
   contentImgSlider: {
-    width: '350px',
-    height: '250px',
+    width: '300px',
+    height: '200px',
     marginRight: '20px',
   },
   mapTabs: {

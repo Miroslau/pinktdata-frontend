@@ -21,7 +21,7 @@ const Card = (props) => {
 
   return (
     <>
-      <div className={classes.mapContent}>
+      <div className={classes.cardContent}>
         <div className={classes.content}>
           <div className={classes.contentImgSlider}>
             <Splide
@@ -29,8 +29,8 @@ const Card = (props) => {
                 perPage: 1,
                 perMove: 1,
                 rewind: true,
-                fixedWidth: '350px',
-                fixedHeight: '250px',
+                fixedWidth: '300px',
+                fixedHeight: '200px',
                 cover: 'true',
                 pagination: true,
               }}
@@ -77,28 +77,6 @@ const Card = (props) => {
               <FavoriteBorderIcon htmlColor="pink" />
             </div>
             <div className={classes.price}>{price}</div>
-          </div>
-          <div className={classes.contentData}>
-            <div className={classes.dataLeft}>
-              <div className={classes.dataText}>
-                <TypographyMui text={city} />
-                <TypographyMui variant="subtitle2" text={name} />
-                <TypographyMui color="green" text={DATA[3]} />
-                <TypographyMui text={`${homeDetails}.${address}`} />
-              </div>
-              <div>
-                {rating}
-                (
-                {reviews}
-                )
-              </div>
-            </div>
-            <div className={classes.dataRight}>
-              <div>
-                <FavoriteBorderIcon htmlColor="pink" />
-              </div>
-              <div>{price}</div>
-            </div>
           </div>
         </div>
       </div>

@@ -46,6 +46,7 @@ const MapRender = ({ apart }) => {
         center={location}
         zoom={11}
         scrollWheelZoom
+        on
       >
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
