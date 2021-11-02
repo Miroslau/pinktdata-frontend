@@ -7,16 +7,21 @@ import MapRender from '../../components/map-page/map-render/MapRender';
 import Content from '../../components/map-page/content-render/Content';
 // import useMountedState from '../../hooks/useMountedState';
 import { searchApartments } from '../../store/actions/apartmentAction';
+import Loader from '../../components/ui-components/loader/Loader';
 
 const Map = () => {
   const dispatch = useDispatch();
   // const hasMounted = useMountedState();
   const listRoomBlock = useRef();
-  const { publicAddress, searchParams, apartments } = useSelector(apartmentSelector);
+  const { publicAddress, searchParams, isFetching } = useSelector(apartmentSelector);
   const {
     count, priceRange, currentPage, bedrooms, isMax,
   } = searchParams;
   const [isActiveModal, setModalActive] = useState(false);
+  // eslint-disable-next-line no-unused-vars
+  const [apart, setApart] = useState([]);
+  // eslint-disable-next-line no-unused-vars
+  const [isFilter, setIsFilter] = useState(false);
 
   // eslint-disable-next-line no-unused-vars
   const { ref, inView } = useInView();
@@ -26,10 +31,8 @@ const Map = () => {
   };
 
   const handlerFilter = () => {
+    setIsFilter(true);
     handleModal(true);
-    dispatch(searchApartments({
-      publicAddress, currentPage, count, priceRange, bedrooms, isMax, isFilter: true,
-    }));
   };
 
   useEffect(() => {
@@ -44,22 +47,28 @@ const Map = () => {
     dispatch(searchApartments({
       publicAddress, currentPage, count, priceRange, bedrooms, isMax,
     }));
-  }, []);
+  }, [searchParams.priceRange, searchParams.bedrooms]);
 
   const classes = useStyles();
   return (
     <section className={classes.wrapper}>
-      <Content
-        apart={apartments}
-        count={count}
-        inViewRef={ref}
-        listRoomBlock={listRoomBlock}
-        publicAddress={publicAddress}
-        isActiveModal={isActiveModal}
-        setModalActive={handleModal}
-        apartmentFilter={handlerFilter}
-      />
-      <MapRender apart={apartments} />
+      {
+        isFetching ? <Loader /> : (
+          <>
+            <Content
+              apart={apart}
+              count={count}
+              inViewRef={ref}
+              listRoomBlock={listRoomBlock}
+              publicAddress={publicAddress}
+              isActiveModal={isActiveModal}
+              setModalActive={handleModal}
+              apartmentFilter={handlerFilter}
+            />
+            <MapRender apart={apart} />
+          </>
+        )
+      }
     </section>
   );
 };

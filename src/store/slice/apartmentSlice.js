@@ -52,7 +52,7 @@ export const apartmentSlice = createSlice({
       state.isSuccess = true;
       // eslint-disable-next-line max-len
       state.searchParams = { ...state.searchParams, currentPage: state.searchParams.currentPage + 1 };
-      state.apartments = !payload.isFilter ? [...state.apartments, ...payload] : payload.data;
+      state.apartments = payload;
     },
     [searchApartments.pending]: (state) => {
       state.isFetching = true;

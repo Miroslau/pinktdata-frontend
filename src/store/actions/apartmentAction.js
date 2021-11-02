@@ -4,7 +4,7 @@ import mapAPI from '../../api/map/mapPageAPI';
 export const searchApartments = createAsyncThunk(
   'apartments/searchApartments',
   async ({
-    publicAddress, currentPage, priceRange, bedrooms, isMax, isFilter,
+    publicAddress, currentPage, priceRange, bedrooms, isMax,
   }, thunkAPI) => {
     try {
       let priceFrom;
@@ -18,12 +18,6 @@ export const searchApartments = createAsyncThunk(
       const { status, data } = response;
 
       if (status !== 200) return thunkAPI.rejectWithValue(data);
-
-      const filterData = {
-        isFilter, data,
-      };
-
-      if (isFilter) return filterData;
 
       return data;
     } catch (e) {
