@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import {
-  render, screen, fireEvent,
+  render, screen, fireEvent, waitFor,
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import LocationAPI from './LocationAPI';
@@ -21,6 +21,8 @@ describe('LocationAPI function', () => {
     const inputSearch = screen.getByPlaceholderText('Location');
     expect(inputSearch).toBeInTheDocument();
     fireEvent.change(screen.getByPlaceholderText('Location'), { target: { value: 'test' } });
-    expect(LocationAPI.search).toHaveBeenCalledTimes(1);
+    await waitFor(() => {
+      expect(LocationAPI.search).toHaveBeenCalledTimes(1);
+    });
   });
 });

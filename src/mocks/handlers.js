@@ -43,7 +43,8 @@ export const handlers = [
   rest.get('/api/apartments/locations', (req, res, ctx) => {
     const params = req.url.searchParams.get('query');
     const cities = ['minsk', 'gomel', 'grodno', 'brest', 'vitebsk', 'mogileu', 'moscow', 'snp', 'miami'];
-    return res(ctx.json({ cities: cities.filter((x) => x.includes(params)) }));
+    const filterData = cities.filter((x) => x.includes(params));
+    return res(ctx.json(filterData));
   }),
   rest.get('/api/apartments/locations/most-apartments', (req, res, ctx) => res(ctx.json(mockDataMajorCities))),
   rest.get('/api/apartments/search', (req, res, ctx) => {

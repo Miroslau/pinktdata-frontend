@@ -69,7 +69,7 @@ const MainSearch = () => {
       try {
         const response = await LocationAPI.search(location);
         if (isMounted.current) {
-          setDataLocation(response.cities);
+          setDataLocation(response);
         }
       } catch (error) {
         console.log(error);
