@@ -90,7 +90,7 @@ const MainSearch = () => {
       <FormControl className={classes.bedroom}>
 
         <FormControl sx={{ width: 400 }}>
-          <InputLabel aria-describedby={id} variant="contained" onClick={handleClick} id="input-search-bedrooms">
+          <InputLabel aria-describedby={id} onClick={handleClick} id="input-search-bedrooms">
             {TEXT.MAIN_SEARCH.BEDROOM_TYPE}
             {bedroom > 0 ? `: ${bedroom}` : ''}
           </InputLabel>
