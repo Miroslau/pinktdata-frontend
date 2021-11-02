@@ -1,81 +1,56 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import { apartmentSelector } from '../../store/slice/apartmentSlice';
 import useStyles from '../../style/style';
 import MapRender from '../../components/map-page/map-render/MapRender';
 import Content from '../../components/map-page/content-render/Content';
-import useMountedState from '../../hooks/useMountedState';
-import MapAPI from '../../api/map/mapPageAPI';
+// import useMountedState from '../../hooks/useMountedState';
+import { searchApartments } from '../../store/actions/apartmentAction';
 
 const Map = () => {
-  const hasMounted = useMountedState();
+  const dispatch = useDispatch();
+  // const hasMounted = useMountedState();
   const listRoomBlock = useRef();
-  const { publicAddress, count } = useSelector(apartmentSelector);
-  const [currentPage, setCurrentPage] = useState(0);
-  const [apart, setApart] = useState([]);
-  const [isFetching, setIsFetching] = useState(false);
+  const { publicAddress, searchParams, apartments } = useSelector(apartmentSelector);
+  const {
+    count, priceRange, currentPage, bedrooms, isMax,
+  } = searchParams;
   const [isActiveModal, setModalActive] = useState(false);
 
+  // eslint-disable-next-line no-unused-vars
   const { ref, inView } = useInView();
 
   const handleModal = (value) => {
     setModalActive(value);
   };
 
-  const handlerFilter = (filterParams = null) => {
-    const { bedrooms, priceRange, isMax } = filterParams;
-    const priceFrom = priceRange[0];
-    const priceTo = priceRange[1];
-    MapAPI.searchApartments(
-      publicAddress,
-      currentPage,
-      priceFrom,
-      priceTo,
-      bedrooms,
-      isMax,
-    )
-      .then(({ data }) => {
-        if (hasMounted()) {
-          setApart(data);
-          setCurrentPage((prevState) => prevState + 1);
-          handleModal(false);
-        }
-      })
-      .catch((err) => {
-        console.error(err.message);
-      });
+  const handlerFilter = () => {
+    handleModal(true);
+    dispatch(searchApartments({
+      publicAddress, currentPage, count, priceRange, bedrooms, isMax, isFilter: true,
+    }));
   };
 
   useEffect(() => {
-    if (isFetching) {
-      MapAPI.searchApartments(publicAddress, currentPage)
-        .then(({ data }) => {
-          if (hasMounted()) {
-            setApart([...apart, ...data]);
-            setCurrentPage((prevState) => prevState + 1);
-          }
-        })
-        .catch((err) => {
-          console.error(err.message);
-        })
-        .finally(() => {
-          if (hasMounted()) {
-            setIsFetching(false);
-          }
-        });
+    if (inView) {
+      dispatch(searchApartments({
+        publicAddress, currentPage, count, priceRange, bedrooms, isMax,
+      }));
     }
-  }, [hasMounted, isFetching]);
+  }, [inView]);
 
   useEffect(() => {
-    if (inView) setIsFetching(true);
-  }, [inView]);
+    dispatch(searchApartments({
+      publicAddress, currentPage, count, priceRange, bedrooms, isMax,
+    }));
+  }, []);
 
   const classes = useStyles();
   return (
     <section className={classes.wrapper}>
       <Content
-        apart={apart}
+        apart={apartments}
         count={count}
         inViewRef={ref}
         listRoomBlock={listRoomBlock}
@@ -84,7 +59,7 @@ const Map = () => {
         setModalActive={handleModal}
         apartmentFilter={handlerFilter}
       />
-      <MapRender apart={apart} />
+      <MapRender apart={apartments} />
     </section>
   );
 };

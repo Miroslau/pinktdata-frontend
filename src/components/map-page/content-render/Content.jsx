@@ -39,24 +39,28 @@ const Content = ({
       </div>
       <Divider />
       <div className={classes.mapWrapper} ref={listRoomBlock}>
-        <>
-          {apart.map((data) => (
-            <Card
-              key={data._id}
-              id={data._id}
-              name={data.name}
-              img={data.img}
-              rating={data.rating}
-              reviews={data.reviews}
-              city={data.city}
-              address={data.address}
-              price={data.price}
-              homeDetails={data.guestLabel}
-              images={data.images}
-            />
-          ))}
-          <div className={classes.loadDivider} ref={inViewRef} />
-        </>
+        {
+          apart.length ? (
+            <>
+              {apart.map((data) => (
+                <Card
+                  key={data._id}
+                  id={data._id}
+                  name={data.name}
+                  img={data.img}
+                  rating={data.rating}
+                  reviews={data.reviews}
+                  city={data.city}
+                  address={data.address}
+                  price={data.price}
+                  homeDetails={data.guestLabel}
+                  images={data.images}
+                />
+              ))}
+              <div className={classes.loadDivider} ref={inViewRef} />
+            </>
+          ) : <div>No apartments</div>
+        }
       </div>
     </div>
   );

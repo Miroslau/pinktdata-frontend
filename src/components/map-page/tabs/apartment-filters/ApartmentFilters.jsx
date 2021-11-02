@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import './ApartmentFilters.scss';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -7,6 +8,7 @@ import PropTypes from 'prop-types';
 import InputMui from '../../../ui-components/input-mui/InputMui';
 import RangeSliderMui from '../../../ui-components/range-slider-mui/RangeSliderMui';
 import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
+import { setApartment } from '../../../../store/slice/apartmentSlice';
 import { apartmentFilterLocalization } from '../../../../constants/Localizations/apartmentFilterLocalization';
 
 const Input = styled(InputMui)`
@@ -28,6 +30,7 @@ const inputProps = {
 };
 
 const ApartmentFilters = ({ apartmentFilter }) => {
+  const dispatch = useDispatch();
   const [filtersParams, setFilterParams] = useState({
     priceRange: [10, 1000],
     bedrooms: 0,
@@ -86,7 +89,8 @@ const ApartmentFilters = ({ apartmentFilter }) => {
   };
 
   const filterApartment = () => {
-    apartmentFilter(filtersParams);
+    dispatch(setApartment(filtersParams));
+    apartmentFilter();
   };
 
   return (
