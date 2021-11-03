@@ -12,6 +12,7 @@ import './Slider.scss';
 
 import { DATA } from '../../../constants/map_page';
 import useRedirectToPreviewPageById from '../../../hooks/useRedirectToPreviewPageById';
+import handleEnterPress from '../../../utils/handleEnterPress';
 
 const Card = (props) => {
   const classes = useStyles();
@@ -48,7 +49,7 @@ const Card = (props) => {
           <div
             className={classes.contentData}
             onClick={redirectToPreviewPageById}
-            onKeyDown={redirectToPreviewPageById}
+            onKeyDown={(event) => handleEnterPress(redirectToPreviewPageById)(event)}
             role="button"
             tabIndex="0"
           >

@@ -10,6 +10,7 @@ import AlertError from '../../ui-components/alert-error/AlertError';
 import SkeletonForMapCard from './SkeletonForMapCard';
 import useFetch from '../../../hooks/useFetch';
 import useRedirectToPreviewPageById from '../../../hooks/useRedirectToPreviewPageById';
+import handleEnterPress from '../../../utils/handleEnterPress';
 
 const MapCard = ({ id }) => {
   const [roomData, setRoomData] = useState();
@@ -58,7 +59,7 @@ const MapCard = ({ id }) => {
         <div
           className="room-info"
           onClick={redirectToPreviewPageById}
-          onKeyDown={redirectToPreviewPageById}
+          onKeyDown={(event) => handleEnterPress(redirectToPreviewPageById)(event)}
           role="button"
           tabIndex="0"
         >
