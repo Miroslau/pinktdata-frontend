@@ -59,21 +59,30 @@ const Content = ({
                 images={data.images}
               />
             ))}
-            <div className={classes.loadDivider} ref={inViewRef}>
-              {isFetching ? <LinearProgress className={classes.linear} /> : <></>}
-            </div>
+            {apart.length >= count ? (
+              <></>
+            ) : (
+              <>
+                <div className={classes.loadDivider} ref={inViewRef}>
+                  {isFetching ? (
+                    <LinearProgress className={classes.linear} />
+                  ) : (
+                    <></>
+                  )}
+                </div>
+              </>
+            )}
           </>
         ) : (
           <>
-            {
-              isFetching ? <LinearProgress className={classes.linear} />
-                : (
-                  <div className={classes.emptyData}>
-                    <FormatListBulletedIcon className={classes.iconSize} />
-                    <div>No apartments found</div>
-                  </div>
-                )
-            }
+            {isFetching ? (
+              <LinearProgress className={classes.linear} />
+            ) : (
+              <div className={classes.emptyData}>
+                <FormatListBulletedIcon className={classes.iconSize} />
+                <div>No apartments found</div>
+              </div>
+            )}
           </>
         )}
       </div>

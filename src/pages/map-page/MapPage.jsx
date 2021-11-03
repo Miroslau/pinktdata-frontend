@@ -11,10 +11,10 @@ const Map = () => {
   const dispatch = useDispatch();
   const listRoomBlock = useRef();
   const {
-    publicAddress, searchParams, apartments, currentPage, isFetching,
+    publicAddress, searchParams, apartments, currentPage, isFetching, count,
   } = useSelector(apartmentSelector);
   const {
-    count, priceRange, bedrooms, isMax,
+    priceRange, bedrooms, isMax,
   } = searchParams;
   const [isActiveModal, setModalActive] = useState(false);
 

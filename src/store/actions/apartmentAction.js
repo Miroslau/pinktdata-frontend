@@ -20,7 +20,14 @@ export const searchApartments = createAsyncThunk(
 
       if (status !== 200) return thunkAPI.rejectWithValue(data);
 
-      return isFilter ? { isFilter, data } : data;
+      return isFilter ? {
+        isFilter,
+        apartments: data.apartments,
+        count: data.totalCount,
+      } : {
+        apartments: data.apartments,
+        count: data.totalCount,
+      };
     } catch (e) {
       console.error(e.response.data);
       return thunkAPI.rejectWithValue(e.response.data);

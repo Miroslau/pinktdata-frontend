@@ -11,8 +11,8 @@ export const apartmentSlice = createSlice({
     apartments: [],
     publicAddress: '',
     currentPage: 0,
+    count: 0,
     searchParams: {
-      count: 0,
       priceRange: [],
       bedrooms: 0,
       isMax: true,
@@ -43,8 +43,8 @@ export const apartmentSlice = createSlice({
       state.apartments = [];
       state.publicAddress = '';
       state.currentPage = 0;
+      state.count = 0;
       state.searchParams = {
-        count: 0,
         priceRange: [],
         bedrooms: 0,
         isMax: true,
@@ -53,8 +53,11 @@ export const apartmentSlice = createSlice({
   },
   extraReducers: {
     [searchApartments.fulfilled]: (state, { payload }) => {
-      state.apartments = payload.isFilter ? payload.data : [...state.apartments, ...payload];
+      state.apartments = payload.isFilter
+        ? payload.apartments
+        : [...state.apartments, ...payload.apartments];
       state.currentPage = payload.isFilter ? 1 : state.currentPage += 1;
+      state.count = payload.count;
       state.isSuccess = true;
       state.isFetching = false;
     },
