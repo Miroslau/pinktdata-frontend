@@ -40,6 +40,12 @@ export const handlers = [
     }));
   }),
   rest.post('/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
+  rest.get('/api/apartments/locations', (req, res, ctx) => {
+    const params = req.url.searchParams.get('query');
+    const cities = ['minsk', 'gomel', 'grodno', 'brest', 'vitebsk', 'mogileu', 'moscow', 'snp', 'miami'];
+    const filterData = cities.filter((x) => x.includes(params));
+    return res(ctx.json(filterData));
+  }),
   rest.get('/api/apartments/locations/most-apartments', (req, res, ctx) => res(ctx.json(mockDataMajorCities))),
   rest.get('/api/apartments/search', (req, res, ctx) => {
     const location = req.url.searchParams.get('location');
@@ -64,4 +70,5 @@ export const handlers = [
   rest.get('/api/apartments/popular/images', (req, res, ctx) => res(ctx.delay(1500), ctx.status(200), ctx.json(mockDataForPopularRooms))),
 
   rest.get('/api/apartments/:id', (req, res, ctx) => res(ctx.delay(1500), ctx.status(200), ctx.json(mockDataForPreviewPage))),
+
 ];
