@@ -19,17 +19,8 @@ export const apartmentSlice = createSlice({
     },
   },
   reducers: {
-    setApartment: (state, { payload }) => {
-      // eslint-disable-next-line max-len
-      state.publicAddress = payload.publicAddress ? payload.publicAddress : state.publicAddress;
-      // eslint-disable-next-line max-len
-      state.searchParams.currentPage = payload.currentPage ? payload.currentPage : state.searchParams.currentPage;
-      state.searchParams.count = payload.count ? payload.count : state.searchParams.count;
-      // eslint-disable-next-line max-len
-      state.searchParams.priceRange = payload.priceRange ? [...payload.priceRange] : [...state.searchParams.priceRange];
-      // eslint-disable-next-line max-len
-      state.searchParams.bedrooms = payload.bedrooms ? payload.bedrooms : state.searchParams.bedrooms;
-      state.searchParams.isMax = payload.isMax ? payload.isMax : state.searchParams.isMax;
+    setPublicAddress: (state, { payload }) => {
+      state.publicAddress = payload.publicAddress;
     },
     setParams: (state, { payload }) => {
       state.searchParams.isMax = payload.isMax;
@@ -73,7 +64,7 @@ export const apartmentSlice = createSlice({
 });
 
 export const {
-  setApartment, clearState, setParams,
+  setPublicAddress, clearState, setParams,
 } = apartmentSlice.actions;
 
 export const apartmentSelector = (state) => state.apartment;

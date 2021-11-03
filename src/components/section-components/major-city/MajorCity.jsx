@@ -3,7 +3,7 @@ import './MajorCity.scss';
 import { uniqueId } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { setApartment } from '../../../store/slice/apartmentSlice';
+import { setPublicAddress } from '../../../store/slice/apartmentSlice';
 import majorCitiesAPI from '../../../api/major-cities/majorCitiesAPI';
 import useMountedState from '../../../hooks/useMountedState';
 
@@ -38,7 +38,7 @@ const MajorCity = () => {
   }, [hasMounted]);
 
   const openMapPageWithCity = (city) => {
-    dispatch(setApartment(city));
+    dispatch(setPublicAddress(city));
     history.push(MAP_ROUTE);
   };
 
