@@ -19,11 +19,15 @@ const MapCard = ({ id }) => {
 
   if (error) return <AlertError />;
 
+  const redirectToPreviewPageById = () => history.push(`/apartments/${id}`);
+
   return (
     <>
       {isLoading && <SkeletonForMapCard />}
 
-      <div className="map-card">
+      <div
+        className="map-card"
+      >
 
         <div className="heart-icon">
           <FavoriteIcon htmlColor="pink" />
@@ -41,7 +45,7 @@ const MapCard = ({ id }) => {
           }}
         >
           {roomData.images.map(({ id: imageId, picture }) => (
-            <SplideSlide data-testid="map-card-slider" key={imageId} onClick={() => history.push(`/apartments/${id}`)}>
+            <SplideSlide data-testid="map-card-slider" key={imageId} onClick={redirectToPreviewPageById}>
               <img
                 className="slider-image"
                 src={picture}
@@ -53,7 +57,13 @@ const MapCard = ({ id }) => {
         )}
 
         {!isLoading && (
-        <div className="room-info">
+        <div
+          className="room-info"
+          onClick={redirectToPreviewPageById}
+          onKeyDown={redirectToPreviewPageById}
+          role="button"
+          tabIndex="0"
+        >
           <div className="room-score">
             <StarIcon className="star-icon" />
             <div className="room-rating">
