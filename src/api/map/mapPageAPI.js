@@ -9,7 +9,6 @@ export default {
     bedrooms,
     isMax,
   ) {
-    console.log('isMax: ', isMax);
     const params = { location, page, priceFrom };
     if (isMax) params.priceTo = priceTo;
     if (bedrooms !== 0) params.bedrooms = bedrooms;
