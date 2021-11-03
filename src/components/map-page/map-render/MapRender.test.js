@@ -17,7 +17,12 @@ describe('Map render component', () => {
     unmount();
   });
 
-  it('should render Map', () => {
+  it('should render map component', () => {
     expect(container.firstChild).toBeInTheDocument();
+  });
+
+  it('should render map concrete location', () => {
+    const location = [mockData[0].location.lat, mockData[0].location.lon];
+    expect(location).toBeTruthy();
   });
 });

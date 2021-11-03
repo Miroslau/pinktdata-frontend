@@ -89,7 +89,7 @@ Card.defaultProps = {
   rating: 0,
   name: '',
   images: [],
-  reviews: '',
+  reviews: null,
   price: '',
   city: '',
   address: '',

@@ -171,7 +171,6 @@ describe('Apartment filter component', () => {
     render(<Content
       publicAddress={publicAddress}
       count={count}
-      listRoomBlock={null}
       apart={mockDataApartments}
       scrollHandler={null}
     />);

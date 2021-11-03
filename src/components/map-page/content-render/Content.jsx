@@ -11,7 +11,6 @@ const Content = ({
   apart,
   count,
   inViewRef,
-  listRoomBlock,
   publicAddress,
   isActiveModal,
   setModalActive,
@@ -38,7 +37,7 @@ const Content = ({
         />
       </div>
       <Divider />
-      <div className={classes.mapWrapper} ref={listRoomBlock}>
+      <div className={classes.mapWrapper}>
         <>
           {apart.map((data) => (
             <Card
@@ -73,7 +72,6 @@ Content.propTypes = {
   apart: PropTypes.instanceOf(Array).isRequired,
   count: PropTypes.number.isRequired,
   inViewRef: PropTypes.func,
-  listRoomBlock: PropTypes.instanceOf(Object).isRequired,
   publicAddress: PropTypes.string.isRequired,
   isActiveModal: PropTypes.bool,
   setModalActive: PropTypes.func,

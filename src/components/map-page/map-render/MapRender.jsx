@@ -5,7 +5,7 @@ import L from 'leaflet';
 import {
   MapContainer, TileLayer, Popup, Tooltip, useMap, Marker,
 } from 'react-leaflet';
-import MarkerClusterGroup from 'react-leaflet-markercluster/src/react-leaflet-markercluster';
+import MarkerClusterGroup from 'react-leaflet-markercluster';
 import PropTypes from 'prop-types';
 import pointMarker from '../../../assets/svg/pointMarker.svg';
 import useStyles from '../../../style/style';
