@@ -5,6 +5,7 @@ export const searchApartments = createAsyncThunk(
   'apartments/searchApartments',
   async ({
     publicAddress, currentPage, priceRange, bedrooms, isMax,
+    isFilter = false,
   }, thunkAPI) => {
     try {
       let priceFrom;
@@ -19,7 +20,7 @@ export const searchApartments = createAsyncThunk(
 
       if (status !== 200) return thunkAPI.rejectWithValue(data);
 
-      return data;
+      return isFilter ? { isFilter, data } : data;
     } catch (e) {
       console.error(e.response.data);
       return thunkAPI.rejectWithValue(e.response.data);

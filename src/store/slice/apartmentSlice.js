@@ -10,11 +10,11 @@ export const apartmentSlice = createSlice({
     errorMessage: '',
     apartments: [],
     publicAddress: '',
+    currentPage: 0,
     searchParams: {
       count: 0,
       priceRange: [],
       bedrooms: 0,
-      currentPage: 0,
       isMax: true,
     },
   },
@@ -31,28 +31,32 @@ export const apartmentSlice = createSlice({
       state.searchParams.bedrooms = payload.bedrooms ? payload.bedrooms : state.searchParams.bedrooms;
       state.searchParams.isMax = payload.isMax ? payload.isMax : state.searchParams.isMax;
     },
+    setParams: (state, { payload }) => {
+      state.searchParams.isMax = payload.isMax;
+      state.searchParams.priceRange = payload.priceRange;
+      state.searchParams.bedrooms = payload.bedrooms;
+    },
     clearState: (state) => {
       state.isError = false;
       state.isFetching = false;
       state.isSuccess = false;
       state.apartments = [];
       state.publicAddress = '';
+      state.currentPage = 0;
       state.searchParams = {
         count: 0,
         priceRange: [],
         bedrooms: 0,
-        currentPage: 0,
         isMax: true,
       };
     },
   },
   extraReducers: {
     [searchApartments.fulfilled]: (state, { payload }) => {
-      state.isFetching = false;
+      state.apartments = payload.isFilter ? payload.data : [...state.apartments, ...payload];
+      state.currentPage = payload.isFilter ? 1 : state.currentPage += 1;
       state.isSuccess = true;
-      // eslint-disable-next-line max-len
-      state.searchParams = { ...state.searchParams, currentPage: state.searchParams.currentPage + 1 };
-      state.apartments = payload;
+      state.isFetching = false;
     },
     [searchApartments.pending]: (state) => {
       state.isFetching = true;
@@ -65,6 +69,8 @@ export const apartmentSlice = createSlice({
   },
 });
 
-export const { setApartment, clearState } = apartmentSlice.actions;
+export const {
+  setApartment, clearState, setParams,
+} = apartmentSlice.actions;
 
 export const apartmentSelector = (state) => state.apartment;

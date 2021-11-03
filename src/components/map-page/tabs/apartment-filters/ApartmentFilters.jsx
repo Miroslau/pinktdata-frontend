@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import './ApartmentFilters.scss';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -8,7 +7,6 @@ import PropTypes from 'prop-types';
 import InputMui from '../../../ui-components/input-mui/InputMui';
 import RangeSliderMui from '../../../ui-components/range-slider-mui/RangeSliderMui';
 import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
-import { setApartment } from '../../../../store/slice/apartmentSlice';
 import { apartmentFilterLocalization } from '../../../../constants/Localizations/apartmentFilterLocalization';
 
 const Input = styled(InputMui)`
@@ -30,7 +28,6 @@ const inputProps = {
 };
 
 const ApartmentFilters = ({ apartmentFilter }) => {
-  const dispatch = useDispatch();
   const [filtersParams, setFilterParams] = useState({
     priceRange: [10, 1000],
     bedrooms: 0,
@@ -41,30 +38,47 @@ const ApartmentFilters = ({ apartmentFilter }) => {
 
   useEffect(() => {
     let isMax = true;
-    if (!filtersParams.isMaxInput && filtersParams.priceRange[1] === MAX_PRICE) isMax = false;
-    setFilterParams(((prevState) => ({ ...prevState, isMax })));
+    if (!filtersParams.isMaxInput && filtersParams.priceRange[1] === MAX_PRICE) { isMax = false; }
+    setFilterParams((prevState) => ({ ...prevState, isMax }));
   }, [filtersParams.priceRange]);
 
   const openInputLeft = () => {
-    setFilterParams(((prevState) => ({ ...prevState, isMinInput: true, isMaxInput: false })));
+    setFilterParams((prevState) => ({
+      ...prevState,
+      isMinInput: true,
+      isMaxInput: false,
+    }));
   };
 
   const openInputRight = () => {
-    setFilterParams(((prevState) => ({ ...prevState, isMinInput: false, isMaxInput: true })));
+    setFilterParams((prevState) => ({
+      ...prevState,
+      isMinInput: false,
+      isMaxInput: true,
+    }));
   };
 
   const rangeChange = (event, newValue) => {
     // eslint-disable-next-line max-len
-    setFilterParams(((prevState) => ({
-      ...prevState, priceRange: newValue, isMinInput: false, isMaxInput: false,
-    })));
+    setFilterParams((prevState) => ({
+      ...prevState,
+      priceRange: newValue,
+      isMinInput: false,
+      isMaxInput: false,
+    }));
   };
 
   // eslint-disable-next-line max-len
-  const addRoom = () => setFilterParams(((prevState) => ({ ...prevState, bedrooms: prevState.bedrooms + 1 })));
+  const addRoom = () => setFilterParams((prevState) => ({
+    ...prevState,
+    bedrooms: prevState.bedrooms + 1,
+  }));
 
   // eslint-disable-next-line max-len
-  const removeRoom = () => setFilterParams(((prevState) => ({ ...prevState, bedrooms: prevState.bedrooms - 1 })));
+  const removeRoom = () => setFilterParams((prevState) => ({
+    ...prevState,
+    bedrooms: prevState.bedrooms - 1,
+  }));
 
   const clearState = () => {
     setFilterParams({
@@ -85,12 +99,14 @@ const ApartmentFilters = ({ apartmentFilter }) => {
     if (filtersParams.isMaxInput) {
       priceRangeValue[1] = value;
     }
-    setFilterParams(((prevState) => ({ ...prevState, priceRange: priceRangeValue })));
+    setFilterParams((prevState) => ({
+      ...prevState,
+      priceRange: priceRangeValue,
+    }));
   };
 
   const filterApartment = () => {
-    dispatch(setApartment(filtersParams));
-    apartmentFilter();
+    apartmentFilter(filtersParams);
   };
 
   return (
@@ -101,42 +117,42 @@ const ApartmentFilters = ({ apartmentFilter }) => {
         </div>
         <div className="apartment-filters-price-range__slider">
           <div className="apartment-filters-price-range__label">
-            {
-              !filtersParams.isMinInput ? (
-                <span
-                  className="apartment-filters-price-range__item"
-                  onClick={openInputLeft}
-                  role="presentation"
-                >
-                  {`Min price: ${filtersParams.priceRange[0]}`}
-                </span>
-              ) : (
-                <Input
-                  value={filtersParams.priceRange[0]}
-                  size="small"
-                  onChange={handleInputChange}
-                  inputProps={inputProps}
-                />
-              )
-            }
-            {
-              !filtersParams.isMaxInput ? (
-                <span
-                  className="apartment-filters-price-range__item"
-                  onClick={openInputRight}
-                  role="presentation"
-                >
-                  {`Max price: ${(filtersParams.priceRange[1] === MAX_PRICE ? `${filtersParams.priceRange[1]}+` : filtersParams.priceRange[1])}`}
-                </span>
-              ) : (
-                <Input
-                  value={filtersParams.priceRange[1]}
-                  size="small"
-                  onChange={handleInputChange}
-                  inputProps={inputProps}
-                />
-              )
-            }
+            {!filtersParams.isMinInput ? (
+              <span
+                className="apartment-filters-price-range__item"
+                onClick={openInputLeft}
+                role="presentation"
+              >
+                {`Min price: ${filtersParams.priceRange[0]}`}
+              </span>
+            ) : (
+              <Input
+                value={filtersParams.priceRange[0]}
+                size="small"
+                onChange={handleInputChange}
+                inputProps={inputProps}
+              />
+            )}
+            {!filtersParams.isMaxInput ? (
+              <span
+                className="apartment-filters-price-range__item"
+                onClick={openInputRight}
+                role="presentation"
+              >
+                {`Max price: ${
+                  filtersParams.priceRange[1] === MAX_PRICE
+                    ? `${filtersParams.priceRange[1]}+`
+                    : filtersParams.priceRange[1]
+                }`}
+              </span>
+            ) : (
+              <Input
+                value={filtersParams.priceRange[1]}
+                size="small"
+                onChange={handleInputChange}
+                inputProps={inputProps}
+              />
+            )}
           </div>
           <RangeSliderMui
             value={filtersParams.priceRange}
@@ -180,8 +196,14 @@ const ApartmentFilters = ({ apartmentFilter }) => {
         </div>
       </div>
       <div className="apartment-filters-footer">
-        <ButtonMui title={apartmentFilterLocalization.CLEAR} clickButton={clearState} />
-        <ButtonMui title={apartmentFilterLocalization.APPLY} clickButton={filterApartment} />
+        <ButtonMui
+          title={apartmentFilterLocalization.CLEAR}
+          clickButton={clearState}
+        />
+        <ButtonMui
+          title={apartmentFilterLocalization.APPLY}
+          clickButton={filterApartment}
+        />
       </div>
     </div>
   );

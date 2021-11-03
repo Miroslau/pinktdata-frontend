@@ -18,9 +18,28 @@ const useStyles = makeStyles({
   mapWrapper: {
     transition: 'ease 0.5s',
   },
+  map: {
+    position: 'relative',
+  },
   loadDivider: {
+    padding: '20px 20px',
     display: 'block',
     height: '50px',
+  },
+  mapLoader: {
+    position: 'absolute',
+    width: '450px',
+    left: '50%',
+    padding: '20px 20px',
+    transform: 'translate(-50%, 0)',
+    zIndex: '30',
+  },
+  linear: {
+    height: '12px !important',
+    borderRadius: '5px !important',
+  },
+  lContainer: {
+    zIndex: '25',
   },
   mapContent: {
     position: 'sticky',
