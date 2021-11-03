@@ -12,10 +12,12 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
   },
   mapContentWrapper: {
+    position: 'relative',
     width: '45.2vw',
     overflowX: 'hidden',
   },
   mapWrapper: {
+    position: 'relative',
     transition: 'ease 0.5s',
   },
   map: {
@@ -45,6 +47,14 @@ const useStyles = makeStyles({
     padding: '20px 20px',
     transform: 'translate(-50%, 0)',
     zIndex: '30',
+  },
+  contentLoader: {
+    position: 'absolute',
+    left: '0',
+    bottom: '0',
+    width: '100%',
+    zIndex: '30',
+    background: '#ffffff',
   },
   linear: {
     height: '12px !important',

@@ -2,6 +2,7 @@ import React from 'react';
 import Divider from '@mui/material/Divider';
 import PropTypes from 'prop-types';
 import LinearProgress from '@mui/material/LinearProgress';
+import Box from '@mui/material/Box';
 import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
 import useStyles from '../../../style/style';
@@ -39,6 +40,11 @@ const Content = ({
           variant="h6"
           text={`${TEXT.SUBTITLE} ${count} ${TEXT.STAYS}`}
         />
+        {isFetching && (
+          <Box className={classes.contentLoader}>
+            <LinearProgress className={classes.linear} />
+          </Box>
+        )}
       </div>
       <Divider />
       <div className={classes.mapWrapper} ref={listRoomBlock}>
