@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import StarIcon from '@mui/icons-material/Star';
@@ -10,16 +9,15 @@ import './MapCard.scss';
 import AlertError from '../../ui-components/alert-error/AlertError';
 import SkeletonForMapCard from './SkeletonForMapCard';
 import useFetch from '../../../hooks/useFetch';
+import useRedirectToPreviewPageById from '../../../hooks/useRedirectToPreviewPageById';
 
 const MapCard = ({ id }) => {
-  const history = useHistory();
   const [roomData, setRoomData] = useState();
   const getData = () => getRoom.getRoomById(id);
   const { isLoading, error } = useFetch(getData, setRoomData);
+  const redirectToPreviewPageById = useRedirectToPreviewPageById(id);
 
   if (error) return <AlertError />;
-
-  const redirectToPreviewPageById = () => history.push(`/apartments/${id}`);
 
   return (
     <>
