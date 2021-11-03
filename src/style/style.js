@@ -12,15 +12,56 @@ const useStyles = makeStyles({
     justifyContent: 'space-between',
   },
   mapContentWrapper: {
+    position: 'relative',
     width: '45.2vw',
     overflowX: 'hidden',
   },
   mapWrapper: {
+    position: 'relative',
     transition: 'ease 0.5s',
   },
+  map: {
+    position: 'relative',
+  },
+  emptyData: {
+    display: 'inline-flex',
+    rowGap: '5px',
+    fontSize: '32px',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    width: '100%',
+  },
+  iconSize: {
+    fontSize: '10rem !important',
+  },
   loadDivider: {
+    padding: '20px 20px',
     display: 'block',
     height: '50px',
+  },
+  mapLoader: {
+    position: 'absolute',
+    width: '450px',
+    left: '50%',
+    padding: '20px 20px',
+    transform: 'translate(-50%, 0)',
+    zIndex: '30',
+  },
+  contentLoader: {
+    position: 'absolute',
+    left: '0',
+    bottom: '0',
+    width: '100%',
+    zIndex: '30',
+    background: '#ffffff',
+  },
+  linear: {
+    height: '12px !important',
+    borderRadius: '5px !important',
+  },
+  lContainer: {
+    zIndex: '25',
   },
   mapContent: {
     position: 'sticky',

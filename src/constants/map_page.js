@@ -2,6 +2,7 @@ export const TEXT = {
   TITLE: 'Apartments in',
   SUBTITLE: 'Explore all',
   STAYS: 'stays',
+  EMPTY_TEXT: 'No apartments found',
 };
 
 export const TABS = {
