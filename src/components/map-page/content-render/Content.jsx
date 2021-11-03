@@ -48,48 +48,29 @@ const Content = ({
       </div>
       <Divider />
       <div className={classes.mapWrapper} ref={listRoomBlock}>
-        {apart.length ? (
-          <>
-            {apart.map((data) => (
-              <Card
-                key={data._id}
-                id={data._id}
-                name={data.name}
-                img={data.img}
-                rating={data.rating}
-                reviews={data.reviews}
-                city={data.city}
-                address={data.address}
-                price={data.price}
-                homeDetails={data.guestLabel}
-                images={data.images}
-              />
-            ))}
-            {apart.length >= count ? (
-              <></>
-            ) : (
-              <>
-                <div className={classes.loadDivider} ref={inViewRef}>
-                  {isFetching ? (
-                    <LinearProgress className={classes.linear} />
-                  ) : (
-                    <></>
-                  )}
-                </div>
-              </>
-            )}
-          </>
-        ) : (
-          <>
-            {isFetching ? (
-              <LinearProgress className={classes.linear} />
-            ) : (
-              <div className={classes.emptyData}>
-                <FormatListBulletedIcon className={classes.iconSize} />
-                <div>{TEXT.EMPTY_TEXT}</div>
-              </div>
-            )}
-          </>
+        {!isFetching && !apart.length && (
+          <div className={classes.emptyData}>
+            <FormatListBulletedIcon className={classes.iconSize} />
+            <div>{TEXT.EMPTY_TEXT}</div>
+          </div>
+        )}
+        {apart.map((data) => (
+          <Card
+            key={data._id}
+            id={data._id}
+            name={data.name}
+            img={data.img}
+            rating={data.rating}
+            reviews={data.reviews}
+            city={data.city}
+            address={data.address}
+            price={data.price}
+            homeDetails={data.guestLabel}
+            images={data.images}
+          />
+        ))}
+        {apart.length < count && (
+          <div className={classes.loadDivider} ref={inViewRef} />
         )}
       </div>
     </div>
