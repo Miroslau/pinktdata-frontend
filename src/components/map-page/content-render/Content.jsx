@@ -80,7 +80,7 @@ const Content = ({
             ) : (
               <div className={classes.emptyData}>
                 <FormatListBulletedIcon className={classes.iconSize} />
-                <div>No apartments found</div>
+                <div>{TEXT.EMPTY_TEXT}</div>
               </div>
             )}
           </>
