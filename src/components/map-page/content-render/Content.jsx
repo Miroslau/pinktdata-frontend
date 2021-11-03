@@ -2,6 +2,7 @@ import React from 'react';
 import Divider from '@mui/material/Divider';
 import PropTypes from 'prop-types';
 import LinearProgress from '@mui/material/LinearProgress';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
 import useStyles from '../../../style/style';
 import Tabs from '../tabs/Tabs';
@@ -63,7 +64,17 @@ const Content = ({
             </div>
           </>
         ) : (
-          <div>No apartments</div>
+          <>
+            {
+              isFetching ? <LinearProgress className={classes.linear} />
+                : (
+                  <div className={classes.emptyData}>
+                    <FormatListBulletedIcon className={classes.iconSize} />
+                    <div>No apartments found</div>
+                  </div>
+                )
+            }
+          </>
         )}
       </div>
     </div>

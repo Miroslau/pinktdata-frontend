@@ -21,6 +21,18 @@ const useStyles = makeStyles({
   map: {
     position: 'relative',
   },
+  emptyData: {
+    display: 'inline-flex',
+    rowGap: '5px',
+    fontSize: '32px',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    width: '100%',
+  },
+  iconSize: {
+    fontSize: '10rem !important',
+  },
   loadDivider: {
     padding: '20px 20px',
     display: 'block',

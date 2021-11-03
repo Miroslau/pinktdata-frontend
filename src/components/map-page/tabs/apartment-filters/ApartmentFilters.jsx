@@ -14,7 +14,7 @@ const Input = styled(InputMui)`
 `;
 
 const MIN_BEDROOMS = 0;
-const MAX_BEDROOMS = 5;
+const MAX_BEDROOMS = 8;
 
 const MIN_PRICE = 10;
 const MAX_PRICE = 1000;
