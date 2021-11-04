@@ -39,14 +39,14 @@ describe('Render component MainSearch', () => {
     expect(textLabelAdd).toBeInTheDocument();
   });
 
-  test('has not change count bedrooms when click the button plus if bedrooms more 5', async () => {
+  test('has not change count bedrooms when click the button plus if bedrooms more 8', async () => {
     render(<MainSearch />);
     const textLabel = await screen.findByText(/Bedroom count/i);
     fireEvent.click(textLabel);
     const buttonAdd = await screen.getByRole('button', { name: /add/i });
     const countClick = [...Array(9)];
     countClick.forEach(() => fireEvent.click(buttonAdd));
-    const textLabelAdd = await screen.findByText(/Bedroom count: 5/i);
+    const textLabelAdd = await screen.findByText(/Bedroom count: 8/i);
     expect(textLabelAdd).toBeInTheDocument();
   });
 

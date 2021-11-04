@@ -45,6 +45,7 @@ const useStyles = makeStyles({
   bedroom: {
     width: 200,
     borderLeft: `1px solid ${GREY_COLOR}`,
+    cursor: 'pointer',
     '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
       border: 'none',
     },

@@ -22,7 +22,8 @@ import useStyles from './MainSearch.style';
 import TEXT from '../../../../constants/mainScreen';
 import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
 
-const MAX_BEDROOM = 5;
+const MAX_BEDROOM = 8;
+const MIN_BEDROOMS = 0;
 
 const MainSearch = () => {
   const [bedroom, setBedroom] = React.useState(0);
@@ -144,10 +145,10 @@ const MainSearch = () => {
         />
       </LocalizationProvider>
 
-      <FormControl className={classes.bedroom}>
+      <FormControl className={classes.bedroom} onClick={handleClick}>
 
         <FormControl sx={{ width: 400 }}>
-          <InputLabel aria-describedby={id} variant="contained" onClick={handleClick} id="input-search-bedrooms">
+          <InputLabel aria-describedby={id} variant="outlined" id="input-search-bedrooms">
             {TEXT.MAIN_SEARCH.BEDROOM_TYPE}
             {bedroom > 0 ? `: ${bedroom}` : ''}
           </InputLabel>
@@ -155,7 +156,6 @@ const MainSearch = () => {
             id={id}
             open={open}
             anchorEl={anchorEl}
-            onClose={handleClose}
             anchorOrigin={{
               vertical: 'bottom',
               horizontal: 'center',
@@ -170,6 +170,7 @@ const MainSearch = () => {
               container
               spacing={2}
               direction="row"
+              onMouseLeave={handleClose}
               justifyContent="space-around"
               alignItems="center"
             >
@@ -192,7 +193,7 @@ const MainSearch = () => {
                 </Typography>
               </Grid>
               <Grid item>
-                <Fab size="small" color="primary" aria-label="remove" name="remove" onClick={handleRemoveBedroom}>
+                <Fab size="small" color="primary" disabled={bedroom === MIN_BEDROOMS} aria-label="remove" name="remove" onClick={handleRemoveBedroom}>
                   <RemoveSharpIcon />
                 </Fab>
               </Grid>
