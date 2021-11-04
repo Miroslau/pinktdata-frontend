@@ -57,9 +57,6 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "@babel/core": "^7.16.0",
-    "@babel/plugin-transform-modules-commonjs": "^7.16.0",
-    "@babel/preset-env": "^7.16.0",
     "@testing-library/dom": "^8.10.1",
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/user-event": "^13.5.0",
