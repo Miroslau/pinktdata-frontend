@@ -172,7 +172,7 @@ const MainSearch = () => {
                 </Typography>
               </Grid>
               <Grid item>
-                <Fab size="small" color="primary" disabled={bedroom >= MAX_BEDROOM} aria-label="add" name="add" onClick={() => setBedroom(bedroom + 1)}>
+                <Fab size="small" color="primary" disabled={bedroom === MAX_BEDROOM} aria-label="add" name="add" onClick={() => setBedroom(bedroom + 1)}>
                   <AddIcon />
                 </Fab>
               </Grid>
