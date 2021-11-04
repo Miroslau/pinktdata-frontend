@@ -1,6 +1,4 @@
-import React, {
-  useCallback, useEffect, useRef, useState,
-} from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { TextField } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -27,15 +25,6 @@ const MIN_BEDROOMS = 0;
 
 const MainSearch = () => {
   const [bedroom, setBedroom] = React.useState(0);
-
-  const handleAddBedroom = useCallback(() => {
-    setBedroom((bedroomValue) => (bedroomValue < MAX_BEDROOM ? bedroomValue + 1 : bedroomValue));
-  },
-  []);
-  const handleRemoveBedroom = useCallback(() => {
-    setBedroom((bedroomValue) => (bedroomValue > 0 ? bedroomValue - 1 : bedroomValue));
-  },
-  []);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const handleClick = (event) => {
@@ -145,10 +134,10 @@ const MainSearch = () => {
         />
       </LocalizationProvider>
 
-      <FormControl className={classes.bedroom} onClick={handleClick}>
+      <FormControl className={classes.bedroom}>
 
         <FormControl sx={{ width: 400 }}>
-          <InputLabel aria-describedby={id} variant="outlined" id="input-search-bedrooms">
+          <InputLabel aria-describedby={id} variant="standard" onClick={handleClick} id="input-search-bedrooms">
             {TEXT.MAIN_SEARCH.BEDROOM_TYPE}
             {bedroom > 0 ? `: ${bedroom}` : ''}
           </InputLabel>
@@ -156,6 +145,7 @@ const MainSearch = () => {
             id={id}
             open={open}
             anchorEl={anchorEl}
+            onClose={handleClose}
             anchorOrigin={{
               vertical: 'bottom',
               horizontal: 'center',
@@ -170,7 +160,6 @@ const MainSearch = () => {
               container
               spacing={2}
               direction="row"
-              onMouseLeave={handleClose}
               justifyContent="space-around"
               alignItems="center"
             >
@@ -183,7 +172,7 @@ const MainSearch = () => {
                 </Typography>
               </Grid>
               <Grid item>
-                <Fab size="small" color="primary" disabled={bedroom >= MAX_BEDROOM} aria-label="add" name="add" onClick={handleAddBedroom}>
+                <Fab size="small" color="primary" disabled={bedroom >= MAX_BEDROOM} aria-label="add" name="add" onClick={() => setBedroom(bedroom + 1)}>
                   <AddIcon />
                 </Fab>
               </Grid>
@@ -193,7 +182,7 @@ const MainSearch = () => {
                 </Typography>
               </Grid>
               <Grid item>
-                <Fab size="small" color="primary" disabled={bedroom === MIN_BEDROOMS} aria-label="remove" name="remove" onClick={handleRemoveBedroom}>
+                <Fab size="small" color="primary" disabled={bedroom === MIN_BEDROOMS} aria-label="remove" name="remove" onClick={() => setBedroom(bedroom - 1)}>
                   <RemoveSharpIcon />
                 </Fab>
               </Grid>

@@ -51,6 +51,7 @@ const useStyles = makeStyles({
     },
     '& #input-search-bedrooms': {
       width: 130,
+      cursor: 'pointer',
     },
   },
   roomIcon: {
