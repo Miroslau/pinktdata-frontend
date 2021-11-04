@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { TextField } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -10,11 +11,17 @@ import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import RoomIcon from '@mui/icons-material/Room';
 import SearchIcon from '@mui/icons-material/Search';
+import { useHistory } from 'react-router-dom';
+import {
+  setPublicAddress,
+  setParams,
+} from '../../../../store/slice/apartmentSlice';
 import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
 import TEXT from '../../../../constants/mainScreen';
 import useStyles from './MainSearch.style';
 import LocationAPI from '../../../../api/main-search/LocationAPI';
 import { doWithUserDelay } from '../../../../utils/doWithUserDelay';
+import { MAP_ROUTE } from '../../../../constants/routes';
 
 const bedroomItems = [
   {
@@ -35,6 +42,8 @@ const bedroomItems = [
 ];
 
 const MainSearch = () => {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const dateNow = new Date();
   const dateNowPlusOneDay = new Date();
   dateNowPlusOneDay.setDate(dateNow.getDate() + 1);
@@ -42,7 +51,8 @@ const MainSearch = () => {
 
   const classes = useStyles();
   const isMounted = useRef(null);
-  const [location, setLocation] = useState('');
+  const [searchLocation, setSearchLocation] = useState('');
+  const [isSelected, setIsSelected] = useState(false);
   const [dataLocation, setDataLocation] = useState([]);
   const [startDateValue, setStartDateValue] = useState(dateNow);
   const [endDateValue, setEndDateValue] = useState(dateNowPlusOneDay);
@@ -64,36 +74,57 @@ const MainSearch = () => {
     };
   }, []);
 
-  useEffect(async () => {
-    if (location) {
+  const fillDataLocations = async (value) => {
+    if (value) {
       try {
-        const response = await LocationAPI.search(location);
+        const response = await LocationAPI.search(value);
         if (isMounted.current) {
           setDataLocation(response);
         }
       } catch (error) {
         console.log(error);
       }
+    } else {
+      setDataLocation([]);
     }
-  }, [location]);
+  };
 
   const handleBedroomValue = (event) => {
     setBedroomValue(event.target.value);
   };
 
-  const handleChange = (e) => {
+  const inputHandler = (e) => {
     const { value } = e.target;
-    if (!value) {
-      setDataLocation([]);
-      setIsError(true);
-    } else {
-      setIsError(false);
-      setLocation(value);
-    }
+    setIsSelected(false);
+    setSearchLocation(value);
+    userDelay = doWithUserDelay(() => fillDataLocations(value), userDelay);
   };
 
-  const searchChangeHandler = (e) => {
-    userDelay = doWithUserDelay(() => handleChange(e), userDelay);
+  const changeOptionHandler = (e, newValue) => {
+    setIsSelected(true);
+    setSearchLocation(newValue);
+  };
+
+  const handleFocus = () => {
+    setIsError(false);
+    fillDataLocations(searchLocation);
+  };
+
+  const handleBlur = () => {
+    if (!searchLocation) setIsError(true);
+    if (!isSelected) {
+      if (dataLocation.length) {
+        setSearchLocation(dataLocation[0]);
+        setIsSelected(true);
+      }
+    }
+    setDataLocation([]);
+  };
+
+  const clickSearchHandler = () => {
+    dispatch(setPublicAddress({ publicAddress: searchLocation }));
+    dispatch(setParams({ bedrooms: bedroomValue }));
+    history.push(MAP_ROUTE);
   };
 
   return (
@@ -101,17 +132,23 @@ const MainSearch = () => {
       <div className={classes.locationWrapper}>
         <RoomIcon className={classes.roomIcon} />
         <Autocomplete
+          data-testid="autocomplete"
+          isOptionEqualToValue={(option, value) => option.id === value.id}
           style={{ width: '300px' }}
           {...defaultProps}
           id="disable-close-on-select"
           disableClearable
+          onChange={changeOptionHandler}
+          onBlur={handleBlur}
+          onFocus={handleFocus}
+          value={searchLocation}
           renderInput={(params) => (
             <TextField
               data-testid="Location"
               placeholder="Location"
               {...params}
-              onChange={searchChangeHandler}
-              value={location}
+              onChange={inputHandler}
+              value={searchLocation}
               label={TEXT.MAIN_SEARCH.LOCATION}
               variant="standard"
               error={isError}
@@ -125,7 +162,9 @@ const MainSearch = () => {
           label={TEXT.MAIN_SEARCH.START_DATE}
           value={startDateValue}
           onChange={setStartDateValue}
-          renderInput={(params) => <TextField {...params} className={classes.date} />}
+          renderInput={(params) => (
+            <TextField {...params} className={classes.date} />
+          )}
         />
 
         <DatePicker
@@ -133,24 +172,24 @@ const MainSearch = () => {
           value={endDateValue}
           onChange={setEndDateValue}
           min={startDateValue}
-          renderInput={(params) => <TextField {...params} className={classes.date} />}
+          renderInput={(params) => (
+            <TextField {...params} className={classes.date} />
+          )}
         />
       </LocalizationProvider>
 
       <FormControl className={classes.bedroom}>
-        <InputLabel id="bedroomValue">{TEXT.MAIN_SEARCH.BEDROOM_TYPE}</InputLabel>
+        <InputLabel id="bedroomValue">
+          {TEXT.MAIN_SEARCH.BEDROOM_TYPE}
+        </InputLabel>
         <Select
           labelId="bedroomValue"
           value={bedroomValue}
           label={TEXT.MAIN_SEARCH.BEDROOM_TYPE}
           onChange={handleBedroomValue}
         >
-
           {bedroomItems.map(({ id, value, title }) => (
-            <MenuItem
-              key={id}
-              value={value}
-            >
+            <MenuItem key={id} value={value}>
               {title}
             </MenuItem>
           ))}
@@ -158,15 +197,16 @@ const MainSearch = () => {
       </FormControl>
 
       <ButtonMui
+        data-testid="search-button"
+        disabled={!isSelected}
         ariaLabel="search-button"
         variant="contained"
         color="secondary"
         className={classes.searchButton}
-        clickButton={() => console.log('Search...')}
+        clickButton={clickSearchHandler}
       >
         <SearchIcon fontSize="large" />
       </ButtonMui>
-
     </form>
   );
 };
