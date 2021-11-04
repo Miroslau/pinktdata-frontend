@@ -10,10 +10,10 @@ const reducers = combineReducers({
 
 const rootReducer = (state, action) => {
   if (action.type === 'users/LogoutUser/fulfilled') {
-    storage.removeItem('persist:root');
     storage.removeItem('persist:user');
-    storage.removeItem('persist:apartment');
-    return reducers({}, action);
+    const { apartment } = state;
+    state = { apartment };
+    // return reducers({}, action);
   }
   return reducers(state, action);
 };
