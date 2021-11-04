@@ -103,9 +103,9 @@ describe('Apartment filter component', () => {
 
   it('has not change count bedrooms when click disabled button plus', async () => {
     const buttonPlus = await container.querySelectorAll('.MuiButton-root')[1];
-    const countClick = [...Array(7)];
+    const countClick = [...Array(9)];
     countClick.forEach(() => fireEvent.click(buttonPlus));
-    const result = await findByText(container, '5');
+    const result = await findByText(container, '8');
     expect(result).toBeInTheDocument();
   });
 

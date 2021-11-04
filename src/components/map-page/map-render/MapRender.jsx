@@ -1,10 +1,15 @@
-import {
-  useEffect, useState,
-} from 'react';
+import { useEffect, useState } from 'react';
 import L from 'leaflet';
 import {
-  MapContainer, TileLayer, Popup, Tooltip, useMap, Marker,
+  MapContainer,
+  TileLayer,
+  Popup,
+  Tooltip,
+  useMap,
+  Marker,
 } from 'react-leaflet';
+import LinearProgress from '@mui/material/LinearProgress';
+import Box from '@mui/material/Box';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import PropTypes from 'prop-types';
 import pointMarker from '../../../assets/svg/pointMarker.svg';
@@ -25,12 +30,14 @@ const createClusterCustomIcon = (cluster) => L.divIcon({
   iconSize: L.point(40, 40, true),
 });
 
-const MapRender = ({ apart }) => {
+const MapRender = ({ apart, isFetching }) => {
   const classes = useStyles();
   const [location, setLocation] = useState([39.94977, -75.28529]);
 
   useEffect(() => {
-    if (apart.length) setLocation([apart[0].location.lat, apart[0].location.lon]);
+    if (apart.length) {
+      setLocation([apart[0].location.lat, apart[0].location.lon]);
+    }
   }, [apart]);
 
   const SetViewOnFetch = ({ coords }) => {
@@ -42,7 +49,11 @@ const MapRender = ({ apart }) => {
 
   return (
     <div className={classes.map}>
+      <Box className={classes.mapLoader}>
+        {isFetching ? <LinearProgress className={classes.linear} /> : <></>}
+      </Box>
       <MapContainer
+        className={classes.lContainer}
         center={location}
         zoom={11}
         scrollWheelZoom
@@ -64,7 +75,9 @@ const MapRender = ({ apart }) => {
               position={[data.location.lat, data.location.lon]}
               icon={markerIcon}
             >
-              <Tooltip direction="top" offset={[0, -5]} permanent>{data.price}</Tooltip>
+              <Tooltip direction="top" offset={[0, -5]} permanent>
+                {data.price}
+              </Tooltip>
               <Popup>
                 <MapCard id={data._id} />
               </Popup>
@@ -79,6 +92,7 @@ const MapRender = ({ apart }) => {
 
 MapRender.propTypes = {
   apart: PropTypes.instanceOf(Array).isRequired,
+  isFetching: PropTypes.bool.isRequired,
 };
 
 export default MapRender;

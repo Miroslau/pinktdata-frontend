@@ -7,7 +7,6 @@ import apartments from '../../../mocks/mocks-constants/mockDataApartments';
 import Card from './Card';
 
 describe('Card Component', () => {
-  process.env.REACT_APP_IS_MOCKING = true;
   const mockData = apartments[0];
 
   beforeAll(() => server.listen({
