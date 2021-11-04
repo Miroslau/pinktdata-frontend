@@ -13,7 +13,6 @@ const rootReducer = (state, action) => {
     storage.removeItem('persist:user');
     const { apartment } = state;
     state = { apartment };
-    // return reducers({}, action);
   }
   return reducers(state, action);
 };
