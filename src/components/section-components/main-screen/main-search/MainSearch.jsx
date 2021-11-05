@@ -6,22 +6,20 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import FormControl from '@mui/material/FormControl';
 import DatePicker from '@mui/lab/DatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import RoomIcon from '@mui/icons-material/Room';
 import SearchIcon from '@mui/icons-material/Search';
 import { useHistory } from 'react-router-dom';
-import {
-  setPublicAddress,
-  setParams,
-} from '../../../../store/slice/apartmentSlice';
 import Popover from '@mui/material/Popover';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Fab from '@mui/material/Fab';
 import AddIcon from '@mui/icons-material/Add';
 import RemoveSharpIcon from '@mui/icons-material/RemoveSharp';
+import {
+  setPublicAddress,
+  setParams,
+} from '../../../../store/slice/apartmentSlice';
 import { doWithUserDelay } from '../../../../utils/doWithUserDelay';
 import { MAP_ROUTE } from '../../../../constants/routes';
 import LocationAPI from '../../../../api/main-search/LocationAPI';
@@ -60,7 +58,6 @@ const MainSearch = () => {
   const [dataLocation, setDataLocation] = useState([]);
   const [startDateValue, setStartDateValue] = useState(dateNow);
   const [endDateValue, setEndDateValue] = useState(dateNowPlusOneDay);
-  const [bedroomValue, setBedroomValue] = useState('');
   const [isError, setIsError] = useState(false);
   let userDelay;
 
@@ -93,7 +90,7 @@ const MainSearch = () => {
     }
   };
 
-  const handleChange = (e) => {
+  const inputHandler = (e) => {
     const { value } = e.target;
     setIsSelected(false);
     setSearchLocation(value);
@@ -123,7 +120,7 @@ const MainSearch = () => {
 
   const clickSearchHandler = () => {
     dispatch(setPublicAddress({ publicAddress: searchLocation }));
-    dispatch(setParams({ bedrooms: bedroomValue }));
+    dispatch(setParams({ bedrooms: bedroom }));
     history.push(MAP_ROUTE);
   };
 
