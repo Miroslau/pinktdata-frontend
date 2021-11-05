@@ -6,6 +6,11 @@ import { BrowserRouter } from 'react-router-dom';
 import LocationAPI from './LocationAPI';
 import MainSearch from '../../components/section-components/main-screen/main-search/MainSearch';
 
+const mockDispatch = jest.fn();
+jest.mock('react-redux', () => ({
+  useDispatch: () => mockDispatch,
+}));
+
 jest.mock('../../utils/doWithUserDelay.js', () => ({
   doWithUserDelay: (callback) => callback(),
 }));

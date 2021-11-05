@@ -22,11 +22,13 @@ export const apartmentSlice = createSlice({
     setPublicAddress: (state, { payload }) => {
       state.publicAddress = payload.publicAddress;
     },
-    setParams: (state, { payload }) => {
-      state.searchParams.isMax = payload.isMax;
-      state.searchParams.priceRange = payload.priceRange;
-      state.searchParams.bedrooms = payload.bedrooms;
-    },
+    setParams: (state, { payload }) => ({
+      ...state,
+      searchParams: {
+        ...state.searchParams,
+        ...payload,
+      },
+    }),
     clearState: (state) => {
       state.isError = false;
       state.isFetching = false;
@@ -58,7 +60,7 @@ export const apartmentSlice = createSlice({
     [searchApartments.rejected]: (state, { payload }) => {
       state.isError = true;
       state.isFetching = false;
-      state.errorMessage = payload.message;
+      state.errorMessage = payload;
     },
   },
 });
