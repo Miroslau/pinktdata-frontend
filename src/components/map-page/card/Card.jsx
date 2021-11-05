@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+
 import Divider from '@mui/material/Divider';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import StarIcon from '@mui/icons-material/Star';
-import { Splide, SplideSlide } from '@splidejs/react-splide';
 import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
 import useStyles from '../../../style/style';
-
 import '@splidejs/splide/dist/css/splide.min.css';
 import './Slider.scss';
 
@@ -97,10 +97,10 @@ const Card = (props) => {
 
 Card.defaultProps = {
   id: '',
-  rating: '',
+  rating: 0,
   name: '',
   images: [],
-  reviews: '',
+  reviews: null,
   price: '',
   city: '',
   address: '',

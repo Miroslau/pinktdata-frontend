@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import { apartmentSelector, setParams } from '../../store/slice/apartmentSlice';
@@ -9,7 +9,6 @@ import Content from '../../components/map-page/content-render/Content';
 
 const Map = () => {
   const dispatch = useDispatch();
-  const listRoomBlock = useRef();
   const {
     publicAddress, searchParams, apartments, currentPage, isFetching, count,
   } = useSelector(apartmentSelector);
@@ -71,7 +70,6 @@ const Map = () => {
           apart={apartments}
           count={count}
           inViewRef={ref}
-          listRoomBlock={listRoomBlock}
           publicAddress={publicAddress}
           isActiveModal={isActiveModal}
           setModalActive={handleModal}

@@ -10,7 +10,7 @@ import {
 } from 'react-leaflet';
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
-import MarkerClusterGroup from 'react-leaflet-markercluster/src/react-leaflet-markercluster';
+import MarkerClusterGroup from 'react-leaflet-markercluster';
 import PropTypes from 'prop-types';
 import pointMarker from '../../../assets/svg/pointMarker.svg';
 import useStyles from '../../../style/style';

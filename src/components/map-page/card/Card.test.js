@@ -1,14 +1,33 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-/* eslint-disable max-len */
 import '@testing-library/jest-dom';
-import {
-  render, fireEvent,
-} from '@testing-library/react';
+import { render, fireEvent } from '@testing-library/react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
-import apartments from '../../../mocks/mocks-constants/mockDataApartments';
 
-describe('Card component', () => {
+import { server } from '../../../mocks/server';
+import apartments from '../../../mocks/mocks-constants/mockDataApartments';
+import Card from './Card';
+
+describe('Card Component', () => {
   const mockData = apartments[0];
+
+  beforeAll(() => server.listen({
+    onUnhandledRequest: 'error',
+  }));
+  afterEach(() => server.restoreHandlers());
+  afterAll(() => server.close());
+
+  it('renders card component', () => {
+    render(<Card />);
+  });
+
+  it('city has in card component', async () => {
+    const { findByText } = render(<Card city={mockData.city} />);
+    expect(await findByText('Philadelphia')).toBeInTheDocument();
+  });
+
+  it('name has in card component', async () => {
+    const { findByText } = render(<Card name={mockData.name} />);
+    expect(await findByText('Free Parking guaranteed')).toBeInTheDocument();
+  });
 
   describe('image slider', () => {
     let container;
@@ -24,7 +43,12 @@ describe('Card component', () => {
         cover: 'true',
         pagination: true,
       };
-      const component = render(<Splide options={options}><SplideSlide><img src={mockData.images[0].picture} alt={mockData.name} /></SplideSlide><SplideSlide><img src={mockData.images[1].picture} alt={mockData.name} /></SplideSlide></Splide>);
+      const component = render(
+        <Splide options={options}>
+          <SplideSlide><img src={mockData.images[0].picture} alt={mockData.name} /></SplideSlide>
+          <SplideSlide><img src={mockData.images[1].picture} alt={mockData.name} /></SplideSlide>
+        </Splide>,
+      );
       container = component.container;
       unmount = component.unmount;
     });

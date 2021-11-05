@@ -14,7 +14,6 @@ const Content = ({
   apart,
   count,
   inViewRef,
-  listRoomBlock,
   publicAddress,
   isActiveModal,
   setModalActive,
@@ -47,7 +46,7 @@ const Content = ({
         )}
       </div>
       <Divider />
-      <div className={classes.mapWrapper} ref={listRoomBlock}>
+      <div className={classes.mapWrapper}>
         {!isFetching && !apart.length && (
           <div className={classes.emptyData}>
             <FormatListBulletedIcon className={classes.iconSize} />
@@ -89,7 +88,6 @@ Content.propTypes = {
   apart: PropTypes.instanceOf(Array).isRequired,
   count: PropTypes.number.isRequired,
   inViewRef: PropTypes.func,
-  listRoomBlock: PropTypes.instanceOf(Object).isRequired,
   publicAddress: PropTypes.string.isRequired,
   isActiveModal: PropTypes.bool,
   setModalActive: PropTypes.func,
