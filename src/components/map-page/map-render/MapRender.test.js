@@ -4,14 +4,15 @@ import { render } from '@testing-library/react';
 import apartments from '../../../mocks/mocks-constants/mockDataApartments';
 import MapRender from './MapRender';
 
-describe('Map render component', () => {
-  const mockData = apartments;
+global.L = { control: jest.fn(), map: jest.fn() };
+jest.mock('react-leaflet-markercluster', () => () => '');
 
-  const component = render(
-    <MapRender apart={mockData} />,
-  );
-  const { container } = component;
-  const { unmount } = component;
+describe('Map-Render component', () => {
+  const mockData = apartments;
+  const isFetching = true;
+
+  const { container } = render(<MapRender apart={mockData} isFetching={isFetching} />);
+  const { unmount } = render(<MapRender apart={mockData} isFetching={isFetching} />);
 
   afterEach(() => {
     unmount();
