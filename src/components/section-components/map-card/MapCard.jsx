@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import StarIcon from '@mui/icons-material/Star';
@@ -10,12 +9,14 @@ import './MapCard.scss';
 import AlertError from '../../ui-components/alert-error/AlertError';
 import SkeletonForMapCard from './SkeletonForMapCard';
 import useFetch from '../../../hooks/useFetch';
+import useRedirectToPreviewPageById from '../../../hooks/useRedirectToPreviewPageById';
+import handleEnterPress from '../../../utils/handleEnterPress';
 
 const MapCard = ({ id }) => {
-  const history = useHistory();
   const [roomData, setRoomData] = useState();
   const getData = () => getRoom.getRoomById(id);
   const { isLoading, error } = useFetch(getData, setRoomData);
+  const redirectToPreviewPageById = useRedirectToPreviewPageById(id);
 
   if (error) return <AlertError />;
 
@@ -23,7 +24,9 @@ const MapCard = ({ id }) => {
     <>
       {isLoading && <SkeletonForMapCard />}
 
-      <div className="map-card">
+      <div
+        className="map-card"
+      >
 
         <div className="heart-icon">
           <FavoriteIcon htmlColor="pink" />
@@ -41,7 +44,7 @@ const MapCard = ({ id }) => {
           }}
         >
           {roomData.images.map(({ id: imageId, picture }) => (
-            <SplideSlide data-testid="map-card-slider" key={imageId} onClick={() => history.push(`/apartments/${id}`)}>
+            <SplideSlide data-testid="map-card-slider" key={imageId} onClick={redirectToPreviewPageById}>
               <img
                 className="slider-image"
                 src={picture}
@@ -53,7 +56,13 @@ const MapCard = ({ id }) => {
         )}
 
         {!isLoading && (
-        <div className="room-info">
+        <div
+          className="room-info"
+          onClick={redirectToPreviewPageById}
+          onKeyDown={handleEnterPress(redirectToPreviewPageById)}
+          role="button"
+          tabIndex="0"
+        >
           <div className="room-score">
             <StarIcon className="star-icon" />
             <div className="room-rating">

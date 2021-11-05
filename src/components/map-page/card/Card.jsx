@@ -11,13 +11,16 @@ import '@splidejs/splide/dist/css/splide.min.css';
 import './Slider.scss';
 
 import { DATA } from '../../../constants/map_page';
+import useRedirectToPreviewPageById from '../../../hooks/useRedirectToPreviewPageById';
+import handleEnterPress from '../../../utils/handleEnterPress';
 
 const Card = (props) => {
   const classes = useStyles();
 
   const {
-    name, rating, images, reviews, city, address, price, homeDetails,
+    name, rating, images, reviews, city, address, price, homeDetails, id,
   } = props;
+  const redirectToPreviewPageById = useRedirectToPreviewPageById(id);
 
   return (
     <>
@@ -33,16 +36,23 @@ const Card = (props) => {
                 fixedHeight: '200px',
                 cover: 'true',
                 pagination: true,
+                drag: false,
               }}
             >
               {images.map((image) => (
-                <SplideSlide key={image.id}>
+                <SplideSlide key={image.id} onClick={redirectToPreviewPageById}>
                   <img src={image.picture} alt={name} />
                 </SplideSlide>
               ))}
             </Splide>
           </div>
-          <div className={classes.contentData}>
+          <div
+            className={classes.contentData}
+            onClick={redirectToPreviewPageById}
+            onKeyDown={handleEnterPress(redirectToPreviewPageById)}
+            role="button"
+            tabIndex="0"
+          >
             <div className={classes.dataLeft}>
               <div className={classes.dataText}>
                 <TypographyMui text={city} className={classes.city} />
@@ -86,6 +96,7 @@ const Card = (props) => {
 };
 
 Card.defaultProps = {
+  id: '',
   rating: '',
   name: '',
   images: [],
@@ -97,6 +108,7 @@ Card.defaultProps = {
 };
 
 Card.propTypes = {
+  id: PropTypes.string,
   name: PropTypes.string,
   images: PropTypes.arrayOf(
     PropTypes.shape({
