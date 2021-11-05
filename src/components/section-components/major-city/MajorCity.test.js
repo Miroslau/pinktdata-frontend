@@ -18,7 +18,7 @@ describe('MajorCity Component', () => {
     name: 'apartment',
     initialState: {
       publicAddress: '',
-      count: 0,
+      count: 2229,
     },
   });
 

@@ -32,6 +32,10 @@ const useStyles = makeStyles({
       width: '7px',
     },
   },
+  logoIcon: {
+    fontSize: '3rem !important',
+    color: 'red',
+  },
   mapWrapper: {
     position: 'relative',
     transition: 'ease 0.5s',
@@ -47,6 +51,9 @@ const useStyles = makeStyles({
     justifyContent: 'center',
     flexDirection: 'column',
     width: '100%',
+  },
+  searchSize: {
+    fontSize: '1.3rem !important',
   },
   iconSize: {
     fontSize: '10rem !important',
