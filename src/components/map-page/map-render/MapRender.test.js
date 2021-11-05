@@ -11,8 +11,7 @@ describe('Map-Render component', () => {
   const mockData = apartments;
   const isFetching = true;
 
-  const { container } = render(<MapRender apart={mockData} isFetching={isFetching} />);
-  const { unmount } = render(<MapRender apart={mockData} isFetching={isFetching} />);
+  const { container, unmount } = render(<MapRender apart={mockData} isFetching={isFetching} />);
 
   afterEach(() => {
     unmount();

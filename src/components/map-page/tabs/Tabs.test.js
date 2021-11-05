@@ -2,7 +2,6 @@ import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
-import FilterListIcon from '@mui/icons-material/FilterList';
 import React from 'react';
 import Tabs from './Tabs';
 import ApartmentFilters from './apartment-filters/ApartmentFilters';
@@ -18,10 +17,6 @@ describe('Tabs Component', () => {
   it('renders component tabs', () => {
     const { container } = render(<Tabs apartmentFilter={apartmentFilter} />);
     expect(container.firstChild).toBeInTheDocument();
-  });
-
-  it('should render FilterListIcon', () => {
-    expect(<FilterListIcon />).toBeTruthy();
   });
 
   it('should render button Available', () => {
