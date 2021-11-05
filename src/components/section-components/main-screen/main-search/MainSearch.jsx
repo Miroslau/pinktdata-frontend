@@ -6,44 +6,46 @@ import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import FormControl from '@mui/material/FormControl';
 import DatePicker from '@mui/lab/DatePicker';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import InputLabel from '@mui/material/InputLabel';
 import RoomIcon from '@mui/icons-material/Room';
 import SearchIcon from '@mui/icons-material/Search';
 import { useHistory } from 'react-router-dom';
+import Popover from '@mui/material/Popover';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveSharpIcon from '@mui/icons-material/RemoveSharp';
 import {
   setPublicAddress,
   setParams,
 } from '../../../../store/slice/apartmentSlice';
-import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
-import TEXT from '../../../../constants/mainScreen';
-import useStyles from './MainSearch.style';
-import LocationAPI from '../../../../api/main-search/LocationAPI';
 import { doWithUserDelay } from '../../../../utils/doWithUserDelay';
 import { MAP_ROUTE } from '../../../../constants/routes';
+import LocationAPI from '../../../../api/main-search/LocationAPI';
+import useStyles from './MainSearch.style';
+import TEXT from '../../../../constants/mainScreen';
+import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
 
-const bedroomItems = [
-  {
-    id: 1,
-    value: 1,
-    title: 'One',
-  },
-  {
-    id: 2,
-    value: 2,
-    title: 'Two',
-  },
-  {
-    id: 3,
-    value: 3,
-    title: 'Three',
-  },
-];
+const MAX_BEDROOM = 8;
+const MIN_BEDROOMS = 0;
 
 const MainSearch = () => {
   const dispatch = useDispatch();
   const history = useHistory();
+  const [bedroom, setBedroom] = React.useState(0);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
   const dateNow = new Date();
   const dateNowPlusOneDay = new Date();
   dateNowPlusOneDay.setDate(dateNow.getDate() + 1);
@@ -56,7 +58,6 @@ const MainSearch = () => {
   const [dataLocation, setDataLocation] = useState([]);
   const [startDateValue, setStartDateValue] = useState(dateNow);
   const [endDateValue, setEndDateValue] = useState(dateNowPlusOneDay);
-  const [bedroomValue, setBedroomValue] = useState('');
   const [isError, setIsError] = useState(false);
   let userDelay;
 
@@ -89,10 +90,6 @@ const MainSearch = () => {
     }
   };
 
-  const handleBedroomValue = (event) => {
-    setBedroomValue(event.target.value);
-  };
-
   const inputHandler = (e) => {
     const { value } = e.target;
     setIsSelected(false);
@@ -123,7 +120,7 @@ const MainSearch = () => {
 
   const clickSearchHandler = () => {
     dispatch(setPublicAddress({ publicAddress: searchLocation }));
-    dispatch(setParams({ bedrooms: bedroomValue }));
+    dispatch(setParams({ bedrooms: bedroom }));
     history.push(MAP_ROUTE);
   };
 
@@ -179,21 +176,62 @@ const MainSearch = () => {
       </LocalizationProvider>
 
       <FormControl className={classes.bedroom}>
-        <InputLabel id="bedroomValue">
-          {TEXT.MAIN_SEARCH.BEDROOM_TYPE}
-        </InputLabel>
-        <Select
-          labelId="bedroomValue"
-          value={bedroomValue}
-          label={TEXT.MAIN_SEARCH.BEDROOM_TYPE}
-          onChange={handleBedroomValue}
-        >
-          {bedroomItems.map(({ id, value, title }) => (
-            <MenuItem key={id} value={value}>
-              {title}
-            </MenuItem>
-          ))}
-        </Select>
+
+        <FormControl sx={{ width: 400 }}>
+          <InputLabel aria-describedby={id} variant="standard" onClick={handleClick} id="input-search-bedrooms">
+            {TEXT.MAIN_SEARCH.BEDROOM_TYPE}
+            {bedroom > 0 ? `: ${bedroom}` : ''}
+          </InputLabel>
+          <Popover
+            id={id}
+            open={open}
+            anchorEl={anchorEl}
+            onClose={handleClose}
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'center',
+            }}
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+            }}
+          >
+            <Grid
+              p={2}
+              container
+              spacing={2}
+              direction="row"
+              justifyContent="space-around"
+              alignItems="center"
+            >
+              <Grid item>
+                <Typography variant="body2" gutterBottom>
+                  {TEXT.MAIN_SEARCH.BEDROOM_COUNT}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  {TEXT.MAIN_SEARCH.SELECT_NUMBER}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Fab size="small" color="primary" disabled={bedroom === MAX_BEDROOM} aria-label="add" name="add" onClick={() => setBedroom(bedroom + 1)}>
+                  <AddIcon />
+                </Fab>
+              </Grid>
+              <Grid item>
+                <Typography>
+                  {bedroom}
+                </Typography>
+              </Grid>
+              <Grid item>
+                <Fab size="small" color="primary" disabled={bedroom === MIN_BEDROOMS} aria-label="remove" name="remove" onClick={() => setBedroom(bedroom - 1)}>
+                  <RemoveSharpIcon />
+                </Fab>
+              </Grid>
+            </Grid>
+          </Popover>
+
+        </FormControl>
+
       </FormControl>
 
       <ButtonMui
@@ -207,6 +245,7 @@ const MainSearch = () => {
       >
         <SearchIcon fontSize="large" />
       </ButtonMui>
+
     </form>
   );
 };
