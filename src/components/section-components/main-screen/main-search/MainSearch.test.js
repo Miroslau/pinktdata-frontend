@@ -3,7 +3,7 @@
 /* eslint-disable max-len */
 import '@testing-library/jest-dom';
 import {
-  render, fireEvent, findByText, waitFor, act,
+  render, fireEvent, act, screen,
 } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import { BrowserRouter, Router } from 'react-router-dom';
