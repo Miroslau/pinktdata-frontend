@@ -59,7 +59,7 @@ const MapCard = ({ id }) => {
         <div
           className="room-info"
           onClick={redirectToPreviewPageById}
-          onKeyDown={(event) => handleEnterPress(redirectToPreviewPageById)(event)}
+          onKeyDown={handleEnterPress(redirectToPreviewPageById)}
           role="button"
           tabIndex="0"
         >

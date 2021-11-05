@@ -49,7 +49,7 @@ const Card = (props) => {
           <div
             className={classes.contentData}
             onClick={redirectToPreviewPageById}
-            onKeyDown={(event) => handleEnterPress(redirectToPreviewPageById)(event)}
+            onKeyDown={handleEnterPress(redirectToPreviewPageById)}
             role="button"
             tabIndex="0"
           >
