@@ -94,6 +94,7 @@ const useStyles = makeStyles({
     width: '300px',
     height: '200px',
     marginRight: '20px',
+    cursor: 'pointer',
   },
   mapTabs: {
     margin: '27px 0',
@@ -133,6 +134,7 @@ const useStyles = makeStyles({
     columnGap: '1rem',
     width: '505px',
     padding: '0 0 0 20px',
+    cursor: 'pointer',
   },
   dataRight: {
     display: 'flex',

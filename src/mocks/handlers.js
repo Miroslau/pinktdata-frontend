@@ -64,7 +64,11 @@ export const handlers = [
     if (bedrooms) {
       aparts = aparts.filter((item) => item.bedrooms === +bedrooms);
     }
-    return res(ctx.delay(), ctx.status(200), ctx.json(aparts));
+    const result = {
+      apartments: aparts,
+      totalCount: aparts.length,
+    };
+    return res(ctx.delay(), ctx.status(200), ctx.json(result));
   }),
 
   rest.get('/api/apartments/popular/images', (req, res, ctx) => res(ctx.delay(1500), ctx.status(200), ctx.json(mockDataForPopularRooms))),

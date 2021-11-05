@@ -1,4 +1,4 @@
-export function doWithUserDelay(callback, field, delay = 500) {
+export function doWithUserDelay(callback, field, delay = 300) {
   if (field) {
     clearTimeout(field);
   }

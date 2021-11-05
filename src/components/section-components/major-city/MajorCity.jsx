@@ -32,9 +32,7 @@ const MajorCity = () => {
           setMajorCities(cities);
         }
       })
-      .catch((err) => {
-        console.error(err.message);
-      });
+      .catch((err) => err.message);
   }, [hasMounted]);
 
   const openMapPageWithCity = (city) => {

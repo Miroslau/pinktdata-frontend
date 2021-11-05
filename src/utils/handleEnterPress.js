@@ -1,4 +1,4 @@
-const handleEnterPress = (callback, shouldPreventDefault = false) => (event) => {
+const handleEnterPress = (callback, shouldPreventDefault = true) => (event) => {
   event = event || window.event;
   let isEnter;
 
@@ -12,7 +12,7 @@ const handleEnterPress = (callback, shouldPreventDefault = false) => (event) => 
     if (shouldPreventDefault) {
       event.preventDefault();
     }
-    callback(event);
+    callback();
   }
 };
 

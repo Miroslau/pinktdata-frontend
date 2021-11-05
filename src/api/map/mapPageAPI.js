@@ -4,7 +4,7 @@ export default {
   searchApartments(
     location = 'Philadelphia, PA, United State',
     page = 1,
-    priceFrom,
+    priceFrom = 0,
     priceTo,
     bedrooms,
     isMax,
