@@ -32,6 +32,7 @@ const SearchBar = () => {
         onKeyDown={handleEnterPress(() => history.push('/'))}
         role="button"
         tabIndex="0"
+        data-testid="logo"
       >
         <RoomIcon className={classes.logoIcon} />
         <span className="search-bar__text">pinktada</span>
