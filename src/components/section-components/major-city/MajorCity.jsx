@@ -58,7 +58,6 @@ const MajorCity = () => {
                   role="presentation"
                 >
                   <img className="major-city-container__img" src={city.imageUrl} alt={city.city} />
-                  {console.log(city.imageUrl)}
                   <h4 className="major-city-container__title">{city.city}</h4>
                 </div>
               )).slice(0, 3)
