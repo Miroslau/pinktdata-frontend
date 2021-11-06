@@ -12,9 +12,14 @@ import { ratingLabels } from '../../../../../constants/ratingLabels';
 const RoomStars = () => {
   const roomCtx = useContext(roomContext);
   const [value, setValue] = React.useState(roomCtx.rating);
+  const [expanded, setExpanded] = React.useState('panel');
+
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
 
   return (
-    <Accordion className="accordion-item">
+    <Accordion className="accordion-item" expanded={expanded === 'panel'} onChange={handleChange('panel')}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
       >

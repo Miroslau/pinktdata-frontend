@@ -7,7 +7,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import roomPreviewLocalization from '../../../../../constants/roomPreviewLocalization';
 
 const RoomAbout = () => (
-  <Accordion className="accordion-item">
+  <Accordion className="accordion-item" expanded>
     <AccordionSummary
       expandIcon={<ExpandMoreIcon />}
     >

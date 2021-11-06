@@ -10,6 +10,7 @@ const useFetch = (getData, setData) => {
     if (isLoading) {
       try {
         const { data } = await getData();
+        console.log(data);
         if (isMounted()) setData(data);
       } catch (err) {
         if (isMounted()) setError(err.message);
