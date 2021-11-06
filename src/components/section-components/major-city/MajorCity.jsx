@@ -57,7 +57,7 @@ const MajorCity = () => {
                   onClick={() => openMapPageWithCity(city)}
                   role="presentation"
                 >
-                  <img className="major-city-container__img" src={city.imageUrl} alt={city.city} />
+                  <img className="major-city-container__img" src={city.pictureUrl} alt={city.city} />
                   <h4 className="major-city-container__title">{city.city}</h4>
                 </div>
               )).slice(0, 3)
@@ -74,7 +74,7 @@ const MajorCity = () => {
                   <img
                     className="major-city-container__img
                                major-city-container__img_big"
-                    src={city.imageUrl}
+                    src={city.pictureUrl}
                     alt={city.city}
                   />
                   <h4 className="major-city-container__title">{city.city}</h4>
