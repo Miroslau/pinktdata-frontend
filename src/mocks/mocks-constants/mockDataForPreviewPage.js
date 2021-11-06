@@ -42,8 +42,13 @@ const data = {
   reviews: '1010',
   spaceType: 'Test room',
   city: 'Gomel',
+  address: 'Belarus, Gomel, Some street',
   price: '$42',
   rateType: 'daily',
+  bathroomLabel: '1 bathroom',
+  bedroomLabel: '2 bed',
+  locationLat: 39.96351,
+  locationLon: -75.1694,
 };
 
 export default data;
