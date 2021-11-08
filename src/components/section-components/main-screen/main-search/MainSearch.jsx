@@ -149,7 +149,7 @@ const MainSearch = () => {
               label={TEXT.MAIN_SEARCH.LOCATION}
               variant="standard"
               error={isError}
-              helperText={isError && 'Must be filled'}
+              helperText={isError && TEXT.MAIN_SEARCH.ERROR_LOCATION}
             />
           )}
         />

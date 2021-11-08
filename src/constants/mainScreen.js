@@ -7,6 +7,7 @@ const TEXT = {
     BEDROOM_TYPE: 'Bedroom count',
     BEDROOM_COUNT: 'Bedroom count',
     SELECT_NUMBER: 'Select the number of rooms',
+    ERROR_LOCATION: 'Must be filled',
   },
 };
 
