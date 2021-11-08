@@ -6,17 +6,14 @@ import Typography from '@mui/material/Typography';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import roomPreviewLocalization from '../../../../../constants/roomPreviewLocalization';
 import { roomContext } from '../../../../../store/context/roomContext';
+import useHandleAccordion from '../../../../../hooks/useHandleAccordion';
 
 const RoomPrice = () => {
   const roomCtx = useContext(roomContext);
-  const [expanded, setExpanded] = React.useState('panel');
-
-  const handleChange = (panel) => (event, newExpanded) => {
-    setExpanded(newExpanded ? panel : false);
-  };
+  const { expanded, handleAccordionChange } = useHandleAccordion();
 
   return (
-    <Accordion className="accordion-item" expanded={expanded === 'panel'} onChange={handleChange('panel')}>
+    <Accordion className="accordion-item" expanded={expanded} onChange={handleAccordionChange}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
       >
