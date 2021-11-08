@@ -149,6 +149,7 @@ const MainSearch = () => {
               label={TEXT.MAIN_SEARCH.LOCATION}
               variant="standard"
               error={isError}
+              helperText={isError && 'Must be filled'}
             />
           )}
         />
@@ -240,7 +241,7 @@ const MainSearch = () => {
         ariaLabel="search-button"
         variant="contained"
         color="secondary"
-        className={classes.searchButton}
+        className={`${classes.searchButton} ${!isSelected && classes.searchButtonDisabled}`}
         clickButton={clickSearchHandler}
       >
         <SearchIcon fontSize="large" />

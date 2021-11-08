@@ -66,6 +66,14 @@ const useStyles = makeStyles({
       backgroundColor: `${BLUE_COLOR} !important`,
     },
   },
+  searchButtonDisabled: {
+    borderRadius: '.6rem',
+    backgroundColor: `${GREY_COLOR} !important`,
+    opacity: '0.5',
+    '&:hover': {
+      backgroundColor: `${GREY_COLOR} !important`,
+    },
+  },
 });
 
 export default useStyles;
