@@ -4,6 +4,9 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { Provider } from 'react-redux';
 import { render, screen } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
+import { BrowserRouter, Router } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
 import SearchBar from './SearchBar';
 
 describe('SearchBar Component', () => {
@@ -58,5 +61,21 @@ describe('SearchBar Component', () => {
     render(<Provider store={store}><SearchBar /></Provider>);
     const text = await screen.getByText('pinktada');
     expect(text).toBeInTheDocument();
+  });
+
+  it('redirect to main page when click on logo', async () => {
+    const history = createMemoryHistory();
+
+    render(
+      <BrowserRouter>
+        <Router history={history}>
+          <Provider store={store}><SearchBar /></Provider>
+        </Router>
+      </BrowserRouter>,
+    );
+
+    const logo = await screen.getByTestId('logo');
+    userEvent.click(logo);
+    expect(history.location.pathname).toBe('/');
   });
 });

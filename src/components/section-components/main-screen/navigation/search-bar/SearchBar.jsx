@@ -8,11 +8,15 @@ import { searchApartments } from '../../../../../store/actions/apartmentAction';
 import './SearchBar.scss';
 import ButtonMui from '../../../../ui-components/button-mui/ButtonMui';
 import { searchLocalizationt } from '../../../../../constants/Localizations/searchLocalizationt';
+import handleEnterPress from '../../../../../utils/handleEnterPress';
+import useRedirectToMainPage from '../../../../../hooks/useRedirectToMainPage';
 
 const SearchBar = () => {
   const dispatch = useDispatch();
   const { publicAddress, searchParams } = useSelector(apartmentSelector);
   const { bedrooms } = searchParams;
+  const redirectToMainPage = useRedirectToMainPage();
+
   const classes = useStyles();
 
   const clickSearchHandler = () => {
@@ -22,7 +26,14 @@ const SearchBar = () => {
 
   return (
     <div className="search-bar">
-      <div className="search-bar__logo">
+      <div
+        className="search-bar__logo"
+        onClick={redirectToMainPage}
+        onKeyDown={handleEnterPress(redirectToMainPage)}
+        role="button"
+        tabIndex="0"
+        data-testid="logo"
+      >
         <RoomIcon className={classes.logoIcon} />
         <span className="search-bar__text">pinktada</span>
       </div>
