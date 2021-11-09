@@ -41,6 +41,7 @@ const MapCard = ({ id }) => {
             width: '100%',
             pagination: true,
             drag: false,
+            keyboard: false,
           }}
         >
           {roomData.images.map(({ id: imageId, picture }) => (
@@ -51,7 +52,7 @@ const MapCard = ({ id }) => {
                 alt="map-card-slider"
               />
             </SplideSlide>
-          )).splice(0, 5)}
+          )).splice(0, 10)}
         </Splide>
         )}
 

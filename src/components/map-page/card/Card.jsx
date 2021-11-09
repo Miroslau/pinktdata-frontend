@@ -37,13 +37,14 @@ const Card = (props) => {
                 cover: 'true',
                 pagination: true,
                 drag: false,
+                keyboard: false,
               }}
             >
               {images.map((image) => (
                 <SplideSlide key={image.id} onClick={redirectToPreviewPageById}>
                   <img src={image.picture} alt={name} />
                 </SplideSlide>
-              ))}
+              )).splice(0, 10)}
             </Splide>
           </div>
           <div
