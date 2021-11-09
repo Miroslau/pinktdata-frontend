@@ -38,7 +38,7 @@
     "start": "react-scripts start",
     "start-mock": "cross-env REACT_APP_IS_MOCKING=true react-scripts start",
     "update": "npx msw init public --no-save",
-    "build": "react-scripts build",
+    "build": "$(npm bin)/react-scripts build",
     "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!@toolz/allow-react)/\" --env=jsdom",
     "coverage": "react-scripts test --env=jsdom --watchAll=false --coverage",
     "lint": "eslint .",
