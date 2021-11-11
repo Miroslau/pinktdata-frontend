@@ -16,6 +16,7 @@ import PropTypes from 'prop-types';
 import pointMarker from '../../../assets/svg/pointMarker.svg';
 import useStyles from '../../../style/style';
 import MapCard from '../../section-components/map-card/MapCard';
+import { mapRenderLocalization } from '../../../constants/Localizations/mapRenderLocalization';
 
 const markerIcon = new L.Icon({
   iconUrl: pointMarker,
@@ -45,7 +46,7 @@ const MapRender = ({
   }, [apart]);
 
   const getLocation = (mapEvent) => {
-    const cords = mapEvent.target.getBounds();
+    const cords = mapEvent.target.getBounds().pad(-(Math.sqrt(2) / 2));
     handleDragAndZoomMap(cords);
   };
 
@@ -84,7 +85,7 @@ const MapRender = ({
           onChange={handleChange}
           className={classes.checkbox}
         />
-        <span>Search as I move the map</span>
+        <span>{mapRenderLocalization.TITLE_SEARCH}</span>
       </div>
       <MapContainer
         className={classes.lContainer}
