@@ -46,7 +46,7 @@ const MapRender = ({
   }, [apart]);
 
   const getLocation = (mapEvent) => {
-    const cords = mapEvent.target.getBounds().pad(-(Math.sqrt(2) / 2));
+    const cords = mapEvent.target.getBounds().pad(-0.25);
     handleDragAndZoomMap(cords);
   };
 
