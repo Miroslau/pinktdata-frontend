@@ -6,7 +6,7 @@ import {
   Popup,
   Tooltip,
   useMap,
-  Marker,
+  Marker, useMapEvents,
 } from 'react-leaflet';
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
@@ -30,7 +30,7 @@ const createClusterCustomIcon = (cluster) => L.divIcon({
   iconSize: L.point(40, 40, true),
 });
 
-const MapRender = ({ apart, isFetching }) => {
+const MapRender = ({ apart, isFetching, handleDragAndZoomMap }) => {
   const classes = useStyles();
   const [location, setLocation] = useState([39.94977, -75.28529]);
 
@@ -39,6 +39,21 @@ const MapRender = ({ apart, isFetching }) => {
       setLocation([apart[0].location.lat, apart[0].location.lon]);
     }
   }, [apart]);
+
+  const getLocation = (mapEvent) => {
+    const cords = mapEvent.target.getBounds();
+    handleDragAndZoomMap(cords);
+  };
+
+  const HandlerEventsMap = () => {
+    // eslint-disable-next-line no-unused-vars
+    const map = useMapEvents({
+      dragend: (e) => getLocation(e),
+      zoomend: (e) => getLocation(e),
+    });
+
+    return null;
+  };
 
   const SetViewOnFetch = ({ coords }) => {
     const map = useMap();
@@ -84,6 +99,7 @@ const MapRender = ({ apart, isFetching }) => {
             </Marker>
           ))}
           <SetViewOnFetch coords={location} />
+          <HandlerEventsMap />
         </MarkerClusterGroup>
       </MapContainer>
     </div>
@@ -93,6 +109,7 @@ const MapRender = ({ apart, isFetching }) => {
 MapRender.propTypes = {
   apart: PropTypes.instanceOf(Array).isRequired,
   isFetching: PropTypes.bool.isRequired,
+  handleDragAndZoomMap: PropTypes.func.isRequired,
 };
 
 export default MapRender;

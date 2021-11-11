@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
-import { apartmentSelector, setParams } from '../../store/slice/apartmentSlice';
+import {
+  apartmentSelector, setParams,
+  // eslint-disable-next-line import/named
+  setBounds,
+} from '../../store/slice/apartmentSlice';
 import { searchApartments } from '../../store/actions/apartmentAction';
 import useStyles from '../../style/style';
 import MapRender from '../../components/map-page/map-render/MapRender';
@@ -34,6 +38,16 @@ const Map = () => {
         isFilter: true,
       }),
     );
+  };
+
+  const handleDragAndZoomMap = (cords) => {
+    dispatch(setBounds(cords));
+    dispatch(searchApartments({
+      currentPage: 0,
+      ...searchParams,
+      isFilter: true,
+      bounds: cords,
+    }));
   };
 
   useEffect(() => {
@@ -76,7 +90,11 @@ const Map = () => {
           apartmentFilter={handlerFilter}
           isFetching={isFetching}
         />
-        <MapRender apart={apartments} isFetching={isFetching} />
+        <MapRender
+          apart={apartments}
+          isFetching={isFetching}
+          handleDragAndZoomMap={handleDragAndZoomMap}
+        />
       </>
     </section>
   );
