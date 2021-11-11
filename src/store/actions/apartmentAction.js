@@ -8,8 +8,6 @@ export const searchApartments = createAsyncThunk(
     isFilter = false, bounds,
   }, thunkAPI) => {
     try {
-      console.log('publicAddress: ', publicAddress);
-      console.log('bounds: ', bounds);
       let priceFrom;
       let priceTo;
       if (priceRange.length) {
