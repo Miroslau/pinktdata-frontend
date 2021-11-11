@@ -27,7 +27,7 @@ const Content = ({
       <div className={classes.mapContent}>
         <TypographyMui
           variant="h5"
-          text={`${TEXT.TITLE} ${publicAddress || 'selected map area'}`}
+          text={`${TEXT.TITLE} ${publicAddress || TEXT.TEXT_ADDRESS}`}
           className={classes.title}
         />
         <Tabs
