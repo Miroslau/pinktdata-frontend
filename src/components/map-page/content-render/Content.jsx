@@ -22,6 +22,8 @@ const Content = ({
 }) => {
   const classes = useStyles();
 
+  const MAX_COUNT = 300;
+
   return (
     <div className={classes.mapContentWrapper}>
       <div className={classes.mapContent}>
@@ -37,7 +39,7 @@ const Content = ({
         />
         <TypographyMui
           variant="h6"
-          text={`${TEXT.SUBTITLE} ${count} ${TEXT.STAYS}`}
+          text={`${TEXT.SUBTITLE} ${count > MAX_COUNT ? TEXT.TEXT_COUNT : count} ${TEXT.STAYS}`}
         />
         {isFetching && (
           <Box className={classes.contentLoader}>

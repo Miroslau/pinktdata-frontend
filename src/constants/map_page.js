@@ -4,6 +4,7 @@ export const TEXT = {
   STAYS: 'stays',
   EMPTY_TEXT: 'No apartments found',
   TEXT_ADDRESS: 'selected map area',
+  TEXT_COUNT: '300+',
 };
 
 export const TABS = {
