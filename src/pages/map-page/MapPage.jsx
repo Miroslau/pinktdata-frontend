@@ -20,7 +20,7 @@ const Map = () => {
     priceRange, bedrooms, isMax,
   } = searchParams;
   const [isActiveModal, setModalActive] = useState(false);
-  const [isFetchOnMapEvents, setIsFetchOnMapEvents] = useState(true);
+  const [isFetchOnMapEvents, setIsFetchOnMapEvents] = useState(false);
 
   const { ref, inView } = useInView();
 
