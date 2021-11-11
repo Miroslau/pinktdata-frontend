@@ -27,7 +27,7 @@ const Content = ({
       <div className={classes.mapContent}>
         <TypographyMui
           variant="h5"
-          text={`${TEXT.TITLE} ${publicAddress}`}
+          text={`${TEXT.TITLE} ${publicAddress || 'selected map area'}`}
           className={classes.title}
         />
         <Tabs
@@ -80,6 +80,7 @@ Content.defaultProps = {
   isActiveModal: false,
   setModalActive: null,
   apartmentFilter: null,
+  publicAddress: null,
   inViewRef: () => {},
   isFetching: null,
 };
@@ -88,7 +89,7 @@ Content.propTypes = {
   apart: PropTypes.instanceOf(Array).isRequired,
   count: PropTypes.number.isRequired,
   inViewRef: PropTypes.func,
-  publicAddress: PropTypes.string.isRequired,
+  publicAddress: PropTypes.string,
   isActiveModal: PropTypes.bool,
   setModalActive: PropTypes.func,
   apartmentFilter: PropTypes.func,

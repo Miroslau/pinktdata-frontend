@@ -12,7 +12,7 @@ export const apartmentSlice = createSlice({
     publicAddress: '',
     currentPage: 0,
     count: 0,
-    bounds: [],
+    bounds: null,
     searchParams: {
       priceRange: [],
       bedrooms: 0,
@@ -42,7 +42,7 @@ export const apartmentSlice = createSlice({
       state.publicAddress = '';
       state.currentPage = 0;
       state.count = 0;
-      state.bounds = [];
+      state.bounds = null;
       state.searchParams = {
         priceRange: [],
         bedrooms: 0,

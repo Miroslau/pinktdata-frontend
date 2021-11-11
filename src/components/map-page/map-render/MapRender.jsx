@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Checkbox } from '@mui/material';
 import L from 'leaflet';
 import {
   MapContainer,
@@ -30,7 +31,10 @@ const createClusterCustomIcon = (cluster) => L.divIcon({
   iconSize: L.point(40, 40, true),
 });
 
-const MapRender = ({ apart, isFetching, handleDragAndZoomMap }) => {
+const MapRender = ({
+  // eslint-disable-next-line no-unused-vars
+  apart, isFetching, handleDragAndZoomMap, isFetchOnMapEvents, setIsFetchOnMapEvents,
+}) => {
   const classes = useStyles();
   const [location, setLocation] = useState([39.94977, -75.28529]);
 
@@ -45,6 +49,10 @@ const MapRender = ({ apart, isFetching, handleDragAndZoomMap }) => {
     handleDragAndZoomMap(cords);
   };
 
+  const handleChange = (event) => {
+    setIsFetchOnMapEvents(event.target.checked);
+  };
+
   const HandlerEventsMap = () => {
     // eslint-disable-next-line no-unused-vars
     const map = useMapEvents({
@@ -55,9 +63,12 @@ const MapRender = ({ apart, isFetching, handleDragAndZoomMap }) => {
     return null;
   };
 
+  // eslint-disable-next-line no-unused-vars
   const SetViewOnFetch = ({ coords }) => {
     const map = useMap();
-    map.setView(coords, map.getZoom());
+    if (!isFetchOnMapEvents) {
+      map.setView(coords, map.getZoom());
+    }
 
     return null;
   };
@@ -67,6 +78,14 @@ const MapRender = ({ apart, isFetching, handleDragAndZoomMap }) => {
       <Box className={classes.mapLoader}>
         {isFetching ? <LinearProgress className={classes.linear} /> : <></>}
       </Box>
+      <div className={classes.fetchBar}>
+        <Checkbox
+          checked={isFetchOnMapEvents}
+          onChange={handleChange}
+          className={classes.checkbox}
+        />
+        <span>Search as I move the map</span>
+      </div>
       <MapContainer
         className={classes.lContainer}
         center={location}
@@ -110,6 +129,8 @@ MapRender.propTypes = {
   apart: PropTypes.instanceOf(Array).isRequired,
   isFetching: PropTypes.bool.isRequired,
   handleDragAndZoomMap: PropTypes.func.isRequired,
+  isFetchOnMapEvents: PropTypes.bool.isRequired,
+  setIsFetchOnMapEvents: PropTypes.func.isRequired,
 };
 
 export default MapRender;
