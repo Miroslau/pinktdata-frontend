@@ -67,7 +67,7 @@ describe('MajorCity Component', () => {
   it('redirect to map page on click image major cities', async () => {
     const history = createMemoryHistory();
     // eslint-disable-next-line max-len
-    const { findAllByRole } = render(<Provider store={store}><BrowserRouter><Router history={history}><MajorCity /></Router></BrowserRouter></Provider>);
+    const { findAllByRole } = render(<Provider store={store}><Router location={history.location} navigator={history}><MajorCity /></Router></Provider>);
     const image = await findAllByRole('presentation');
 
     userEvent.click(image[0]);

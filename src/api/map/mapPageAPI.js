@@ -3,14 +3,12 @@ import httpClient from '../index';
 export default {
   searchApartments(
     location,
-    // eslint-disable-next-line default-param-last
-    page = 1,
-    // eslint-disable-next-line default-param-last
-    priceFrom = 0,
     priceTo,
     bedrooms,
     isMax,
     bounds,
+    page = 1,
+    priceFrom = 0,
   ) {
     const params = { location, page, priceFrom };
     if (isMax) params.priceTo = priceTo;

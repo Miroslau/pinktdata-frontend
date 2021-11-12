@@ -8,14 +8,13 @@ export const searchApartments = createAsyncThunk(
     isFilter = false, bounds,
   }, thunkAPI) => {
     try {
-      console.log('bounds: ', bounds);
       let priceFrom;
       let priceTo;
       if (priceRange.length) {
         [priceFrom, priceTo] = priceRange;
       }
       // eslint-disable-next-line max-len
-      const response = await mapAPI.searchApartments(publicAddress, currentPage, priceFrom, priceTo, bedrooms, isMax, bounds);
+      const response = await mapAPI.searchApartments(publicAddress, priceTo, bedrooms, isMax, bounds, currentPage, priceFrom);
 
       const { status, data } = response;
 
