@@ -1,9 +1,9 @@
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const useRedirectToMainPage = () => {
-  const history = useHistory();
+  const history = useNavigate();
 
-  const redirectFunction = () => history.push('/');
+  const redirectFunction = () => history('/');
 
   return redirectFunction;
 };

@@ -12,7 +12,7 @@ import useFetch from '../../../hooks/useFetch';
 import useRedirectToPreviewPageById from '../../../hooks/useRedirectToPreviewPageById';
 import handleEnterPress from '../../../utils/handleEnterPress';
 
-const MapCard = ({ id }) => {
+const MapCard = function ({ id }) {
   const [roomData, setRoomData] = useState();
   const getData = () => getRoom.getRoomById(id);
   const { isLoading, error } = useFetch(getData, setRoomData);

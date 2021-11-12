@@ -15,7 +15,7 @@ import {
 
 const icons = [instagram, youtube, twitter, facebook];
 
-export default function Footer() {
+const Footer = function () {
   return (
     <div className="wrapper">
       <div className="footer-content">
@@ -59,4 +59,6 @@ export default function Footer() {
       </div>
     </div>
   );
-}
+};
+
+export default Footer;

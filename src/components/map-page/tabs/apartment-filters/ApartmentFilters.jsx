@@ -27,7 +27,7 @@ const inputProps = {
   'aria-labelledby': 'input-slider',
 };
 
-const ApartmentFilters = ({ apartmentFilter }) => {
+const ApartmentFilters = function ({ apartmentFilter }) {
   const [filtersParams, setFilterParams] = useState({
     priceRange: [10, 1000],
     bedrooms: 0,

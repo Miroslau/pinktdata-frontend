@@ -32,10 +32,29 @@ const createClusterCustomIcon = (cluster) => L.divIcon({
   iconSize: L.point(40, 40, true),
 });
 
-const MapRender = ({
+const HandlerEventsMap = function ({ getLocation }) {
+  // eslint-disable-next-line no-unused-vars
+  const map = useMapEvents({
+    dragend: (e) => getLocation(e),
+    zoomend: (e) => getLocation(e),
+  });
+
+  return null;
+};
+
+const SetViewOnFetch = function ({ coords, isFetchOnMapEvents }) {
+  const map = useMap();
+  if (!isFetchOnMapEvents) {
+    map.setView(coords, map.getZoom());
+  }
+
+  return null;
+};
+
+const MapRender = function ({
   // eslint-disable-next-line no-unused-vars
   apart, isFetching, handleDragAndZoomMap, isFetchOnMapEvents, setIsFetchOnMapEvents,
-}) => {
+}) {
   const classes = useStyles();
   const [location, setLocation] = useState([39.94977, -75.28529]);
 
@@ -54,29 +73,10 @@ const MapRender = ({
     setIsFetchOnMapEvents(event.target.checked);
   };
 
-  const HandlerEventsMap = () => {
-    // eslint-disable-next-line no-unused-vars
-    const map = useMapEvents({
-      dragend: (e) => getLocation(e),
-      zoomend: (e) => getLocation(e),
-    });
-
-    return null;
-  };
-
-  // eslint-disable-next-line no-unused-vars
-  const SetViewOnFetch = ({ coords }) => {
-    const map = useMap();
-    if (!isFetchOnMapEvents) {
-      map.setView(coords, map.getZoom());
-    }
-
-    return null;
-  };
-
   return (
     <div className={classes.map}>
       <Box className={classes.mapLoader}>
+        {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
         {isFetching ? <LinearProgress className={classes.linear} /> : <></>}
       </Box>
       <div className={classes.fetchBar}>
@@ -118,8 +118,8 @@ const MapRender = ({
               </Popup>
             </Marker>
           ))}
-          <SetViewOnFetch coords={location} />
-          <HandlerEventsMap />
+          <SetViewOnFetch coords={location} isFetchOnMapEvents={isFetchOnMapEvents} />
+          <HandlerEventsMap getLocation={getLocation} />
         </MarkerClusterGroup>
       </MapContainer>
     </div>

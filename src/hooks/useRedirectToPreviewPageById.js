@@ -1,9 +1,9 @@
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const useRedirectToPreviewPageById = (pageId) => {
-  const history = useHistory();
+  const history = useNavigate();
 
-  const redirectFunction = () => history.push(`/apartments/${pageId}`);
+  const redirectFunction = () => history(`/apartments/${pageId}`);
 
   return redirectFunction;
 };

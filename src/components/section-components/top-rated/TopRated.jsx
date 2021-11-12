@@ -7,7 +7,7 @@ import AlertError from '../../ui-components/alert-error/AlertError';
 import SkeletonForTopRated from './SkeletonForTopRated';
 import useFetch from '../../../hooks/useFetch';
 
-export default function TopRated() {
+const TopRated = function () {
   const [arrayOfPopularRooms, setArrayOfPopularRooms] = useState([]);
   const { isLoading, error } = useFetch(popularRooms.popularRooms, setArrayOfPopularRooms);
 
@@ -29,4 +29,6 @@ export default function TopRated() {
         )}
     </div>
   );
-}
+};
+
+export default TopRated;

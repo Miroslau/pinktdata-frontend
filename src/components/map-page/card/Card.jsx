@@ -14,7 +14,7 @@ import { DATA } from '../../../constants/map_page';
 import useRedirectToPreviewPageById from '../../../hooks/useRedirectToPreviewPageById';
 import handleEnterPress from '../../../utils/handleEnterPress';
 
-const Card = (props) => {
+const Card = function (props) {
   const classes = useStyles();
 
   const {

@@ -10,7 +10,7 @@ import Tabs from '../tabs/Tabs';
 import Card from '../card/Card';
 import { TEXT } from '../../../constants/map_page';
 
-const Content = ({
+const Content = function ({
   apart,
   count,
   inViewRef,
@@ -19,7 +19,7 @@ const Content = ({
   setModalActive,
   apartmentFilter,
   isFetching,
-}) => {
+}) {
   const classes = useStyles();
 
   const MAX_COUNT = 300;

@@ -3,7 +3,9 @@ import httpClient from '../index';
 export default {
   searchApartments(
     location,
+    // eslint-disable-next-line default-param-last
     page = 1,
+    // eslint-disable-next-line default-param-last
     priceFrom = 0,
     priceTo,
     bedrooms,
