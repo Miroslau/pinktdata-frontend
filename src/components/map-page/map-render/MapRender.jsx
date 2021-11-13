@@ -45,7 +45,9 @@ const HandlerEventsMap = function ({ getLocation }) {
 const SetViewOnFetch = function ({ coords, isFetchOnMapEvents }) {
   const map = useMap();
   if (!isFetchOnMapEvents) {
-    map.setView(coords, map.getZoom());
+    useEffect(() => {
+      map.setView(coords, map.getZoom());
+    }, [coords, map]);
   }
 
   return null;
