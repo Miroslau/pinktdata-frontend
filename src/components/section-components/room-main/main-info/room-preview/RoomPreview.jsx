@@ -4,7 +4,7 @@ import { roomContext } from '../../../../../store/context/roomContext';
 import '@splidejs/splide/dist/css/themes/splide-skyblue.min.css';
 import roomPreviewLocalization from '../../../../../constants/roomPreviewLocalization';
 
-const RoomPreview = () => {
+const RoomPreview = function () {
   const roomCtx = useContext(roomContext);
 
   return (

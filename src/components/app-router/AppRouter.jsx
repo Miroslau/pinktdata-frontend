@@ -1,12 +1,12 @@
 import React from 'react';
 import {
-  Redirect, Route, Switch, useLocation,
+  Route, Routes, useLocation,
 } from 'react-router-dom';
 import publicRoutes from '../../routes';
 import { LANDING_ROUTE } from '../../constants/routes';
 import Navigation from '../section-components/main-screen/navigation/Navigation';
 
-const AppRouter = () => {
+const AppRouter = function () {
   const currentLocation = useLocation();
 
   return (
@@ -14,14 +14,14 @@ const AppRouter = () => {
       {
         currentLocation.pathname !== LANDING_ROUTE ? <Navigation /> : null
       }
-      <Switch>
+      <Routes>
         {
             publicRoutes.map(({ path, Component }) => (
-              <Route key={path} path={path} component={Component} exact />
+              <Route key={path} path={path} element={<Component />} exact />
             ))
         }
-        <Redirect to={LANDING_ROUTE} />
-      </Switch>
+        <Route path="*" to={LANDING_ROUTE} />
+      </Routes>
     </div>
   );
 };

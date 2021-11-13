@@ -9,7 +9,7 @@ const colorStyle = {
   color: (theme) => theme.palette.grey[500],
 };
 
-const ModalWindowMui = (props) => {
+const ModalWindowMui = function (props) {
   const {
     isActiveModal, sx, title, children, clickButton, ...other
   } = props;

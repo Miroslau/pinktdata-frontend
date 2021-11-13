@@ -2,6 +2,8 @@ import '@testing-library/jest-dom';
 import {
   fireEvent, render, screen, findByText,
 } from '@testing-library/react';
+import { createMemoryHistory } from 'history';
+import { Router } from 'react-router-dom';
 import ApartmentFilters from './ApartmentFilters';
 import Content from '../../content-render/Content';
 import mockDataApartments from '../../../../mocks/mocks-constants/mockDataApartments';
@@ -156,6 +158,7 @@ describe('Apartment filter component', () => {
   });
 
   it('has filter by params when click button apply', async () => {
+    const history = createMemoryHistory();
     const slideRight = await container.querySelectorAll('input')[1];
     fireEvent.change(slideRight, { target: { value: '700' } });
     fireEvent.blur(slideRight);
@@ -168,12 +171,16 @@ describe('Apartment filter component', () => {
     fireEvent.click(applyButton);
     const publicAddress = 'Philadelphia, PA, United States';
     const count = 2229;
-    render(<Content
-      publicAddress={publicAddress}
-      count={count}
-      apart={mockDataApartments}
-      scrollHandler={null}
-    />);
+    render(
+      <Router location={history.location} navigator={history}>
+        <Content
+          publicAddress={publicAddress}
+          count={count}
+          apart={mockDataApartments}
+          scrollHandler={null}
+        />
+      </Router>,
+    );
     const result = await screen.getAllByText('Your Quiet Cozy Space in South Philly')[0];
     expect(result).toBeInTheDocument();
   });

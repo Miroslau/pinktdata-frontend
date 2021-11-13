@@ -8,7 +8,7 @@ import SkeletonForRoomPage from './SkeletonForRoomPage';
 import AlertError from '../../components/ui-components/alert-error/AlertError';
 import useFetch from '../../hooks/useFetch';
 
-const RoomPage = () => {
+const RoomPage = function () {
   const { id } = useParams();
   const [roomData, setRoomData] = useState({});
   const getData = () => getRoom.getRoomById(id);

@@ -5,11 +5,12 @@ import storage from 'redux-persist/lib/storage';
 import { Provider } from 'react-redux';
 import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
-import { BrowserRouter, Router } from 'react-router-dom';
+import { Router } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
 import SearchBar from './SearchBar';
 
 describe('SearchBar Component', () => {
+  const history = createMemoryHistory();
   const apartmentSlice = createSlice({
     name: 'apartment',
     initialState: {
@@ -41,37 +42,37 @@ describe('SearchBar Component', () => {
   });
 
   it('renders component SearchBar', () => {
-    const { container } = render(<Provider store={store}><SearchBar /></Provider>);
+    // eslint-disable-next-line max-len
+    const { container } = render(<Provider store={store}><Router location={history.location} navigator={history}><SearchBar /></Router></Provider>);
     expect(container.firstChild).toBeInTheDocument();
   });
 
   it('has display name address in search bar', async () => {
-    render(<Provider store={store}><SearchBar /></Provider>);
+    // eslint-disable-next-line max-len
+    render(<Provider store={store}><Router location={history.location} navigator={history}><SearchBar /></Router></Provider>);
     const text = await screen.getByText('Philadelphia, PA, United States');
     expect(text).toBeInTheDocument();
   });
 
   it('has display name count bedrooms in search bar', async () => {
-    render(<Provider store={store}><SearchBar /></Provider>);
+    // eslint-disable-next-line max-len
+    render(<Provider store={store}><Router location={history.location} navigator={history}><SearchBar /></Router></Provider>);
     const text = await screen.getByText('0 Bedrooms');
     expect(text).toBeInTheDocument();
   });
 
   it('has display logo in search bar', async () => {
-    render(<Provider store={store}><SearchBar /></Provider>);
+    // eslint-disable-next-line max-len
+    render(<Provider store={store}><Router location={history.location} navigator={history}><SearchBar /></Router></Provider>);
     const text = await screen.getByText('pinktada');
     expect(text).toBeInTheDocument();
   });
 
   it('redirect to main page when click on logo', async () => {
-    const history = createMemoryHistory();
-
     render(
-      <BrowserRouter>
-        <Router history={history}>
-          <Provider store={store}><SearchBar /></Provider>
-        </Router>
-      </BrowserRouter>,
+      <Router location={history.location} navigator={history}>
+        <Provider store={store}><SearchBar /></Provider>
+      </Router>,
     );
 
     const logo = await screen.getByTestId('logo');

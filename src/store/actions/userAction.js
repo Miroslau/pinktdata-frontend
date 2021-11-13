@@ -43,19 +43,17 @@ export const loginUser = createAsyncThunk(
   },
 );
 
-export const logoutUser = createAsyncThunk(
-  'users/LogoutUser', async (thunkAPI) => {
-    try {
-      const response = await UserAPI.logOut();
+export const logoutUser = createAsyncThunk('users/LogoutUser', async (thunkAPI) => {
+  try {
+    const response = await UserAPI.logOut();
 
-      const { status, data } = response;
+    const { status, data } = response;
 
-      if (status !== 204) {
-        return thunkAPI.rejectWithValue(data);
-      }
-      return status;
-    } catch (e) {
-      return thunkAPI.rejectWithValue(e.response.data);
+    if (status !== 204) {
+      return thunkAPI.rejectWithValue(data);
     }
-  },
-);
+    return status;
+  } catch (e) {
+    return thunkAPI.rejectWithValue(e.response.data);
+  }
+});

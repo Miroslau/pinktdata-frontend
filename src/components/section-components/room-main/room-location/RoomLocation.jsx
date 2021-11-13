@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import roomPreviewLocalization from '../../../../constants/roomPreviewLocalization';
 import { roomContext } from '../../../../store/context/roomContext';
 
-const RoomLocation = () => {
+const RoomLocation = function () {
   const roomCtx = useContext(roomContext);
 
   return (

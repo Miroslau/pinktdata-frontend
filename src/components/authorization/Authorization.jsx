@@ -12,7 +12,7 @@ const {
   TITLE_SIGN_UP, TITLE_SIGN_IN, BUTTON_FORGOT_PASSWORD, TEXT,
 } = authorizationLocalization;
 
-const Authorization = ({ isSignIn, submitForm, openForm }) => {
+const Authorization = function ({ isSignIn, submitForm, openForm }) {
   const {
     handleChange, handleSubmit, user, errors, handleClear,
   } = useForm(

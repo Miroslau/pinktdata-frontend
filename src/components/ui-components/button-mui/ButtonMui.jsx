@@ -2,7 +2,7 @@ import React from 'react';
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
 
-const ButtonMui = (props) => {
+const ButtonMui = function (props) {
   const {
     variant,
     title,

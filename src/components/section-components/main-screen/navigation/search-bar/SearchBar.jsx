@@ -11,7 +11,7 @@ import { searchLocalizationt } from '../../../../../constants/Localizations/sear
 import handleEnterPress from '../../../../../utils/handleEnterPress';
 import useRedirectToMainPage from '../../../../../hooks/useRedirectToMainPage';
 
-const SearchBar = () => {
+const SearchBar = function () {
   const dispatch = useDispatch();
   const { publicAddress, searchParams } = useSelector(apartmentSelector);
   const { bedrooms } = searchParams;

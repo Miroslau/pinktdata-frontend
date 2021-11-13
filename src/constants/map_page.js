@@ -3,6 +3,8 @@ export const TEXT = {
   SUBTITLE: 'Explore all',
   STAYS: 'stays',
   EMPTY_TEXT: 'No apartments found',
+  TEXT_ADDRESS: 'selected map area',
+  TEXT_COUNT: '300+',
 };
 
 export const TABS = {

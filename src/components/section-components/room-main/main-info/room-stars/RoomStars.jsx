@@ -10,7 +10,7 @@ import { roomContext } from '../../../../../store/context/roomContext';
 import { ratingLabels } from '../../../../../constants/ratingLabels';
 import useHandleAccordion from '../../../../../hooks/useHandleAccordion';
 
-const RoomStars = () => {
+const RoomStars = function () {
   const roomCtx = useContext(roomContext);
   const [value, setValue] = useState(roomCtx.rating);
   const { expanded, handleAccordionChange } = useHandleAccordion();

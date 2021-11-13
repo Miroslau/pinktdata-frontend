@@ -6,7 +6,7 @@ import MainSearch from './main-search/MainSearch';
 import { TITLE_MAINSCREEN, TITLE_SPAN_MAINSCREEN, BTN_MAINSCREEN } from '../../../constants/mainPageConst';
 import { clearState } from '../../../store/slice/apartmentSlice';
 
-export default function MainScreen() {
+const MainScreen = function () {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,4 +26,6 @@ export default function MainScreen() {
       </div>
     </div>
   );
-}
+};
+
+export default MainScreen;

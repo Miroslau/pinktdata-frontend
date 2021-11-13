@@ -28,7 +28,7 @@ describe('MainSearch component', () => {
       'Takoma Park, MD, United States']);
 
     const history = createMemoryHistory({ initialEntries: ['/'] });
-    const utils = render(<BrowserRouter><Router history={history}><MainSearch /></Router></BrowserRouter>);
+    const utils = render(<Router location={history.location} navigator={history}><MainSearch /></Router>);
     const autocomplete = utils.getByTestId('autocomplete');
     const input = utils.getByPlaceholderText('Location');
     const button = utils.getByTestId('search-button');
@@ -111,12 +111,14 @@ describe('MainSearch component', () => {
   });
 
   test('renders component bedroom count', () => {
-    render(<MainSearch />);
+    const history = createMemoryHistory();
+    render(<Router location={history.location} navigator={history}><MainSearch /></Router>);
     expect(screen.getByText('Bedroom count')).toBeInTheDocument();
   });
 
   test('has open popup when click on label', async () => {
-    render(<MainSearch />);
+    const history = createMemoryHistory();
+    render(<Router location={history.location} navigator={history}><MainSearch /></Router>);
     const button = screen.getByText(/bedroom count/i);
     fireEvent.click(button);
     const popupText = await screen.findByText('Select the number of rooms');
@@ -124,7 +126,8 @@ describe('MainSearch component', () => {
   });
 
   test('has change count bedrooms when click button plus', async () => {
-    render(<MainSearch />);
+    const history = createMemoryHistory();
+    render(<Router location={history.location} navigator={history}><MainSearch /></Router>);
     const textLabel = await screen.findByText(/Bedroom count/i);
     fireEvent.click(textLabel);
     const buttonAdd = await screen.getByRole('button', { name: /add/i });
@@ -134,7 +137,8 @@ describe('MainSearch component', () => {
   });
 
   test('has change count bedrooms when click button minus', async () => {
-    render(<MainSearch />);
+    const history = createMemoryHistory();
+    render(<Router location={history.location} navigator={history}><MainSearch /></Router>);
     const textLabel = await screen.findByText(/Bedroom count/i);
     fireEvent.click(textLabel);
     const buttonAdd = await screen.getByRole('button', { name: /add/i });
@@ -147,7 +151,8 @@ describe('MainSearch component', () => {
   });
 
   test('has not change count bedrooms when click the button plus if bedrooms more 8', async () => {
-    render(<MainSearch />);
+    const history = createMemoryHistory();
+    render(<Router location={history.location} navigator={history}><MainSearch /></Router>);
     const textLabel = await screen.findByText(/Bedroom count/i);
     fireEvent.click(textLabel);
     const buttonAdd = await screen.getByRole('button', { name: /add/i });
@@ -158,7 +163,8 @@ describe('MainSearch component', () => {
   });
 
   test('has not change count bedrooms when click the button minus if bedrooms 0', async () => {
-    render(<MainSearch />);
+    const history = createMemoryHistory();
+    render(<Router location={history.location} navigator={history}><MainSearch /></Router>);
     const textLabel = await screen.findByText(/Bedroom count/i);
     fireEvent.click(textLabel);
     const buttonRemove = await screen.getByRole('button', { name: /remove/i });

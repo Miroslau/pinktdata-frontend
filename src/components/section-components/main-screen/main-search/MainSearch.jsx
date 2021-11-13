@@ -9,7 +9,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import InputLabel from '@mui/material/InputLabel';
 import RoomIcon from '@mui/icons-material/Room';
 import SearchIcon from '@mui/icons-material/Search';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Popover from '@mui/material/Popover';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -30,9 +30,9 @@ import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
 const MAX_BEDROOM = 8;
 const MIN_BEDROOMS = 0;
 
-const MainSearch = () => {
+const MainSearch = function () {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const history = useNavigate();
   const [bedroom, setBedroom] = React.useState(0);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -121,7 +121,7 @@ const MainSearch = () => {
   const clickSearchHandler = () => {
     dispatch(setPublicAddress({ publicAddress: searchLocation }));
     dispatch(setParams({ bedrooms: bedroom }));
-    history.push(MAP_ROUTE);
+    history(MAP_ROUTE);
   };
 
   return (

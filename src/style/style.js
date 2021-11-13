@@ -71,6 +71,23 @@ const useStyles = makeStyles({
     transform: 'translate(-50%, 0)',
     zIndex: '30',
   },
+  fetchBar: {
+    position: 'absolute',
+    left: '50%',
+    top: '70px',
+    display: 'inline-flex',
+    justifyContent: 'center',
+    columnGap: '5px',
+    alignItems: 'center',
+    padding: '10px !important',
+    borderRadius: '8px',
+    transform: 'translate(-50%, 0)',
+    background: '#ffffff',
+    zIndex: '30',
+  },
+  checkbox: {
+    padding: '0 !important',
+  },
   contentLoader: {
     position: 'absolute',
     left: '0',

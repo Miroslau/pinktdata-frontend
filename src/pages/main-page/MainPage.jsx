@@ -4,7 +4,7 @@ import TopRated from '../../components/section-components/top-rated/TopRated';
 import MajorCity from '../../components/section-components/major-city/MajorCity';
 import Footer from '../../components/section-components/footer/Footer';
 
-export default function MainPage() {
+const MainPage = function () {
   return (
     <div>
       <MainScreen />
@@ -13,4 +13,6 @@ export default function MainPage() {
       <Footer />
     </div>
   );
-}
+};
+
+export default MainPage;

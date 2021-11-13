@@ -21,7 +21,7 @@ const {
   TITLE_SIGN_UP, TITLE_SIGN_IN,
 } = authorizationLocalization;
 
-const Navigation = () => {
+const Navigation = function () {
   const dispatch = useDispatch();
   const [isActiveModal, setModalActive] = useState(false);
   const [isSignIn, setSignIn] = useState(false);
