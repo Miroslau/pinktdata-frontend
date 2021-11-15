@@ -1,9 +1,11 @@
 import React from 'react';
 
-export default function BuyPage() {
+const BuyPage = function () {
   return (
     <div>
       Buy
     </div>
   );
-}
+};
+
+export default BuyPage;

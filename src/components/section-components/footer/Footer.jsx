@@ -9,10 +9,13 @@ import facebook from '../../../assets/icons8-facebook-новый.svg';
 import {
   TEXT_FOOTER,
   NAV_L_FOOTER, NAV_R_FOOTER, NEWSLETTER_FOOTER,
-  SUBSCRIBE_BTN_FOOTER, ALLRIGHT_FOOTER, TERMS_FOOTER, POLICY_FOOTER, SUBSCRIBE_PARAGRAF_FOOTER,
+  SUBSCRIBE_BTN_FOOTER, ALLRIGHT_FOOTER, TERMS_FOOTER,
+  POLICY_FOOTER, SUBSCRIBE_PARAGRAF_FOOTER,
 } from '../../../constants/mainPageConst';
 
-export default function Footer() {
+const icons = [instagram, youtube, twitter, facebook];
+
+const Footer = function () {
   return (
     <div className="wrapper">
       <div className="footer-content">
@@ -21,30 +24,15 @@ export default function Footer() {
             {TEXT_FOOTER}
           </p>
           <div className="icons">
-            <object
-              aria-label="this object has text"
-              className="object"
-              type="image/svg+xml"
-              data={instagram}
-            />
-            <object
-              aria-label="this object has text"
-              className="object"
-              type="image/svg+xml"
-              data={youtube}
-            />
-            <object
-              aria-label="this object has text"
-              className="object"
-              type="image/svg+xml"
-              data={twitter}
-            />
-            <object
-              aria-label="this object has text"
-              className="object"
-              type="image/svg+xml"
-              data={facebook}
-            />
+            {icons.map((icon) => (
+              <object
+                key={icon}
+                aria-label="this object has text"
+                className="object"
+                type="image/svg+xml"
+                data={icon}
+              />
+            ))}
           </div>
         </div>
         <div className="footer-nav">
@@ -71,4 +59,6 @@ export default function Footer() {
       </div>
     </div>
   );
-}
+};
+
+export default Footer;

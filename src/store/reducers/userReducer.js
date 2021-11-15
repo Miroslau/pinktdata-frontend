@@ -5,7 +5,7 @@ import { userSlice } from '../slice/userSlice';
 const userReducer = userSlice.reducer;
 
 const persistConfig = {
-  key: 'root',
+  key: 'user',
   storage,
 };
 

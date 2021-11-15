@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { TextField } from '@mui/material';
 import PropTypes from 'prop-types';
 
-const TextFieldMui = (props) => {
+const TextFieldMui = function (props) {
   const {
     className,
     id,

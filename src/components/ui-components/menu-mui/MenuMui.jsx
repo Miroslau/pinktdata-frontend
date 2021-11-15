@@ -2,20 +2,16 @@ import React from 'react';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import PropTypes from 'prop-types';
-import { get } from 'lodash';
-import { userMenuLocalization } from '../../../constants/userMenuLocalization';
-
-const ACCOUNT_ITEM = get(userMenuLocalization, 'TITLE_ONE', '');
-const LOGUOT_ITEM = get(userMenuLocalization, 'TITLE_TWO', '');
 
 const menuListProps = {
   'aria-labelledby': 'basic-button',
 };
 
-const MenuMui = (props) => {
+const MenuMui = function (props) {
   const {
-    id, isOpen, logOutUser, anchorEl, handleClose, ...other
+    id, isOpen, handleClick, anchorEl, handleClose, items, ...other
   } = props;
+
   return (
     <Menu
       open={isOpen}
@@ -25,8 +21,10 @@ const MenuMui = (props) => {
       MenuListProps={menuListProps}
     >
       <div onMouseLeave={handleClose}>
-        <MenuItem>{ACCOUNT_ITEM}</MenuItem>
-        <MenuItem onClick={logOutUser}>{LOGUOT_ITEM}</MenuItem>
+        {
+          // eslint-disable-next-line max-len
+          items.map((item) => <MenuItem onClick={() => handleClick(item)} key={item.id}>{item.title}</MenuItem>)
+        }
       </div>
     </Menu>
   );
@@ -37,15 +35,16 @@ MenuMui.defaultProps = {
   isOpen: false,
   anchorEl: null,
   handleClose: null,
-  logOutUser: null,
+  handleClick: null,
 };
 
 MenuMui.propTypes = {
   id: PropTypes.string,
   isOpen: PropTypes.bool,
   anchorEl: PropTypes.instanceOf(Object),
+  items: PropTypes.instanceOf(Array).isRequired,
   handleClose: PropTypes.func,
-  logOutUser: PropTypes.func,
+  handleClick: PropTypes.func,
 };
 
 export default MenuMui;

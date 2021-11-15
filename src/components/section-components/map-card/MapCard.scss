@@ -1,0 +1,137 @@
+@import "../../../sass/variables";
+
+.map-card {
+  box-shadow: $box-shadow2;
+  margin: 0 auto;
+  border-radius: .5rem;
+  background-color: #fff;
+
+  .slider-image {
+    object-fit: cover;
+    width: 100%;
+    height: 12rem;
+    cursor: pointer;
+  }
+
+  .splide__track {
+    border-radius: .5rem;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .splide__arrow--prev {
+    left: .5rem;
+  }
+
+  .splide__arrow--next {
+    right: .5rem;
+  }
+
+  .splide__arrow {
+    background-color: #fff;
+    svg {
+    }
+  }
+
+  .splide__pagination__page {
+    width: 7px;
+    height: 7px;
+    background-color: #fff;
+  }
+
+  .splide__pagination__page.is-active {
+    background-color: $color-greyDark;
+  }
+
+  .splide__pagination__page:hover {
+    background-color: $color-grey;
+  }
+
+  .room-info {
+    padding: 1rem;
+    cursor: pointer;
+
+
+    .room-score {
+      display: flex;
+      margin-bottom: 5px;
+      .star-icon {
+        fill: $color-hover;
+        width: 1rem;
+        height: 1rem;
+        margin-right: 5px !important;
+      }
+      .room-rating {
+        font-size: 14px;
+        margin-top: -2px;
+      }
+      .room-reviews {
+        color: $color-grey;
+      }
+    }
+
+    .room-type:after {
+      content: '';
+      display: inline-block;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: $color-grey;
+      margin-right: 5px;
+      margin-left: 5px;
+      margin-bottom: 3px;
+    }
+
+    .room-name {
+      margin-bottom: 5px;
+    }
+
+    .room-price {
+      font-weight: bold;
+      margin-right: 5px;
+    }
+
+    .room-rateType {
+      margin-left: 5px;
+    }
+  }
+  .heart-icon {
+    display: block;
+    position: absolute;
+    z-index: 10;
+    margin: .5rem;
+    right: 0;
+    svg {
+      fill: transparent;
+      stroke: white;
+    }
+  }
+
+  .heart-icon:hover{
+    cursor: pointer;
+    svg {
+      stroke: none;
+      fill: pink;
+    }
+  }
+}
+
+.leaflet-popup-content {
+  margin: 0;
+  background-color: transparent;
+  width: 300px;
+}
+
+.leaflet-container {
+  font: inherit;
+}
+
+.leaflet-popup-content-wrapper {
+  padding: 0;
+  background: white;
+  color: inherit;
+}
+
+.leaflet-container a.leaflet-popup-close-button {
+  display: none;
+}

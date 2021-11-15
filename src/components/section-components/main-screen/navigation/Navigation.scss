@@ -18,9 +18,12 @@
 
 .navigation {
     position: fixed;
+    width: 100%;
+    z-index: 10;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    background-color: $color-white;
     padding: 25px;
     box-shadow: 0 7px 20px -2px $color-grey;
 }

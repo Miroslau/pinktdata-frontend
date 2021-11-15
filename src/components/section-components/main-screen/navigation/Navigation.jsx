@@ -1,13 +1,15 @@
-/* eslint-disable no-console */
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
+import { get } from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
 import ModalWindowMui from '../../../ui-components/modal-window-mui/ModalWindowMui';
-import { authorizationLocalization } from '../../../../constants/authorizationLocalization';
+import { authorizationLocalization } from '../../../../constants/Localizations/authorizationLocalization';
 import Authorization from '../../../authorization/Authorization';
 import User from '../../user/User';
-import useStyles from '../../../../style/mapStyle';
+import SearchBar from './search-bar/SearchBar';
+import useStyles from '../../../../style/style';
 import { LANDING_ROUTE } from '../../../../constants/routes';
+import { userMenuLocalization } from '../../../../constants/Localizations/userMenuLocalization';
 import {
   clearState, userSelector,
 } from '../../../../store/slice/userSlice';
@@ -19,7 +21,7 @@ const {
   TITLE_SIGN_UP, TITLE_SIGN_IN,
 } = authorizationLocalization;
 
-const Navigation = () => {
+const Navigation = function () {
   const dispatch = useDispatch();
   const [isActiveModal, setModalActive] = useState(false);
   const [isSignIn, setSignIn] = useState(false);
@@ -43,7 +45,15 @@ const Navigation = () => {
   // eslint-disable-next-line max-len
   const authorizationUser = (user) => (isSignIn ? dispatch(loginUser(user)) : dispatch(signupUser(user)));
 
-  const logOut = () => dispatch(logoutUser());
+  const itemClick = (item) => {
+    const title = get(item, 'title', '');
+    switch (title) {
+      case userMenuLocalization.TITLE_TWO:
+        dispatch(logoutUser());
+        break;
+      default: break;
+    }
+  };
 
   useEffect(() => () => {
     dispatch(clearState());
@@ -63,10 +73,10 @@ const Navigation = () => {
   return (
     <div className={location.pathname === LANDING_ROUTE ? 'navigation-landing' : 'navigation'}>
       {
-        location.pathname === LANDING_ROUTE ? <MainBar /> : <div>Logo and search</div>
+        location.pathname === LANDING_ROUTE ? <MainBar /> : <SearchBar />
       }
       {
-            token ? <User userName={firstName} logOut={logOut} />
+            token ? <User userName={firstName} itemClick={itemClick} />
               : (
                 <button
                   type="button"

@@ -2,7 +2,7 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 
-const TypographyMui = (props) => {
+const TypographyMui = function (props) {
   const {
     variant,
     text,

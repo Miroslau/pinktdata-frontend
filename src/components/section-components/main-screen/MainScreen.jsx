@@ -1,10 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import Navigation from './navigation/Navigation';
 import './MainScreen.scss';
 import MainSearch from './main-search/MainSearch';
 import { TITLE_MAINSCREEN, TITLE_SPAN_MAINSCREEN, BTN_MAINSCREEN } from '../../../constants/mainPageConst';
+import { clearState } from '../../../store/slice/apartmentSlice';
 
-export default function MainScreen() {
+const MainScreen = function () {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(clearState());
+  }, []);
+
   return (
     <div className="main-screen">
       <div className="wrapper">
@@ -18,4 +26,6 @@ export default function MainScreen() {
       </div>
     </div>
   );
-}
+};
+
+export default MainScreen;

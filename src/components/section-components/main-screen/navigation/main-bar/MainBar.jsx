@@ -10,17 +10,19 @@ import {
   LINK_MAIN_SCREEN,
 } from '../../../../../constants/mainPageConst';
 
-const MainBar = () => (
-  <div className="main-bar">
-    <ul className="link-container">
-      <Link className="link-item" to="/">{LINK_MAIN_SCREEN}</Link>
-      <Link className="link-item" to="/buy">{LINK_BUY}</Link>
-      <Link className="link-item" to="/forSale">{LINK_FOR_SALE}</Link>
-      <Link className="link-item" to="/insight">{LINK_INSIGHT}</Link>
-      <Link className="link-item" to="/contact">{LINK_CONTACT}</Link>
-    </ul>
-    <button type="button" className="button btn-find">{FIND_BTN_NAV}</button>
-  </div>
-);
+const MainBar = function () {
+  return (
+    <div className="main-bar">
+      <ul className="link-container">
+        <Link className="link-item" to="/">{LINK_MAIN_SCREEN}</Link>
+        <Link className="link-item" to="/buy">{LINK_BUY}</Link>
+        <Link className="link-item" to="/forSale">{LINK_FOR_SALE}</Link>
+        <Link className="link-item" to="/insight">{LINK_INSIGHT}</Link>
+        <Link className="link-item" to="/contact">{LINK_CONTACT}</Link>
+      </ul>
+      <button type="button" className="button btn-find">{FIND_BTN_NAV}</button>
+    </div>
+  );
+};
 
 export default MainBar;

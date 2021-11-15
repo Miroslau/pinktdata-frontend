@@ -1,37 +1,37 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Stack from '@mui/material/Stack';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Divider from '@mui/material/Divider';
 import { Button } from '@mui/material';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import useStyles from '../../../style/mapStyle';
+import ModalWindowMui from '../../ui-components/modal-window-mui/ModalWindowMui';
+import useStyles from '../../../style/style';
 
+import ApartmentFilters from './apartment-filters/ApartmentFilters';
 import { TABS } from '../../../constants/map_page';
 
-const Tabs = () => {
+const Tabs = function ({ isActiveModal, setModalActive, apartmentFilter }) {
   const classes = useStyles();
 
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const handleClick = () => {
+    setModalActive(true);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
+
+  const closeModal = () => {
+    setModalActive(false);
   };
+
   const handlerBtn = () => {};
 
   return (
     <div className={classes.mapTabs}>
       <Stack direction="row" spacing={1}>
-
-        <Button id="all" variant="contained" onClick={handlerBtn}>{TABS[0]}</Button>
-        <Button id="available" variant="outlined" title={TABS[1]} onClick={handlerBtn}>{TABS[1]}</Button>
-        <Button id="star" variant="contained">{TABS[2]}</Button>
-        <Button id="price" variant="outlined" onClick={handlerBtn}>{TABS[3]}</Button>
-        <Button id="rated" variant="outlined" onClick={handlerBtn}>{TABS[4]}</Button>
+        <Button id="all" variant="contained" onClick={handlerBtn}>{TABS.ALL}</Button>
+        <Button id="available" variant="outlined" title={TABS.AVAILABLE} onClick={handlerBtn}>{TABS.AVAILABLE}</Button>
+        <Button id="star" variant="contained">{TABS.STAR}</Button>
+        <Button id="price" variant="outlined" onClick={handlerBtn}>{TABS.PRICE}</Button>
+        <Button id="rated" variant="outlined" onClick={handlerBtn}>{TABS.TOP_RATED}</Button>
 
         <Divider className={classes.divider} />
 
@@ -39,31 +39,36 @@ const Tabs = () => {
           id="filters"
           aria-controls="basic-menu"
           aria-haspopup="true"
-          aria-expanded={open ? 'true' : undefined}
+          aria-expanded={isActiveModal ? 'true' : undefined}
           onClick={handleClick}
           variant="contained"
         >
           <FilterListIcon />
-          {TABS[5]}
+          {TABS.FILTERS}
         </Button>
-
-        <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClick={handleClose}
-          MenuListProps={{
-            'aria-labelledby': 'basic-button',
-          }}
+        <ModalWindowMui
+          clickButton={closeModal}
+          title={TABS.MORE_FILTERS}
+          isActiveModal={isActiveModal}
+          sx={classes.filter}
         >
-          <MenuItem onClick={handleClose}>{TABS[6]}</MenuItem>
-          <MenuItem onClick={handleClose}>{TABS[7]}</MenuItem>
-        </Menu>
-
+          <ApartmentFilters apartmentFilter={apartmentFilter} />
+        </ModalWindowMui>
       </Stack>
-
     </div>
   );
+};
+
+Tabs.defaultProps = {
+  isActiveModal: false,
+  setModalActive: null,
+  apartmentFilter: null,
+};
+
+Tabs.propTypes = {
+  isActiveModal: PropTypes.bool,
+  setModalActive: PropTypes.func,
+  apartmentFilter: PropTypes.func,
 };
 
 export default Tabs;

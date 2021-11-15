@@ -6,13 +6,13 @@ import TextFieldMui from '../ui-components/text-field-mui/TextFieldMui';
 import { validateErrors } from '../../mixins/validateErrors';
 import ButtonMui from '../ui-components/button-mui/ButtonMui';
 import useForm from '../../hooks/useForm';
-import { authorizationLocalization } from '../../constants/authorizationLocalization';
+import { authorizationLocalization } from '../../constants/Localizations/authorizationLocalization';
 
 const {
   TITLE_SIGN_UP, TITLE_SIGN_IN, BUTTON_FORGOT_PASSWORD, TEXT,
 } = authorizationLocalization;
 
-const Authorization = ({ isSignIn, submitForm, openForm }) => {
+const Authorization = function ({ isSignIn, submitForm, openForm }) {
   const {
     handleChange, handleSubmit, user, errors, handleClear,
   } = useForm(

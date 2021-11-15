@@ -11,6 +11,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+  width: 0;
+  height: 0;
 }
 
 .wrapper{
@@ -18,6 +26,17 @@ body {
   width: 1200px;
   padding: 50px 0 50px 0;
 
+}
+
+.marker-cluster-custom {
+  background: #9370db;
+  border: 3px solid #ededed;
+  border-radius: 50%;
+  color: #ededed;
+  height: 40px;
+  line-height: 37px;
+  text-align: center;
+  width: 40px;
 }
 
 h3{
@@ -42,6 +61,6 @@ h3{
 }
 
 .leaflet-container {
-  width: 53.8vw;
+  width: 54.8vw;
   height: 100vh;
 }
