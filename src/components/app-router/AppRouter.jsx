@@ -2,12 +2,16 @@ import React from 'react';
 import {
   Route, Routes, useLocation,
 } from 'react-router-dom';
-import publicRoutes from '../../routes';
+import { useSelector } from 'react-redux';
+import { publicRoutes, privateRoutes } from '../../routes';
 import { LANDING_ROUTE } from '../../constants/routes';
 import Navigation from '../section-components/main-screen/navigation/Navigation';
+import { userSelector } from '../../store/slice/userSlice';
+import MainPage from '../../pages/main-page/MainPage';
 
 const AppRouter = function () {
   const currentLocation = useLocation();
+  const { token } = useSelector(userSelector);
 
   return (
     <div className="app-router">
@@ -16,11 +20,16 @@ const AppRouter = function () {
       }
       <Routes>
         {
+          token && privateRoutes.map(
+            ({ path, Component }) => <Route key={path} path={path} component={Component} exact />,
+          )
+        }
+        {
             publicRoutes.map(({ path, Component }) => (
               <Route key={path} path={path} element={<Component />} exact />
             ))
         }
-        <Route path="*" to={LANDING_ROUTE} />
+        <Route path="*" element={<MainPage />} />
       </Routes>
     </div>
   );

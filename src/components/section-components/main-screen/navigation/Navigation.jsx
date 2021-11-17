@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { get } from 'lodash';
 import { useSelector, useDispatch } from 'react-redux';
 import ModalWindowMui from '../../../ui-components/modal-window-mui/ModalWindowMui';
@@ -8,7 +8,7 @@ import Authorization from '../../../authorization/Authorization';
 import User from '../../user/User';
 import SearchBar from './search-bar/SearchBar';
 import useStyles from '../../../../style/style';
-import { LANDING_ROUTE } from '../../../../constants/routes';
+import { LANDING_ROUTE, PROFILE_ROUTE } from '../../../../constants/routes';
 import { userMenuLocalization } from '../../../../constants/Localizations/userMenuLocalization';
 import {
   clearState, userSelector,
@@ -26,6 +26,7 @@ const Navigation = function () {
   const [isActiveModal, setModalActive] = useState(false);
   const [isSignIn, setSignIn] = useState(false);
   const location = useLocation();
+  const history = useNavigate();
 
   const useStyle = useStyles();
 
@@ -48,6 +49,9 @@ const Navigation = function () {
   const itemClick = (item) => {
     const title = get(item, 'title', '');
     switch (title) {
+      case userMenuLocalization.TITLE_ONE:
+        history(PROFILE_ROUTE);
+        break;
       case userMenuLocalization.TITLE_TWO:
         dispatch(logoutUser());
         break;
