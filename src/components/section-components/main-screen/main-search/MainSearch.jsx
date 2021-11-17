@@ -136,11 +136,9 @@ const MainSearch = function () {
   const setStartDate = (newDate) => {
     setStartDateValue(newDate);
     if (newDate.getTime() > endDateValue.getTime()) {
-      setIsSelected(false);
       setIsError({ ...isError, dateError: true });
       return;
     }
-    setIsSelected(true);
     setIsError({ ...isError, dateError: false });
     dispatch(setDate({ startDate: newDate, endDate: endDateValue }));
   };
@@ -148,11 +146,9 @@ const MainSearch = function () {
   const setEndDate = (newDate) => {
     setEndDateValue(newDate);
     if (startDateValue.getTime() > newDate.getTime()) {
-      setIsSelected(false);
       setIsError({ ...isError, dateError: true });
       return;
     }
-    setIsSelected(true);
     setIsError({ ...isError, dateError: false });
     dispatch(setDate({ startDate: startDateValue, endDate: newDate }));
   };
