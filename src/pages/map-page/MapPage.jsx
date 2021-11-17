@@ -14,7 +14,15 @@ import Content from '../../components/map-page/content-render/Content';
 const Map = function () {
   const dispatch = useDispatch();
   const {
-    publicAddress, searchParams, apartments, currentPage, isFetching, count, bounds,
+    publicAddress,
+    searchParams,
+    apartments,
+    currentPage,
+    isFetching,
+    count,
+    bounds,
+    startDate,
+    endDate,
   } = useSelector(apartmentSelector);
   const {
     priceRange, bedrooms, isMax,
@@ -38,6 +46,8 @@ const Map = function () {
         ...filtersParams,
         isFilter: true,
         bounds,
+        startDate,
+        endDate,
       }),
     );
   };
@@ -51,6 +61,8 @@ const Map = function () {
         ...searchParams,
         isFilter: true,
         bounds: cords,
+        startDate,
+        endDate,
       }));
     }
   };
@@ -65,6 +77,8 @@ const Map = function () {
           bedrooms,
           isMax,
           bounds,
+          startDate,
+          endDate,
         }),
       );
     }
@@ -79,6 +93,8 @@ const Map = function () {
         bedrooms,
         isMax,
         bounds,
+        startDate,
+        endDate,
       }),
     );
   }, []);
