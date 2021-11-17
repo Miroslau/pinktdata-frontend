@@ -1,18 +1,44 @@
 import React, { useContext } from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
+import { useSelector } from 'react-redux';
 import { roomContext } from '../../../../../store/context/roomContext';
 import '@splidejs/splide/dist/css/themes/splide-skyblue.min.css';
-import roomPreviewLocalization from '../../../../../constants/roomPreviewLocalization';
+import ButtonMui from '../../../../ui-components/button-mui/ButtonMui';
 
 const RoomPreview = function () {
   const roomCtx = useContext(roomContext);
+  const { price } = roomCtx;
+  const parsedPrice = price.slice(1);
+  const startDate = useSelector((state) => state.apartment.startDate);
+  const endDate = useSelector((state) => state.apartment.endDate);
+  const differenceDatesInTime = new Date(endDate).getTime() - new Date(startDate).getTime();
+  const differenceDatesInDays = differenceDatesInTime / (1000 * 3600 * 24);
+  const totalPrice = Math.round(differenceDatesInDays * parsedPrice);
 
   return (
     <div className="room-preview">
       <img src={roomCtx.img} alt="room-preview" className="main-image" />
 
       <footer>
-        <p className="room-info">{roomPreviewLocalization.roomInfo}</p>
+        <div className="room-pay">
+          <ButtonMui
+            title="Book now"
+            data-testid="search-button"
+            ariaLabel="search-button"
+            variant="contained"
+            color="secondary"
+            className="room-button"
+            clickButton={() => {
+              console.log('Buy');
+            }}
+          />
+          <p className="room-price">
+            Total price:
+            $
+            {totalPrice}
+          </p>
+        </div>
+
         <Splide
           options={{
             perPage: 4,
