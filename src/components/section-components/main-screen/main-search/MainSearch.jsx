@@ -75,7 +75,6 @@ const MainSearch = function () {
 
   useEffect(() => {
     isMounted.current = true;
-    dispatch(setDate({ startDate: startDateValue, endDate: endDateValue }));
     return () => {
       isMounted.current = false;
       if (userDelay) {
