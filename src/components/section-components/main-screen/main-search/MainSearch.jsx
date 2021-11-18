@@ -139,7 +139,7 @@ const MainSearch = function () {
       setIsError({ ...isError, dateError: true });
       return;
     }
-    setIsSelected(true);
+    if (searchLocation) setIsSelected(true);
     setIsError({ ...isError, dateError: false });
     dispatch(setDate({ startDate: newDate, endDate: endDateValue }));
   };
@@ -151,7 +151,7 @@ const MainSearch = function () {
       setIsError({ ...isError, dateError: true });
       return;
     }
-    setIsSelected(true);
+    if (searchLocation) setIsSelected(true);
     setIsError({ ...isError, dateError: false });
     dispatch(setDate({ startDate: startDateValue, endDate: newDate }));
   };
