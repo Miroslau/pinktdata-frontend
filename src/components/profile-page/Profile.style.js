@@ -20,6 +20,22 @@ const useStyles = makeStyles({
   subtitle: {
     color: 'black',
   },
+  modalTitle: {
+    background: '#1976d2',
+    color: 'white',
+    padding: '1rem',
+    textAlign: 'center',
+    borderRadius: '5px',
+    marginBottom: '20px',
+  },
+  modalForm: {
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: '20px',
+  },
+  buttonForm: {
+    justifyContent: 'center',
+  },
 });
 
 export default useStyles;
