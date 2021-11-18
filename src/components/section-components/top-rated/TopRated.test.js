@@ -1,4 +1,8 @@
 import '@testing-library/jest-dom';
+import { Provider } from 'react-redux';
+import storage from 'redux-persist/lib/storage';
+import { configureStore, createSlice, combineReducers } from '@reduxjs/toolkit';
+import { persistReducer } from 'redux-persist';
 import {
   findByText, getByTestId, render, waitFor,
 } from '@testing-library/react';
@@ -9,11 +13,43 @@ describe('TopRated component', () => {
   let unmount;
   // eslint-disable-next-line no-unused-vars
   let container;
+
+  const apartmentSlice = createSlice({
+    name: 'apartment',
+    initialState: {
+      publicAddress: '',
+      count: 2229,
+      startDate: new Date(),
+      endDate: new Date().getDate() + 1,
+    },
+  });
+
+  const apartmentReducer = apartmentSlice.reducer;
+
+  const persistConfig = {
+    key: 'root',
+    storage,
+  };
+
+  const persistedApartmentReducer = persistReducer(persistConfig, apartmentReducer);
+
+  const reducers = combineReducers({
+    apartment: persistedApartmentReducer,
+  });
+
+  const rootReducer = (state, action) => reducers(state, action);
+
+  const store = configureStore({
+    reducer: rootReducer,
+  });
+
   beforeEach(() => {
     const { container: currentContainer, unmount: currentUnmount } = render(
-      <BrowserRouter>
-        <TopRated />
-      </BrowserRouter>,
+      <Provider store={store}>
+        <BrowserRouter>
+          <TopRated />
+        </BrowserRouter>
+      </Provider>,
     );
     container = currentContainer;
     unmount = currentUnmount;
