@@ -1,11 +1,25 @@
 import React from 'react';
+import Typography from '@mui/material/Typography';
+import useStyles from '../../components/profile-page/Profile.style';
+import History from '../../components/profile-page/History';
+import FutureVisits from '../../components/profile-page/FutureVisits';
+import Rent from '../../components/profile-page/Rent';
+import ButtonMui from '../../components/ui-components/button-mui/ButtonMui';
 
 const ProfilePage = function () {
+  const classes = useStyles();
   return (
-    <>
-      <div>skdbd</div>
-      <img src="https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg" alt="img" />
-    </>
+    <div className={classes.wrapper}>
+      <div className={classes.header}>
+        <Typography variant="body1" gutterBottom className={classes.title}>
+          Dashboard
+        </Typography>
+        <ButtonMui title="Add new room" variant="outlined" />
+      </div>
+      <History />
+      <FutureVisits />
+      <Rent />
+    </div>
   );
 };
 

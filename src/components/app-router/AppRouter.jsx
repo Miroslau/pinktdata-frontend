@@ -7,7 +7,6 @@ import { publicRoutes, privateRoutes } from '../../routes';
 import { LANDING_ROUTE } from '../../constants/routes';
 import Navigation from '../section-components/main-screen/navigation/Navigation';
 import { userSelector } from '../../store/slice/userSlice';
-import MainPage from '../../pages/main-page/MainPage';
 
 const AppRouter = function () {
   const currentLocation = useLocation();
@@ -21,7 +20,7 @@ const AppRouter = function () {
       <Routes>
         {
           token && privateRoutes.map(
-            ({ path, Component }) => <Route key={path} path={path} component={Component} exact />,
+            ({ path, Component }) => <Route key={path} path={path} element={<Component />} exact />,
           )
         }
         {
@@ -29,7 +28,7 @@ const AppRouter = function () {
               <Route key={path} path={path} element={<Component />} exact />
             ))
         }
-        <Route path="*" element={<MainPage />} />
+        <Route path="*" to={LANDING_ROUTE} />
       </Routes>
     </div>
   );
