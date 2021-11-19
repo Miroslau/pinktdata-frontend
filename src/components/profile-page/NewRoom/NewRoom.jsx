@@ -12,11 +12,12 @@ import Grid from '@mui/material/Grid';
 import ButtonMui from '../../ui-components/button-mui/ButtonMui';
 import useStyles from '../Profile.style';
 import './NewRoom.modify.css';
-import { newRoomAmountField, newRoomTextField } from '../../../constants/newRoom';
+import { newRoomAmountField, newRoomTextField } from '../../../constants/newRoom/newRoom';
 import TextFieldMui from '../../ui-components/text-field-mui/TextFieldMui';
 import useForm from '../../../hooks/useForm';
 import { validateErrors } from '../../../mixins/validateErrors';
 import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
+import { currencies } from '../../../constants/newRoom/currency';
 
 const Input = styled('input')({
   display: 'none',
@@ -28,26 +29,8 @@ const NewRoom = function ({ active, setActive }) {
   } = useForm(
     validateErrors,
   );
-  const currencies = [
-    {
-      value: 'USD',
-      label: '$',
-    },
-    {
-      value: 'EUR',
-      label: '€',
-    },
-    {
-      value: 'BTC',
-      label: '฿',
-    },
-    {
-      value: 'JPY',
-      label: '¥',
-    },
-  ];
   const classes = useStyles();
-  const [currency, setCurrency] = React.useState('EUR');
+  const [currency, setCurrency] = React.useState('USD');
 
   const currencyHandler = (event) => {
     setCurrency(event.target.value);
