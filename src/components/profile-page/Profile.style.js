@@ -36,6 +36,20 @@ const useStyles = makeStyles({
   buttonForm: {
     justifyContent: 'center',
   },
+  uploadBtn: {
+    display: 'grid',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    border: '1px solid lightgray',
+    borderRadius: '5px',
+    height: '100%',
+    textAlign: 'center',
+  },
+  textField: {
+    display: 'grid',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });
 
 export default useStyles;
