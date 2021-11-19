@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { TextField } from '@mui/material';
+import Autocomplete from '@mui/material/Autocomplete';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import FormControl from '@mui/material/FormControl';
 import DatePicker from '@mui/lab/DatePicker';
@@ -10,10 +11,10 @@ import InputLabel from '@mui/material/InputLabel';
 import RoomIcon from '@mui/icons-material/Room';
 import SearchIcon from '@mui/icons-material/Search';
 import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
-import TextFieldMui from '../../../ui-components/text-field-mui/TextFieldMui';
 import TEXT from '../../../../constants/mainScreen';
-import searchByLocation from '../../../../api/main-search/main-searchAPI';
 import useStyles from './MainSearch.style';
+import LocationAPI from '../../../../api/main-search/LocationAPI';
+import { doWithUserDelay } from '../../../../utils/doWithUserDelay';
 
 const bedroomItems = [
   {
@@ -40,30 +41,82 @@ const MainSearch = () => {
   dateNowPlusOneDay.toLocaleDateString();
 
   const classes = useStyles();
+  const isMounted = useRef(null);
   const [location, setLocation] = useState('');
+  const [dataLocation, setDataLocation] = useState([]);
   const [startDateValue, setStartDateValue] = useState(dateNow);
   const [endDateValue, setEndDateValue] = useState(dateNowPlusOneDay);
-
   const [bedroomValue, setBedroomValue] = useState('');
+  const [isError, setIsError] = useState(false);
+  let userDelay;
+
+  const defaultProps = {
+    options: dataLocation,
+  };
+
+  useEffect(() => {
+    isMounted.current = true;
+    return () => {
+      isMounted.current = false;
+      if (userDelay) {
+        clearTimeout(userDelay);
+      }
+    };
+  }, []);
+
+  useEffect(async () => {
+    if (location) {
+      try {
+        const response = await LocationAPI.search(location);
+        if (isMounted.current) {
+          setDataLocation(response);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  }, [location]);
 
   const handleBedroomValue = (event) => {
     setBedroomValue(event.target.value);
+  };
+
+  const handleChange = (e) => {
+    const { value } = e.target;
+    if (!value) {
+      setDataLocation([]);
+      setIsError(true);
+    } else {
+      setIsError(false);
+      setLocation(value);
+    }
+  };
+
+  const searchChangeHandler = (e) => {
+    userDelay = doWithUserDelay(() => handleChange(e), userDelay);
   };
 
   return (
     <form className={classes.form}>
       <div className={classes.locationWrapper}>
         <RoomIcon className={classes.roomIcon} />
-        <TextFieldMui
-          className={classes.location}
-          label={TEXT.MAIN_SEARCH.LOCATION}
-          variant="standard"
-          placeholder={TEXT.MAIN_SEARCH.ENTER_LOCATION}
-          value={location}
-          onChange={(event) => {
-            setLocation(event.target.value);
-            searchByLocation.location();
-          }}
+        <Autocomplete
+          style={{ width: '300px' }}
+          {...defaultProps}
+          id="disable-close-on-select"
+          disableClearable
+          renderInput={(params) => (
+            <TextField
+              data-testid="Location"
+              placeholder="Location"
+              {...params}
+              onChange={searchChangeHandler}
+              value={location}
+              label={TEXT.MAIN_SEARCH.LOCATION}
+              variant="standard"
+              error={isError}
+            />
+          )}
         />
       </div>
 

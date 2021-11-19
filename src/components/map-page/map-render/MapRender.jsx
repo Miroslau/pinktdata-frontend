@@ -5,15 +5,11 @@ import L from 'leaflet';
 import {
   MapContainer, TileLayer, Popup, Tooltip, useMap, Marker,
 } from 'react-leaflet';
-import MarkerClusterGroup from 'react-leaflet-markercluster';
-import { useSelector } from 'react-redux';
-
-import { apartmentSelector } from '../../../store/slice/apartmentSlice';
-import useMountedState from '../../../hooks/useMountedState';
-import MapAPI from '../../../api/map/mapPageAPI';
-
+import MarkerClusterGroup from 'react-leaflet-markercluster/src/react-leaflet-markercluster';
+import PropTypes from 'prop-types';
 import pointMarker from '../../../assets/svg/pointMarker.svg';
 import useStyles from '../../../style/style';
+import MapCard from '../../section-components/map-card/MapCard';
 
 const markerIcon = new L.Icon({
   iconUrl: pointMarker,
@@ -29,26 +25,13 @@ const createClusterCustomIcon = (cluster) => L.divIcon({
   iconSize: L.point(40, 40, true),
 });
 
-const MapRender = () => {
+const MapRender = ({ apart }) => {
   const classes = useStyles();
-  const [apart, setApart] = useState([]);
-  const [currentPage, setCurrentPage] = useState(0);
   const [location, setLocation] = useState([39.94977, -75.28529]);
-  const isMounted = useMountedState();
-
-  const { publicAddress } = useSelector(apartmentSelector);
 
   useEffect(() => {
-    MapAPI
-      .searchApartments(publicAddress, currentPage)
-      .then(({ data }) => {
-        if (isMounted()) {
-          if (data.length) setLocation([data[0].location.lat, data[0].location.lon]);
-          setApart(data);
-          setCurrentPage((prevState) => prevState + 1);
-        }
-      });
-  }, [isMounted]);
+    if (apart.length) setLocation([apart[0].location.lat, apart[0].location.lon]);
+  }, [apart]);
 
   const SetViewOnFetch = ({ coords }) => {
     const map = useMap();
@@ -82,11 +65,7 @@ const MapRender = () => {
             >
               <Tooltip direction="top" offset={[0, -5]} permanent>{data.price}</Tooltip>
               <Popup>
-                {data.address}
-                {' '}
-                <br />
-                {' '}
-                {data.price}
+                <MapCard id={data._id} />
               </Popup>
             </Marker>
           ))}
@@ -95,6 +74,10 @@ const MapRender = () => {
       </MapContainer>
     </div>
   );
+};
+
+MapRender.propTypes = {
+  apart: PropTypes.instanceOf(Array).isRequired,
 };
 
 export default MapRender;

@@ -1,42 +1,32 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { TITLE_TOPRATED, ROOMS_LOADING } from '../../../constants/mainPageConst';
+import { TITLE_TOPRATED } from '../../../constants/mainPageConst';
 import popularRooms from '../../../api/popular-rooms/popularRooms';
 import './TopRated.scss';
+import AlertError from '../../ui-components/alert-error/AlertError';
+import SkeletonForTopRated from './SkeletonForTopRated';
+import useFetch from '../../../hooks/useFetch';
 
 export default function TopRated() {
   const [arrayOfPopularRooms, setArrayOfPopularRooms] = useState([]);
+  const { isLoading, error } = useFetch(popularRooms.popularRooms, setArrayOfPopularRooms);
 
-  useEffect(async () => {
-    let cleanupFunction = false;
-    const getPopularRooms = async () => {
-      try {
-        const { data } = await popularRooms.popularRooms();
-        const rooms = data.map((room) => room);
-
-        if (!cleanupFunction) setArrayOfPopularRooms(rooms);
-      } catch (err) {
-        console.error(err.message);
-      }
-    };
-
-    getPopularRooms();
-
-    // eslint-disable-next-line no-return-assign
-    return () => cleanupFunction = true;
-  }, []);
+  if (error) return <AlertError />;
 
   return (
     <div className="wrapper">
-      <h3>{TITLE_TOPRATED}</h3>
-      <div className="cards-container">
-        {arrayOfPopularRooms.map(({ image, _id }) => (
-          <Link to={`/apartments/${_id}`} key={_id} className="image-container">
-            <img src={image} alt="room" />
-          </Link>
-        ))}
-        {!arrayOfPopularRooms.length && ROOMS_LOADING}
-      </div>
+      {isLoading && <SkeletonForTopRated />}
+      {!isLoading && <h3>{TITLE_TOPRATED}</h3>}
+      {!isLoading
+        && (
+        <div className="cards-container">
+          {arrayOfPopularRooms.map(({ image, _id }) => (
+            <Link to={`/apartments/${_id}`} key={_id} className="image-container">
+              <img src={image} alt="room" />
+            </Link>
+          ))}
+        </div>
+        )}
     </div>
   );
 }
