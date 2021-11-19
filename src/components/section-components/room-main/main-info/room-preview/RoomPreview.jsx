@@ -20,6 +20,24 @@ const RoomPreview = function () {
       <img src={roomCtx.img} alt="room-preview" className="main-image" />
 
       <footer>
+
+        <Splide
+          options={{
+            perPage: 4,
+            perMove: 2,
+            rewind: true,
+            gap: '.3rem',
+            width: '85%',
+            pagination: false,
+          }}
+        >
+          {roomCtx.images.map(({ id, picture }) => (
+            <SplideSlide key={id}>
+              <img className="slider-image" src={picture} alt="slider" />
+            </SplideSlide>
+          ))}
+        </Splide>
+
         <div className="room-pay">
           <ButtonMui
             title="Book now"
@@ -38,23 +56,6 @@ const RoomPreview = function () {
             {totalPrice}
           </p>
         </div>
-
-        <Splide
-          options={{
-            perPage: 4,
-            perMove: 2,
-            rewind: true,
-            gap: '.3rem',
-            width: '85%',
-            pagination: false,
-          }}
-        >
-          {roomCtx.images.map(({ id, picture }) => (
-            <SplideSlide key={id}>
-              <img className="slider-image" src={picture} alt="slider" />
-            </SplideSlide>
-          ))}
-        </Splide>
 
       </footer>
     </div>

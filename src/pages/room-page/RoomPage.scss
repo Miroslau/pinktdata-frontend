@@ -69,6 +69,10 @@
       cursor: grabbing;
     }
 
+    .splide {
+      margin-left: 1.2rem;
+    }
+
     .splide__arrow--prev {
       left: -1.5rem;
     }
@@ -102,7 +106,7 @@
       display: flex;
       .room-pay {
           flex: 0 0 10%;
-          margin-right: 1.5rem;
+          margin-left: 1.5rem;
         .room-button {
           font-size: 16px;
           font-weight: bold;
