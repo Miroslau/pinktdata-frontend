@@ -1,11 +1,15 @@
 import React, { useContext } from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { roomContext } from '../../../../../store/context/roomContext';
 import '@splidejs/splide/dist/css/themes/splide-skyblue.min.css';
 import ButtonMui from '../../../../ui-components/button-mui/ButtonMui';
 
 const RoomPreview = function () {
+  const history = useNavigate();
+  const redirectToPaymentPage = () => history('/payment');
+
   const roomCtx = useContext(roomContext);
   const { price } = roomCtx;
   const parsedPrice = price.slice(1);
@@ -41,14 +45,12 @@ const RoomPreview = function () {
         <div className="room-pay">
           <ButtonMui
             title="Book now"
-            data-testid="search-button"
+            data-testid="payment-button"
             ariaLabel="search-button"
             variant="contained"
             color="secondary"
             className="room-button"
-            clickButton={() => {
-              console.log('Buy');
-            }}
+            clickButton={redirectToPaymentPage}
           />
           <p className="room-price">
             Total price:
