@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 import PropTypes from 'prop-types';
 
-// import { styled } from '@mui/material/styles';
 import MenuItem from '@mui/material/MenuItem';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
@@ -15,16 +14,11 @@ import './NewRoom.modify.css';
 
 import ButtonMui from '../../ui-components/button-mui/ButtonMui';
 import TextFieldMui from '../../ui-components/text-field-mui/TextFieldMui';
-// import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
 import { newRoomAmountField, newRoomTextField } from '../../../constants/newRoom/newRoom';
 import { fileTypes } from '../../../constants/newRoom/fileTypes';
 import { currencies } from '../../../constants/newRoom/currency';
 import useForm from '../../../hooks/useForm';
 import { validateErrors } from '../../../mixins/validateErrors';
-
-// const Input = styled('input')({
-//   display: 'none',
-// });
 
 const NewRoom = function ({ setActive }) {
   const {

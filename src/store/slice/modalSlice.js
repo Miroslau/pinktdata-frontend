@@ -1,56 +1,60 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { addNewRoom } from '../actions/modalAction';
 
 const initialState = {
-  isModalActive: false,
-  isEditCardMode: false,
-  isEditCard: false,
-  isActiveCancelBtn: false,
-  isSaveCard: false,
-  isCanceled: false,
+  isFetching: true,
+  isSuccess: false,
+  isError: false,
+  errorMessage: '',
+  roomsForRent: [],
+  name: '',
+  city: '',
+  publicAddress: '',
+  amount: 0,
+  currency: '',
+  bedrooms: 0,
 };
 
 const modalSlice = createSlice({
-  name: 'room',
+  name: 'rent',
   initialState,
   reducers: {
-    modalActive: (state) => {
-      state.isModalActive = true;
+    clearState: (state) => {
+      state.isError = false;
+      state.isFetching = false;
+      state.isSuccess = false;
+      state.roomsForRent = [];
+      state.name = '';
+      state.city = '';
+      state.publicAddress = '';
+      state.amount = 0;
+      state.currency = '';
+      state.bedrooms = 0;
     },
-    setModalActive: (state) => {
-      state.isModalActive = false;
+  },
+  extraReducers: {
+    [addNewRoom.fulfilled]: (state, { payload }) => {
+      state.isFetching = false;
+      state.isSuccess = true;
+      state.roomsForRent = payload.roomsForRent;
+      state.name = payload.name;
+      state.city = payload.city;
+      state.publicAddress = payload.publicAddress;
+      state.amount = payload.amount;
+      state.currency = payload.currency;
+      state.bedrooms = payload.bedrooms;
     },
-    editRoomMode: (state) => {
-      state.isEditCardMode = true;
+    [addNewRoom.pending]: (state) => {
+      state.isFetching = true;
     },
-    setEditRoomMode: (state) => {
-      state.isEditCardMode = false;
-    },
-    editRoom: (state) => {
-      state.isEditCard = true;
-    },
-    setEditRoom: (state) => {
-      state.isEditCard = false;
-    },
-    activeCancelBtn: (state) => {
-      state.isActiveCancelBtn = true;
-    },
-    setCancelBtn: (state) => {
-      state.isActiveCancelBtn = false;
-    },
-    saveCard: (state) => {
-      state.isSaveCard = true;
-    },
-    setSaveCard: (state) => {
-      state.isSaveCard = false;
-    },
-    isCanceled: (state) => {
-      state.isCanceled = true;
-    },
-    setIsCanceled: (state) => {
-      state.isCanceled = false;
+    [addNewRoom.rejected]: (state, { payload }) => {
+      state.isError = true;
+      state.isFetching = false;
+      state.errorMessage = payload;
     },
   },
 });
 
-export const modalActions = modalSlice.actions;
-export default modalSlice.reducer;
+export const { clearState } = modalSlice.actions;
+
+export const modalSelector = (state) => state.modal;

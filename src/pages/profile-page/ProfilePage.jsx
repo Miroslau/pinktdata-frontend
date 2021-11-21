@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Typography from '@mui/material/Typography';
 import useStyles from '../../style/style';
@@ -11,9 +11,11 @@ import ButtonMui from '../../components/ui-components/button-mui/ButtonMui';
 import NewRoom from '../../components/profile-page/NewRoom/NewRoom';
 import ModalWindowMui from '../../components/ui-components/modal-window-mui/ModalWindowMui';
 import { userSelector } from '../../store/slice/userSlice';
+import { clearState } from '../../store/slice/modalSlice';
 
 const ProfilePage = function () {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const [isActiveModal, setModalActive] = useState(false);
 
   const {
@@ -22,19 +24,26 @@ const ProfilePage = function () {
     userSelector,
   );
 
+  const closeModal = () => {
+    setModalActive(false);
+    if (isError) {
+      dispatch(clearState());
+    }
+  };
+
   return (
     <div className={classes.modalWrapper}>
       <div className={classes.header}>
         <Typography variant="body1" gutterBottom className={classes.title}>
           Dashboard
         </Typography>
-        <ButtonMui title="Add new room" variant="outlined" onClick={() => setModalActive(true)} />
+        <ButtonMui title="Add new room" variant="outlined" clickButton={() => setModalActive(true)} />
       </div>
       <History />
       <FutureVisits />
       <Rent />
       <ModalWindowMui
-        clickButton={() => setModalActive(false)}
+        clickButton={closeModal}
         title="Add New Room"
         isActiveModal={isActiveModal}
         sx={classes.dialog}
