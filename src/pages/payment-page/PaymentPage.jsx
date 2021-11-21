@@ -15,7 +15,7 @@ const PaymentPage = function () {
   return (
     <div className="payment payment-bg">
       <div className="payment-container">
-        <h1>pAYMENT</h1>
+        <h1 className="payment-text">Enter your card details</h1>
         <Elements stripe={stripePromise}>
           <CheckoutForm />
         </Elements>
