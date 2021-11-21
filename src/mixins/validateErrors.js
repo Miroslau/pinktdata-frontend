@@ -7,7 +7,7 @@ export const validateErrors = (values, isSignIn) => {
   const REGEX_MIX_LETTERS_NUMBERS = /^(?=.*?[0-9])/;
   const REGEX_SPECIAL_SYMBOL = /^(?=.*?[#?!@$%^&*-])/;
   const REGEX_MIN_MAX_LETTERS_PASSWORD = /^.{7,12}$/;
-  const REGEX_MIN_MAX_LETTERS_NAME = /^.{5,32}$/;
+  const REGEX_MIN_MAX_LETTERS_NAME = /^.{2,32}$/;
 
   if (!isSignIn) {
     if (!values.firstName.trim()) {
@@ -15,7 +15,7 @@ export const validateErrors = (values, isSignIn) => {
     } else if (!REGX_ONLY_LETTER.test(values.firstName.trim())) {
       errors.firstName = 'First Name must be alphabets only';
     } else if (!REGEX_MIN_MAX_LETTERS_NAME.test(values.firstName)) {
-      errors.firstName = 'Must be of length 5 to 32';
+      errors.firstName = 'Must be of length 2 to 32';
     }
 
     if (!values.lastName.trim()) {
@@ -23,7 +23,7 @@ export const validateErrors = (values, isSignIn) => {
     } else if (!REGX_ONLY_LETTER.test(values.lastName.trim())) {
       errors.lastName = 'Last Name must be alphabets only';
     } else if (!REGEX_MIN_MAX_LETTERS_NAME.test(values.lastName)) {
-      errors.lastName = 'Must be of length 5 to 32';
+      errors.lastName = 'Must be of length 2 to 32';
     }
 
     if (!values.email) {

@@ -45,8 +45,13 @@ const useStyles = makeStyles({
   bedroom: {
     width: 200,
     borderLeft: `1px solid ${GREY_COLOR}`,
+    cursor: 'pointer',
     '& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline': {
       border: 'none',
+    },
+    '& #input-search-bedrooms': {
+      width: 130,
+      cursor: 'pointer',
     },
   },
   roomIcon: {
@@ -59,6 +64,14 @@ const useStyles = makeStyles({
     backgroundColor: `${PINK_COLOR} !important`,
     '&:hover': {
       backgroundColor: `${BLUE_COLOR} !important`,
+    },
+  },
+  searchButtonDisabled: {
+    borderRadius: '.6rem',
+    backgroundColor: `${GREY_COLOR} !important`,
+    opacity: '0.5',
+    '&:hover': {
+      backgroundColor: `${GREY_COLOR} !important`,
     },
   },
 });

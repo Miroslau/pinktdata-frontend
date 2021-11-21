@@ -1,35 +1,35 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import Divider from '@mui/material/Divider';
 import PropTypes from 'prop-types';
+import LinearProgress from '@mui/material/LinearProgress';
+import Box from '@mui/material/Box';
+import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
 import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
 import useStyles from '../../../style/style';
 import Tabs from '../tabs/Tabs';
 import Card from '../card/Card';
 import { TEXT } from '../../../constants/map_page';
 
-const Content = ({
+const Content = function ({
   apart,
   count,
-  scrollHandler,
-  listRoomBlock,
+  inViewRef,
   publicAddress,
   isActiveModal,
   setModalActive,
   apartmentFilter,
-}) => {
+  isFetching,
+}) {
   const classes = useStyles();
 
-  useEffect(() => {
-    document.addEventListener('scroll', scrollHandler);
-    return () => document.removeEventListener('scroll', scrollHandler);
-  }, []);
+  const MAX_COUNT = 300;
 
   return (
     <div className={classes.mapContentWrapper}>
       <div className={classes.mapContent}>
         <TypographyMui
-          variant="h4"
-          text={`${TEXT.TITLE} ${publicAddress}`}
+          variant="h5"
+          text={`${TEXT.TITLE} ${publicAddress || TEXT.TEXT_ADDRESS}`}
           className={classes.title}
         />
         <Tabs
@@ -37,10 +37,24 @@ const Content = ({
           setModalActive={setModalActive}
           apartmentFilter={apartmentFilter}
         />
-        <TypographyMui variant="h6" text={`${TEXT.SUBTITLE} ${count} ${TEXT.STAYS}`} />
+        <TypographyMui
+          variant="h6"
+          text={`${TEXT.SUBTITLE} ${count > MAX_COUNT ? TEXT.TEXT_COUNT : count} ${TEXT.STAYS}`}
+        />
+        {isFetching && (
+          <Box className={classes.contentLoader}>
+            <LinearProgress className={classes.linear} />
+          </Box>
+        )}
       </div>
       <Divider />
-      <div className={classes.mapWrapper} ref={listRoomBlock}>
+      <div className={classes.mapWrapper}>
+        {!isFetching && !apart.length && (
+          <div className={classes.emptyData}>
+            <FormatListBulletedIcon className={classes.iconSize} />
+            <div>{TEXT.EMPTY_TEXT}</div>
+          </div>
+        )}
         {apart.map((data) => (
           <Card
             key={data._id}
@@ -56,6 +70,9 @@ const Content = ({
             images={data.images}
           />
         ))}
+        {apart.length < count && (
+          <div className={classes.loadDivider} ref={inViewRef} />
+        )}
       </div>
     </div>
   );
@@ -65,17 +82,20 @@ Content.defaultProps = {
   isActiveModal: false,
   setModalActive: null,
   apartmentFilter: null,
+  publicAddress: null,
+  inViewRef: () => {},
+  isFetching: null,
 };
 
 Content.propTypes = {
   apart: PropTypes.instanceOf(Array).isRequired,
   count: PropTypes.number.isRequired,
-  scrollHandler: PropTypes.func.isRequired,
-  listRoomBlock: PropTypes.instanceOf(Object).isRequired,
-  publicAddress: PropTypes.string.isRequired,
+  inViewRef: PropTypes.func,
+  publicAddress: PropTypes.string,
   isActiveModal: PropTypes.bool,
   setModalActive: PropTypes.func,
   apartmentFilter: PropTypes.func,
+  isFetching: PropTypes.bool,
 };
 
 export default Content;

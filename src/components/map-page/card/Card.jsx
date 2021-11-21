@@ -1,27 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Splide, SplideSlide } from '@splidejs/react-splide';
+
 import Divider from '@mui/material/Divider';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import StarIcon from '@mui/icons-material/Star';
-import { Splide, SplideSlide } from '@splidejs/react-splide';
 import TypographyMui from '../../ui-components/typography-mui/TypographyMui';
 import useStyles from '../../../style/style';
-
 import '@splidejs/splide/dist/css/splide.min.css';
 import './Slider.scss';
 
 import { DATA } from '../../../constants/map_page';
+import useRedirectToPreviewPageById from '../../../hooks/useRedirectToPreviewPageById';
+import handleEnterPress from '../../../utils/handleEnterPress';
 
-const Card = (props) => {
+const Card = function (props) {
   const classes = useStyles();
 
   const {
-    name, rating, images, reviews, city, address, price, homeDetails,
+    name, rating, images, reviews, city, address, price, homeDetails, id,
   } = props;
+  const redirectToPreviewPageById = useRedirectToPreviewPageById(id);
 
   return (
     <>
-      <div className={classes.mapContent}>
+      <div className={classes.cardContent}>
         <div className={classes.content}>
           <div className={classes.contentImgSlider}>
             <Splide
@@ -29,20 +32,28 @@ const Card = (props) => {
                 perPage: 1,
                 perMove: 1,
                 rewind: true,
-                fixedWidth: '350px',
-                fixedHeight: '250px',
+                fixedWidth: '300px',
+                fixedHeight: '200px',
                 cover: 'true',
                 pagination: true,
+                drag: false,
+                keyboard: false,
               }}
             >
               {images.map((image) => (
-                <SplideSlide key={image.id}>
+                <SplideSlide key={image.id} onClick={redirectToPreviewPageById}>
                   <img src={image.picture} alt={name} />
                 </SplideSlide>
-              ))}
+              )).splice(0, 10)}
             </Splide>
           </div>
-          <div className={classes.contentData}>
+          <div
+            className={classes.contentData}
+            onClick={redirectToPreviewPageById}
+            onKeyDown={handleEnterPress(redirectToPreviewPageById)}
+            role="button"
+            tabIndex="0"
+          >
             <div className={classes.dataLeft}>
               <div className={classes.dataText}>
                 <TypographyMui text={city} className={classes.city} />
@@ -78,28 +89,6 @@ const Card = (props) => {
             </div>
             <div className={classes.price}>{price}</div>
           </div>
-          <div className={classes.contentData}>
-            <div className={classes.dataLeft}>
-              <div className={classes.dataText}>
-                <TypographyMui text={city} />
-                <TypographyMui variant="subtitle2" text={name} />
-                <TypographyMui color="green" text={DATA[3]} />
-                <TypographyMui text={`${homeDetails}.${address}`} />
-              </div>
-              <div>
-                {rating}
-                (
-                {reviews}
-                )
-              </div>
-            </div>
-            <div className={classes.dataRight}>
-              <div>
-                <FavoriteBorderIcon htmlColor="pink" />
-              </div>
-              <div>{price}</div>
-            </div>
-          </div>
         </div>
       </div>
       <Divider />
@@ -108,10 +97,11 @@ const Card = (props) => {
 };
 
 Card.defaultProps = {
-  rating: '',
+  id: '',
+  rating: 0,
   name: '',
   images: [],
-  reviews: '',
+  reviews: null,
   price: '',
   city: '',
   address: '',
@@ -119,6 +109,7 @@ Card.defaultProps = {
 };
 
 Card.propTypes = {
+  id: PropTypes.string,
   name: PropTypes.string,
   images: PropTypes.arrayOf(
     PropTypes.shape({

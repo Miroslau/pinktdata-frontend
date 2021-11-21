@@ -5,20 +5,25 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Typography from '@mui/material/Typography';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import roomPreviewLocalization from '../../../../../constants/roomPreviewLocalization';
+import useHandleAccordion from '../../../../../hooks/useHandleAccordion';
 
-const RoomAbout = () => (
-  <Accordion className="accordion-item">
-    <AccordionSummary
-      expandIcon={<ExpandMoreIcon />}
-    >
-      <Typography>{roomPreviewLocalization.style}</Typography>
-    </AccordionSummary>
-    <AccordionDetails>
-      <Typography>
-        {roomPreviewLocalization.loremText}
-      </Typography>
-    </AccordionDetails>
-  </Accordion>
-);
+const RoomAbout = function () {
+  const { expanded, handleAccordionChange } = useHandleAccordion();
+
+  return (
+    <Accordion className="accordion-item" expanded={expanded} onChange={handleAccordionChange}>
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+      >
+        <Typography>{roomPreviewLocalization.style}</Typography>
+      </AccordionSummary>
+      <AccordionDetails>
+        <Typography>
+          {roomPreviewLocalization.loremText}
+        </Typography>
+      </AccordionDetails>
+    </Accordion>
+  );
+};
 
 export default RoomAbout;

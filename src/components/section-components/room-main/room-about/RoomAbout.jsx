@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { roomContext } from '../../../../store/context/roomContext';
 
-const RoomAbout = () => {
+const RoomAbout = function () {
   const roomCtx = useContext(roomContext);
 
   return (

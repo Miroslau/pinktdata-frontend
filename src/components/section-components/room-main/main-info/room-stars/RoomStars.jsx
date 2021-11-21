@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'; import Accordion from '@mui/material/Accordion';
+import React, { useContext, useState } from 'react'; import Accordion from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
@@ -8,13 +8,15 @@ import { Rating } from '@mui/material';
 import roomPreviewLocalization from '../../../../../constants/roomPreviewLocalization';
 import { roomContext } from '../../../../../store/context/roomContext';
 import { ratingLabels } from '../../../../../constants/ratingLabels';
+import useHandleAccordion from '../../../../../hooks/useHandleAccordion';
 
-const RoomStars = () => {
+const RoomStars = function () {
   const roomCtx = useContext(roomContext);
-  const [value, setValue] = React.useState(roomCtx.rating);
+  const [value, setValue] = useState(roomCtx.rating);
+  const { expanded, handleAccordionChange } = useHandleAccordion();
 
   return (
-    <Accordion className="accordion-item">
+    <Accordion className="accordion-item" expanded={expanded} onChange={handleAccordionChange}>
       <AccordionSummary
         expandIcon={<ExpandMoreIcon />}
       >

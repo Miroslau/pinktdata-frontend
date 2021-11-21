@@ -8,7 +8,7 @@ import useStyle from '../../../style/style';
 import { userMenu } from '../../../constants/menu/userMenu';
 
 // eslint-disable-next-line no-unused-vars
-const User = ({ userName, itemClick }) => {
+const User = function ({ userName, itemClick }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const isOpenMenu = Boolean(anchorEl);
   const handleClick = (event) => {

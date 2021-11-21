@@ -7,7 +7,7 @@ const menuListProps = {
   'aria-labelledby': 'basic-button',
 };
 
-const MenuMui = (props) => {
+const MenuMui = function (props) {
   const {
     id, isOpen, handleClick, anchorEl, handleClose, items, ...other
   } = props;

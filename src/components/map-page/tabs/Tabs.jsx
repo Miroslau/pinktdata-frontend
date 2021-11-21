@@ -1,17 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Stack from '@mui/material/Stack';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import Divider from '@mui/material/Divider';
 import { Button } from '@mui/material';
-import PropTypes from 'prop-types';
-import useStyles from '../../../style/style';
-import ApartmentFilters from './apartment-filters/ApartmentFilters';
 import ModalWindowMui from '../../ui-components/modal-window-mui/ModalWindowMui';
+import useStyles from '../../../style/style';
 
+import ApartmentFilters from './apartment-filters/ApartmentFilters';
 import { TABS } from '../../../constants/map_page';
 
-const Tabs = ({ isActiveModal, setModalActive, apartmentFilter }) => {
+const Tabs = function ({ isActiveModal, setModalActive, apartmentFilter }) {
   const classes = useStyles();
 
   const handleClick = () => {
@@ -27,7 +27,6 @@ const Tabs = ({ isActiveModal, setModalActive, apartmentFilter }) => {
   return (
     <div className={classes.mapTabs}>
       <Stack direction="row" spacing={1}>
-
         <Button id="all" variant="contained" onClick={handlerBtn}>{TABS.ALL}</Button>
         <Button id="available" variant="outlined" title={TABS.AVAILABLE} onClick={handlerBtn}>{TABS.AVAILABLE}</Button>
         <Button id="star" variant="contained">{TABS.STAR}</Button>
@@ -56,7 +55,6 @@ const Tabs = ({ isActiveModal, setModalActive, apartmentFilter }) => {
           <ApartmentFilters apartmentFilter={apartmentFilter} />
         </ModalWindowMui>
       </Stack>
-
     </div>
   );
 };

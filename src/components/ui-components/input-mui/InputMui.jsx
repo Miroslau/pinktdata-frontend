@@ -2,7 +2,7 @@ import React from 'react';
 import MuiInput from '@mui/material/Input';
 import PropTypes from 'prop-types';
 
-const InputMui = (props) => {
+const InputMui = function (props) {
   const {
     value, size, onChange, inputProps, ...other
   } = props;

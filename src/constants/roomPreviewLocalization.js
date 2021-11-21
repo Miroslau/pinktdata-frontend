@@ -8,8 +8,7 @@ const roomPreviewLocalization = {
   others: 'Others',
   location: 'Location',
   reviews: 'Reviews',
-  loremText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse\n'
-    + '        malesuada lacus ex, sit amet blandit leo lobortis eget.',
+  loremText: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
   roomInfo: 'Room info',
   error: 'Error',
   errorText: 'Something went wrong on the server...',

@@ -1,88 +1,108 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { apartmentSelector } from '../../store/slice/apartmentSlice';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { useInView } from 'react-intersection-observer';
+import {
+  apartmentSelector, setParams,
+  // eslint-disable-next-line import/named
+  setBounds, setPublicAddress,
+} from '../../store/slice/apartmentSlice';
+import { searchApartments } from '../../store/actions/apartmentAction';
 import useStyles from '../../style/style';
 import MapRender from '../../components/map-page/map-render/MapRender';
 import Content from '../../components/map-page/content-render/Content';
-import useMountedState from '../../hooks/useMountedState';
-import MapAPI from '../../api/map/mapPageAPI';
 
-const Map = () => {
-  const hasMounted = useMountedState();
-  const listRoomBlock = useRef();
-  const { publicAddress, count } = useSelector(apartmentSelector);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [apart, setApart] = useState([]);
-  const [isFetching, setIsFetching] = useState(true);
+const Map = function () {
+  const dispatch = useDispatch();
+  const {
+    publicAddress, searchParams, apartments, currentPage, isFetching, count, bounds,
+  } = useSelector(apartmentSelector);
+  const {
+    priceRange, bedrooms, isMax,
+  } = searchParams;
   const [isActiveModal, setModalActive] = useState(false);
+  const [isFetchOnMapEvents, setIsFetchOnMapEvents] = useState(false);
+
+  const { ref, inView } = useInView();
 
   const handleModal = (value) => {
     setModalActive(value);
   };
 
-  const handlerFilter = (filterParams = null) => {
-    const { bedrooms, priceRange, isMax } = filterParams;
-    const priceFrom = priceRange[0];
-    const priceTo = priceRange[1];
-    MapAPI.searchApartments(publicAddress, currentPage, priceFrom, priceTo, bedrooms, isMax)
-      .then(({ data }) => {
-        if (hasMounted()) {
-          setApart(data);
-          setCurrentPage((prevState) => prevState + 1);
-          handleModal(false);
-        }
-      })
-      .catch((err) => {
-        console.error(err.message);
-      });
+  const handlerFilter = (filtersParams) => {
+    handleModal(false);
+    dispatch(setParams(filtersParams));
+    dispatch(
+      searchApartments({
+        publicAddress,
+        currentPage: 0,
+        ...filtersParams,
+        isFilter: true,
+        bounds,
+      }),
+    );
+  };
+
+  const handleDragAndZoomMap = (cords) => {
+    if (isFetchOnMapEvents) {
+      dispatch(setBounds(cords));
+      dispatch(setPublicAddress(''));
+      dispatch(searchApartments({
+        currentPage: 0,
+        ...searchParams,
+        isFilter: true,
+        bounds: cords,
+      }));
+    }
   };
 
   useEffect(() => {
-    if (isFetching) {
-      MapAPI.searchApartments(publicAddress, currentPage)
-        .then(({ data }) => {
-          if (hasMounted()) {
-            setApart(data);
-            setCurrentPage((prevState) => prevState + 1);
-          }
-        })
-        .catch((err) => {
-          console.error(err.message);
-        })
-        .finally(() => {
-          if (hasMounted()) {
-            setIsFetching(false);
-          }
-        });
+    if (inView) {
+      dispatch(
+        searchApartments({
+          publicAddress,
+          currentPage,
+          priceRange,
+          bedrooms,
+          isMax,
+          bounds,
+        }),
+      );
     }
-  }, [hasMounted, isFetching]);
+  }, [inView]);
 
-  const scrollHandler = () => {
-    const el = listRoomBlock.current;
-
-    const scrollPosition = el.scrollHeight
-        - (el.scrollTop + window.innerHeight)
-        < 100 && apart.length < count;
-
-    if (scrollPosition) {
-      setIsFetching(true);
-    }
-  };
+  useEffect(() => {
+    dispatch(
+      searchApartments({
+        publicAddress,
+        currentPage,
+        priceRange,
+        bedrooms,
+        isMax,
+        bounds,
+      }),
+    );
+  }, []);
 
   const classes = useStyles();
   return (
     <section className={classes.wrapper}>
       <Content
-        apart={apart}
+        apart={apartments}
         count={count}
-        scrollHandler={scrollHandler}
-        listRoomBlock={listRoomBlock}
+        inViewRef={ref}
         publicAddress={publicAddress}
         isActiveModal={isActiveModal}
         setModalActive={handleModal}
         apartmentFilter={handlerFilter}
+        isFetching={isFetching}
       />
-      <MapRender apart={apart} />
+      <MapRender
+        apart={apartments}
+        isFetching={isFetching}
+        handleDragAndZoomMap={handleDragAndZoomMap}
+        isFetchOnMapEvents={isFetchOnMapEvents}
+        setIsFetchOnMapEvents={setIsFetchOnMapEvents}
+      />
     </section>
   );
 };
