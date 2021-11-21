@@ -8,7 +8,6 @@ import ButtonMui from '../../../../ui-components/button-mui/ButtonMui';
 
 const RoomPreview = function () {
   const history = useNavigate();
-  const redirectToPaymentPage = () => history('/payment');
 
   const roomCtx = useContext(roomContext);
   const { price } = roomCtx;
@@ -18,6 +17,8 @@ const RoomPreview = function () {
   const differenceDatesInTime = new Date(endDate).getTime() - new Date(startDate).getTime();
   const differenceDatesInDays = differenceDatesInTime / (1000 * 3600 * 24);
   const totalPrice = Math.round(differenceDatesInDays * parsedPrice);
+
+  const redirectToPaymentPage = () => history(`/payment/${totalPrice}/${roomCtx.id}`);
 
   return (
     <div className="room-preview">

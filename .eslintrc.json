@@ -42,6 +42,7 @@
     "react/no-unused-class-component-methods": "off",
     "no-param-reassign": 0,
     "global-require": 0,
-    "import/no-named-as-default": 0
+    "import/no-named-as-default": 0,
+    "react/function-component-definition" : "off"
   }
 }
