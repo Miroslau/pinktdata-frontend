@@ -4,7 +4,7 @@ import { roomContext } from '../../../../store/context/roomContext';
 
 const RoomLocation = function () {
   const roomCtx = useContext(roomContext);
-  console.log(roomCtx.address);
+
   return (
     <div className="room-component">
       <h1>{roomPreviewLocalization.location}</h1>

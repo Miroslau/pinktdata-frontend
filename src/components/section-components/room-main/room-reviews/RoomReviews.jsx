@@ -6,28 +6,13 @@ import Typography from '@mui/material/Typography';
 import roomPreviewLocalization from '../../../../constants/roomPreviewLocalization';
 import { roomContext } from '../../../../store/context/roomContext';
 
-// const review = [
-//   {
-//     name: 'Olga ',
-//     comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-//   },
-//   {
-//     name: 'Misha ',
-//     comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-//   },
-//   {
-//     name: 'Anna ',
-//     comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
-//   },
-// ];
-
 const RoomReviews = function () {
   const roomCtx = useContext(roomContext);
   return (
     <div className="room-component">
       <h1>
         {' '}
-        {roomCtx.review.length}
+        {roomCtx?.review.length}
         {' '}
         {roomPreviewLocalization.reviews}
       </h1>
@@ -38,7 +23,7 @@ const RoomReviews = function () {
         fontSize: 14,
       }}
       >
-        {roomCtx.review.map((el) => (
+        {roomCtx?.review.map((el) => (
           <ListItem alignItems="flex-start">
             <ListItemText
               secondary={(
@@ -55,7 +40,7 @@ const RoomReviews = function () {
                   {' '}
                   {el.comment}
                 </div>
-                )}
+                            )}
             />
           </ListItem>
         ))}
