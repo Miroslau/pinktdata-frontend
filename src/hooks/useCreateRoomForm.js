@@ -1,13 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const UseForm = (callback, validateErrors, validateAddRoomErrors, isSignIn, callBackFunction) => {
-  const [user, setUser] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
-    repeatPassword: '',
-  });
+const UseForm = (callback, validateAddRoomErrors, callBackFunction) => {
   const [room, setRoom] = useState({
     name: '',
     city: '',
@@ -22,18 +15,10 @@ const UseForm = (callback, validateErrors, validateAddRoomErrors, isSignIn, call
 
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
     setRoom({ ...room, [name]: value });
-  }, [user, room]);
+  }, [room]);
 
   const handleClear = () => {
-    setUser({
-      firstName: '',
-      lastName: '',
-      email: '',
-      password: '',
-      repeatPassword: '',
-    });
     setRoom({
       name: '',
       city: '',
@@ -46,10 +31,9 @@ const UseForm = (callback, validateErrors, validateAddRoomErrors, isSignIn, call
   };
 
   const handleSubmit = useCallback(() => {
-    setErrors(validateErrors(user, isSignIn));
-    setErrors(validateAddRoomErrors(user, room));
+    setErrors(validateAddRoomErrors(room));
     setIsSubmitting(true);
-  }, [user, isSignIn, room]);
+  }, [room]);
 
   const clearError = () => {
     setErrors({});
@@ -58,7 +42,6 @@ const UseForm = (callback, validateErrors, validateAddRoomErrors, isSignIn, call
   useEffect(
     () => {
       if (Object.keys(errors).length === 0 && isSubmitting) {
-        callback(user);
         callback(room);
       }
     },
@@ -66,7 +49,7 @@ const UseForm = (callback, validateErrors, validateAddRoomErrors, isSignIn, call
   );
 
   return {
-    handleChange, handleSubmit, user, errors, clearError, handleClear, room,
+    handleChange, handleSubmit, room, errors, clearError, handleClear,
   };
 };
 

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import MenuItem from '@mui/material/MenuItem';
 import Card from '@material-ui/core/Card';
@@ -10,21 +10,20 @@ import TextField from '@material-ui/core/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import useStyles from '../Profile.style';
-import './NewRoom.modify.css';
 
 import ButtonMui from '../../ui-components/button-mui/ButtonMui';
 import TextFieldMui from '../../ui-components/text-field-mui/TextFieldMui';
 import { newRoomAmountField, newRoomTextField } from '../../../constants/newRoom/newRoom';
 import { fileTypes } from '../../../constants/newRoom/fileTypes';
 import { currencies } from '../../../constants/newRoom/currency';
-import useForm from '../../../hooks/useForm';
-import { validateErrors } from '../../../mixins/validateErrors';
+import { validateAddRoomErrors } from '../../../mixins/validateAddRoomErrors';
+import useCreateRoomForm from '../../../hooks/useCreateRoomForm';
 
-const NewRoom = function ({ setActive }) {
+const NewRoom = function () {
   const {
-    handleChange, errors,
-  } = useForm(
-    validateErrors,
+    handleChange, errors, handleSubmit,
+  } = useCreateRoomForm(
+    validateAddRoomErrors,
   );
   const classes = useStyles();
   const [currency, setCurrency] = useState('USD');
@@ -117,19 +116,11 @@ const NewRoom = function ({ setActive }) {
           </form>
         </CardContent>
         <CardActions className={classes.buttonForm}>
-          <ButtonMui title="save" size="large" clickButton={() => setActive(false)} />
+          <ButtonMui title="save" size="large" clickButton={handleSubmit} />
         </CardActions>
       </Card>
     </div>
   );
-};
-
-NewRoom.defaultProps = {
-  setActive: true,
-};
-
-NewRoom.propTypes = {
-  setActive: PropTypes.func,
 };
 
 export default NewRoom;
