@@ -4,6 +4,7 @@ import RoomLocation from './room-location/RoomLocation';
 import '../../../index.scss';
 import MainInfo from './main-info/MainInfo';
 import RoomReviews from './room-reviews/RoomReviews';
+import RoomBookButton from './room-pay-button/RoomBookButton';
 
 const RoomMain = function () {
   return (
@@ -18,6 +19,7 @@ const RoomMain = function () {
         <nav>
           <RoomLocation />
           <RoomReviews />
+          <RoomBookButton />
         </nav>
 
       </div>

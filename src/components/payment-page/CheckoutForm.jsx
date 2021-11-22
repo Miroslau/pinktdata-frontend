@@ -59,9 +59,6 @@ const CheckoutForm = () => {
 
         console.log(paymentIntent);
 
-        // eslint-disable-next-line max-len
-        // TODO: bookinkg room;
-
         const { data: retrieveData } = await paymentRetrieveAPI({
           id: paymentIntent.id,
         });
@@ -98,18 +95,18 @@ const CheckoutForm = () => {
           {price}
         </button>
       </form>
-      {errorMessage && (
-      <h4 className="card-error">
-        {' '}
-        {errorMessage}
-      </h4>
-      )}
-      {message && (
-      <h4 className="card-message">
-        {' '}
-        {message}
-      </h4>
-      )}
+      {errorMessage ? (
+        <h4 className="card-error">
+          {' '}
+          {errorMessage}
+        </h4>
+      ) : ''}
+      {message ? (
+        <h4 className="card-message">
+          {' '}
+          {message}
+        </h4>
+      ) : ''}
     </div>
   );
 };

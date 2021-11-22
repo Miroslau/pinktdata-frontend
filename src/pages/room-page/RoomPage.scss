@@ -7,6 +7,7 @@
 
   &-container {
     display: flex;
+    justify-content: space-between;
     margin: auto;
     max-width: 1600px;
     width: 100%;
@@ -14,7 +15,7 @@
     padding-top: 8rem;
 
     main {
-      width: 75%;
+      width: 74.5%;
 
       .main-info {
         display: flex;
@@ -36,6 +37,38 @@
 
     nav {
       width: 25%;
+
+      .room-reviews {
+        height: 505px;
+        margin-top: .5rem;
+      }
+
+      .room-pay {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        .room-button {
+          font-size: 16px;
+          border-radius: .6rem;
+          background-color: $color-pink !important;
+          padding: .6rem 5rem;
+        }
+
+        .room-price {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: $color-greyDark;
+          font-size: 18px;
+          margin-right: .5rem;
+        }
+
+        .room-button:hover {
+          background-color: $color-blue !important;
+        }
+      }
     }
   }
 
@@ -44,7 +77,6 @@
     border-radius: .3rem;
     box-shadow: $box-shadow3;
     padding: .5rem;
-    margin: .3rem;
   }
 
   &-preview {
@@ -70,19 +102,22 @@
     }
 
     .splide {
-      margin-left: 1.2rem;
+      //margin-left: 1.2rem;
     }
 
     .splide__arrow--prev {
-      left: -1.5rem;
+      opacity: 1;
+      left: -2rem;
     }
 
     .splide__arrow--next {
-      right: -1.5rem;
+      opacity: 1;
+      right: -2rem;
     }
 
     .splide__arrow {
       background: transparent;
+
       svg {
         fill: $color-greyDark;
       }
@@ -104,25 +139,10 @@
 
     footer {
       display: flex;
-      .room-pay {
-          flex: 0 0 10%;
-          margin-left: 1.5rem;
-        .room-button {
-          font-size: 16px;
-          font-weight: bold;
-          border-radius: .6rem;
-          background-color: $color-pink !important;
-        }
-        .room-price {
-          font-weight: bold;
-          margin-top: .5rem;
-          color: $color-greyDark;
-        }
-
-        .room-button:hover {
-          background-color: $color-blue !important;
-        }
-      }
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      margin-top: .5rem;
     }
   }
 

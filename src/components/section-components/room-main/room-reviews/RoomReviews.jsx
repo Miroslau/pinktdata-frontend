@@ -3,7 +3,7 @@ import roomPreviewLocalization from '../../../../constants/roomPreviewLocalizati
 
 const RoomReviews = function () {
   return (
-    <div className="room-component">
+    <div className="room-component room-reviews">
       <h1>{roomPreviewLocalization.reviews}</h1>
     </div>
   );
