@@ -11,7 +11,7 @@ import ButtonMui from '../../components/ui-components/button-mui/ButtonMui';
 import NewRoom from '../../components/profile-page/NewRoom/NewRoom';
 import ModalWindowMui from '../../components/ui-components/modal-window-mui/ModalWindowMui';
 import { userSelector } from '../../store/slice/userSlice';
-import { clearState } from '../../store/slice/modalSlice';
+import { clearState } from '../../store/slice/rentSlice';
 
 const ProfilePage = function () {
   const classes = useStyles();

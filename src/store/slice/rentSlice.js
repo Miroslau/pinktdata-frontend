@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { addNewRoom } from '../actions/modalAction';
+import { addNewRoom } from '../actions/rentAction';
 
 const initialState = {
   isFetching: true,
@@ -15,7 +15,7 @@ const initialState = {
   bedrooms: 0,
 };
 
-const modalSlice = createSlice({
+export const rentSlice = createSlice({
   name: 'rent',
   initialState,
   reducers: {
@@ -55,6 +55,7 @@ const modalSlice = createSlice({
   },
 });
 
-export const { clearState } = modalSlice.actions;
+export const { clearState } = rentSlice.actions;
+export const rentReducer = rentSlice.reducer;
 
-export const modalSelector = (state) => state.modal;
+export const rentSelector = (state) => state.rent;
