@@ -2,7 +2,7 @@ import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { PINK_COLOR } from '../../constants/colors';
-import api from '../../api/payment/paymentIntent';
+import { paymentIntentAPI, paymentRetrieveAPI } from '../../api/payment/paymentIntent';
 // import useRedirectToMainPage from '../../hooks/useRedirectToMainPage';
 
 const CARD_OPTIONS = {
@@ -22,13 +22,13 @@ const CARD_OPTIONS = {
 };
 
 const CheckoutForm = () => {
-  const { price, id: roomid } = useParams();
+  const { price, id: roomId } = useParams();
   const [errorMessage, setErrorMessage] = useState(null);
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
-  console.log(roomid);
+  console.log(roomId);
   // const redirectToMainPage = useRedirectToMainPage();
 
   const cardChangeHandler = () => {
@@ -48,11 +48,10 @@ const CheckoutForm = () => {
 
     if (!error) {
       try {
-        const { data } = await api.paymentIntent({
+        const { data } = await paymentIntentAPI({
           amount: price,
         });
         const clientSecret = data;
-        console.log(clientSecret);
 
         const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
           payment_method: paymentMethod.id,
@@ -61,22 +60,13 @@ const CheckoutForm = () => {
         console.log(paymentIntent);
 
         // eslint-disable-next-line max-len
-        stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent: retrievePaymentIntent }) => {
-          switch (retrievePaymentIntent.status) {
-            case 'succeeded':
-              setMessage('Payment succeeded!');
-              break;
-            case 'processing':
-              setMessage('Your payment is processing.');
-              break;
-            case 'requires_payment_method':
-              setMessage('Your payment was not successful, please try again.');
-              break;
-            default:
-              setMessage('Something went wrong.');
-              break;
-          }
+        // TODO: bookinkg room;
+
+        const { data: retrieveData } = await paymentRetrieveAPI({
+          id: paymentIntent.id,
         });
+
+        setMessage(retrieveData.status);
 
         // redirectToMainPage();
       } catch (err) {
