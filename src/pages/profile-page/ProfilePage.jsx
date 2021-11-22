@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import Typography from '@mui/material/Typography';
 import useStyles from '../../style/style';
 
-import History from '../../components/profile-page/History';
-import FutureVisits from '../../components/profile-page/FutureVisits';
-import Rent from '../../components/profile-page/Rent';
+import History from '../../components/profile-page/History/History';
+import FutureVisits from '../../components/profile-page/FutureVisits/FutureVisits';
+import Rent from '../../components/profile-page/Rent/Rent';
 import ButtonMui from '../../components/ui-components/button-mui/ButtonMui';
 import NewRoom from '../../components/profile-page/NewRoom/NewRoom';
 import ModalWindowMui from '../../components/ui-components/modal-window-mui/ModalWindowMui';
