@@ -5,11 +5,13 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import roomPreviewLocalization from '../../../../constants/roomPreviewLocalization';
 import { roomContext } from '../../../../store/context/roomContext';
+import { ReviewForm } from './ReviewForm';
 
 const RoomReviews = function () {
   const roomCtx = useContext(roomContext);
   return (
     <div className="room-component">
+      <ReviewForm />
       <h4>
         {' '}
         {roomCtx.review?.length && roomCtx.review?.length }
