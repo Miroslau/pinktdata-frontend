@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
-import React from 'react';
+import React, { useRef } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+// import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
+import { TextareaAutosize } from '@material-ui/core';
 import { userSelector } from '../../../../store/slice/userSlice';
 
 const style = {
@@ -12,6 +13,7 @@ const style = {
   left: '50%',
   transform: 'translate(-50%, -50%)',
   width: 400,
+  height: 200,
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
@@ -19,13 +21,22 @@ const style = {
 };
 
 export const ReviewForm = function () {
+  const textRef = useRef();
   const {
     firstName,
   } = useSelector(
     userSelector,
   );
 
-  console.log(firstName);
+  const addComment = (e) => {
+    e.preventDefault();
+    const commentData = {
+      name: firstName,
+      comment: textRef.current.value,
+    };
+    console.log(commentData);
+  };
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -39,9 +50,17 @@ export const ReviewForm = function () {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </Typography>
+          <h4>Leave a comment</h4>
+          <form onSubmit={addComment}>
+            <TextareaAutosize
+              maxRows={4}
+              aria-label="maximum height"
+              placeholder="Maximum 4 rows"
+              ref={textRef}
+              style={{ width: 350, height: 100 }}
+            />
+            <button className="btn-add" type="submit">Add </button>
+          </form>
         </Box>
       </Modal>
 
