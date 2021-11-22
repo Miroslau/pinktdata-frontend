@@ -16,18 +16,15 @@ const LIST_STYLE = {
 const TYPOGRAPHY_STYLE = { display: 'inline', fontSize: 12, fontWeight: 'bold' };
 
 const RoomReviews = function () {
-  const roomCtx = useContext(roomContext);
+  const { review } = useContext(roomContext);
   return (
     <div className="room-component">
       <h4>
-        {' '}
-        {roomCtx.review?.length && roomCtx.review?.length }
-        {' '}
-        {roomCtx.review?.length ? roomPreviewLocalization.reviews : NO_REVIEW}
+        {review?.length ? `${review.length} ${roomPreviewLocalization.reviews}` : NO_REVIEW}
       </h4>
       <List sx={LIST_STYLE}>
-        {roomCtx.review?.map((el) => (
-          <ListItem alignItems="flex-start">
+        {review?.map((el) => (
+          <ListItem alignItems="flex-start" key={el.name}>
             <ListItemText
               secondary={(
                 <div style={{
@@ -40,10 +37,9 @@ const RoomReviews = function () {
                     variant="body2"
                     color="text.primary"
                   >
-                    {el.name }
+                    {el.name}
                   </Typography>
                   -
-                  {' '}
                   {el.comment}
                 </div>
                             )}
