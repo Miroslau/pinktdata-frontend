@@ -3,13 +3,9 @@ import NewRoomAPI from '../../api/add-new-room/NewRoomAPI';
 
 export const addNewRoom = createAsyncThunk(
   'users/signupUser/addNewRoom',
-  async ({
-    name, city, publicAddress, amount, currency, bedrooms,
-  }, thunkAPI) => {
+  async (room, thunkAPI) => {
     try {
-      const response = await NewRoomAPI.addRoom({
-        name, city, publicAddress, amount, currency, bedrooms,
-      });
+      const response = await NewRoomAPI.addRoom(room);
 
       const { status, data } = response;
 

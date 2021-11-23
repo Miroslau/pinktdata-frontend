@@ -1,8 +1,8 @@
 import httpClient from '../index';
 
 export default {
-  addRoom(user) {
-    return httpClient.post('/addRoom', user);
+  addRoom(room) {
+    return httpClient.post('/profile/addRoom', room);
   },
 
   getRoomsForRent() {

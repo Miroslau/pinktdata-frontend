@@ -5,6 +5,7 @@ import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import useStyles from '../Profile.style';
 import newRoomApi from '../../../api/add-new-room/NewRoomAPI';
 import useMountedState from '../../../hooks/useMountedState';
@@ -56,6 +57,7 @@ const Rent = function () {
                       {room.bedroomCount}
                     </div>
                   </div>
+                  <ModeEditIcon className={classes.rentCardEdit} />
                 </Item>
               </Grid>
             ))

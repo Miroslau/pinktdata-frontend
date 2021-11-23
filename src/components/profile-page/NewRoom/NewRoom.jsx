@@ -38,8 +38,6 @@ const NewRoom = function ({ submitForm }) {
     setFile(file);
   };
 
-  console.log('errors: ', errors);
-
   return (
     <div>
       <Card>
@@ -59,7 +57,8 @@ const NewRoom = function ({ submitForm }) {
                             required={field.required}
                             type={field.type}
                             helperText={errors[`${field.model}`]}
-                            label={field.placeholder}
+                            label={field.title}
+                            placeholder={field.placeholder}
                             inputText={handleChange}
                             margin="dense"
                           />

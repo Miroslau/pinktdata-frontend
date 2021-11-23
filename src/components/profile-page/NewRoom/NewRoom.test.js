@@ -6,6 +6,7 @@ import NewRoom from './NewRoom';
 
 describe('New Room component', () => {
   const setActive = () => true;
+  const sendForm = () => true;
 
   const elementsNewRoom = {
     inputName: null,
@@ -23,7 +24,7 @@ describe('New Room component', () => {
 
   beforeEach(() => {
     // eslint-disable-next-line max-len
-    const { container: currentContainer, unmount: currentUnmount } = render(<NewRoom setActive={setActive} />);
+    const { container: currentContainer, unmount: currentUnmount } = render(<NewRoom setActive={setActive} submitForm={sendForm} />);
     container = currentContainer;
     unmount = currentUnmount;
     // eslint-disable-next-line prefer-destructuring
@@ -47,7 +48,7 @@ describe('New Room component', () => {
 
   it('renders component Add New Room', () => {
     // eslint-disable-next-line no-shadow
-    const { container } = render(<NewRoom setActive={setActive} />);
+    const { container } = render(<NewRoom setActive={setActive} submitForm={sendForm} />);
     expect(container.firstChild).toBeInTheDocument();
   });
 
@@ -75,14 +76,6 @@ describe('New Room component', () => {
     expect(error).toBeInTheDocument();
   });
 
-  it('has correct amount must including only numeric characters', async () => {
-    fireEvent.change(elementsNewRoom.inputAmount, { target: { value: 'Amount123' } });
-    fireEvent.blur(elementsNewRoom.inputAmount);
-    fireEvent.click(elementsNewRoom.submit);
-    const error = await findByText(container, 'Amount must be numeric only');
-    expect(error).toBeInTheDocument();
-  });
-
   it('has public address must be with placeholder text', async () => {
     const inputNode = screen.getByPlaceholderText('Enter room\'s address');
     expect(inputNode).toBeInTheDocument();
@@ -92,15 +85,7 @@ describe('New Room component', () => {
     fireEvent.change(elementsNewRoom.inputCity, { target: { value: '123Benguela' } });
     fireEvent.blur(elementsNewRoom.inputCity);
     fireEvent.click(elementsNewRoom.submit);
-    const error = await findByText(container, 'Сшен must be alphabet only');
-    expect(error).toBeInTheDocument();
-  });
-
-  it('has correct bedrooms count must including only numeric characters', async () => {
-    fireEvent.change(elementsNewRoom.inputBedroomsCount, { target: { value: '1bedroom23' } });
-    fireEvent.blur(elementsNewRoom.inputBedroomsCount);
-    fireEvent.click(elementsNewRoom.submit);
-    const error = await findByText(container, 'Bedrooms count must be numeric only');
+    const error = await findByText(container, 'City must be alphabets only');
     expect(error).toBeInTheDocument();
   });
 });

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import Typography from '@mui/material/Typography';
@@ -10,8 +10,8 @@ import Rent from '../../components/profile-page/Rent/Rent';
 import ButtonMui from '../../components/ui-components/button-mui/ButtonMui';
 import NewRoom from '../../components/profile-page/NewRoom/NewRoom';
 import ModalWindowMui from '../../components/ui-components/modal-window-mui/ModalWindowMui';
-import { userSelector } from '../../store/slice/userSlice';
-import { clearState } from '../../store/slice/rentSlice';
+import { clearState, rentSelector } from '../../store/slice/rentSlice';
+import { addNewRoom } from '../../store/actions/rentAction';
 
 const ProfilePage = function () {
   const classes = useStyles();
@@ -19,9 +19,9 @@ const ProfilePage = function () {
   const [isActiveModal, setModalActive] = useState(false);
 
   const {
-    isError, errorMessage,
+    isSuccess, isError, errorMessage,
   } = useSelector(
-    userSelector,
+    rentSelector,
   );
 
   const closeModal = () => {
@@ -31,9 +31,18 @@ const ProfilePage = function () {
     }
   };
 
-  const addRoom = (room) => {
-    console.log('room: ', room);
-  };
+  const addRoom = (room) => { dispatch(addNewRoom(room)); };
+
+  useEffect(() => () => {
+    dispatch(clearState());
+  }, []);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setModalActive(false);
+      dispatch(clearState());
+    }
+  }, [isSuccess]);
 
   return (
     <div className={classes.modalWrapper}>
