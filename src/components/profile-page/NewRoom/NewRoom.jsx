@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 
 import MenuItem from '@mui/material/MenuItem';
 import Card from '@material-ui/core/Card';
@@ -19,11 +19,12 @@ import { currencies } from '../../../constants/newRoom/currency';
 import { validateAddRoomErrors } from '../../../mixins/validateAddRoomErrors';
 import useCreateRoomForm from '../../../hooks/useCreateRoomForm';
 
-const NewRoom = function () {
+const NewRoom = function ({ submitForm }) {
   const {
     handleChange, errors, handleSubmit,
   } = useCreateRoomForm(
     validateAddRoomErrors,
+    submitForm,
   );
   const classes = useStyles();
   const [currency, setCurrency] = useState('USD');
@@ -36,6 +37,8 @@ const NewRoom = function () {
   const fileHandler = () => {
     setFile(file);
   };
+
+  console.log('errors: ', errors);
 
   return (
     <div>
@@ -121,6 +124,10 @@ const NewRoom = function () {
       </Card>
     </div>
   );
+};
+
+NewRoom.propTypes = {
+  submitForm: PropTypes.func.isRequired,
 };
 
 export default NewRoom;

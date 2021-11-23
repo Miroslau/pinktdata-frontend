@@ -31,6 +31,10 @@ const ProfilePage = function () {
     }
   };
 
+  const addRoom = (room) => {
+    console.log('room: ', room);
+  };
+
   return (
     <div className={classes.modalWrapper}>
       <div className={classes.header}>
@@ -51,7 +55,10 @@ const ProfilePage = function () {
         {
           isError && <div className="navigation-landing-error">{errorMessage}</div>
         }
-        <NewRoom setActive={setModalActive} />
+        <NewRoom
+          setActive={setModalActive}
+          submitForm={addRoom}
+        />
       </ModalWindowMui>
     </div>
   );

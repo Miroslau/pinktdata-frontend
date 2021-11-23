@@ -2,7 +2,7 @@ export const newRoomTextField = [
   {
     id: 1,
     title: 'Name',
-    model: '',
+    model: 'amount',
     required: true,
     placeholder: 'Enter room\'s name',
     onlyRegister: true,
@@ -11,7 +11,7 @@ export const newRoomTextField = [
   {
     id: 2,
     title: 'Address',
-    model: '',
+    model: 'publicAddress',
     required: true,
     placeholder: 'Enter room\'s address',
     onlyRegister: true,
@@ -20,7 +20,7 @@ export const newRoomTextField = [
   {
     id: 3,
     title: 'City',
-    model: '',
+    model: 'city',
     required: true,
     placeholder: 'Enter your city',
     onlyRegister: true,
@@ -32,7 +32,7 @@ export const newRoomAmountField = [
   {
     id: 4,
     title: 'Amount',
-    model: '',
+    model: 'amount',
     required: true,
     placeholder: 'Enter room\'s price',
     onlyRegister: true,
@@ -41,7 +41,7 @@ export const newRoomAmountField = [
   {
     id: 5,
     title: 'Bedrooms count',
-    model: '',
+    model: 'bedroomsCount',
     required: true,
     placeholder: 'Enter room\'s bedrooms',
     onlyRegister: true,
