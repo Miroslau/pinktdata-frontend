@@ -2,7 +2,7 @@ export const newRoomTextField = [
   {
     id: 1,
     title: 'Name',
-    model: 'amount',
+    model: 'name',
     required: true,
     placeholder: 'Enter room\'s name',
     onlyRegister: true,
