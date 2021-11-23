@@ -1,4 +1,4 @@
-import React, { } from 'react';
+import React, { useEffect } from 'react';
 import { styled } from '@mui/material/styles';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
@@ -10,50 +10,9 @@ import ImageListItemBar from '@mui/material/ImageListItemBar';
 import ListSubheader from '@mui/material/ListSubheader';
 import IconButton from '@mui/material/IconButton';
 import InfoIcon from '@mui/icons-material/Info';
-// import { uniqueId } from 'lodash';
+import { useNavigate } from 'react-router-dom';
 import useStyles from './Profile.style';
-import useRedirectToPreviewPageById from '../../hooks/useRedirectToPreviewPageById';
-// import getFutureRooms from '../../api/popular-future-rooms/getFutureRooms';
-// import useMountedState from '../../hooks/useMountedState';
-
-const futureRooms = [
-  {
-    img: 'https://media-cdn.tripadvisor.com/media/photo-s/16/45/16/dd/the-mood-luxury-rooms.jpg',
-    name: 'Free Parking guaranteed',
-    data: '11/11/2021 - 16/11/2021',
-    id: '6017d723055800005800986e',
-  },
-  {
-    img: 'https://media.architecturaldigest.com/photos/584ada2946458b735ce19242/master/w_2957,h_1882,c_limit/wallpaper-rooms-01.jpg',
-    name: 'Close to Everything the Poconos has to Offer',
-    data: '11/09/2021',
-    id: '6017d723055800005800986f',
-  },
-  {
-    img: 'https://media-cdn.tripadvisor.com/media/photo-s/16/45/16/dd/the-mood-luxury-rooms.jpg',
-    name: 'Cottage by the Water',
-    data: '11/10/2021',
-    id: '6017d7240558000058009872',
-  },
-  {
-    img: 'https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/edc-web-tour-natasha-bardaran-9-1607305891.jpg',
-    name: 'The J-Spot - A Great value in the Poconos',
-    data: '14/10/2021',
-    id: '6017d7240558000058009873',
-  },
-  {
-    img: 'https://media-cdn.tripadvisor.com/media/photo-s/16/45/16/dd/the-mood-luxury-rooms.jpg',
-    name: 'Poconos Hideaway @ A Great Value (up to 4 guests)',
-    data: '03/10/2021',
-    id: '6017d723055800005800986e',
-  },
-  {
-    img: 'https://media.architecturaldigest.com/photos/584ada2946458b735ce19242/master/w_2957,h_1882,c_limit/wallpaper-rooms-01.jpg',
-    name: 'The J-Spot - A Great value in the Poconos',
-    data: '19/4/2021',
-    id: '6017d723055800005800986e',
-  },
-];
+import getFutureRooms from '../../api/future-rooms/getFutureRooms';
 
 const Item = styled(Paper)(({ theme }) => ({
   ...theme.typography.body2,
@@ -63,8 +22,18 @@ const Item = styled(Paper)(({ theme }) => ({
 }));
 
 const FutureVisits = function () {
-  // const hasMounted = useMountedState();
-  // const [majorCities, setMajorCities] = useState([]);
+  const [bedroomData, setBedroomData] = React.useState([]);
+
+  const history = useNavigate();
+  const useRedirectToPreviewPageById = (pageId) => {
+    const redirectFunction = () => history(`/apartments/${pageId}`);
+    return redirectFunction;
+  };
+
+  useEffect(async () => {
+    const { data } = await getFutureRooms.futureRooms();
+    setBedroomData(data);
+  }, [bedroomData]);
 
   const classes = useStyles();
   return (
@@ -79,7 +48,7 @@ const FutureVisits = function () {
               <ImageListItem key="Subheader" cols={2}>
                 <ListSubheader component="div">List of future visits</ListSubheader>
               </ImageListItem>
-              {futureRooms.map((item) => (
+              {bedroomData.map((item) => (
                 <ImageListItem key={item.img}>
                   <img
                     src={`${item.img}?w=248&fit=crop&auto=format`}
@@ -94,7 +63,6 @@ const FutureVisits = function () {
                     actionIcon={(
                       <IconButton
                         sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                        aria-label={`info about ${item.name}`}
                         onClick={useRedirectToPreviewPageById(item.id)}
                       >
                         <InfoIcon />
