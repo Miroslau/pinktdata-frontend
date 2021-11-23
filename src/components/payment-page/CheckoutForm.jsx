@@ -1,9 +1,9 @@
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { PINK_COLOR } from '../../constants/colors';
 import { paymentIntentAPI, paymentRetrieveAPI } from '../../api/payment/paymentIntent';
-// import useRedirectToMainPage from '../../hooks/useRedirectToMainPage';
+import useRedirectToMainPage from '../../hooks/useRedirectToMainPage';
 
 const CARD_OPTIONS = {
   iconStyle: 'solid',
@@ -21,20 +21,46 @@ const CARD_OPTIONS = {
   },
 };
 
+const ONE_SEC = 1000;
+
 const CheckoutForm = () => {
+  // eslint-disable-next-line no-unused-vars
   const { price, id: roomId } = useParams();
   const [errorMessage, setErrorMessage] = useState(null);
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isStart, setIsStart] = useState(false);
+  const [redirectMessage, setRedirectMessage] = useState(null);
+  const [secondsLeft, setSecondsLeft] = useState(10);
   const stripe = useStripe();
   const elements = useElements();
-  console.log(roomId);
-  // const redirectToMainPage = useRedirectToMainPage();
+  // console.log(roomId);
+  const redirectToMainPage = useRedirectToMainPage();
 
   const cardChangeHandler = () => {
     setErrorMessage(null);
     setMessage(null);
   };
+
+  // setSecondsLeft(secondsLeft - 1);
+  // setRedirectMessage(`You will redirect to main page after (${secondsLeft}) seconds`);
+
+  useEffect(() => {
+    let interval;
+    if (isStart) {
+      interval = setInterval(() => {
+        if (secondsLeft === 0) {
+          clearInterval(interval);
+          redirectToMainPage();
+          return;
+        }
+        setRedirectMessage(`You will redirect to main page after (${secondsLeft}) seconds`);
+        setSecondsLeft(secondsLeft - 1);
+      }, ONE_SEC);
+    }
+
+    return () => clearInterval(interval);
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -48,10 +74,9 @@ const CheckoutForm = () => {
 
     if (!error) {
       try {
-        const { data } = await paymentIntentAPI({
+        const { data: clientSecret } = await paymentIntentAPI({
           amount: price,
         });
-        const clientSecret = data;
 
         const { paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
           payment_method: paymentMethod.id,
@@ -59,11 +84,21 @@ const CheckoutForm = () => {
 
         console.log(paymentIntent);
 
-        const { data: retrieveData } = await paymentRetrieveAPI({
+        const { data: retrieveIntent } = await paymentRetrieveAPI({
           id: paymentIntent.id,
         });
 
-        setMessage(retrieveData.status);
+        setMessage(retrieveIntent.status);
+
+        switch (retrieveIntent.status) {
+          case 'succeeded':
+            setSecondsLeft(10);
+            setIsStart(true);
+            break;
+          default:
+            setRedirectMessage('');
+            break;
+        }
 
         // redirectToMainPage();
       } catch (err) {
@@ -106,6 +141,12 @@ const CheckoutForm = () => {
           {' '}
           {message}
         </h4>
+      ) : ''}
+      {redirectMessage ? (
+        <h5 className="card-message">
+          {' '}
+          {redirectMessage}
+        </h5>
       ) : ''}
     </div>
   );
