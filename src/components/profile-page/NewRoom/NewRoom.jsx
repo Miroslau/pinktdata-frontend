@@ -21,7 +21,7 @@ import useCreateRoomForm from '../../../hooks/useCreateRoomForm';
 
 const NewRoom = function ({ submitForm }) {
   const {
-    handleChange, errors, handleSubmit,
+    handleChange, handleSubmit, room, errors,
   } = useCreateRoomForm(
     validateAddRoomErrors,
     submitForm,
@@ -54,13 +54,12 @@ const NewRoom = function ({ submitForm }) {
                           <TextFieldMui
                             variant="outlined"
                             key={field.id}
-                            value={field.model}
+                            value={room[`${field.model}`]}
                             name={field.model}
                             required={field.required}
                             type={field.type}
                             helperText={errors[`${field.model}`]}
-                            label={field.title}
-                            placeholder={field.placeholder}
+                            label={field.placeholder}
                             inputText={handleChange}
                             margin="dense"
                           />
