@@ -28,7 +28,7 @@ const Rent = function () {
         if (hasMounted()) setRentRooms(data);
       })
       .catch((err) => err.message);
-  }, [rentRooms, hasMounted]);
+  }, [hasMounted]);
 
   return (
     <Box sx={{ width: '100%' }} className={classes.box}>

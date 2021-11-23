@@ -1,20 +1,12 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const UseForm = (callback, validateErrors, validateAddRoomErrors, isSignIn, callBackFunction) => {
+const UseForm = (callback, validateErrors, isSignIn, callBackFunction) => {
   const [user, setUser] = useState({
     firstName: '',
     lastName: '',
     email: '',
     password: '',
     repeatPassword: '',
-  });
-  const [room, setRoom] = useState({
-    name: '',
-    city: '',
-    publicAddress: '',
-    currency: '',
-    amount: '',
-    bedroomsCount: '',
   });
 
   const [errors, setErrors] = useState({});
@@ -23,8 +15,7 @@ const UseForm = (callback, validateErrors, validateAddRoomErrors, isSignIn, call
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
     setUser({ ...user, [name]: value });
-    setRoom({ ...room, [name]: value });
-  }, [user, room]);
+  }, [user]);
 
   const handleClear = () => {
     setUser({
@@ -34,22 +25,13 @@ const UseForm = (callback, validateErrors, validateAddRoomErrors, isSignIn, call
       password: '',
       repeatPassword: '',
     });
-    setRoom({
-      name: '',
-      city: '',
-      publicAddress: '',
-      currency: '',
-      amount: '',
-      bedroomsCount: '',
-    });
     callBackFunction();
   };
 
   const handleSubmit = useCallback(() => {
     setErrors(validateErrors(user, isSignIn));
-    setErrors(validateAddRoomErrors(user, room));
     setIsSubmitting(true);
-  }, [user, isSignIn, room]);
+  }, [user, isSignIn]);
 
   const clearError = () => {
     setErrors({});
@@ -59,14 +41,13 @@ const UseForm = (callback, validateErrors, validateAddRoomErrors, isSignIn, call
     () => {
       if (Object.keys(errors).length === 0 && isSubmitting) {
         callback(user);
-        callback(room);
       }
     },
     [errors],
   );
 
   return {
-    handleChange, handleSubmit, user, errors, clearError, handleClear, room,
+    handleChange, handleSubmit, user, errors, clearError, handleClear,
   };
 };
 

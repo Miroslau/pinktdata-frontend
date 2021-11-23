@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const UseForm = (callback, validateAddRoomErrors, callBackFunction) => {
+const UseForm = (validateRoomErrors, callback, callBackFunction) => {
   const [room, setRoom] = useState({
     name: '',
     city: '',
@@ -31,7 +31,7 @@ const UseForm = (callback, validateAddRoomErrors, callBackFunction) => {
   };
 
   const handleSubmit = useCallback(() => {
-    setErrors(validateAddRoomErrors(room));
+    setErrors(validateRoomErrors(room));
     setIsSubmitting(true);
   }, [room]);
 
