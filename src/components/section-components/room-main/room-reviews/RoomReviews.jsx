@@ -18,7 +18,7 @@ const TYPOGRAPHY_STYLE = { display: 'inline', fontSize: 12, fontWeight: 'bold' }
 const RoomReviews = function () {
   const { review } = useContext(roomContext);
   return (
-    <div className="room-component">
+    <div className="room-component room-reviews">
       <h4>
         {review?.length ? `${review.length} ${roomPreviewLocalization.reviews}` : NO_REVIEW}
       </h4>

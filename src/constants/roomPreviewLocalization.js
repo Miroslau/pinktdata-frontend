@@ -13,6 +13,8 @@ const roomPreviewLocalization = {
   error: 'Error',
   errorText: 'Something went wrong on the server...',
   reload: 'Try to reload the page!',
+  total_price: 'Total price: ',
+  book_now: 'Book now',
 
 };
 
