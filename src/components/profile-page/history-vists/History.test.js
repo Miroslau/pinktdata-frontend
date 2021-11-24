@@ -3,16 +3,16 @@ import {
   act, findByText, getByTestId, render, waitFor,
 } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
-import Rent from './Rent';
+import History from './History';
 
-describe('rent-rooms Component', () => {
+describe('visit-history Component', () => {
   let unmount;
   // eslint-disable-next-line no-unused-vars
   let container;
   beforeEach(() => {
     const { container: currentContainer, unmount: currentUnmount } = render(
       <BrowserRouter>
-        <Rent />
+        <History />
       </BrowserRouter>,
     );
     container = currentContainer;
@@ -22,7 +22,7 @@ describe('rent-rooms Component', () => {
     unmount();
   });
 
-  it('renders component rent-rooms', () => {
+  it('renders component visit-history', () => {
     expect(container.firstChild).toBeInTheDocument();
   });
 
@@ -31,11 +31,11 @@ describe('rent-rooms Component', () => {
     expect(text).toBeTruthy();
   });
 
-  it('fetches rooms for rents an API', async () => {
+  it('fetches visit-history rooms an API', async () => {
     act(() => jest.advanceTimersByTime(1500));
 
     await waitFor(() => {
-      const text = findByText(container, 'Free Parking guaranteed');
+      const text = findByText(container, 'Your Quiet Cozy Space in South Philly');
       expect(text).toBeTruthy();
     });
   });

@@ -5,6 +5,7 @@ import mockDataForPopularRooms from './mocks-constants/mockDataForPopularRooms';
 import mockDataApartments from './mocks-constants/mockDataApartments';
 import mockDataMajorCities from './mocks-constants/mockDataMajorCities';
 import mockDataRoomsForRent from './mocks-constants/mockDataRoomsForRent';
+import mockDataVisitHistory from './mocks-constants/mockDataVisitHistory';
 
 export const handlers = [
   rest.post('/api/auth/registration', (req, res, ctx) => {
@@ -73,6 +74,7 @@ export const handlers = [
   }),
 
   rest.get('/api/profile/rooms', (req, res, ctx) => res(ctx.delay(1500), ctx.status(200), ctx.json(mockDataRoomsForRent))),
+  rest.get('/api/profile/history', (req, res, ctx) => res(ctx.delay(1500), ctx.status(200), ctx.json(mockDataVisitHistory))),
 
   rest.post('/api/profile/addRoom', (req, res, ctx) => {
     const obj = req.body;

@@ -1,39 +1,54 @@
 import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import { useEffect, useState } from 'react';
 import useStyles from '../Profile.style';
+import newRoomApi from '../../../api/add-new-room/NewRoomAPI';
+import useMountedState from '../../../hooks/useMountedState';
+import rentRoomsLocalization from '../../../constants/Localizations/rentRoomsLocalization';
+import RoomCard from '../room-card/RoomCard';
+import RoomSkeletonCard from '../room-card/RoomSkeletonCard';
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+const COLUMN_SPACING = { xs: 1, sm: 2, md: 3 };
+const ROW_SPACING = 1;
+const GRID_ITEM_XS = 6;
+const BOX_SETTINGS = { width: '100%' };
 
 const History = function () {
   const classes = useStyles();
+  const [visitHistory, setVisitHistory] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const hasMounted = useMountedState();
+
+  useEffect(() => {
+    newRoomApi.getVisitHistory()
+      .then(({ data }) => {
+        if (hasMounted()) {
+          setVisitHistory(data);
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => err.message);
+  }, [hasMounted]);
+
   return (
-    <Box sx={{ width: '100%' }} className={classes.box}>
+    <Box sx={BOX_SETTINGS} className={classes.box}>
       <Typography variant="subtitle1" gutterBottom component="div" className={classes.subtitle}>
-        Visit History
+        {rentRoomsLocalization.TITLE_HISTORY}
       </Typography>
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item xs={6}>
-          <Item>12</Item>
-        </Grid>
-        <Grid item xs={6}>
-          <Item>2</Item>
-        </Grid>
-        <Grid item xs={6}>
-          <Item>3</Item>
-        </Grid>
-        <Grid item xs={6}>
-          <Item>4</Item>
-        </Grid>
+      {isLoading && <RoomSkeletonCard />}
+      {!isLoading && (
+      <Grid container rowSpacing={ROW_SPACING} columnSpacing={COLUMN_SPACING}>
+        {
+              visitHistory.map((room) => (
+                <Grid item xs={GRID_ITEM_XS} key={room._id}>
+                  <RoomCard room={room} isEditCard={false} />
+                </Grid>
+              ))
+            }
       </Grid>
+      )}
     </Box>
   );
 };

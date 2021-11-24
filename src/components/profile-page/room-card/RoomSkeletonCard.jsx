@@ -9,7 +9,12 @@ const SKELETON_HEIGHT = 216;
 
 const RoomSkeletonCard = function () {
   return (
-    <Grid container rowSpacing={ROW_SPACING} columnSpacing={COLUMN_SPACING}>
+    <Grid
+      container
+      rowSpacing={ROW_SPACING}
+      columnSpacing={COLUMN_SPACING}
+      data-testid="Skeleton"
+    >
       <Grid item xs={GRID_ITEM_XS}>
         <Skeleton
           variant="rectangular"

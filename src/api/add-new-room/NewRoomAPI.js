@@ -8,4 +8,8 @@ export default {
   getRoomsForRent() {
     return httpClient.get('/profile/rooms');
   },
+
+  getVisitHistory() {
+    return httpClient.get('/profile/history');
+  },
 };
