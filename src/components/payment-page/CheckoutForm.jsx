@@ -81,16 +81,13 @@ const CheckoutForm = () => {
           id: paymentIntent.id,
         });
 
-        switch (retrieveIntent.status) {
-          case 'succeeded':
-            setSecondsLeft(FIVE_SECONDS);
-            setIsFirstRender(true);
-            setMessage(paymentLocalization.PAYMENT_SUCCESS);
-            break;
-          default:
-            setRedirectMessage('');
-            setMessage(paymentLocalization.PAYMENT_FAILED);
-            break;
+        if (retrieveIntent.status === 'succeeded') {
+          setSecondsLeft(FIVE_SECONDS);
+          setIsFirstRender(true);
+          setMessage(paymentLocalization.PAYMENT_SUCCESS);
+        } else {
+          setRedirectMessage('');
+          setMessage(paymentLocalization.PAYMENT_FAILED);
         }
       } catch (err) {
         console.log('Error', err);
@@ -120,24 +117,24 @@ const CheckoutForm = () => {
           {price}
         </button>
       </form>
-      {errorMessage ? (
-        <h4 className="card-error">
-          {' '}
-          {errorMessage}
-        </h4>
-      ) : ''}
-      {message ? (
-        <h4 className="card-message">
-          {' '}
-          {message}
-        </h4>
-      ) : ''}
-      {redirectMessage ? (
-        <h5 className="card-redirect">
-          {' '}
-          {redirectMessage}
-        </h5>
-      ) : ''}
+      {errorMessage && (
+      <h4 className="card-error">
+        {' '}
+        {errorMessage}
+      </h4>
+      )}
+      {message && (
+      <h4 className="card-message">
+        {' '}
+        {message}
+      </h4>
+      )}
+      {redirectMessage && (
+      <h5 className="card-redirect">
+        {' '}
+        {redirectMessage}
+      </h5>
+      )}
     </div>
   );
 };
