@@ -7,8 +7,11 @@ import LocationAPI from './LocationAPI';
 import MainSearch from '../../components/section-components/main-screen/main-search/MainSearch';
 
 const mockDispatch = jest.fn();
+const mockSelector = jest.fn();
+
 jest.mock('react-redux', () => ({
   useDispatch: () => mockDispatch,
+  useSelector: () => mockSelector,
 }));
 
 jest.mock('../../utils/doWithUserDelay.js', () => ({

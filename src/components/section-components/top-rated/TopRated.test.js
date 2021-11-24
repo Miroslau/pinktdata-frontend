@@ -20,7 +20,7 @@ describe('TopRated component', () => {
       publicAddress: '',
       count: 2229,
       startDate: new Date(),
-      endDate: new Date().getDate() + 1,
+      endDate: new Date(new Date().setDate(new Date().getDate() + 1)),
     },
   });
 
