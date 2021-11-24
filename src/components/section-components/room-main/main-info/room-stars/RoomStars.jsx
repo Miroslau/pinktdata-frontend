@@ -13,7 +13,6 @@ import useHandleAccordion from '../../../../../hooks/useHandleAccordion';
 const RoomStars = function () {
   const roomCtx = useContext(roomContext);
   const [value, setValue] = useState(roomCtx.rating);
-  console.log(typeof value);
   const { expanded, handleAccordionChange } = useHandleAccordion();
 
   return (
