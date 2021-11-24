@@ -1,16 +1,18 @@
 import { render, screen } from '@testing-library/react';
+
 import React from 'react';
+import { Router } from 'react-router-dom';
+import userEvent from '@testing-library/user-event';
+import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { combineReducers, configureStore, createSlice } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { createMemoryHistory } from 'history';
-import { Router } from 'react-router-dom';
-import { roomContext } from '../../../../../store/context/roomContext';
-import RoomPreview from './RoomPreview';
-import mockDataForPreviewPage from '../../../../../mocks/mocks-constants/mockDataForPreviewPage';
+import RoomBookButton from './RoomBookButton';
+import { roomContext } from '../../../../store/context/roomContext';
+import mockDataForPreviewPage from '../../../../mocks/mocks-constants/mockDataForPreviewPage';
 
-describe('RoomPreview component', () => {
+describe('RoomBookButton component', () => {
   const history = createMemoryHistory();
 
   const apartmentSlice = createSlice({
@@ -40,31 +42,33 @@ describe('RoomPreview component', () => {
     reducer: rootReducer,
   });
 
-  test('should have render images', () => {
+  test('should have render room total price information', () => {
     render((
       <Provider store={store}>
         <Router location={history.location} navigator={history}>
           <roomContext.Provider value={mockDataForPreviewPage}>
-            <RoomPreview />
+            <RoomBookButton />
           </roomContext.Provider>
         </Router>
       </Provider>
     ));
 
-    expect(screen.getAllByAltText(/slider/i)).toBeTruthy();
+    expect(screen.getByText(/Total price/i)).toBeTruthy();
   });
 
-  test('should have render main image', () => {
+  test('should redirect to payment page', async () => {
     render((
       <Provider store={store}>
         <Router location={history.location} navigator={history}>
           <roomContext.Provider value={mockDataForPreviewPage}>
-            <RoomPreview />
+            <RoomBookButton />
           </roomContext.Provider>
         </Router>
       </Provider>
     ));
 
-    expect(screen.getByAltText(/room-preview/i)).toBeTruthy();
+    const button = await screen.findByTestId('payment-button');
+    userEvent.click(button);
+    expect(history.location.pathname).toBe('/payment/42/123');
   });
 });
