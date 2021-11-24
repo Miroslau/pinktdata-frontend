@@ -50,6 +50,9 @@ const useStyles = makeStyles({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  rentCardEdit: {
+    display: 'none',
+  },
 });
 
 export default useStyles;
