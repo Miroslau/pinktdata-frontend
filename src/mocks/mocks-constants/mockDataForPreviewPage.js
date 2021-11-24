@@ -51,18 +51,22 @@ const data = {
   locationLon: -75.1694,
   review: [
     {
+      id: 1,
       name: 'Olga ',
       comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },
     {
+      id: 2,
       name: 'Misha ',
       comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },
     {
+      id: 3,
       name: 'Anna ',
       comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },
     {
+      id: 4,
       name: 'Andrew ',
       comment: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
     },

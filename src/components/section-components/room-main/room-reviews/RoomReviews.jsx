@@ -5,28 +5,28 @@ import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import roomPreviewLocalization from '../../../../constants/roomPreviewLocalization';
 import { roomContext } from '../../../../store/context/roomContext';
+import { NO_REVIEW } from '../../../../constants/reviews';
+
+const LIST_STYLE = {
+  width: '100%',
+  maxWidth: 360,
+  bgcolor: 'background.paper',
+  fontSize: 12,
+};
+const TYPOGRAPHY_STYLE = { display: 'inline', fontSize: 12, fontWeight: 'bold' };
 import { ReviewForm } from './ReviewForm';
 
 const RoomReviews = function () {
-  const roomCtx = useContext(roomContext);
+  const { review } = useContext(roomContext);
   return (
     <div className="room-component">
       <ReviewForm />
       <h4>
-        {' '}
-        {roomCtx.review?.length && roomCtx.review?.length }
-        {' '}
-        {roomCtx.review?.length ? roomPreviewLocalization.reviews : 'No reviews (yet)'}
+        {review?.length ? `${review.length} ${roomPreviewLocalization.reviews}` : NO_REVIEW}
       </h4>
-      <List sx={{
-        width: '100%',
-        maxWidth: 360,
-        bgcolor: 'background.paper',
-        fontSize: 12,
-      }}
-      >
-        {roomCtx.review?.map((el) => (
-          <ListItem alignItems="flex-start">
+      <List sx={LIST_STYLE}>
+        {review?.map((el) => (
+          <ListItem alignItems="flex-start" key={el.id}>
             <ListItemText
               secondary={(
                 <div style={{
@@ -34,18 +34,18 @@ const RoomReviews = function () {
                 }}
                 >
                   <Typography
-                    sx={{ display: 'inline', fontSize: 12, fontWeight: 'bold' }}
+                    sx={TYPOGRAPHY_STYLE}
                     component="span"
                     variant="body2"
                     color="text.primary"
                   >
-                    {el.name }
+                    {el.name}
                   </Typography>
                   -
                   {' '}
                   {el.comment}
                 </div>
-                            )}
+                )}
             />
           </ListItem>
         ))}
