@@ -1,91 +1,53 @@
-import React, { useEffect } from 'react';
-import { styled } from '@mui/material/styles';
+import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
-import ImageList from '@mui/material/ImageList';
-import ImageListItem from '@mui/material/ImageListItem';
-import ImageListItemBar from '@mui/material/ImageListItemBar';
-import ListSubheader from '@mui/material/ListSubheader';
-import IconButton from '@mui/material/IconButton';
-import InfoIcon from '@mui/icons-material/Info';
-import { useNavigate } from 'react-router-dom';
-import useStyles from './Profile.style';
-import getFutureRooms from '../../api/future-rooms/getFutureRooms';
+import useMountedState from '../../../hooks/useMountedState';
+import newRoomApi from '../../../api/add-new-room/NewRoomAPI';
+import rentRoomsLocalization from '../../../constants/Localizations/rentRoomsLocalization';
+import RoomSkeletonCard from '../room-card/RoomSkeletonCard';
+import useStyles from '../Profile.style';
+import RoomFutureItems from './RoomFutureItems';
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+const COLUMN_SPACING = { xs: 1, sm: 2, md: 3 };
+const ROW_SPACING = 1;
+const GRID_ITEM_XS = 6;
+const BOX_SETTINGS = { width: '100%' };
 
 const FutureVisits = function () {
-  const [bedroomData, setBedroomData] = React.useState([]);
-
-  const history = useNavigate();
-  const useRedirectToPreviewPageById = (pageId) => {
-    const redirectFunction = () => history(`/apartments/${pageId}`);
-    return redirectFunction;
-  };
-
-  useEffect(async () => {
-    const { data } = await getFutureRooms.futureRooms();
-    setBedroomData(data);
-  }, [bedroomData]);
-
   const classes = useStyles();
+  const [rentRooms, setRentRooms] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const hasMounted = useMountedState();
+
+  useEffect(() => {
+    newRoomApi.getRoomsForRent()
+      .then(({ data }) => {
+        if (hasMounted()) {
+          setRentRooms(data);
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => err.message);
+  }, [hasMounted]);
+
   return (
-    <Box sx={{ width: '100%' }} className={classes.box}>
+    <Box sx={BOX_SETTINGS} className={classes.box}>
       <Typography variant="subtitle1" gutterBottom component="div" className={classes.subtitle}>
-        Upcoming Trips
+        {rentRoomsLocalization.TITLE_VISITS}
       </Typography>
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item xs={6}>
-          <Item>
-            <ImageList sx={{ width: 500, height: 450 }}>
-              <ImageListItem key="Subheader" cols={2}>
-                <ListSubheader component="div">List of future visits</ListSubheader>
-              </ImageListItem>
-              {bedroomData.map((item) => (
-                <ImageListItem key={item.img}>
-                  <img
-                    src={`${item.img}?w=248&fit=crop&auto=format`}
-                    srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
-                    alt={item.name}
-                    loading="lazy"
-                    title={item.name}
-                  />
-                  <ImageListItemBar
-                    title={item.name}
-                    subtitle={item.data}
-                    actionIcon={(
-                      <IconButton
-                        sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                        onClick={useRedirectToPreviewPageById(item.id)}
-                      >
-                        <InfoIcon />
-                      </IconButton>
-                      )}
-                  />
-                </ImageListItem>
-              ))}
-            </ImageList>
-          </Item>
+      {isLoading && <RoomSkeletonCard />}
+      {!isLoading && (
+        <Grid container rowSpacing={ROW_SPACING} columnSpacing={COLUMN_SPACING}>
+          {
+            rentRooms.map((room) => (
+              <Grid item xs={GRID_ITEM_XS} key={room._id}>
+                <RoomFutureItems room={room} isEditCard />
+              </Grid>
+            ))
+          }
         </Grid>
-        <Grid item xs={6}>
-          <Item>
-            2
-          </Item>
-        </Grid>
-        <Grid item xs={6}>
-          <Item>3</Item>
-        </Grid>
-        <Grid item xs={6}>
-          <Item>4</Item>
-        </Grid>
-      </Grid>
+      )}
     </Box>
   );
 };
