@@ -1,5 +1,12 @@
 import {
-  LANDING_ROUTE, MAP_ROUTE, BUY_PAGE, SALE_PAGE, INSIGHT_PAGE, ROOM_PAGE, PROFILE_ROUTE, PAYMENT_PAGE,
+  LANDING_ROUTE,
+  MAP_ROUTE,
+  BUY_PAGE,
+  SALE_PAGE,
+  INSIGHT_PAGE,
+  ROOM_PAGE,
+  PROFILE_ROUTE,
+  PAYMENT_PAGE,
 } from '../constants/routes';
 import MapPage from '../pages/map-page/MapPage';
 import MainPage from '../pages/main-page/MainPage';
