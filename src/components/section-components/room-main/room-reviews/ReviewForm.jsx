@@ -30,6 +30,9 @@ export const ReviewForm = function () {
 
   const addComment = (e) => {
     e.preventDefault();
+    if (!textRef.current.value) {
+      return;
+    }
     const commentData = {
       name: firstName,
       comment: textRef.current.value,
