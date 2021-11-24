@@ -46,17 +46,20 @@ const CheckoutForm = () => {
     let interval;
     if (isFirstRender) {
       interval = setInterval(() => {
-        if (secondsLeft === 0) {
-          clearInterval(interval);
-          redirectToMainPage();
-          return;
-        }
-        setRedirectMessage(`${paymentLocalization.YOU_WILL_REDIRECT} (${secondsLeft}) ${paymentLocalization.SECONDS}`);
         setSecondsLeft((prevState) => prevState - 1);
       }, ONE_SECONDS);
     }
     return () => clearInterval(interval);
-  });
+  }, [isFirstRender]);
+
+  useEffect(() => {
+    if (isFirstRender) {
+      setRedirectMessage(`${paymentLocalization.YOU_WILL_REDIRECT} (${secondsLeft}) ${paymentLocalization.SECONDS}`);
+    }
+    if (secondsLeft === 0) {
+      redirectToMainPage();
+    }
+  }, [secondsLeft, isFirstRender]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
