@@ -136,7 +136,7 @@
     margin: 0 auto;
   }
 
-  .card-error, .card-message {
+  .card-error, .card-message, .card-redirect {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -150,6 +150,11 @@
 
   .card-message {
     color: $color-blue;
+  }
+
+  .card-redirect {
+    font-size: 16px;
+    color: $color-section;
   }
 
   @keyframes loading {

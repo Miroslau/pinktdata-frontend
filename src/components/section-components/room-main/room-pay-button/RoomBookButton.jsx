@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
 import { roomContext } from '../../../../store/context/roomContext';
+import roomPreviewLocalization from '../../../../constants/roomPreviewLocalization';
 
 const RoomBookButton = () => {
   const history = useNavigate();
@@ -21,12 +22,12 @@ const RoomBookButton = () => {
   return (
     <div className="room-pay">
       <p className="room-price">
-        Total price:
+        {roomPreviewLocalization.total_price}
         $
         {totalPrice}
       </p>
       <ButtonMui
-        title="Book now"
+        title={roomPreviewLocalization.book_now}
         data-testid="payment-button"
         ariaLabel="search-button"
         variant="contained"
