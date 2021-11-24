@@ -56,7 +56,7 @@ const CheckoutForm = () => {
       }, ONE_SECONDS);
     }
     return () => clearInterval(interval);
-  });
+  }, [isFirstRender, secondsLeft]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
