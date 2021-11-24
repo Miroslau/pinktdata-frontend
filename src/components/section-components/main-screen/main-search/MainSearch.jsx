@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { TextField } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -20,6 +20,7 @@ import {
   setPublicAddress,
   setParams,
   setDate,
+  apartmentSelector,
 } from '../../../../store/slice/apartmentSlice';
 import { doWithUserDelay } from '../../../../utils/doWithUserDelay';
 import { MAP_ROUTE } from '../../../../constants/routes';
@@ -47,18 +48,15 @@ const MainSearch = function () {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-  const dateNow = new Date();
-  const dateNowPlusOneDay = new Date();
-  dateNowPlusOneDay.setDate(dateNow.getDate() + 1);
-  dateNowPlusOneDay.toLocaleDateString();
+  const { startDate, endDate } = useSelector(apartmentSelector);
 
   const classes = useStyles();
   const isMounted = useRef(null);
   const [searchLocation, setSearchLocation] = useState('');
   const [isSelected, setIsSelected] = useState(false);
   const [dataLocation, setDataLocation] = useState([]);
-  const [startDateValue, setStartDateValue] = useState(dateNow);
-  const [endDateValue, setEndDateValue] = useState(dateNowPlusOneDay);
+  const [startDateValue, setStartDateValue] = useState(startDate);
+  const [endDateValue, setEndDateValue] = useState(endDate);
   const [isError, setIsError] = useState({
     locationError: false,
     dateError: false,
@@ -190,7 +188,7 @@ const MainSearch = function () {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           label={TEXT.MAIN_SEARCH.START_DATE}
-          minDate={dateNow}
+          minDate={startDate}
           value={startDateValue}
           onChange={setStartDate}
           inputProps={inputProps}
@@ -207,7 +205,7 @@ const MainSearch = function () {
         <DatePicker
           label={TEXT.MAIN_SEARCH.END_DATE}
           value={endDateValue}
-          minDate={dateNow}
+          minDate={startDate}
           onChange={setEndDate}
           min={startDateValue}
           inputProps={inputProps}

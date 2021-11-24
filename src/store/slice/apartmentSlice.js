@@ -14,7 +14,7 @@ export const apartmentSlice = createSlice({
     count: 0,
     bounds: null,
     startDate: new Date(),
-    endDate: new Date().getDate() + 1,
+    endDate: new Date(new Date().setDate(new Date().getDate() + 1)),
     searchParams: {
       priceRange: [],
       bedrooms: 0,
