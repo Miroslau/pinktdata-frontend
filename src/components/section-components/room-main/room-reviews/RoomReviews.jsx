@@ -24,7 +24,7 @@ const RoomReviews = function () {
       </h4>
       <List sx={LIST_STYLE}>
         {review?.map((el) => (
-          <ListItem alignItems="flex-start" key={el.name}>
+          <ListItem alignItems="flex-start" key={el.id}>
             <ListItemText
               secondary={(
                 <div style={{
@@ -40,9 +40,10 @@ const RoomReviews = function () {
                     {el.name}
                   </Typography>
                   -
+                  {' '}
                   {el.comment}
                 </div>
-                            )}
+                )}
             />
           </ListItem>
         ))}
