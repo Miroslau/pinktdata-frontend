@@ -1,35 +1,48 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true,
-        "jest": true
+  "env": {
+    "node": true,
+    "browser": true,
+    "es2021": true,
+    "jest": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb"
+  ],
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": [
-        "plugin:react/recommended",
-        "airbnb"
+    "ecmaVersion": 8,
+    "sourceType": "module",
+    "allowImportExportEverywhere": true
+  },
+  "plugins": [
+    "react"
+  ],
+  "rules": {
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".js",
+          ".jsx"
+        ]
+      }
     ],
-    "parser": "babel-eslint",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 8,
-        "sourceType": "module",
-        "allowImportExportEverywhere": true
-    },
-    "plugins": [
-        "react"
-    ],
-    "rules": {
-        "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
-        "no-underscore-dangle": "off",
-        "import/prefer-default-export": "off",
-        "react/jsx-props-no-spreading": "off",
-        "eslint-disable-next-line no-undef": "off",
-        "eslint-disable-next-line react/react-in-jsx-scope": "off",
-        "react/react-in-jsx-scope": "off",
-        "no-param-reassign": 0,
-        "global-require": 0,
-        "import/no-named-as-default": 0
-    }
+    "no-underscore-dangle": "off",
+    "import/prefer-default-export": "off",
+    "react/jsx-props-no-spreading": "off",
+    "eslint-disable-next-line no-undef": "off",
+    "eslint-disable-next-line react/react-in-jsx-scope": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/no-arrow-function-lifecycle": "off",
+    "react/no-invalid-html-attribute": "off",
+    "react/no-unused-class-component-methods": "off",
+    "no-param-reassign": 0,
+    "global-require": 0,
+    "import/no-named-as-default": 0,
+    "react/function-component-definition" : "off"
+  }
 }
