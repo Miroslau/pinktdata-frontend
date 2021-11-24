@@ -52,11 +52,11 @@ const CheckoutForm = () => {
           return;
         }
         setRedirectMessage(`${paymentLocalization.YOU_WILL_REDIRECT} (${secondsLeft}) ${paymentLocalization.SECONDS}`);
-        setSecondsLeft(secondsLeft - 1);
+        setSecondsLeft((prevState) => prevState - 1);
       }, ONE_SECONDS);
     }
     return () => clearInterval(interval);
-  }, [isFirstRender, secondsLeft]);
+  });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
