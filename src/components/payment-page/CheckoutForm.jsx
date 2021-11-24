@@ -55,13 +55,11 @@ const CheckoutForm = () => {
         setSecondsLeft(secondsLeft - 1);
       }, ONE_SECONDS);
     }
-
     return () => clearInterval(interval);
   });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     setIsProcessing(true);
 
     const { error, paymentMethod } = await stripe.createPaymentMethod({
@@ -104,7 +102,6 @@ const CheckoutForm = () => {
       console.log(error.message);
       setIsProcessing(false);
     }
-
     setIsProcessing(false);
   };
 
