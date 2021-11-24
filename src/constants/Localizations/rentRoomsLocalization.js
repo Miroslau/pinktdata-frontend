@@ -1,5 +1,5 @@
 const rentRoomsLocalization = {
-  TITLE: 'Rooms For Rent',
+  TITLE: 'Rooms For rent-rooms',
   CARD_COUNT: 'Bedrooms: ',
 };
 

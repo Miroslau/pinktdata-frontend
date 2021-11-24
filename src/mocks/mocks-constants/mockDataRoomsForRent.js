@@ -7,7 +7,19 @@ const roomsForRent = [
     currency: '$',
     amount: 140,
     bedroomCount: 4,
-    img: 'https://a0.muscache.com/im/pictures/791e6c34-c71c-4090-92d4-c87a7a803162.jpg?im_w=720',
+    images: [
+      {
+        id: '765462066',
+        picture: 'https://a0.muscache.com/im/pictures/506758b1-e17f-4074-bd8d-70e08cff4330.jpg?im_w=720',
+      },
+      {
+        id: '765462082',
+        picture: 'https://a0.muscache.com/im/pictures/319478af-c52a-49d0-a2ef-61bf198209bd.jpg?im_w=720',
+      },
+      {
+        id: '765462109',
+        picture: 'https://a0.muscache.com/im/pictures/e8de9519-3257-4561-9e1e-87733c579c14.jpg?im_w=720',
+      }],
   },
   {
     _id: '2',
@@ -17,7 +29,7 @@ const roomsForRent = [
     currency: '€',
     amount: 350,
     bedroomCount: 2,
-    img: 'https://a0.muscache.com/im/pictures/f4209886-fc07-4a7c-900b-d546da4cf76a.jpg?im_w=720',
+    images: [],
   },
   {
     _id: '3',
@@ -27,7 +39,11 @@ const roomsForRent = [
     currency: '€',
     amount: 350,
     bedroomCount: 2,
-    img: 'https://a0.muscache.com/im/pictures/f4209886-fc07-4a7c-900b-d546da4cf76a.jpg?im_w=720',
+    images: [
+      {
+        id: '765462109',
+        picture: 'https://a0.muscache.com/im/pictures/e8de9519-3257-4561-9e1e-87733c579c14.jpg?im_w=720',
+      }],
   },
   {
     _id: '4',
@@ -37,7 +53,7 @@ const roomsForRent = [
     currency: '฿',
     amount: 350,
     bedroomCount: 5,
-    img: 'https://a0.muscache.com/im/pictures/c881dd64-8ebf-42fa-8f25-a4a9322a4ec9.jpg?im_w=720',
+    images: [],
   },
 ];
 

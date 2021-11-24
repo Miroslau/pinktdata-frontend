@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { server } from '../../../mocks/server';
 import Rent from './Rent';
 
-describe('Rent Component', () => {
+describe('rent-rooms Component', () => {
   process.env.REACT_APP_IS_MOCKING = true;
 
   // eslint-disable-next-line no-undef
@@ -16,7 +16,7 @@ describe('Rent Component', () => {
   // eslint-disable-next-line no-undef
   afterAll(() => server.close());
 
-  it('renders component Rent', () => {
+  it('renders component rent-rooms', () => {
     const { container } = render(<BrowserRouter><Rent /></BrowserRouter>);
     expect(container.firstChild).toBeInTheDocument();
   });
