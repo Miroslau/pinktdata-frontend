@@ -19,7 +19,7 @@ const TopRated = function () {
   if (error) return <AlertError />;
 
   useEffect(() => {
-    popularRooms.popularRooms()
+    popularRooms.popularRooms(startDate, endDate)
       .then(({ data }) => {
         if (hasMounted()) {
           setArrayOfPopularRooms(data);

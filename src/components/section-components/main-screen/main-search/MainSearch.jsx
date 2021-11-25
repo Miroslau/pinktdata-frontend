@@ -50,13 +50,15 @@ const MainSearch = function () {
 
   const { startDate, endDate } = useSelector(apartmentSelector);
 
+  const MIN_DATE = new Date();
+
   const classes = useStyles();
   const isMounted = useRef(null);
   const [searchLocation, setSearchLocation] = useState('');
   const [isSelected, setIsSelected] = useState(false);
   const [dataLocation, setDataLocation] = useState([]);
-  const [startDateValue, setStartDateValue] = useState(startDate);
-  const [endDateValue, setEndDateValue] = useState(endDate);
+  const [startDateValue, setStartDateValue] = useState(new Date(startDate));
+  const [endDateValue, setEndDateValue] = useState(new Date(endDate));
   const [isError, setIsError] = useState({
     locationError: false,
     dateError: false,
@@ -104,7 +106,11 @@ const MainSearch = function () {
   };
 
   const changeOptionHandler = (e, newValue) => {
-    setIsSelected(true);
+    if (startDateValue.getTime() > endDateValue.getTime()) {
+      setIsSelected(false);
+    } else {
+      setIsSelected(true);
+    }
     setSearchLocation(newValue);
   };
 
@@ -118,7 +124,11 @@ const MainSearch = function () {
     if (!isSelected) {
       if (dataLocation.length) {
         setSearchLocation(dataLocation[0]);
-        setIsSelected(true);
+        if (startDateValue.getTime() > endDateValue.getTime()) {
+          setIsSelected(false);
+        } else {
+          setIsSelected(true);
+        }
       }
     }
     setDataLocation([]);
@@ -188,7 +198,7 @@ const MainSearch = function () {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           label={TEXT.MAIN_SEARCH.START_DATE}
-          minDate={startDate}
+          minDate={MIN_DATE}
           value={startDateValue}
           onChange={setStartDate}
           inputProps={inputProps}
@@ -205,9 +215,8 @@ const MainSearch = function () {
         <DatePicker
           label={TEXT.MAIN_SEARCH.END_DATE}
           value={endDateValue}
-          minDate={startDate}
+          minDate={MIN_DATE}
           onChange={setEndDate}
-          min={startDateValue}
           inputProps={inputProps}
           renderInput={(params) => (
             <TextField
