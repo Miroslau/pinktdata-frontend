@@ -1,17 +1,35 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { TITLE_TOPRATED } from '../../../constants/mainPageConst';
 import popularRooms from '../../../api/popular-rooms/popularRooms';
 import './TopRated.scss';
+import { apartmentSelector } from '../../../store/slice/apartmentSlice';
 import AlertError from '../../ui-components/alert-error/AlertError';
 import SkeletonForTopRated from './SkeletonForTopRated';
-import useFetch from '../../../hooks/useFetch';
+import useMountedState from '../../../hooks/useMountedState';
 
 const TopRated = function () {
+  const { startDate, endDate } = useSelector(apartmentSelector);
   const [arrayOfPopularRooms, setArrayOfPopularRooms] = useState([]);
-  const { isLoading, error } = useFetch(popularRooms.popularRooms, setArrayOfPopularRooms);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const hasMounted = useMountedState();
 
   if (error) return <AlertError />;
+
+  useEffect(() => {
+    popularRooms.popularRooms()
+      .then(({ data }) => {
+        if (hasMounted()) {
+          setArrayOfPopularRooms(data);
+        }
+      })
+      .catch((err) => setError(err.message))
+      .finally(() => {
+        if (hasMounted()) setIsLoading(false);
+      });
+  }, [hasMounted, startDate, endDate]);
 
   return (
     <div className="wrapper">
