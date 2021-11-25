@@ -2,18 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import {
-  apartmentSelector,
-  setParams,
+  apartmentSelector, setParams,
   // eslint-disable-next-line import/named
-  setBounds,
-  setPublicAddress,
+  setBounds, setPublicAddress,
 } from '../../store/slice/apartmentSlice';
 import { searchApartments } from '../../store/actions/apartmentAction';
 import useStyles from '../../style/style';
 import MapRender from '../../components/map-page/map-render/MapRender';
 import Content from '../../components/map-page/content-render/Content';
 
-const Map = () => {
+const Map = function () {
   const dispatch = useDispatch();
   const {
     publicAddress,
@@ -25,9 +23,12 @@ const Map = () => {
     count,
     bounds,
     isFetchAll,
+    startDate,
+    endDate,
   } = useSelector(apartmentSelector);
   const { priceRange, bedrooms, isMax } = searchParams;
   const [isActiveModal, setModalActive] = useState(false);
+  const [isFetchOnMapEvents, setIsFetchOnMapEvents] = useState(false);
 
   const { ref, inView } = useInView();
 
@@ -44,7 +45,10 @@ const Map = () => {
         currentPage: 0,
         ...filtersParams,
         isFilter: true,
-      })
+        bounds,
+        startDate,
+        endDate,
+      }),
     );
   };
 
@@ -52,14 +56,14 @@ const Map = () => {
     if (isFetchOnMapEvents) {
       dispatch(setBounds(cords));
       dispatch(setPublicAddress(''));
-      dispatch(
-        searchApartments({
-          currentPage: 0,
-          ...searchParams,
-          isFilter: true,
-          bounds: cords,
-        })
-      );
+      dispatch(searchApartments({
+        currentPage: 0,
+        ...searchParams,
+        isFilter: true,
+        bounds: cords,
+        startDate,
+        endDate,
+      }));
     }
   };
 
@@ -72,7 +76,10 @@ const Map = () => {
           priceRange,
           bedrooms,
           isMax,
-        })
+          bounds,
+          startDate,
+          endDate,
+        }),
       );
     }
   }, [inView]);
@@ -85,7 +92,10 @@ const Map = () => {
         priceRange,
         bedrooms,
         isMax,
-      })
+        bounds,
+        startDate,
+        endDate,
+      }),
     );
   }, []);
 

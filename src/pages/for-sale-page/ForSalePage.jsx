@@ -1,9 +1,11 @@
 import React from 'react';
 
-export default function ForSalePage() {
+const ForSalePage = function () {
   return (
     <div>
       ForSale
     </div>
   );
-}
+};
+
+export default ForSalePage;

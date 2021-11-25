@@ -9,7 +9,7 @@ import LocalizationProvider from '@mui/lab/LocalizationProvider';
 import InputLabel from '@mui/material/InputLabel';
 import RoomIcon from '@mui/icons-material/Room';
 import SearchIcon from '@mui/icons-material/Search';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Popover from '@mui/material/Popover';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
@@ -19,6 +19,7 @@ import RemoveSharpIcon from '@mui/icons-material/RemoveSharp';
 import {
   setPublicAddress,
   setParams,
+  setDate,
 } from '../../../../store/slice/apartmentSlice';
 import { doWithUserDelay } from '../../../../utils/doWithUserDelay';
 import { MAP_ROUTE } from '../../../../constants/routes';
@@ -30,9 +31,9 @@ import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
 const MAX_BEDROOM = 8;
 const MIN_BEDROOMS = 0;
 
-const MainSearch = () => {
+const MainSearch = function () {
   const dispatch = useDispatch();
-  const history = useHistory();
+  const history = useNavigate();
   const [bedroom, setBedroom] = React.useState(0);
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -58,15 +59,23 @@ const MainSearch = () => {
   const [dataLocation, setDataLocation] = useState([]);
   const [startDateValue, setStartDateValue] = useState(dateNow);
   const [endDateValue, setEndDateValue] = useState(dateNowPlusOneDay);
-  const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState({
+    locationError: false,
+    dateError: false,
+  });
   let userDelay;
 
   const defaultProps = {
     options: dataLocation,
   };
 
+  const inputProps = {
+    readOnly: true,
+  };
+
   useEffect(() => {
     isMounted.current = true;
+    dispatch(setDate({ startDate: startDateValue, endDate: endDateValue }));
     return () => {
       isMounted.current = false;
       if (userDelay) {
@@ -103,12 +112,12 @@ const MainSearch = () => {
   };
 
   const handleFocus = () => {
-    setIsError(false);
+    setIsError({ ...isError, locationError: false });
     fillDataLocations(searchLocation);
   };
 
   const handleBlur = () => {
-    if (!searchLocation) setIsError(true);
+    if (!searchLocation) setIsError({ ...isError, locationError: true });
     if (!isSelected) {
       if (dataLocation.length) {
         setSearchLocation(dataLocation[0]);
@@ -121,7 +130,27 @@ const MainSearch = () => {
   const clickSearchHandler = () => {
     dispatch(setPublicAddress({ publicAddress: searchLocation }));
     dispatch(setParams({ bedrooms: bedroom }));
-    history.push(MAP_ROUTE);
+    history(MAP_ROUTE);
+  };
+
+  const setStartDate = (newDate) => {
+    setStartDateValue(newDate);
+    if (newDate.getTime() > endDateValue.getTime()) {
+      setIsError({ ...isError, dateError: true });
+      return;
+    }
+    setIsError({ ...isError, dateError: false });
+    dispatch(setDate({ startDate: newDate, endDate: endDateValue }));
+  };
+
+  const setEndDate = (newDate) => {
+    setEndDateValue(newDate);
+    if (startDateValue.getTime() > newDate.getTime()) {
+      setIsError({ ...isError, dateError: true });
+      return;
+    }
+    setIsError({ ...isError, dateError: false });
+    dispatch(setDate({ startDate: startDateValue, endDate: newDate }));
   };
 
   return (
@@ -148,8 +177,8 @@ const MainSearch = () => {
               value={searchLocation}
               label={TEXT.MAIN_SEARCH.LOCATION}
               variant="standard"
-              error={isError}
-              helperText={isError && TEXT.MAIN_SEARCH.ERROR_LOCATION}
+              error={isError.locationError}
+              helperText={isError.locationError && TEXT.MAIN_SEARCH.ERROR_LOCATION}
             />
           )}
         />
@@ -158,20 +187,32 @@ const MainSearch = () => {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           label={TEXT.MAIN_SEARCH.START_DATE}
+          minDate={dateNow}
           value={startDateValue}
-          onChange={setStartDateValue}
+          onChange={setStartDate}
+          inputProps={inputProps}
           renderInput={(params) => (
-            <TextField {...params} className={classes.date} />
+            <TextField
+              {...params}
+              className={classes.date}
+              error={isError.dateError}
+              helperText={isError.dateError && TEXT.MAIN_SEARCH.ERROR_DATE}
+            />
           )}
         />
 
         <DatePicker
           label={TEXT.MAIN_SEARCH.END_DATE}
           value={endDateValue}
-          onChange={setEndDateValue}
+          minDate={dateNow}
+          onChange={setEndDate}
           min={startDateValue}
+          inputProps={inputProps}
           renderInput={(params) => (
-            <TextField {...params} className={classes.date} />
+            <TextField
+              {...params}
+              className={classes.date}
+            />
           )}
         />
       </LocalizationProvider>
@@ -224,7 +265,14 @@ const MainSearch = () => {
                 </Typography>
               </Grid>
               <Grid item>
-                <Fab size="small" color="primary" disabled={bedroom === MIN_BEDROOMS} aria-label="remove" name="remove" onClick={() => setBedroom(bedroom - 1)}>
+                <Fab
+                  size="small"
+                  color="primary"
+                  disabled={bedroom === MIN_BEDROOMS}
+                  aria-label="remove"
+                  name="remove"
+                  onClick={() => setBedroom(bedroom - 1)}
+                >
                   <RemoveSharpIcon />
                 </Fab>
               </Grid>

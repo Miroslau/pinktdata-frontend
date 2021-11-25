@@ -11,7 +11,7 @@ import useStyles from '../../../style/style';
 import ApartmentFilters from './apartment-filters/ApartmentFilters';
 import { TABS } from '../../../constants/map_page';
 
-const Tabs = ({ isActiveModal, setModalActive, apartmentFilter }) => {
+const Tabs = function ({ isActiveModal, setModalActive, apartmentFilter }) {
   const classes = useStyles();
 
   const handleClick = () => {

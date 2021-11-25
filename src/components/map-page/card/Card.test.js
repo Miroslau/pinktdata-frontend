@@ -1,12 +1,15 @@
 import '@testing-library/jest-dom';
 import { render, fireEvent } from '@testing-library/react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
+import { Router } from 'react-router-dom';
 
+import { createMemoryHistory } from 'history';
 import { server } from '../../../mocks/server';
 import apartments from '../../../mocks/mocks-constants/mockDataApartments';
 import Card from './Card';
 
 describe('Card Component', () => {
+  const history = createMemoryHistory();
   const mockData = apartments[0];
 
   beforeAll(() => server.listen({
@@ -16,16 +19,18 @@ describe('Card Component', () => {
   afterAll(() => server.close());
 
   it('renders card component', () => {
-    render(<Card />);
+    render(<Router location={history.location} navigator={history}><Card /></Router>);
   });
 
   it('city has in card component', async () => {
-    const { findByText } = render(<Card city={mockData.city} />);
+    // eslint-disable-next-line max-len
+    const { findByText } = render(<Router location={history.location} navigator={history}><Card city={mockData.city} /></Router>);
     expect(await findByText('Philadelphia')).toBeInTheDocument();
   });
 
   it('name has in card component', async () => {
-    const { findByText } = render(<Card name={mockData.name} />);
+    // eslint-disable-next-line max-len
+    const { findByText } = render(<Router location={history.location} navigator={history}><Card name={mockData.name} /></Router>);
     expect(await findByText('Free Parking guaranteed')).toBeInTheDocument();
   });
 

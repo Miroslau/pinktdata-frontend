@@ -2,7 +2,7 @@ import React from 'react';
 import { Slider } from '@mui/material';
 import PropTypes from 'prop-types';
 
-const RangeSliderMui = (props) => {
+const RangeSliderMui = function (props) {
   const {
     value, handleChange, valueLabelDisplay, ...other
   } = props;

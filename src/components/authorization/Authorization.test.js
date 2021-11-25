@@ -58,11 +58,11 @@ describe('user registration', () => {
     expect(result).toBeInTheDocument();
   });
 
-  it('has First name must be of length 5 to 32', async () => {
-    fireEvent.change(elementsAuthorization.inputName, { target: { value: 'Misk' } });
+  it('has First name must be of length 2 to 32', async () => {
+    fireEvent.change(elementsAuthorization.inputName, { target: { value: 'M' } });
     fireEvent.blur(elementsAuthorization.inputName);
     fireEvent.click(elementsAuthorization.submit);
-    const error = await findByText(container, 'Must be of length 5 to 32');
+    const error = await findByText(container, 'Must be of length 2 to 32');
     expect(error).toBeInTheDocument();
   });
 
@@ -90,11 +90,11 @@ describe('user registration', () => {
     expect(result).toBeInTheDocument();
   });
 
-  it('has Last name must be of length 5 to 32', async () => {
-    fireEvent.change(elementsAuthorization.inputLastName, { target: { value: 'Misk' } });
+  it('has Last name must be of length 2 to 32', async () => {
+    fireEvent.change(elementsAuthorization.inputLastName, { target: { value: 'M' } });
     fireEvent.blur(elementsAuthorization.inputLastName);
     fireEvent.click(elementsAuthorization.submit);
-    const error = await findByText(container, 'Must be of length 5 to 32');
+    const error = await findByText(container, 'Must be of length 2 to 32');
     expect(error).toBeInTheDocument();
   });
 

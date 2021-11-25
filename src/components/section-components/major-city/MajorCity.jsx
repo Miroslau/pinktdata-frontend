@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './MajorCity.scss';
 import { uniqueId } from 'lodash';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { setPublicAddress } from '../../../store/slice/apartmentSlice';
 import majorCitiesAPI from '../../../api/major-cities/majorCitiesAPI';
 import useMountedState from '../../../hooks/useMountedState';
@@ -15,10 +15,10 @@ import { MAP_ROUTE } from '../../../constants/routes';
 
 const PREFIX = 'major_cities_';
 
-const MajorCity = () => {
+const MajorCity = function () {
   const dispatch = useDispatch();
   const [majorCities, setMajorCities] = useState([]);
-  const history = useHistory();
+  const history = useNavigate();
   const hasMounted = useMountedState();
 
   useEffect(() => {
@@ -37,7 +37,7 @@ const MajorCity = () => {
 
   const openMapPageWithCity = (city) => {
     dispatch(setPublicAddress(city));
-    history.push(MAP_ROUTE);
+    history(MAP_ROUTE);
   };
 
   return (

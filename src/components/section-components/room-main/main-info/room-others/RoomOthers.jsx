@@ -7,7 +7,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import roomPreviewLocalization from '../../../../../constants/roomPreviewLocalization';
 import useHandleAccordion from '../../../../../hooks/useHandleAccordion';
 
-const RoomOthers = () => {
+const RoomOthers = function () {
   const { expanded, handleAccordionChange } = useHandleAccordion();
 
   return (

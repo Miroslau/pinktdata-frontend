@@ -57,14 +57,24 @@ const MapRender = function ({
     handleDragAndZoomMap(cords);
   };
 
-    return null;
+  const handleChange = (event) => {
+    setIsFetchOnMapEvents(event.target.checked);
   };
 
   return (
     <div className={classes.map}>
       <Box className={classes.mapLoader}>
+        {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
         {isFetching ? <LinearProgress className={classes.linear} /> : <></>}
       </Box>
+      <div className={classes.fetchBar}>
+        <Checkbox
+          checked={isFetchOnMapEvents}
+          onChange={handleChange}
+          className={classes.checkbox}
+        />
+        <span>{mapRenderLocalization.TITLE_SEARCH}</span>
+      </div>
       <MapContainer
         className={classes.lContainer}
         center={location}

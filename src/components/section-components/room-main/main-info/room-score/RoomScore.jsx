@@ -8,7 +8,7 @@ import roomPreviewLocalization from '../../../../../constants/roomPreviewLocaliz
 import { roomContext } from '../../../../../store/context/roomContext';
 import useHandleAccordion from '../../../../../hooks/useHandleAccordion';
 
-const RoomScore = () => {
+const RoomScore = function () {
   const roomCtx = useContext(roomContext);
   const { expanded, handleAccordionChange } = useHandleAccordion();
 

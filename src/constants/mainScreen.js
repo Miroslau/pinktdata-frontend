@@ -8,6 +8,7 @@ const TEXT = {
     BEDROOM_COUNT: 'Bedroom count',
     SELECT_NUMBER: 'Select the number of rooms',
     ERROR_LOCATION: 'Must be filled',
+    ERROR_DATE: 'Start date must be less',
   },
 };
 

@@ -10,7 +10,7 @@ import Tabs from '../tabs/Tabs';
 import Card from '../card/Card';
 import { TEXT } from '../../../constants/map_page';
 
-const Content = ({
+const Content = function ({
   apart,
   count,
   inViewRef,
@@ -19,15 +19,17 @@ const Content = ({
   setModalActive,
   apartmentFilter,
   isFetching,
-}) => {
+}) {
   const classes = useStyles();
+
+  const MAX_COUNT = 300;
 
   return (
     <div className={classes.mapContentWrapper}>
       <div className={classes.mapContent}>
         <TypographyMui
           variant="h5"
-          text={`${TEXT.TITLE} ${publicAddress}`}
+          text={`${TEXT.TITLE} ${publicAddress || TEXT.TEXT_ADDRESS}`}
           className={classes.title}
         />
         <Tabs
@@ -37,7 +39,7 @@ const Content = ({
         />
         <TypographyMui
           variant="h6"
-          text={`${TEXT.SUBTITLE} ${count} ${TEXT.STAYS}`}
+          text={`${TEXT.SUBTITLE} ${count > MAX_COUNT ? TEXT.TEXT_COUNT : count} ${TEXT.STAYS}`}
         />
         {isFetching && (
           <Box className={classes.contentLoader}>
@@ -80,6 +82,7 @@ Content.defaultProps = {
   isActiveModal: false,
   setModalActive: null,
   apartmentFilter: null,
+  publicAddress: null,
   inViewRef: () => {},
   isFetching: null,
 };
@@ -88,7 +91,7 @@ Content.propTypes = {
   apart: PropTypes.instanceOf(Array).isRequired,
   count: PropTypes.number.isRequired,
   inViewRef: PropTypes.func,
-  publicAddress: PropTypes.string.isRequired,
+  publicAddress: PropTypes.string,
   isActiveModal: PropTypes.bool,
   setModalActive: PropTypes.func,
   apartmentFilter: PropTypes.func,

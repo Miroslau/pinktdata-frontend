@@ -2,14 +2,19 @@ import httpClient from '../index';
 
 export default {
   searchApartments(
-    location = 'Philadelphia, PA, United State',
-    page = 1,
-    priceFrom = 0,
+    location,
     priceTo,
     bedrooms,
     isMax,
+    bounds,
+    startDate,
+    endDate,
+    page = 1,
+    priceFrom = 0,
   ) {
-    const params = { location, page, priceFrom };
+    const params = {
+      location, page, priceFrom, startDate, endDate,
+    };
     if (isMax) params.priceTo = priceTo;
     if (bounds) {
       params.neLat = bounds._northEast.lat;

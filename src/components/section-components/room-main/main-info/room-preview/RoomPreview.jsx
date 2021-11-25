@@ -2,9 +2,8 @@ import React, { useContext } from 'react';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 import { roomContext } from '../../../../../store/context/roomContext';
 import '@splidejs/splide/dist/css/themes/splide-skyblue.min.css';
-import roomPreviewLocalization from '../../../../../constants/roomPreviewLocalization';
 
-const RoomPreview = () => {
+const RoomPreview = function () {
   const roomCtx = useContext(roomContext);
 
   return (
@@ -12,13 +11,13 @@ const RoomPreview = () => {
       <img src={roomCtx.img} alt="room-preview" className="main-image" />
 
       <footer>
-        <p className="room-info">{roomPreviewLocalization.roomInfo}</p>
+
         <Splide
           options={{
             perPage: 4,
-            perMove: 2,
+            perMove: 1,
             rewind: true,
-            gap: '.3rem',
+            gap: '.5rem',
             width: '85%',
             pagination: false,
           }}

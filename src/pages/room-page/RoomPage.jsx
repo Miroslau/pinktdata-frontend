@@ -8,7 +8,6 @@ import getRoom from '../../api/get-room-by-id/getRoomById';
 import SkeletonForRoomPage from './SkeletonForRoomPage';
 import AlertError from '../../components/ui-components/alert-error/AlertError';
 import useFetch from '../../hooks/useFetch';
-
 import { clearState, setPublicAddress } from '../../store/slice/apartmentSlice';
 
 const RoomPage = function () {

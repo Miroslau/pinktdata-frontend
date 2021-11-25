@@ -4,23 +4,27 @@ import RoomLocation from './room-location/RoomLocation';
 import '../../../index.scss';
 import MainInfo from './main-info/MainInfo';
 import RoomReviews from './room-reviews/RoomReviews';
+import RoomBookButton from './room-pay-button/RoomBookButton';
 
-const RoomMain = () => (
-  <div className="room-bg">
-    <div className="room-container">
+const RoomMain = function () {
+  return (
+    <div className="room-bg">
+      <div className="room-container">
 
-      <main>
-        <RoomAbout />
-        <MainInfo />
-      </main>
+        <main>
+          <RoomAbout />
+          <MainInfo />
+        </main>
 
-      <nav>
-        <RoomLocation />
-        <RoomReviews />
-      </nav>
+        <nav>
+          <RoomLocation />
+          <RoomReviews />
+          <RoomBookButton />
+        </nav>
 
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default RoomMain;
