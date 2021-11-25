@@ -23,7 +23,6 @@ const TopRated = function () {
       .then(({ data }) => {
         if (hasMounted()) {
           setArrayOfPopularRooms(data);
-          setIsLoading(false);
         }
       })
       .catch((err) => setError(err.message))
