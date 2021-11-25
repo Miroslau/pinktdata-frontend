@@ -1,12 +1,14 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ButtonMui from '../../../ui-components/button-mui/ButtonMui';
 import { roomContext } from '../../../../store/context/roomContext';
 import roomPreviewLocalization from '../../../../constants/roomPreviewLocalization';
+import { userSelector } from '../../../../store/slice/userSlice';
 
 const RoomBookButton = () => {
   const history = useNavigate();
+  const [error, setError] = useState();
 
   const roomCtx = useContext(roomContext);
   const { price } = roomCtx;
@@ -19,13 +21,24 @@ const RoomBookButton = () => {
 
   const redirectToPaymentPage = () => history(`/payment/${totalPrice}/${roomCtx.id}`);
 
+  const { token } = useSelector(userSelector);
+
+  useEffect(() => {
+    // eslint-disable-next-line no-unused-expressions
+    token ? setError(null) : setError(roomPreviewLocalization.need_auth);
+  }, [token]);
+
   return (
     <div className="room-pay">
+      {token && (
       <p className="room-price">
         {roomPreviewLocalization.total_price}
         $
         {totalPrice}
       </p>
+      )}
+
+      {token && (
       <ButtonMui
         title={roomPreviewLocalization.book_now}
         data-testid="payment-button"
@@ -35,6 +48,8 @@ const RoomBookButton = () => {
         className="room-button"
         clickButton={redirectToPaymentPage}
       />
+      )}
+      {error && <p className="book-button-error">{error}</p>}
     </div>
   );
 };
