@@ -1,6 +1,7 @@
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { PINK_COLOR } from '../../constants/colors';
 import { paymentIntentAPI, paymentRetrieveAPI } from '../../api/payment/paymentIntent';
 import useRedirectToMainPage from '../../hooks/useRedirectToMainPage';
@@ -29,6 +30,8 @@ const CheckoutForm = () => {
   const { price } = useParams();
   const stripe = useStripe();
   const elements = useElements();
+  const startDate = useSelector((state) => state.apartment.startDate);
+  const endDate = useSelector((state) => state.apartment.endDate);
   const [errorMessage, setErrorMessage] = useState(null);
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -82,6 +85,10 @@ const CheckoutForm = () => {
 
         const { data: retrieveIntent } = await paymentRetrieveAPI({
           id: paymentIntent.id,
+          dates: {
+            startDate,
+            endDate,
+          },
         });
 
         if (retrieveIntent.status === 'succeeded') {
