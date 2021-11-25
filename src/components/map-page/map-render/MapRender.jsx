@@ -1,36 +1,43 @@
 import { useEffect, useState } from 'react';
-import L from 'leaflet';
+import { Checkbox } from '@mui/material';
 import {
-  MapContainer,
-  TileLayer,
-  Popup,
-  Tooltip,
-  useMap,
-  Marker,
+  MapContainer, TileLayer, useMap, useMapEvents,
 } from 'react-leaflet';
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
-import MarkerClusterGroup from 'react-leaflet-markercluster';
 import PropTypes from 'prop-types';
-import pointMarker from '../../../assets/svg/pointMarker.svg';
 import useStyles from '../../../style/style';
-import MapCard from '../../section-components/map-card/MapCard';
+import { mapRenderLocalization } from '../../../constants/Localizations/mapRenderLocalization';
+import Markers from './Markers';
 
-const markerIcon = new L.Icon({
-  iconUrl: pointMarker,
-  iconSize: new L.Point(32, 32),
-  shadowUrl: null,
-  shadowSize: null,
-  shadowAnchor: null,
-});
+const HandlerEventsMap = function ({ getLocation }) {
+  // eslint-disable-next-line no-unused-vars
+  const map = useMapEvents({
+    dragend: (e) => getLocation(e),
+    zoomend: (e) => getLocation(e),
+  });
 
-const createClusterCustomIcon = (cluster) => L.divIcon({
-  html: `<span>${cluster.getChildCount()}</span>`,
-  className: 'marker-cluster-custom',
-  iconSize: L.point(40, 40, true),
-});
+  return null;
+};
 
-const MapRender = ({ apart, isFetching }) => {
+const SetViewOnFetch = function ({ coords, isFetchOnMapEvents }) {
+  const map = useMap();
+  if (!isFetchOnMapEvents) {
+    map.setView(coords, map.getZoom());
+  }
+
+  return null;
+};
+
+const MapRender = function ({
+  // eslint-disable-next-line no-unused-vars
+  apart,
+  isFetching,
+  isFetchAll,
+  handleDragAndZoomMap,
+  isFetchOnMapEvents,
+  setIsFetchOnMapEvents,
+}) {
   const classes = useStyles();
   const [location, setLocation] = useState([39.94977, -75.28529]);
 
@@ -40,9 +47,15 @@ const MapRender = ({ apart, isFetching }) => {
     }
   }, [apart]);
 
-  const SetViewOnFetch = ({ coords }) => {
-    const map = useMap();
-    map.setView(coords, map.getZoom());
+  const getLocation = (mapEvent) => {
+    const cords = mapEvent.target.getBounds();
+    cords.zoom = mapEvent.target.getZoom();
+    cords.size = {
+      x: 800,
+      y: 800,
+    };
+    handleDragAndZoomMap(cords);
+  };
 
     return null;
   };
@@ -63,28 +76,12 @@ const MapRender = ({ apart, isFetching }) => {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <MarkerClusterGroup
-          iconCreateFunction={createClusterCustomIcon}
-          showCoverageOnHover={false}
-          spiderLegPolylineOptions={{ opacity: 0 }}
-        >
-          {apart.map((data) => (
-            <Marker
-              key={data._id}
-              center={[data.location.lat, data.location.lon]}
-              position={[data.location.lat, data.location.lon]}
-              icon={markerIcon}
-            >
-              <Tooltip direction="top" offset={[0, -5]} permanent>
-                {data.price}
-              </Tooltip>
-              <Popup>
-                <MapCard id={data._id} />
-              </Popup>
-            </Marker>
-          ))}
-          <SetViewOnFetch coords={location} />
-        </MarkerClusterGroup>
+        <Markers apart={apart} isFetchAll={isFetchAll} />
+        <SetViewOnFetch
+          coords={location}
+          isFetchOnMapEvents={isFetchOnMapEvents}
+        />
+        <HandlerEventsMap getLocation={getLocation} />
       </MapContainer>
     </div>
   );
@@ -93,6 +90,10 @@ const MapRender = ({ apart, isFetching }) => {
 MapRender.propTypes = {
   apart: PropTypes.instanceOf(Array).isRequired,
   isFetching: PropTypes.bool.isRequired,
+  isFetchAll: PropTypes.bool.isRequired,
+  handleDragAndZoomMap: PropTypes.func.isRequired,
+  isFetchOnMapEvents: PropTypes.bool.isRequired,
+  setIsFetchOnMapEvents: PropTypes.func.isRequired,
 };
 
 export default MapRender;

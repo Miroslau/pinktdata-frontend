@@ -8,6 +8,11 @@ import mockDataForPreviewPage from '../../mocks/mocks-constants/mockDataForPrevi
 
 jest.mock('../index.js');
 
+const mockDispatch = jest.fn();
+jest.mock('react-redux', () => ({
+  useDispatch: () => mockDispatch,
+}));
+
 describe('getRoomById function', () => {
   test('should return skeleton when data loading', async () => {
     httpClient.get.mockImplementationOnce(() => Promise.resolve({ data: mockDataForPreviewPage }));

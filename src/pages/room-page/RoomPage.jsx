@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { roomContext } from '../../store/context/roomContext';
 import './RoomPage.scss';
@@ -8,11 +9,22 @@ import SkeletonForRoomPage from './SkeletonForRoomPage';
 import AlertError from '../../components/ui-components/alert-error/AlertError';
 import useFetch from '../../hooks/useFetch';
 
-const RoomPage = () => {
+import { clearState, setPublicAddress } from '../../store/slice/apartmentSlice';
+
+const RoomPage = function () {
   const { id } = useParams();
   const [roomData, setRoomData] = useState({});
   const getData = () => getRoom.getRoomById(id);
   const { isLoading, error } = useFetch(getData, setRoomData);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(clearState());
+  }, []);
+
+  useEffect(() => {
+    dispatch(setPublicAddress({ publicAddress: roomData.address }));
+  }, [roomData]);
 
   if (error) return <AlertError />;
 
@@ -23,7 +35,6 @@ const RoomPage = () => {
         {!isLoading && <RoomMain />}
       </div>
     </roomContext.Provider>
-
   );
 };
 export default RoomPage;
