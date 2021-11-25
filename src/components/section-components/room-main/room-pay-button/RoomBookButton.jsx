@@ -31,24 +31,24 @@ const RoomBookButton = () => {
   return (
     <div className="room-pay">
       {token && (
-      <p className="room-price">
-        {roomPreviewLocalization.total_price}
-        $
-        {totalPrice}
-      </p>
+        <>
+          <p className="room-price">
+            {roomPreviewLocalization.total_price}
+            $
+            {totalPrice}
+          </p>
+          <ButtonMui
+            title={roomPreviewLocalization.book_now}
+            data-testid="payment-button"
+            ariaLabel="search-button"
+            variant="contained"
+            color="secondary"
+            className="room-button"
+            clickButton={redirectToPaymentPage}
+          />
+        </>
       )}
 
-      {token && (
-      <ButtonMui
-        title={roomPreviewLocalization.book_now}
-        data-testid="payment-button"
-        ariaLabel="search-button"
-        variant="contained"
-        color="secondary"
-        className="room-button"
-        clickButton={redirectToPaymentPage}
-      />
-      )}
       {error && <p className="book-button-error">{error}</p>}
     </div>
   );
