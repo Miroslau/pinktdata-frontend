@@ -15,6 +15,7 @@ const roomPreviewLocalization = {
   reload: 'Try to reload the page!',
   total_price: 'Total price: ',
   book_now: 'Book now',
+  need_auth: 'To booking the room you need to authorization',
 
 };
 
