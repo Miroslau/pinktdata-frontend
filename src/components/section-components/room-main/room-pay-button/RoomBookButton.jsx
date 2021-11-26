@@ -40,7 +40,6 @@ const RoomBookButton = () => {
           <ButtonMui
             title={roomPreviewLocalization.book_now}
             data-testid="payment-button"
-            ariaLabel="search-button"
             variant="contained"
             color="secondary"
             className="room-button"
