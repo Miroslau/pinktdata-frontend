@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { TextField } from '@mui/material';
 import Autocomplete from '@mui/material/Autocomplete';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
@@ -21,7 +21,6 @@ import {
   setParams,
   setDate,
   setDateParams,
-  apartmentSelector,
 } from '../../../../store/slice/apartmentSlice';
 import { doWithUserDelay } from '../../../../utils/doWithUserDelay';
 import { MAP_ROUTE } from '../../../../constants/routes';
@@ -49,8 +48,6 @@ const MainSearch = function () {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-  const { startDate, endDate } = useSelector(apartmentSelector);
-
   const MIN_DATE = new Date();
 
   const classes = useStyles();
@@ -58,8 +55,9 @@ const MainSearch = function () {
   const [searchLocation, setSearchLocation] = useState('');
   const [isSelected, setIsSelected] = useState(false);
   const [dataLocation, setDataLocation] = useState([]);
-  const [startDateValue, setStartDateValue] = useState(new Date(startDate));
-  const [endDateValue, setEndDateValue] = useState(new Date(endDate));
+  const [startDateValue, setStartDateValue] = useState(new Date());
+  // eslint-disable-next-line max-len
+  const [endDateValue, setEndDateValue] = useState(new Date(new Date().setDate(new Date().getDate() + 1)));
   const [isError, setIsError] = useState({
     locationError: false,
     dateError: false,
