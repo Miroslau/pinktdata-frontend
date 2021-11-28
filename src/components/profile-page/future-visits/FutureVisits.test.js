@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom';
 import {
-  act, findByText, getByTestId, render, screen, waitFor,
+  getByTestId, render, screen,
 } from '@testing-library/react';
 import { BrowserRouter, Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
@@ -51,23 +51,14 @@ describe('future-visits Component', () => {
     expect(text).toBeTruthy();
   });
 
-  it('fetches rooms for rents an API', async () => {
-    act(() => jest.advanceTimersByTime(1500));
-
-    await waitFor(() => {
-      const text = findByText(container, 'Free Parking guaranteed');
-      expect(text).toBeTruthy();
-    });
-  });
-
   it(' render title component RoomFutureItems', () => {
     render(
       <Router location={history.location} navigator={history}>
         <RoomFutureItems room={itemRoom} />
       </Router>,
     );
-    const title = screen.getByText(/Name title/i);
 
+    const title = screen.getByText(/Name title/i);
     expect(title).toBeInTheDocument();
   });
 
@@ -77,8 +68,8 @@ describe('future-visits Component', () => {
         <RoomFutureItems room={itemRoom} />
       </Router>,
     );
-    const data = screen.getByText(/18.11.21/i);
 
+    const data = screen.getByText(/18.11.21/i);
     expect(data).toBeInTheDocument();
   });
 
@@ -88,8 +79,8 @@ describe('future-visits Component', () => {
         <RoomFutureItems room={itemRoom} />
       </Router>,
     );
-    const img = screen.getByAltText(/Name title/i);
 
+    const img = screen.getByAltText(/Name title/i);
     expect(img).toBeInTheDocument();
   });
 
@@ -102,7 +93,6 @@ describe('future-visits Component', () => {
 
     const image = await screen.findAllByTestId('future-visits-click');
     userEvent.click(image[0]);
-    screen.debug();
-    expect(history.location.pathname).toBe('/apartments/6017d853055800005800a3de');
+    expect(history.location.pathname).toBe(`/apartments/${itemRoom.id}`);
   });
 });
