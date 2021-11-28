@@ -12,17 +12,16 @@ import httpClient from '../index';
 
 jest.mock('../index.js');
 
-const mockDispatch = jest.fn();
-jest.mock('react-redux', () => ({
-  useDispatch: () => mockDispatch,
-}));
-
 describe('getRoomById function', () => {
   const apartmentSlice = createSlice({
     name: 'apartment',
     initialState: {
       startDate: 'Thu Nov 18 2021 12:26:52 GMT+0300 (Москва, стандартное время)',
       endDate: 'Fri Nov 19 2021 12:26:52 GMT+0300 (Москва, стандартное время)',
+      searchParams: {
+        startDate: 'Thu Nov 18 2021 12:26:52 GMT+0300 (Москва, стандартное время)',
+        endDate: 'Fri Nov 19 2021 12:26:52 GMT+0300 (Москва, стандартное время)',
+      },
     },
   });
 
