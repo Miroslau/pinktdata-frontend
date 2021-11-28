@@ -3,34 +3,43 @@ import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 import roomPreviewLocalization from '../../../../constants/roomPreviewLocalization';
 import { roomContext } from '../../../../store/context/roomContext';
 import { NO_REVIEW } from '../../../../constants/reviews';
+import { ReviewForm } from './ReviewForm';
 
 const LIST_STYLE = {
   width: '100%',
   maxWidth: 360,
+  height: 450,
   bgcolor: 'background.paper',
-  fontSize: 12,
+  fontSize: 14,
+  overflowY: 'auto',
 };
-const TYPOGRAPHY_STYLE = { display: 'inline', fontSize: 12, fontWeight: 'bold' };
-import { ReviewForm } from './ReviewForm';
+const TYPOGRAPHY_STYLE = { display: 'inline', fontSize: 14, fontWeight: 'bold' };
 
 const RoomReviews = function () {
   const { review } = useContext(roomContext);
   return (
     <div className="room-component">
-      <ReviewForm />
-      <h4>
-        {review?.length ? `${review.length} ${roomPreviewLocalization.reviews}` : NO_REVIEW}
-      </h4>
+      <Grid
+        container
+        justifyContent="space-around"
+        alignItems="center"
+      >
+        <Typography variant="h6">
+          {review?.length ? `${review.length} ${roomPreviewLocalization.reviews}` : NO_REVIEW}
+        </Typography>
+        <ReviewForm />
+      </Grid>
       <List sx={LIST_STYLE}>
         {review?.map((el) => (
           <ListItem alignItems="flex-start" key={el.id}>
             <ListItemText
               secondary={(
                 <div style={{
-                  fontSize: 12,
+                  fontSize: 14,
                 }}
                 >
                   <Typography
