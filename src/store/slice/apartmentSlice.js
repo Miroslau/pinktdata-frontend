@@ -13,10 +13,14 @@ export const apartmentSlice = createSlice({
     currentPage: 0,
     count: 0,
     bounds: null,
+    startDate: new Date(),
+    endDate: new Date(new Date().setDate(new Date().getDate() + 1)),
     searchParams: {
       priceRange: [],
       bedrooms: 0,
       isMax: true,
+      startDate: new Date(),
+      endDate: new Date(new Date().setDate(new Date().getDate() + 1)),
     },
   },
   reducers: {
@@ -34,6 +38,14 @@ export const apartmentSlice = createSlice({
       ...state,
       bounds: payload,
     }),
+    setDate: (state, { payload }) => {
+      state.startDate = payload.startDate;
+      state.endDate = payload.endDate;
+    },
+    setDateParams: (state, { payload }) => {
+      state.searchParams.startDate = payload.startDate;
+      state.searchParams.endDate = payload.endDate;
+    },
     clearState: (state) => {
       state.isError = false;
       state.isFetching = false;
@@ -47,6 +59,8 @@ export const apartmentSlice = createSlice({
         priceRange: [],
         bedrooms: 0,
         isMax: true,
+        startDate: new Date(),
+        endDate: new Date(new Date().setDate(new Date().getDate() + 1)),
       };
     },
   },
@@ -72,7 +86,7 @@ export const apartmentSlice = createSlice({
 });
 
 export const {
-  setPublicAddress, clearState, setParams, setBounds,
+  setPublicAddress, clearState, setParams, setBounds, setDate, setDateParams,
 } = apartmentSlice.actions;
 
 export const apartmentSelector = (state) => state.apartment;

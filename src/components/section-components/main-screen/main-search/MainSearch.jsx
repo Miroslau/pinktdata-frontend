@@ -19,6 +19,8 @@ import RemoveSharpIcon from '@mui/icons-material/RemoveSharp';
 import {
   setPublicAddress,
   setParams,
+  setDate,
+  setDateParams,
 } from '../../../../store/slice/apartmentSlice';
 import { doWithUserDelay } from '../../../../utils/doWithUserDelay';
 import { MAP_ROUTE } from '../../../../constants/routes';
@@ -46,23 +48,28 @@ const MainSearch = function () {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-  const dateNow = new Date();
-  const dateNowPlusOneDay = new Date();
-  dateNowPlusOneDay.setDate(dateNow.getDate() + 1);
-  dateNowPlusOneDay.toLocaleDateString();
+  const MIN_DATE = new Date();
 
   const classes = useStyles();
   const isMounted = useRef(null);
   const [searchLocation, setSearchLocation] = useState('');
   const [isSelected, setIsSelected] = useState(false);
   const [dataLocation, setDataLocation] = useState([]);
-  const [startDateValue, setStartDateValue] = useState(dateNow);
-  const [endDateValue, setEndDateValue] = useState(dateNowPlusOneDay);
-  const [isError, setIsError] = useState(false);
+  const [startDateValue, setStartDateValue] = useState(new Date());
+  // eslint-disable-next-line max-len
+  const [endDateValue, setEndDateValue] = useState(new Date(new Date().setDate(new Date().getDate() + 1)));
+  const [isError, setIsError] = useState({
+    locationError: false,
+    dateError: false,
+  });
   let userDelay;
 
   const defaultProps = {
     options: dataLocation,
+  };
+
+  const inputProps = {
+    readOnly: true,
   };
 
   useEffect(() => {
@@ -98,21 +105,25 @@ const MainSearch = function () {
   };
 
   const changeOptionHandler = (e, newValue) => {
-    setIsSelected(true);
+    // eslint-disable-next-line no-unused-expressions
+    startDateValue.getTime() > endDateValue.getTime() ? setIsSelected(false)
+      : setIsSelected(true);
     setSearchLocation(newValue);
   };
 
   const handleFocus = () => {
-    setIsError(false);
+    setIsError({ ...isError, locationError: false });
     fillDataLocations(searchLocation);
   };
 
   const handleBlur = () => {
-    if (!searchLocation) setIsError(true);
+    if (!searchLocation) setIsError({ ...isError, locationError: true });
     if (!isSelected) {
       if (dataLocation.length) {
         setSearchLocation(dataLocation[0]);
-        setIsSelected(true);
+        // eslint-disable-next-line no-unused-expressions
+        startDateValue.getTime() > endDateValue.getTime() ? setIsSelected(false)
+          : setIsSelected(true);
       }
     }
     setDataLocation([]);
@@ -122,6 +133,32 @@ const MainSearch = function () {
     dispatch(setPublicAddress({ publicAddress: searchLocation }));
     dispatch(setParams({ bedrooms: bedroom }));
     history(MAP_ROUTE);
+  };
+
+  const setStartDate = (newDate) => {
+    setStartDateValue(newDate);
+    if (newDate.getTime() > endDateValue.getTime()) {
+      setIsSelected(false);
+      setIsError({ ...isError, dateError: true });
+      return;
+    }
+    if (searchLocation) setIsSelected(true);
+    setIsError({ ...isError, dateError: false });
+    dispatch(setDate({ startDate: newDate, endDate: endDateValue }));
+    dispatch(setDateParams({ startDate: newDate, endDate: endDateValue }));
+  };
+
+  const setEndDate = (newDate) => {
+    setEndDateValue(newDate);
+    if (startDateValue.getTime() > newDate.getTime()) {
+      setIsSelected(false);
+      setIsError({ ...isError, dateError: true });
+      return;
+    }
+    if (searchLocation) setIsSelected(true);
+    setIsError({ ...isError, dateError: false });
+    dispatch(setDate({ startDate: startDateValue, endDate: newDate }));
+    dispatch(setDateParams({ startDate: startDateValue, endDate: newDate }));
   };
 
   return (
@@ -148,8 +185,8 @@ const MainSearch = function () {
               value={searchLocation}
               label={TEXT.MAIN_SEARCH.LOCATION}
               variant="standard"
-              error={isError}
-              helperText={isError && TEXT.MAIN_SEARCH.ERROR_LOCATION}
+              error={isError.locationError}
+              helperText={isError.locationError && TEXT.MAIN_SEARCH.ERROR_LOCATION}
             />
           )}
         />
@@ -158,20 +195,31 @@ const MainSearch = function () {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           label={TEXT.MAIN_SEARCH.START_DATE}
+          minDate={MIN_DATE}
           value={startDateValue}
-          onChange={setStartDateValue}
+          onChange={setStartDate}
+          inputProps={inputProps}
           renderInput={(params) => (
-            <TextField {...params} className={classes.date} />
+            <TextField
+              {...params}
+              className={classes.date}
+              error={isError.dateError}
+              helperText={isError.dateError && TEXT.MAIN_SEARCH.ERROR_DATE}
+            />
           )}
         />
 
         <DatePicker
           label={TEXT.MAIN_SEARCH.END_DATE}
           value={endDateValue}
-          onChange={setEndDateValue}
-          min={startDateValue}
+          minDate={MIN_DATE}
+          onChange={setEndDate}
+          inputProps={inputProps}
           renderInput={(params) => (
-            <TextField {...params} className={classes.date} />
+            <TextField
+              {...params}
+              className={classes.date}
+            />
           )}
         />
       </LocalizationProvider>
@@ -224,7 +272,14 @@ const MainSearch = function () {
                 </Typography>
               </Grid>
               <Grid item>
-                <Fab size="small" color="primary" disabled={bedroom === MIN_BEDROOMS} aria-label="remove" name="remove" onClick={() => setBedroom(bedroom - 1)}>
+                <Fab
+                  size="small"
+                  color="primary"
+                  disabled={bedroom === MIN_BEDROOMS}
+                  aria-label="remove"
+                  name="remove"
+                  onClick={() => setBedroom(bedroom - 1)}
+                >
                   <RemoveSharpIcon />
                 </Fab>
               </Grid>

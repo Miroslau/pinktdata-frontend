@@ -1,16 +1,16 @@
 import { render, screen } from '@testing-library/react';
+import { Router } from 'react-router-dom';
 import React from 'react';
-import { Provider } from 'react-redux';
+import { createMemoryHistory } from 'history';
 import { combineReducers, configureStore, createSlice } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
+import { Provider } from 'react-redux';
 import storage from 'redux-persist/lib/storage';
-import { createMemoryHistory } from 'history';
-import { Router } from 'react-router-dom';
-import { roomContext } from '../../../../../store/context/roomContext';
-import RoomPreview from './RoomPreview';
-import mockDataForPreviewPage from '../../../../../mocks/mocks-constants/mockDataForPreviewPage';
+import { roomContext } from '../../store/context/roomContext';
+import mockDataForPreviewPage from '../../mocks/mocks-constants/mockDataForPreviewPage';
+import PaymentPage from './PaymentPage';
 
-describe('RoomPreview component', () => {
+describe('PaymentPage component', () => {
   const history = createMemoryHistory();
 
   const apartmentSlice = createSlice({
@@ -40,31 +40,17 @@ describe('RoomPreview component', () => {
     reducer: rootReducer,
   });
 
-  test('should have render images', () => {
+  test('should have render title to enter card data', () => {
     render((
       <Provider store={store}>
         <Router location={history.location} navigator={history}>
           <roomContext.Provider value={mockDataForPreviewPage}>
-            <RoomPreview />
+            <PaymentPage />
           </roomContext.Provider>
         </Router>
       </Provider>
     ));
 
-    expect(screen.getAllByAltText(/slider/i)).toBeTruthy();
-  });
-
-  test('should have render main image', () => {
-    render((
-      <Provider store={store}>
-        <Router location={history.location} navigator={history}>
-          <roomContext.Provider value={mockDataForPreviewPage}>
-            <RoomPreview />
-          </roomContext.Provider>
-        </Router>
-      </Provider>
-    ));
-
-    expect(screen.getByAltText(/room-preview/i)).toBeTruthy();
+    expect(screen.getByText(/Enter your card details/i)).toBeTruthy();
   });
 });
