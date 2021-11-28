@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import {
-  apartmentSelector, setParams,
+  apartmentSelector,
+  setParams,
   // eslint-disable-next-line import/named
-  setBounds, setPublicAddress,
+  setBounds,
+  setPublicAddress,
 } from '../../store/slice/apartmentSlice';
 import { searchApartments } from '../../store/actions/apartmentAction';
 import useStyles from '../../style/style';
@@ -23,10 +25,10 @@ const Map = function () {
     count,
     bounds,
     isFetchAll,
-    startDate,
-    endDate,
   } = useSelector(apartmentSelector);
-  const { priceRange, bedrooms, isMax } = searchParams;
+  const {
+    priceRange, bedrooms, isMax, startDate, endDate,
+  } = searchParams;
   const [isActiveModal, setModalActive] = useState(false);
   const [isFetchOnMapEvents, setIsFetchOnMapEvents] = useState(false);
 
@@ -56,14 +58,16 @@ const Map = function () {
     if (isFetchOnMapEvents) {
       dispatch(setBounds(cords));
       dispatch(setPublicAddress(''));
-      dispatch(searchApartments({
-        currentPage: 0,
-        ...searchParams,
-        isFilter: true,
-        bounds: cords,
-        startDate,
-        endDate,
-      }));
+      dispatch(
+        searchApartments({
+          currentPage: 0,
+          ...searchParams,
+          isFilter: true,
+          bounds: cords,
+          startDate,
+          endDate,
+        }),
+      );
     }
   };
 
