@@ -13,9 +13,7 @@ const RoomPage = function () {
   const [roomData, setRoomData] = useState({});
   const getData = () => getRoom.getRoomById(id);
   const { isLoading, error } = useFetch(getData, setRoomData);
-
   if (error) return <AlertError />;
-
   return (
     <roomContext.Provider value={roomData}>
       <div className="room">

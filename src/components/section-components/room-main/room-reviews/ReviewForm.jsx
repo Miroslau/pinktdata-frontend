@@ -3,7 +3,6 @@ import React, {
   useContext, useEffect, useRef, useState,
 } from 'react';
 import Button from '@mui/material/Button';
-import { uniqueId } from 'lodash';
 import { TextareaAutosize } from '@material-ui/core';
 import { clearState, userSelector } from '../../../../store/slice/userSlice';
 import ModalWindowMui from '../../../ui-components/modal-window-mui/ModalWindowMui';
@@ -76,12 +75,11 @@ export const ReviewForm = function () {
     try {
       const commentData = {
         roomId: id,
-        id: uniqueId(),
         // name: firstName,
         comment: textRef.current.value,
       };
       const { status } = await reviewsAPI.review(commentData);
-      if (status !== 200) {
+      if (status !== 201) {
         return;
       }
       textRef.current.value = '';

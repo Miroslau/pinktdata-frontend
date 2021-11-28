@@ -4,6 +4,7 @@ import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import Typography from '@mui/material/Typography';
 import Grid from '@mui/material/Grid';
+import { uniqueId } from 'lodash';
 import roomPreviewLocalization from '../../../../constants/roomPreviewLocalization';
 import { roomContext } from '../../../../store/context/roomContext';
 import { NO_REVIEW } from '../../../../constants/reviews';
@@ -20,7 +21,8 @@ const LIST_STYLE = {
 const TYPOGRAPHY_STYLE = { display: 'inline', fontSize: 14, fontWeight: 'bold' };
 
 const RoomReviews = function () {
-  const { review } = useContext(roomContext);
+  const { reviews } = useContext(roomContext);
+
   return (
     <div className="room-component">
       <Grid
@@ -29,13 +31,13 @@ const RoomReviews = function () {
         alignItems="center"
       >
         <Typography variant="h6">
-          {review?.length ? `${review.length} ${roomPreviewLocalization.reviews}` : NO_REVIEW}
+          {reviews?.length ? `${reviews.length} ${roomPreviewLocalization.reviews}` : NO_REVIEW}
         </Typography>
         <ReviewForm />
       </Grid>
       <List sx={LIST_STYLE}>
-        {review?.map((el) => (
-          <ListItem alignItems="flex-start" key={el.id}>
+        {reviews?.map((el) => (
+          <ListItem alignItems="flex-start" key={uniqueId()}>
             <ListItemText
               secondary={(
                 <div style={{
@@ -54,7 +56,7 @@ const RoomReviews = function () {
                   {' '}
                   {el.comment}
                 </div>
-                )}
+              )}
             />
           </ListItem>
         ))}
