@@ -16,6 +16,10 @@ describe('getRoomById function', () => {
     initialState: {
       startDate: 'Thu Nov 18 2021 12:26:52 GMT+0300 (Москва, стандартное время)',
       endDate: 'Fri Nov 19 2021 12:26:52 GMT+0300 (Москва, стандартное время)',
+      searchParams: {
+        startDate: 'Thu Nov 18 2021 12:26:52 GMT+0300 (Москва, стандартное время)',
+        endDate: 'Fri Nov 19 2021 12:26:52 GMT+0300 (Москва, стандартное время)',
+      },
     },
   });
 
