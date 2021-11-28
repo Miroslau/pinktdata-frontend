@@ -53,6 +53,9 @@ const useStyles = makeStyles({
   rentCardEdit: {
     display: 'none',
   },
+  upcomingTrips: {
+    // width "100%",
+  },
 });
 
 export default useStyles;

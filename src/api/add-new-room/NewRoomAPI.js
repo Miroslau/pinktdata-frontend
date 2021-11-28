@@ -12,4 +12,8 @@ export default {
   getVisitHistory() {
     return httpClient.get('/profile/history');
   },
+
+  futureRooms() {
+    return httpClient.get('/profile/future-rooms');
+  },
 };

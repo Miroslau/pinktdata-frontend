@@ -21,7 +21,7 @@ const FutureVisits = function () {
   const hasMounted = useMountedState();
 
   useEffect(() => {
-    newRoomApi.getRoomsForRent()
+    newRoomApi.futureRooms()
       .then(({ data }) => {
         if (hasMounted()) {
           setRentRooms(data);
@@ -41,7 +41,7 @@ const FutureVisits = function () {
         <Grid container rowSpacing={ROW_SPACING} columnSpacing={COLUMN_SPACING}>
           {
             rentRooms.map((room) => (
-              <Grid item xs={GRID_ITEM_XS} key={room._id}>
+              <Grid item xs={GRID_ITEM_XS} key={room.id}>
                 <RoomFutureItems room={room} isEditCard />
               </Grid>
             ))
