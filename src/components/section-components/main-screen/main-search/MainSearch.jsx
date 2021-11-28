@@ -20,6 +20,7 @@ import {
   setPublicAddress,
   setParams,
   setDate,
+  setDateParams,
   apartmentSelector,
 } from '../../../../store/slice/apartmentSlice';
 import { doWithUserDelay } from '../../../../utils/doWithUserDelay';
@@ -106,11 +107,9 @@ const MainSearch = function () {
   };
 
   const changeOptionHandler = (e, newValue) => {
-    if (startDateValue.getTime() > endDateValue.getTime()) {
-      setIsSelected(false);
-    } else {
-      setIsSelected(true);
-    }
+    // eslint-disable-next-line no-unused-expressions
+    startDateValue.getTime() > endDateValue.getTime() ? setIsSelected(false)
+      : setIsSelected(true);
     setSearchLocation(newValue);
   };
 
@@ -124,11 +123,9 @@ const MainSearch = function () {
     if (!isSelected) {
       if (dataLocation.length) {
         setSearchLocation(dataLocation[0]);
-        if (startDateValue.getTime() > endDateValue.getTime()) {
-          setIsSelected(false);
-        } else {
-          setIsSelected(true);
-        }
+        // eslint-disable-next-line no-unused-expressions
+        startDateValue.getTime() > endDateValue.getTime() ? setIsSelected(false)
+          : setIsSelected(true);
       }
     }
     setDataLocation([]);
@@ -150,6 +147,7 @@ const MainSearch = function () {
     if (searchLocation) setIsSelected(true);
     setIsError({ ...isError, dateError: false });
     dispatch(setDate({ startDate: newDate, endDate: endDateValue }));
+    dispatch(setDateParams({ startDate: newDate, endDate: endDateValue }));
   };
 
   const setEndDate = (newDate) => {
@@ -162,6 +160,7 @@ const MainSearch = function () {
     if (searchLocation) setIsSelected(true);
     setIsError({ ...isError, dateError: false });
     dispatch(setDate({ startDate: startDateValue, endDate: newDate }));
+    dispatch(setDateParams({ startDate: startDateValue, endDate: newDate }));
   };
 
   return (

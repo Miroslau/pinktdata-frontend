@@ -21,11 +21,9 @@ const Map = function () {
     isFetching,
     count,
     bounds,
-    startDate,
-    endDate,
   } = useSelector(apartmentSelector);
   const {
-    priceRange, bedrooms, isMax,
+    priceRange, bedrooms, isMax, startDate, endDate,
   } = searchParams;
   const [isActiveModal, setModalActive] = useState(false);
   const [isFetchOnMapEvents, setIsFetchOnMapEvents] = useState(false);
