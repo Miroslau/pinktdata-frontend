@@ -6,6 +6,7 @@ import mockDataApartments from './mocks-constants/mockDataApartments';
 import mockDataMajorCities from './mocks-constants/mockDataMajorCities';
 import mockDataRoomsForRent from './mocks-constants/mockDataRoomsForRent';
 import mockDataVisitHistory from './mocks-constants/mockDataVisitHistory';
+import mockDataFutureRooms from './mocks-constants/mockDataFutureRooms';
 
 export const handlers = [
   rest.post('/api/auth/registration', (req, res, ctx) => {
@@ -86,4 +87,5 @@ export const handlers = [
 
   rest.get('/api/apartments/:id', (req, res, ctx) => res(ctx.delay(1500), ctx.status(200), ctx.json(mockDataForPreviewPage))),
 
+  rest.get('/api/profile/future-rooms', (req, res, ctx) => res(ctx.delay(10), ctx.status(200), ctx.json(mockDataFutureRooms))),
 ];

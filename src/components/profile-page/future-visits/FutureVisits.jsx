@@ -1,39 +1,53 @@
-import React from 'react';
-import { styled } from '@mui/material/styles';
+import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import useMountedState from '../../../hooks/useMountedState';
+import newRoomApi from '../../../api/add-new-room/NewRoomAPI';
+import rentRoomsLocalization from '../../../constants/Localizations/rentRoomsLocalization';
+import RoomSkeletonCard from '../room-card/RoomSkeletonCard';
 import useStyles from '../Profile.style';
+import RoomFutureItems from './RoomFutureItems';
 
-const Item = styled(Paper)(({ theme }) => ({
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
+const COLUMN_SPACING = { xs: 1, sm: 2, md: 3 };
+const ROW_SPACING = 1;
+const GRID_ITEM_XS = 6;
+const BOX_SETTINGS = { width: '100%' };
 
 const FutureVisits = function () {
   const classes = useStyles();
+  const [rentRooms, setRentRooms] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const hasMounted = useMountedState();
+
+  useEffect(() => {
+    newRoomApi.futureRooms()
+      .then(({ data }) => {
+        if (hasMounted()) {
+          setRentRooms(data);
+          setIsLoading(false);
+        }
+      })
+      .catch((err) => err.message);
+  }, [hasMounted]);
+
   return (
-    <Box sx={{ width: '100%' }} className={classes.box}>
+    <Box sx={BOX_SETTINGS} className={classes.box}>
       <Typography variant="subtitle1" gutterBottom component="div" className={classes.subtitle}>
-        Upcoming Trips
+        {rentRoomsLocalization.TITLE_VISITS}
       </Typography>
-      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-        <Grid item xs={6}>
-          <Item>1</Item>
+      {isLoading && <RoomSkeletonCard />}
+      {!isLoading && (
+        <Grid container rowSpacing={ROW_SPACING} columnSpacing={COLUMN_SPACING}>
+          {
+            rentRooms.map((room) => (
+              <Grid item xs={GRID_ITEM_XS} key={room.id}>
+                <RoomFutureItems room={room} isEditCard />
+              </Grid>
+            ))
+          }
         </Grid>
-        <Grid item xs={6}>
-          <Item>2</Item>
-        </Grid>
-        <Grid item xs={6}>
-          <Item>3</Item>
-        </Grid>
-        <Grid item xs={6}>
-          <Item>4</Item>
-        </Grid>
-      </Grid>
+      )}
     </Box>
   );
 };
