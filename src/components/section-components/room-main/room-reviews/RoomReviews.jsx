@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -8,6 +8,7 @@ import { uniqueId } from 'lodash';
 import roomPreviewLocalization from '../../../../constants/roomPreviewLocalization';
 import { roomContext } from '../../../../store/context/roomContext';
 import { NO_REVIEW } from '../../../../constants/reviews';
+import reviewsAPI from '../../../../api/reviews/reviewsAPI';
 import { ReviewForm } from './ReviewForm';
 
 const LIST_STYLE = {
@@ -22,6 +23,24 @@ const TYPOGRAPHY_STYLE = { display: 'inline', fontSize: 14, fontWeight: 'bold' }
 
 const RoomReviews = function () {
   const { reviews } = useContext(roomContext);
+  const [comments, setComments] = useState(reviews);
+  const [isActiveModal, setModalActive] = useState(false);
+
+  const addReview = (comment) => {
+    reviewsAPI.review(comment)
+      .then(({ data }) => {
+        const { listing } = data;
+        const { reviews: newReviews } = listing;
+        setComments(newReviews);
+        setModalActive(false);
+      })
+      .catch((err) => {
+        setModalActive(false);
+        return err.message;
+      });
+  };
+
+  useEffect(() => {}, [comments]);
 
   return (
     <div className="room-component">
@@ -31,12 +50,16 @@ const RoomReviews = function () {
         alignItems="center"
       >
         <Typography variant="h6">
-          {reviews?.length ? `${reviews.length} ${roomPreviewLocalization.reviews}` : NO_REVIEW}
+          {comments?.length ? `${comments.length} ${roomPreviewLocalization.reviews}` : NO_REVIEW}
         </Typography>
-        <ReviewForm />
+        <ReviewForm
+          addComment={addReview}
+          isActiveModal={isActiveModal}
+          modalToggle={(value) => setModalActive(value)}
+        />
       </Grid>
       <List sx={LIST_STYLE}>
-        {reviews?.map((el) => (
+        {comments?.map((el) => (
           <ListItem alignItems="flex-start" key={uniqueId()}>
             <ListItemText
               secondary={(

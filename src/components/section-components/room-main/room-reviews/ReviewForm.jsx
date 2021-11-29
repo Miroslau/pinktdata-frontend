@@ -1,16 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, {
-  useContext, useEffect, useRef, useState,
+  useEffect, useRef, useState, useContext,
 } from 'react';
 import Button from '@mui/material/Button';
 import { TextareaAutosize } from '@material-ui/core';
+import PropTypes from 'prop-types';
 import { clearState, userSelector } from '../../../../store/slice/userSlice';
 import ModalWindowMui from '../../../ui-components/modal-window-mui/ModalWindowMui';
 import useStyles from '../../../../style/style';
 import Authorization from '../../../authorization/Authorization';
 import { loginUser, signupUser } from '../../../../store/actions/userAction';
 import { ADD, LEAVE_COMMENT } from '../../../../constants/reviews';
-import reviewsAPI from '../../../../api/reviews/reviewsAPI';
 import { roomContext } from '../../../../store/context/roomContext';
 import { authorizationLocalization } from '../../../../constants/Localizations/authorizationLocalization';
 
@@ -28,10 +28,10 @@ const TEXTAREA_STYLE = {
   fontStyle: 'italic',
 };
 
-export const ReviewForm = function () {
+export const ReviewForm = function ({ addComment, isActiveModal, modalToggle }) {
   const dispatch = useDispatch();
-  const [isActiveModal, setModalActive] = useState(false);
   const [isSignIn, setSignIn] = useState(true);
+  const textRef = useRef();
   const { id } = useContext(roomContext);
 
   const useStyle = useStyles();
@@ -43,7 +43,7 @@ export const ReviewForm = function () {
   );
 
   const closeModal = () => {
-    setModalActive(false);
+    modalToggle(false);
     setSignIn(true);
     if (isError) {
       dispatch(clearState());
@@ -55,7 +55,6 @@ export const ReviewForm = function () {
 
   useEffect(() => {
     if (isSuccess) {
-      setModalActive(false);
       dispatch(clearState());
     }
   }, [isSuccess]);
@@ -65,33 +64,19 @@ export const ReviewForm = function () {
     setSignIn(false);
   };
 
-  const textRef = useRef();
-
-  const addComment = async (e) => {
+  const submitForm = (e) => {
     e.preventDefault();
-    if (!textRef.current.value) {
-      return;
-    }
-    try {
-      const commentData = {
-        roomId: id,
-        comment: textRef.current.value,
-      };
-      const { status } = await reviewsAPI.review(commentData);
-      if (status !== 201) {
-        setModalActive(false);
-        return;
-      }
-      textRef.current.value = '';
-      setModalActive(false);
-    } catch (error) {
-      console.log(error);
-    }
+    if (!textRef.current.value) return;
+    const commentData = {
+      roomId: id,
+      comment: textRef.current.value,
+    };
+    addComment(commentData);
   };
 
   return (
     <div>
-      <Button size="small" variant="outlined" onClick={() => setModalActive(true)}>
+      <Button size="small" variant="outlined" onClick={() => modalToggle(true)}>
         {LEAVE_COMMENT}
       </Button>
 
@@ -106,7 +91,7 @@ export const ReviewForm = function () {
         {
           token
             ? (
-              <form onSubmit={addComment} className="form">
+              <form onSubmit={submitForm} className="form">
                 <TextareaAutosize
                   maxRows={4}
                   aria-label="maximum height"
@@ -128,4 +113,10 @@ export const ReviewForm = function () {
       </ModalWindowMui>
     </div>
   );
+};
+
+ReviewForm.propTypes = {
+  addComment: PropTypes.func.isRequired,
+  isActiveModal: PropTypes.bool.isRequired,
+  modalToggle: PropTypes.func.isRequired,
 };
