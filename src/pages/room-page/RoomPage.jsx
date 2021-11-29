@@ -20,6 +20,7 @@ const RoomPage = function () {
   const { id } = useParams();
   const [roomData, setRoomData] = useState({});
   const getData = () => getRoom.getRoomById(id, startDate, endDate);
+  console.log(roomData);
   const { isLoading, error } = useFetch(getData, setRoomData);
 
   const dispatch = useDispatch();
