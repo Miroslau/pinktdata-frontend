@@ -10,6 +10,18 @@ import useStyles from '../../../style/style';
 import { mapRenderLocalization } from '../../../constants/Localizations/mapRenderLocalization';
 import Markers from './Markers';
 
+const getCords = (map) => {
+  const VIEW_SIZE = 800;
+  const cords = map.getBounds();
+  cords.zoom = map.getZoom();
+  cords.size = {
+    x: VIEW_SIZE,
+    y: VIEW_SIZE,
+  };
+
+  return cords;
+};
+
 const HandlerEventsMap = function ({ getLocation }) {
   // eslint-disable-next-line no-unused-vars
   const map = useMapEvents({
@@ -20,17 +32,27 @@ const HandlerEventsMap = function ({ getLocation }) {
   return null;
 };
 
-const SetViewOnFetch = function ({ coords, isFetchOnMapEvents }) {
+const SetViewOnFetch = function ({
+  coords,
+  isFetchOnMapEvents,
+  handleDragAndZoomMap,
+}) {
   const map = useMap();
   if (!isFetchOnMapEvents) {
     map.setView(coords, map.getZoom());
   }
 
+  useEffect(() => {
+    if (isFetchOnMapEvents) {
+      const cords = getCords(map);
+      handleDragAndZoomMap(cords);
+    }
+  }, [isFetchOnMapEvents]);
+
   return null;
 };
 
 const MapRender = function ({
-  // eslint-disable-next-line no-unused-vars
   apart,
   isFetching,
   isFetchAll,
@@ -48,12 +70,7 @@ const MapRender = function ({
   }, [apart]);
 
   const getLocation = (mapEvent) => {
-    const cords = mapEvent.target.getBounds();
-    cords.zoom = mapEvent.target.getZoom();
-    cords.size = {
-      x: 800,
-      y: 800,
-    };
+    const cords = getCords(mapEvent.target);
     handleDragAndZoomMap(cords);
   };
 
@@ -82,16 +99,22 @@ const MapRender = function ({
         scrollWheelZoom
         on
       >
+        <HandlerEventsMap getLocation={getLocation} />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <Markers apart={apart} isFetchAll={isFetchAll} />
+        <Markers
+          apart={apart}
+          isFetchAll={isFetchAll}
+          isFetching={isFetching}
+          isFetchOnMapEvents={isFetchOnMapEvents}
+        />
         <SetViewOnFetch
           coords={location}
           isFetchOnMapEvents={isFetchOnMapEvents}
+          handleDragAndZoomMap={handleDragAndZoomMap}
         />
-        <HandlerEventsMap getLocation={getLocation} />
       </MapContainer>
     </div>
   );

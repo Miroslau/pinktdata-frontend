@@ -117,7 +117,7 @@ const Map = function () {
         isFetching={isFetching}
       />
       <MapRender
-        apart={clusters.length ? clusters : apartments}
+        apart={isFetchOnMapEvents ? clusters : apartments}
         isFetching={isFetching}
         isFetchAll={isFetchAll}
         handleDragAndZoomMap={handleDragAndZoomMap}

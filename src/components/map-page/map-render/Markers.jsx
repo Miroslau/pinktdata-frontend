@@ -16,9 +16,13 @@ const markerIcon = new L.Icon({
 });
 
 const dynamicSize = (count) => {
-  if (count / 100 >= 100) return 50;
-  if (count / 100 >= 10) return 45;
-  return 40;
+  const divider = 100;
+  const wideMarkerSize = 50;
+  const mediumMarkerSize = 45;
+  const smallMarkerSize = 40;
+  if (count / divider >= 100) return wideMarkerSize;
+  if (count / divider >= 10) return mediumMarkerSize;
+  return smallMarkerSize;
 };
 
 const createClusterCustomIcon = (cluster) => {
@@ -39,15 +43,23 @@ const createCustomClusterIcon = (count) => {
   });
 };
 
-const Markers = function ({ apart, isFetchAll }) {
+const spiderLegPolylineOptions = { opacity: 0 };
+const defaultOffset = [0, -5];
+
+const Markers = function ({
+  apart,
+  isFetchAll,
+  isFetching,
+  isFetchOnMapEvents,
+}) {
   const map = useMap();
 
-  if (isFetchAll) {
+  if (isFetchAll || !isFetchOnMapEvents) {
     return (
       <MarkerClusterGroup
         iconCreateFunction={createClusterCustomIcon}
         showCoverageOnHover={false}
-        spiderLegPolylineOptions={{ opacity: 0 }}
+        spiderLegPolylineOptions={spiderLegPolylineOptions}
       >
         {apart.map((data) => (
           <Marker
@@ -56,7 +68,7 @@ const Markers = function ({ apart, isFetchAll }) {
             position={[data.location.lat, data.location.lon]}
             icon={markerIcon}
           >
-            <Tooltip direction="top" offset={[0, -5]} permanent>
+            <Tooltip direction="top" offset={defaultOffset} permanent>
               {data.price}
             </Tooltip>
             <Popup>
@@ -68,43 +80,48 @@ const Markers = function ({ apart, isFetchAll }) {
     );
   }
 
-  return apart.map((data) => {
-    if (data.totalCount > 1) {
+  if (!isFetching) {
+    return apart.map((data) => {
+      if (data.totalCount > 1) {
+        return (
+          <Marker
+            key={data._id}
+            center={[data.location.lat, data.location.lon]}
+            position={[data.location.lat, data.location.lon]}
+            icon={createCustomClusterIcon(data.totalCount)}
+            eventHandlers={{
+              click: (e) => {
+                map.setView(e.latlng, map.getZoom() + 2);
+              },
+            }}
+          />
+        );
+      }
       return (
         <Marker
           key={data._id}
           center={[data.location.lat, data.location.lon]}
           position={[data.location.lat, data.location.lon]}
-          icon={createCustomClusterIcon(data.totalCount)}
-          eventHandlers={{
-            click: (e) => {
-              map.setView(e.latlng, map.getZoom() + 2);
-            },
-          }}
-        />
+          icon={markerIcon}
+        >
+          <Tooltip direction="top" offset={defaultOffset} permanent>
+            {data.price}
+          </Tooltip>
+          <Popup>
+            <MapCard id={data._id} />
+          </Popup>
+        </Marker>
       );
-    }
-    return (
-      <Marker
-        key={data._id}
-        center={[data.location.lat, data.location.lon]}
-        position={[data.location.lat, data.location.lon]}
-        icon={markerIcon}
-      >
-        <Tooltip direction="top" offset={[0, -5]} permanent>
-          {data.price}
-        </Tooltip>
-        <Popup>
-          <MapCard id={data._id} />
-        </Popup>
-      </Marker>
-    );
-  });
+    });
+  }
+  return null;
 };
 
 Markers.propTypes = {
   apart: PropTypes.instanceOf(Array).isRequired,
+  isFetching: PropTypes.bool.isRequired,
   isFetchAll: PropTypes.bool.isRequired,
+  isFetchOnMapEvents: PropTypes.bool.isRequired,
 };
 
 export default Markers;
