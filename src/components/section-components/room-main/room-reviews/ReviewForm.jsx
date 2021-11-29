@@ -75,11 +75,11 @@ export const ReviewForm = function () {
     try {
       const commentData = {
         roomId: id,
-        // name: firstName,
         comment: textRef.current.value,
       };
       const { status } = await reviewsAPI.review(commentData);
       if (status !== 201) {
+        setModalActive(false);
         return;
       }
       textRef.current.value = '';
