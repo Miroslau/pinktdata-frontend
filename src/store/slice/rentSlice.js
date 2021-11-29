@@ -10,8 +10,8 @@ const initialState = {
   name: '',
   city: '',
   publicAddress: '',
-  amount: 0,
   currency: '',
+  amount: 0,
   bedrooms: 0,
 };
 
@@ -27,8 +27,8 @@ export const rentSlice = createSlice({
       state.name = '';
       state.city = '';
       state.publicAddress = '';
-      state.amount = 0;
       state.currency = '';
+      state.amount = 0;
       state.bedrooms = 0;
     },
   },
@@ -40,8 +40,8 @@ export const rentSlice = createSlice({
       state.name = payload.name;
       state.city = payload.city;
       state.publicAddress = payload.publicAddress;
-      state.amount = payload.amount;
       state.currency = payload.currency;
+      state.amount = payload.amount;
       state.bedrooms = payload.bedrooms;
     },
     [addNewRoom.pending]: (state) => {

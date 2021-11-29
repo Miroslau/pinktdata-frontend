@@ -5,7 +5,6 @@ const UseForm = (validateRoomErrors, callback, callBackFunction) => {
     name: '',
     city: '',
     publicAddress: '',
-    currency: '',
     amount: '',
     bedroomsCount: '',
   });
@@ -23,7 +22,6 @@ const UseForm = (validateRoomErrors, callback, callBackFunction) => {
       name: '',
       city: '',
       publicAddress: '',
-      currency: '',
       amount: '',
       bedroomsCount: '',
     });

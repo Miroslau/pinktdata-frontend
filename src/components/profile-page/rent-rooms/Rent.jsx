@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
+import PropTypes from 'prop-types';
 import useStyles from '../Profile.style';
 import newRoomApi from '../../../api/add-new-room/NewRoomAPI';
 import useMountedState from '../../../hooks/useMountedState';
@@ -14,7 +15,7 @@ const ROW_SPACING = 1;
 const GRID_ITEM_XS = 6;
 const BOX_SETTINGS = { width: '100%' };
 
-const Rent = function () {
+const Rent = function ({ submitForm }) {
   const classes = useStyles();
   const [rentRooms, setRentRooms] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -42,7 +43,7 @@ const Rent = function () {
         {
                   rentRooms.map((room) => (
                     <Grid item xs={GRID_ITEM_XS} key={room._id}>
-                      <RoomCard room={room} isEditCard />
+                      <RoomCard room={room} isEditCard submitForm={submitForm} />
                     </Grid>
                   ))
               }
@@ -50,6 +51,10 @@ const Rent = function () {
       )}
     </Box>
   );
+};
+
+Rent.propTypes = {
+  submitForm: PropTypes.func.isRequired,
 };
 
 export default Rent;

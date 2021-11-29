@@ -54,7 +54,7 @@ const ProfilePage = function () {
       </div>
       <History />
       <FutureVisits />
-      <Rent />
+      <Rent submitForm={addRoom} />
       <ModalWindowMui
         clickButton={closeModal}
         title="Add New Room"

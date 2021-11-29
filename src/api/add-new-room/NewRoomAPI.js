@@ -2,11 +2,11 @@ import httpClient from '../index';
 
 export default {
   addRoom(room) {
-    return httpClient.post('/profile/addRoom', room);
+    return httpClient.post('/apartments', room);
   },
 
   getRoomsForRent() {
-    return httpClient.get('/profile/rooms');
+    return httpClient.get('/apartments/user-apartments');
   },
 
   getVisitHistory() {
