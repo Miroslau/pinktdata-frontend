@@ -14,6 +14,16 @@ import useFetch from '../../../hooks/useFetch';
 import useRedirectToPreviewPageById from '../../../hooks/useRedirectToPreviewPageById';
 import handleEnterPress from '../../../utils/handleEnterPress';
 
+const splideOptions = {
+  perPage: 1,
+  perMove: 1,
+  rewind: true,
+  width: '100%',
+  pagination: true,
+  drag: false,
+  keyboard: false,
+};
+
 const MapCard = function ({ id }) {
   const { searchParams } = useSelector(apartmentSelector);
   const { startDate, endDate } = searchParams;
@@ -34,17 +44,7 @@ const MapCard = function ({ id }) {
         </div>
 
         {!isLoading && (
-          <Splide
-            options={{
-              perPage: 1,
-              perMove: 1,
-              rewind: true,
-              width: '100%',
-              pagination: true,
-              drag: false,
-              keyboard: false,
-            }}
-          >
+          <Splide options={splideOptions}>
             {roomData.images
               .map(({ id: imageId, picture }) => (
                 <SplideSlide
