@@ -2,6 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import SearchIcon from '@mui/icons-material/Search';
 import RoomIcon from '@mui/icons-material/Room';
+import { format } from 'date-fns';
 import { apartmentSelector } from '../../../../../store/slice/apartmentSlice';
 import useStyles from '../../../../../style/style';
 import { searchApartments } from '../../../../../store/actions/apartmentAction';
@@ -13,9 +14,17 @@ import useRedirectToMainPage from '../../../../../hooks/useRedirectToMainPage';
 
 const SearchBar = function () {
   const dispatch = useDispatch();
-  const { publicAddress, searchParams } = useSelector(apartmentSelector);
+  const {
+    publicAddress, searchParams, startDate, endDate,
+  } = useSelector(apartmentSelector);
   const { bedrooms } = searchParams;
   const redirectToMainPage = useRedirectToMainPage();
+
+  const newStartDateMonth = format(new Date(startDate), 'MMM-dd');
+  const newEndDateMonth = format(new Date(endDate), 'MMM-dd');
+
+  console.log(newStartDateMonth);
+  console.log(newEndDateMonth);
 
   const classes = useStyles();
 
@@ -45,6 +54,11 @@ const SearchBar = function () {
           {bedrooms}
           {' '}
           {searchLocalizationt.TITLE_BEDROOMS}
+        </div>
+        <div className="search-bar-form__text">
+          {newStartDateMonth}
+          {' '}
+          {newEndDateMonth}
         </div>
         <ButtonMui
           data-testid="search-button"
