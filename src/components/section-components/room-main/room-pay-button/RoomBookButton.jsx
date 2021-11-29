@@ -11,7 +11,7 @@ const RoomBookButton = () => {
   const [error, setError] = useState();
 
   const roomCtx = useContext(roomContext);
-  const { price } = roomCtx;
+  const { price, isBooked } = roomCtx;
   const parsedPrice = price.slice(1);
   const startDate = useSelector((state) => state.apartment.startDate);
   const endDate = useSelector((state) => state.apartment.endDate);
@@ -30,7 +30,7 @@ const RoomBookButton = () => {
 
   return (
     <div className="room-pay">
-      {token && (
+      {token && !isBooked && (
         <>
           <p className="room-price">
             {roomPreviewLocalization.total_price}
@@ -49,6 +49,7 @@ const RoomBookButton = () => {
       )}
 
       {error && <p className="book-button-error">{error}</p>}
+      {isBooked && token && <p className="book-button-booked">{roomPreviewLocalization.isBooked}</p>}
     </div>
   );
 };
