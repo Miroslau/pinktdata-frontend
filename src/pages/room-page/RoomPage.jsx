@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { roomContext } from '../../store/context/roomContext';
 import './RoomPage.scss';
@@ -8,12 +8,18 @@ import getRoom from '../../api/get-room-by-id/getRoomById';
 import SkeletonForRoomPage from './SkeletonForRoomPage';
 import AlertError from '../../components/ui-components/alert-error/AlertError';
 import useFetch from '../../hooks/useFetch';
-import { clearState, setPublicAddress } from '../../store/slice/apartmentSlice';
+import {
+  clearState,
+  setPublicAddress,
+  apartmentSelector,
+} from '../../store/slice/apartmentSlice';
 
 const RoomPage = function () {
+  const { searchParams } = useSelector(apartmentSelector);
+  const { startDate, endDate } = searchParams;
   const { id } = useParams();
   const [roomData, setRoomData] = useState({});
-  const getData = () => getRoom.getRoomById(id);
+  const getData = () => getRoom.getRoomById(id, startDate, endDate);
   const { isLoading, error } = useFetch(getData, setRoomData);
 
   const dispatch = useDispatch();
