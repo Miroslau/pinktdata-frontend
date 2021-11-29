@@ -59,9 +59,6 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     alignItems: 'center',
   },
-  upcomingTrips: {
-    // width "100%",
-  },
 });
 
 export default useStyles;
