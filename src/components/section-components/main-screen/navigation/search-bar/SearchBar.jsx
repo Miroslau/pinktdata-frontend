@@ -20,11 +20,8 @@ const SearchBar = function () {
   const { bedrooms } = searchParams;
   const redirectToMainPage = useRedirectToMainPage();
 
-  const newStartDateMonth = format(new Date(startDate), 'MMM-dd');
-  const newEndDateMonth = format(new Date(endDate), 'MMM-dd');
-
-  console.log(newStartDateMonth);
-  console.log(newEndDateMonth);
+  const newStartDateMonth = format(new Date(startDate), 'MMM dd');
+  const newEndDateMonth = format(new Date(endDate), 'MMM dd');
 
   const classes = useStyles();
 
@@ -57,7 +54,7 @@ const SearchBar = function () {
         </div>
         <div className="search-bar-form__text">
           {newStartDateMonth}
-          {' '}
+          {' - '}
           {newEndDateMonth}
         </div>
         <ButtonMui
