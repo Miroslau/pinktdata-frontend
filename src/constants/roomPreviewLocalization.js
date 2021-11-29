@@ -16,6 +16,7 @@ const roomPreviewLocalization = {
   total_price: 'Total price: ',
   book_now: 'Book now',
   need_auth: 'To booking the room you need to authorization',
+  isBooked: 'This room is booked on this dates',
 
 };
 
