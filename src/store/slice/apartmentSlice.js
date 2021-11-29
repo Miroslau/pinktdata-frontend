@@ -9,6 +9,8 @@ export const apartmentSlice = createSlice({
     isError: false,
     errorMessage: '',
     apartments: [],
+    clusters: [],
+    isFetchAll: true,
     publicAddress: '',
     currentPage: 0,
     count: 0,
@@ -50,7 +52,9 @@ export const apartmentSlice = createSlice({
       state.isError = false;
       state.isFetching = false;
       state.isSuccess = false;
+      state.isFetchAll = true;
       state.apartments = [];
+      state.clusters = [];
       state.publicAddress = '';
       state.currentPage = 0;
       state.count = 0;
@@ -71,6 +75,8 @@ export const apartmentSlice = createSlice({
         : [...state.apartments, ...payload.apartments];
       state.currentPage = payload.isFilter ? 1 : state.currentPage += 1;
       state.count = payload.count;
+      state.clusters = payload.clusters;
+      state.isFetchAll = payload.isFetchAll;
       state.isSuccess = true;
       state.isFetching = false;
     },
