@@ -19,13 +19,44 @@
   &-info {
     display: grid;
     text-align: left;
-    grid-gap: 10px;
-    font-size: 18px;
+    grid-gap: 5px;
+    font-size: 14px;
 
     &__title {
       font-weight: 600;
-      font-size: 1.5rem;
+      font-size: 1.1rem;
       color: $color-black;
+    }
+
+    &__amount, &__bedroom {
+      display: flex;
+      align-items: center;
+      width: 25px;
+      border: none;
+      column-gap: 5px;
+    }
+
+    input:disabled {
+      background: transparent;
+      cursor: default;
+      border: none;
+    }
+
+    textarea {
+      border: none;
+      resize: none;
+      overflow-wrap: break-word;
+    }
+
+    textarea:disabled {
+      background: transparent;
+      cursor: default;
+    }
+    textarea::-webkit-scrollbar {
+      width: 0;
+      height: 0;
     }
   }
 }
+
+

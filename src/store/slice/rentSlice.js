@@ -10,6 +10,7 @@ const initialState = {
   name: '',
   city: '',
   publicAddress: '',
+  currency: '',
   amount: 0,
   bedrooms: 0,
 };
@@ -26,6 +27,7 @@ export const rentSlice = createSlice({
       state.name = '';
       state.city = '';
       state.publicAddress = '';
+      state.currency = '';
       state.amount = 0;
       state.bedrooms = 0;
     },
@@ -38,6 +40,7 @@ export const rentSlice = createSlice({
       state.name = payload.name;
       state.city = payload.city;
       state.publicAddress = payload.publicAddress;
+      state.currency = payload.currency;
       state.amount = payload.amount;
       state.bedrooms = payload.bedrooms;
     },

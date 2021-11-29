@@ -2,11 +2,9 @@ import React, { useState } from 'react';
 import { FileUploader } from 'react-drag-drop-files';
 import PropTypes from 'prop-types';
 
-import MenuItem from '@mui/material/MenuItem';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
-import TextField from '@material-ui/core/TextField';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import useStyles from '../Profile.style';
@@ -15,7 +13,6 @@ import ButtonMui from '../../ui-components/button-mui/ButtonMui';
 import TextFieldMui from '../../ui-components/text-field-mui/TextFieldMui';
 import { newRoomAmountField, newRoomTextField } from '../../../constants/newRoom/newRoom';
 import { fileTypes } from '../../../constants/newRoom/fileTypes';
-import { currencies } from '../../../constants/newRoom/currency';
 import { validateAddRoomErrors } from '../../../mixins/validateAddRoomErrors';
 import useCreateRoomForm from '../../../hooks/useCreateRoomForm';
 
@@ -27,12 +24,7 @@ const NewRoom = function ({ submitForm }) {
     submitForm,
   );
   const classes = useStyles();
-  const [currency, setCurrency] = useState('USD');
   const [file, setFile] = useState(null);
-
-  const currencyHandler = (event) => {
-    setCurrency(event.target.value);
-  };
 
   const fileHandler = () => {
     setFile(file);
@@ -70,22 +62,6 @@ const NewRoom = function ({ submitForm }) {
               <Grid item xs={6} md={4} className={classes.textField}>
                 <Box>
                   <div>
-                    <TextField
-                      id="outlined-select-currency"
-                      select
-                      label="select"
-                      value={currency}
-                      onChange={currencyHandler}
-                      helperText="Please select your currency"
-                      size="small"
-                      margin="dense"
-                    >
-                      {currencies.map((option) => (
-                        <MenuItem key={option.value} value={option.value}>
-                          {option.label}
-                        </MenuItem>
-                      ))}
-                    </TextField>
                     {
                           newRoomAmountField.map((field) => (
                             <TextFieldMui
@@ -99,7 +75,6 @@ const NewRoom = function ({ submitForm }) {
                               label={field.title}
                               placeholder={field.placeholder}
                               inputText={handleChange}
-                              size="small"
                               margin="dense"
                             />
                           ))

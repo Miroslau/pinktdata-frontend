@@ -73,10 +73,10 @@ export const handlers = [
     return res(ctx.delay(), ctx.status(200), ctx.json(result));
   }),
 
-  rest.get('/api/profile/user-apartments', (req, res, ctx) => res(ctx.delay(1500), ctx.status(200), ctx.json(mockDataRoomsForRent))),
+  rest.get('/api/apartments/user-apartments', (req, res, ctx) => res(ctx.delay(1500), ctx.status(200), ctx.json(mockDataRoomsForRent))),
   rest.get('/api/profile/history', (req, res, ctx) => res(ctx.delay(1500), ctx.status(200), ctx.json(mockDataVisitHistory))),
 
-  rest.post('/api/profile/addRoom', (req, res, ctx) => {
+  rest.post('/api/apartments', (req, res, ctx) => {
     const obj = req.body;
     mockDataRoomsForRent.push(obj);
     return res(ctx.delay(), ctx.status(200), ctx.json(mockDataRoomsForRent));

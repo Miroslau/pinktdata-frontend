@@ -51,7 +51,13 @@ const useStyles = makeStyles({
     justifyContent: 'center',
   },
   rentCardEdit: {
-    display: 'none',
+    height: '10%',
+  },
+  additionalBtn: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'column',
+    alignItems: 'center',
   },
 });
 
