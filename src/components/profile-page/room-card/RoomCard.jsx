@@ -65,27 +65,23 @@ const RoomCard = function ({ room, isEditCard, submitForm }) {
   return (
     <Item className="room-card">
       <div className="room-card__img">
-        {
-          images.length > 1
-            ? (
-              <Splide options={splideOptions}>
-                {
-                      images.map((image) => (
-                        <SplideSlide key={image.id}>
-                          <img src={image.picture} alt={name} />
-                        </SplideSlide>
-                      )).splice(0, 10)
-                    }
-              </Splide>
-            )
-            : (
-              <img
-                className="room-card__img"
-                src={room.images.length ? room.images[0].picture : defaultImage}
-                alt={name}
-              />
-            )
-        }
+        {images.length > 1 ? (
+          <Splide options={splideOptions}>
+            {images
+              .map((image) => (
+                <SplideSlide key={image.id}>
+                  <img src={image.picture} alt={name} />
+                </SplideSlide>
+              ))
+              .splice(0, 10)}
+          </Splide>
+        ) : (
+          <img
+            className="room-card__img"
+            src={room.images.length ? room.images[0].picture : defaultImage}
+            alt={name}
+          />
+        )}
       </div>
       <form className="room-card-info" onChange={handleChange}>
         <textarea
@@ -127,6 +123,7 @@ const RoomCard = function ({ room, isEditCard, submitForm }) {
         <div className="room-card-info__bedroom">
           {rentRoomsLocalization.CARD_COUNT}
           {' '}
+          {room.bedrooms}
           <input
             ref={bedroomsCountRef}
             value={room.bedroomCount}
@@ -135,40 +132,37 @@ const RoomCard = function ({ room, isEditCard, submitForm }) {
           />
         </div>
       </form>
-      {
-        isEditCard
-        && (
-          <div className={classes.additionalBtn}>
-            <Button
-              variant="text"
-              className={classes.rentCardEdit}
-              onClick={editCardHandler}
-            >
-              <ModeEditIcon />
-            </Button>
-            <Button
-              variant="text"
-              className={classes.rentCardEdit}
-              onClick={handleSubmit}
-            >
-              <SaveIcon />
-            </Button>
-          </div>
-        )
-      }
+      {isEditCard && (
+        <div className={classes.additionalBtn}>
+          <Button
+            variant="text"
+            className={classes.rentCardEdit}
+            onClick={editCardHandler}
+          >
+            <ModeEditIcon />
+          </Button>
+          <Button
+            variant="text"
+            className={classes.rentCardEdit}
+            onClick={handleSubmit}
+          >
+            <SaveIcon />
+          </Button>
+        </div>
+      )}
     </Item>
   );
 };
 
 RoomCard.defaultProps = {
-  room: null,
   isEditCard: true,
+  submitForm: () => {},
 };
 
 RoomCard.propTypes = {
-  room: PropTypes.instanceOf(Object),
+  room: PropTypes.instanceOf(Object).isRequired,
   isEditCard: PropTypes.bool,
-  submitForm: PropTypes.func.isRequired,
+  submitForm: PropTypes.func,
 };
 
 export default RoomCard;

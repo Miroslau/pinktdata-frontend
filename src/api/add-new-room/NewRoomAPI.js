@@ -14,6 +14,6 @@ export default {
   },
 
   futureRooms() {
-    return httpClient.get('/trips/future-rooms');
+    return httpClient.get('/trips/future');
   },
 };

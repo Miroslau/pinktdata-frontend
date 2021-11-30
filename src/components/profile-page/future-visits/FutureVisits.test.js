@@ -26,18 +26,21 @@ describe('future-visits Component', () => {
   });
 
   const itemRoom = {
-    id: '6017d853055800005800a3de',
-    name: 'Name title',
-    address: 'Text address',
-    city: 'New York',
-    data: '18.11.21',
-    bedroomCount: 2,
-    images: [
-      {
-        id: '765462109',
-        picture: 'https://media-cdn.tripadvisor.com/media/photo-s/16/45/16/dd/the-mood-luxury-rooms.jpg?im_w=720',
-      },
-    ],
+    endDate: '2021-12-01T12:00:00.000Z',
+    startDate: '2021-11-30T12:00:00.000Z',
+    room: {
+      id: '6017d853055800005800a3de',
+      name: 'Name title',
+      address: 'Text address',
+      city: 'New York',
+      bedroomCount: 2,
+      images: [
+        {
+          id: '765462109',
+          picture: 'https://media-cdn.tripadvisor.com/media/photo-s/16/45/16/dd/the-mood-luxury-rooms.jpg?im_w=720',
+        },
+      ],
+    },
   };
 
   const history = createMemoryHistory();
@@ -54,7 +57,7 @@ describe('future-visits Component', () => {
   it(' render title component RoomFutureItems', () => {
     render(
       <Router location={history.location} navigator={history}>
-        <RoomFutureItems room={itemRoom} />
+        <RoomFutureItems visit={itemRoom} />
       </Router>,
     );
 
@@ -65,18 +68,18 @@ describe('future-visits Component', () => {
   it(' render data component RoomFutureItems', () => {
     render(
       <Router location={history.location} navigator={history}>
-        <RoomFutureItems room={itemRoom} />
+        <RoomFutureItems visit={itemRoom} />
       </Router>,
     );
 
-    const data = screen.getByText(/18.11.21/i);
+    const data = screen.getByText(/30.11.2021/i);
     expect(data).toBeInTheDocument();
   });
 
   it(' render img component RoomFutureItems', () => {
     render(
       <Router location={history.location} navigator={history}>
-        <RoomFutureItems room={itemRoom} />
+        <RoomFutureItems visit={itemRoom} />
       </Router>,
     );
 
@@ -87,12 +90,12 @@ describe('future-visits Component', () => {
   it('redirect to preview page on click title on card', async () => {
     render(
       <Router location={history.location} navigator={history}>
-        <RoomFutureItems room={itemRoom} />
+        <RoomFutureItems visit={itemRoom} />
       </Router>,
     );
 
     const image = await screen.findAllByTestId('future-visits-click');
     userEvent.click(image[0]);
-    expect(history.location.pathname).toBe(`/apartments/${itemRoom.id}`);
+    expect(history.location.pathname).toBe(`/apartments/${itemRoom.room.id}`);
   });
 });
