@@ -6,6 +6,8 @@ import Paper from '@mui/material/Paper';
 import PropTypes from 'prop-types';
 import InfoIcon from '@mui/icons-material/Info';
 import { useNavigate } from 'react-router-dom';
+import moment from 'moment';
+
 import rentRoomsLocalization from '../../../constants/Localizations/rentRoomsLocalization';
 import defaultImage from '../../../assets/default-image.webp';
 
@@ -16,7 +18,7 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const RoomFutureItems = function ({ room, isEditCard }) {
+const RoomFutureItems = function ({ visit, isEditCard }) {
   const splideOptions = {
     perPage: 1,
     perMove: 1,
@@ -34,36 +36,31 @@ const RoomFutureItems = function ({ room, isEditCard }) {
     const redirectFunction = () => history(`/apartments/${pageId}`);
     return redirectFunction;
   };
-  const { images, name } = room;
+  const { room, startDate } = visit;
 
   return (
     <Item className="room-card">
       <div className="room-card__img">
-        {
-          images.length > 1
-            ? (
-              <Splide options={splideOptions}>
-                {
-                      images.map((image) => (
-                        <SplideSlide key={image.id}>
-                          <img src={image.picture} alt={name} />
-                        </SplideSlide>
-                      )).splice(0, 10)
-                    }
-              </Splide>
-            )
-            : (
-              <img
-                className="room-card__img"
-                src={room.images.length ? room.images[0].picture : defaultImage}
-                alt={name}
-              />
-            )
-        }
+        {room.images.length > 1 ? (
+          <Splide options={splideOptions}>
+            {room.images
+              .map((image) => (
+                <SplideSlide key={image.id}>
+                  <img src={image.picture} alt={room.name} />
+                </SplideSlide>
+              ))
+              .splice(0, 10)}
+          </Splide>
+        ) : (
+          <img
+            className="room-card__img"
+            src={room.images.length ? room.images[0].picture : defaultImage}
+            alt={room.name}
+          />
+        )}
       </div>
 
       <div className="room-card">
-
         <div className="room-card-info">
           <div
             data-testid="future-visits-click"
@@ -75,18 +72,19 @@ const RoomFutureItems = function ({ room, isEditCard }) {
           </div>
           <div className="room-card-info__subtitle">{room.address}</div>
           <div className="room-card-info__city">{room.city}</div>
-          <div className="room-card-info__data">{room.data}</div>
+          <div className="room-card-info__data">
+            {moment(startDate).format('DD.MM.YYYY')}
+          </div>
           <div className="room-card-info__bedroom">
             {rentRoomsLocalization.CARD_COUNT}
             {' '}
-            {room.bedroomCount}
+            {room.bedrooms}
           </div>
-
         </div>
         <div className="room-card__icon">
-          {
-        isEditCard && <InfoIcon onClick={useRedirectToPreviewPageById(room.id)} />
-      }
+          {isEditCard && (
+            <InfoIcon onClick={useRedirectToPreviewPageById(room.id)} />
+          )}
         </div>
       </div>
     </Item>
@@ -94,12 +92,11 @@ const RoomFutureItems = function ({ room, isEditCard }) {
 };
 
 RoomFutureItems.defaultProps = {
-  room: null,
   isEditCard: true,
 };
 
 RoomFutureItems.propTypes = {
-  room: PropTypes.instanceOf(Object),
+  visit: PropTypes.instanceOf(Object).isRequired,
   isEditCard: PropTypes.bool,
 };
 

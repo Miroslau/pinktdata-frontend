@@ -39,7 +39,9 @@ export const searchApartments = createAsyncThunk(
 
       const result = {
         apartments: data.apartments,
+        clusters: data.clusters,
         count: data.totalCount,
+        isFetchAll: data.isFetchAll,
       };
 
       if (isFilter) result.isFilter = isFilter;

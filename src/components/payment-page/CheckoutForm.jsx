@@ -1,6 +1,7 @@
 import { useStripe, useElements, CardElement } from '@stripe/react-stripe-js';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { PINK_COLOR } from '../../constants/colors';
 import { paymentIntentAPI, paymentRetrieveAPI } from '../../api/payment/paymentIntent';
 import useRedirectToMainPage from '../../hooks/useRedirectToMainPage';
@@ -26,12 +27,15 @@ const ONE_SECONDS = 1000;
 const FIVE_SECONDS = 5;
 
 const CheckoutForm = () => {
-  const { price } = useParams();
+  const { price, id: roomId } = useParams();
   const stripe = useStripe();
   const elements = useElements();
+  const startDate = useSelector((state) => state.apartment.startDate);
+  const endDate = useSelector((state) => state.apartment.endDate);
   const [errorMessage, setErrorMessage] = useState(null);
   const [message, setMessage] = useState(null);
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [isFirstRender, setIsFirstRender] = useState(false);
   const [redirectMessage, setRedirectMessage] = useState(null);
   const [secondsLeft, setSecondsLeft] = useState(FIVE_SECONDS);
@@ -82,11 +86,17 @@ const CheckoutForm = () => {
 
         const { data: retrieveIntent } = await paymentRetrieveAPI({
           id: paymentIntent.id,
+          roomId,
+          dates: {
+            startDate,
+            endDate,
+          },
         });
 
         if (retrieveIntent.status === 'succeeded') {
           setSecondsLeft(FIVE_SECONDS);
           setIsFirstRender(true);
+          setIsSuccess(true);
           setMessage(paymentLocalization.PAYMENT_SUCCESS);
         } else {
           setRedirectMessage('');
@@ -113,7 +123,7 @@ const CheckoutForm = () => {
           onChange={cardChangeHandler}
           onFocus={cardChangeHandler}
         />
-        <button type="submit" disabled={isProcessing || !stripe}>
+        <button type="submit" disabled={isProcessing || !stripe || isSuccess}>
           {paymentLocalization.PAY}
           {' '}
           $

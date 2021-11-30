@@ -56,7 +56,7 @@
           padding: .6rem 5rem;
         }
 
-        .room-price {
+        .room-price, .book-button-error, .book-button-booked {
           display: flex;
           justify-content: center;
           align-items: center;
@@ -67,6 +67,16 @@
 
         .room-button:hover {
           background-color: $color-blue !important;
+        }
+
+        .book-button-error {
+          color: $color-pink;
+          margin: 0;
+        }
+
+        .book-button-booked {
+          color: $color-blue;
+          margin: 0;
         }
       }
     }

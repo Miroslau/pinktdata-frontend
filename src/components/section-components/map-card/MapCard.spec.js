@@ -9,6 +9,19 @@ import MapCard from './MapCard';
 
 jest.mock('../../../api/index.js');
 
+const mockDispatch = jest.fn();
+
+jest.mock('react-redux', () => ({
+  useDispatch: () => mockDispatch,
+  useSelector: () => {
+    const searchParams = {
+      startDate: 'Thu Nov 18 2021 12:26:52 GMT+0300 (Москва, стандартное время)',
+      endDate: 'Fri Nov 19 2021 12:26:52 GMT+0300 (Москва, стандартное время)',
+    };
+    return { searchParams };
+  },
+}));
+
 describe('MapCard component', () => {
   const history = createMemoryHistory();
 

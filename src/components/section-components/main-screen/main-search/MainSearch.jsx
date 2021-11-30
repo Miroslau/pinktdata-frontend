@@ -20,6 +20,7 @@ import {
   setPublicAddress,
   setParams,
   setDate,
+  setDateParams,
 } from '../../../../store/slice/apartmentSlice';
 import { doWithUserDelay } from '../../../../utils/doWithUserDelay';
 import { MAP_ROUTE } from '../../../../constants/routes';
@@ -47,18 +48,16 @@ const MainSearch = function () {
   const open = Boolean(anchorEl);
   const id = open ? 'simple-popover' : undefined;
 
-  const dateNow = new Date();
-  const dateNowPlusOneDay = new Date();
-  dateNowPlusOneDay.setDate(dateNow.getDate() + 1);
-  dateNowPlusOneDay.toLocaleDateString();
+  const MIN_DATE = new Date();
 
   const classes = useStyles();
   const isMounted = useRef(null);
   const [searchLocation, setSearchLocation] = useState('');
   const [isSelected, setIsSelected] = useState(false);
   const [dataLocation, setDataLocation] = useState([]);
-  const [startDateValue, setStartDateValue] = useState(dateNow);
-  const [endDateValue, setEndDateValue] = useState(dateNowPlusOneDay);
+  const [startDateValue, setStartDateValue] = useState(new Date());
+  // eslint-disable-next-line max-len
+  const [endDateValue, setEndDateValue] = useState(new Date(new Date().setDate(new Date().getDate() + 1)));
   const [isError, setIsError] = useState({
     locationError: false,
     dateError: false,
@@ -75,7 +74,6 @@ const MainSearch = function () {
 
   useEffect(() => {
     isMounted.current = true;
-    dispatch(setDate({ startDate: startDateValue, endDate: endDateValue }));
     return () => {
       isMounted.current = false;
       if (userDelay) {
@@ -107,7 +105,9 @@ const MainSearch = function () {
   };
 
   const changeOptionHandler = (e, newValue) => {
-    setIsSelected(true);
+    // eslint-disable-next-line no-unused-expressions
+    startDateValue.getTime() > endDateValue.getTime() ? setIsSelected(false)
+      : setIsSelected(true);
     setSearchLocation(newValue);
   };
 
@@ -121,7 +121,9 @@ const MainSearch = function () {
     if (!isSelected) {
       if (dataLocation.length) {
         setSearchLocation(dataLocation[0]);
-        setIsSelected(true);
+        // eslint-disable-next-line no-unused-expressions
+        startDateValue.getTime() > endDateValue.getTime() ? setIsSelected(false)
+          : setIsSelected(true);
       }
     }
     setDataLocation([]);
@@ -136,21 +138,27 @@ const MainSearch = function () {
   const setStartDate = (newDate) => {
     setStartDateValue(newDate);
     if (newDate.getTime() > endDateValue.getTime()) {
+      setIsSelected(false);
       setIsError({ ...isError, dateError: true });
       return;
     }
+    if (searchLocation) setIsSelected(true);
     setIsError({ ...isError, dateError: false });
     dispatch(setDate({ startDate: newDate, endDate: endDateValue }));
+    dispatch(setDateParams({ startDate: newDate, endDate: endDateValue }));
   };
 
   const setEndDate = (newDate) => {
     setEndDateValue(newDate);
     if (startDateValue.getTime() > newDate.getTime()) {
+      setIsSelected(false);
       setIsError({ ...isError, dateError: true });
       return;
     }
+    if (searchLocation) setIsSelected(true);
     setIsError({ ...isError, dateError: false });
     dispatch(setDate({ startDate: startDateValue, endDate: newDate }));
+    dispatch(setDateParams({ startDate: startDateValue, endDate: newDate }));
   };
 
   return (
@@ -187,7 +195,7 @@ const MainSearch = function () {
       <LocalizationProvider dateAdapter={AdapterDateFns}>
         <DatePicker
           label={TEXT.MAIN_SEARCH.START_DATE}
-          minDate={dateNow}
+          minDate={MIN_DATE}
           value={startDateValue}
           onChange={setStartDate}
           inputProps={inputProps}
@@ -204,9 +212,8 @@ const MainSearch = function () {
         <DatePicker
           label={TEXT.MAIN_SEARCH.END_DATE}
           value={endDateValue}
-          minDate={dateNow}
+          minDate={MIN_DATE}
           onChange={setEndDate}
-          min={startDateValue}
           inputProps={inputProps}
           renderInput={(params) => (
             <TextField

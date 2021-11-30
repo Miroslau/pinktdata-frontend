@@ -6,8 +6,6 @@ import userEvent from '@testing-library/user-event';
 import { createMemoryHistory } from 'history';
 import { Provider } from 'react-redux';
 import { combineReducers, configureStore, createSlice } from '@reduxjs/toolkit';
-import { persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import RoomBookButton from './RoomBookButton';
 import { roomContext } from '../../../../store/context/roomContext';
 import mockDataForPreviewPage from '../../../../mocks/mocks-constants/mockDataForPreviewPage';
@@ -23,17 +21,19 @@ describe('RoomBookButton component', () => {
     },
   });
 
+  const userSlice = createSlice({
+    name: 'user',
+    initialState: {
+      token: 'token',
+    },
+  });
+
   const apartmentReducer = apartmentSlice.reducer;
-
-  const persistConfig = {
-    key: 'root',
-    storage,
-  };
-
-  const persistedReducer = persistReducer(persistConfig, apartmentReducer);
+  const userReducer = userSlice.reducer;
 
   const reducers = combineReducers({
-    apartment: persistedReducer,
+    apartment: apartmentReducer,
+    user: userReducer,
   });
 
   const rootReducer = (state, action) => reducers(state, action);

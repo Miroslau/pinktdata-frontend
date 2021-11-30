@@ -22,7 +22,8 @@ const History = function () {
   const hasMounted = useMountedState();
 
   useEffect(() => {
-    newRoomApi.getVisitHistory()
+    newRoomApi
+      .getVisitHistory()
       .then(({ data }) => {
         if (hasMounted()) {
           setVisitHistory(data);
@@ -34,20 +35,23 @@ const History = function () {
 
   return (
     <Box sx={BOX_SETTINGS} className={classes.box}>
-      <Typography variant="subtitle1" gutterBottom component="div" className={classes.subtitle}>
+      <Typography
+        variant="subtitle1"
+        gutterBottom
+        component="div"
+        className={classes.subtitle}
+      >
         {rentRoomsLocalization.TITLE_HISTORY}
       </Typography>
       {isLoading && <RoomSkeletonCard />}
       {!isLoading && (
-      <Grid container rowSpacing={ROW_SPACING} columnSpacing={COLUMN_SPACING}>
-        {
-              visitHistory.map((room) => (
-                <Grid item xs={GRID_ITEM_XS} key={room._id}>
-                  <RoomCard room={room} isEditCard={false} />
-                </Grid>
-              ))
-            }
-      </Grid>
+        <Grid container rowSpacing={ROW_SPACING} columnSpacing={COLUMN_SPACING}>
+          {visitHistory.map((visit) => (
+            <Grid item xs={GRID_ITEM_XS} key={visit.room.id}>
+              <RoomCard room={visit.room} isEditCard={false} />
+            </Grid>
+          ))}
+        </Grid>
       )}
     </Box>
   );

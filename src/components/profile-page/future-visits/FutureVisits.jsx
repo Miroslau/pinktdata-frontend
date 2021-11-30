@@ -16,7 +16,7 @@ const BOX_SETTINGS = { width: '100%' };
 
 const FutureVisits = function () {
   const classes = useStyles();
-  const [rentRooms, setRentRooms] = useState([]);
+  const [futureVisits, setFutureVisits] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const hasMounted = useMountedState();
 
@@ -24,7 +24,7 @@ const FutureVisits = function () {
     newRoomApi.futureRooms()
       .then(({ data }) => {
         if (hasMounted()) {
-          setRentRooms(data);
+          setFutureVisits(data);
           setIsLoading(false);
         }
       })
@@ -40,9 +40,9 @@ const FutureVisits = function () {
       {!isLoading && (
         <Grid container rowSpacing={ROW_SPACING} columnSpacing={COLUMN_SPACING}>
           {
-            rentRooms.map((room) => (
-              <Grid item xs={GRID_ITEM_XS} key={room.id}>
-                <RoomFutureItems room={room} isEditCard />
+            futureVisits.map((visit) => (
+              <Grid item xs={GRID_ITEM_XS} key={visit.room.id}>
+                <RoomFutureItems visit={visit} isEditCard />
               </Grid>
             ))
           }

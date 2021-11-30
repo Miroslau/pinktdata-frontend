@@ -3,9 +3,7 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import React from 'react';
 import { combineReducers, configureStore, createSlice } from '@reduxjs/toolkit';
-import { persistReducer } from 'redux-persist';
 import { Provider } from 'react-redux';
-import storage from 'redux-persist/lib/storage';
 import mockDataForPreviewPage from '../../mocks/mocks-constants/mockDataForPreviewPage';
 import RoomPage from '../../pages/room-page/RoomPage';
 import httpClient from '../index';
@@ -18,20 +16,26 @@ describe('getRoomById function', () => {
     initialState: {
       startDate: 'Thu Nov 18 2021 12:26:52 GMT+0300 (Москва, стандартное время)',
       endDate: 'Fri Nov 19 2021 12:26:52 GMT+0300 (Москва, стандартное время)',
+      searchParams: {
+        startDate: 'Thu Nov 18 2021 12:26:52 GMT+0300 (Москва, стандартное время)',
+        endDate: 'Fri Nov 19 2021 12:26:52 GMT+0300 (Москва, стандартное время)',
+      },
+    },
+  });
+
+  const userSlice = createSlice({
+    name: 'user',
+    initialState: {
+      token: 'token',
     },
   });
 
   const apartmentReducer = apartmentSlice.reducer;
-
-  const persistConfig = {
-    key: 'root',
-    storage,
-  };
-
-  const persistedReducer = persistReducer(persistConfig, apartmentReducer);
+  const userReducer = userSlice.reducer;
 
   const reducers = combineReducers({
-    apartment: persistedReducer,
+    apartment: apartmentReducer,
+    user: userReducer,
   });
 
   const rootReducer = (state, action) => reducers(state, action);

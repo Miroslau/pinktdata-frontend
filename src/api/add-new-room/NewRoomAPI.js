@@ -10,10 +10,10 @@ export default {
   },
 
   getVisitHistory() {
-    return httpClient.get('/profile/history');
+    return httpClient.get('/trips/history');
   },
 
   futureRooms() {
-    return httpClient.get('/profile/future-rooms');
+    return httpClient.get('/trips/future');
   },
 };
