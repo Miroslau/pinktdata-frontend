@@ -11,8 +11,11 @@ import LocationAPI from '../../../../api/main-search/LocationAPI';
 import MainSearch from './MainSearch';
 
 const mockDispatch = jest.fn();
+const mockSelector = jest.fn();
+
 jest.mock('react-redux', () => ({
   useDispatch: () => mockDispatch,
+  useSelector: () => mockSelector,
 }));
 
 jest.mock('../../../../api/main-search/LocationAPI');

@@ -18,6 +18,8 @@ describe('SearchBar Component', () => {
       count: 2229,
       searchParams: {
         bedrooms: 0,
+        startDate: 'Thu Nov 18 2021 12:26:52 GMT+0300 (Москва, стандартное время)',
+        endDate: 'Fri Nov 19 2021 12:26:52 GMT+0300 (Москва, стандартное время)',
       },
     },
   });

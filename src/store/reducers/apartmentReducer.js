@@ -7,7 +7,7 @@ const apartmentReducer = apartmentSlice.reducer;
 const persistConfig = {
   key: 'apartment',
   storage,
-  whitelist: ['publicAddress', 'bounds', 'searchParams', 'startDate', 'endDate'],
+  whitelist: ['publicAddress', 'bounds', 'searchParams'],
 };
 
 const persistedApartmentReducer = persistReducer(persistConfig, apartmentReducer);
