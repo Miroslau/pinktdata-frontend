@@ -9,7 +9,7 @@ import SkeletonForRoomPage from './SkeletonForRoomPage';
 import AlertError from '../../components/ui-components/alert-error/AlertError';
 import useFetch from '../../hooks/useFetch';
 import {
-  clearState,
+  clearStateWithoutDate,
   setPublicAddress,
   apartmentSelector,
 } from '../../store/slice/apartmentSlice';
@@ -20,11 +20,12 @@ const RoomPage = function () {
   const { id } = useParams();
   const [roomData, setRoomData] = useState({});
   const getData = () => getRoom.getRoomById(id, startDate, endDate);
+  console.log(roomData);
   const { isLoading, error } = useFetch(getData, setRoomData);
 
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(clearState());
+    dispatch(clearStateWithoutDate());
   }, []);
 
   useEffect(() => {
