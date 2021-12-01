@@ -31,20 +31,17 @@ const RoomReviews = function () {
   const addReview = (comment) => {
     reviewsAPI.review(comment)
       .then(({ data }) => {
+        const { listing } = data;
+        const { reviews: newReviews } = listing;
         if (hasMounted()) {
-          const { listing } = data;
-          const { reviews: newReviews } = listing;
-          if (hasMounted()) {
-            setComments(newReviews);
-            setModalActive(false);
-          }
+          setComments(newReviews);
         }
       })
       // eslint-disable-next-line consistent-return
-      .catch((err) => {
+      .catch((err) => err.message)
+      .finally(() => {
         if (hasMounted()) {
           setModalActive(false);
-          return err.message;
         }
       });
   };
