@@ -78,7 +78,7 @@ const RoomFutureItems = function ({ visit, isEditCard }) {
           <div className="room-card-info__bedroom">
             {rentRoomsLocalization.CARD_COUNT}
             {' '}
-            {room.bedrooms}
+            {room.bedroomCount}
           </div>
         </div>
         <div className="room-card__icon">
