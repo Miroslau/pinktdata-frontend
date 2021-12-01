@@ -1,4 +1,6 @@
 FROM node:14.18.0 as builder
+ARG PUBLISH_KEY
+ENV REACT_APP_PUBLISH_KEY=$PUBLISH_KEY
 WORKDIR '/app'
 COPY ./package.json ./
 RUN npm install
