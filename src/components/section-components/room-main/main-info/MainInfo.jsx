@@ -4,8 +4,6 @@ import RoomPreview from './room-preview/RoomPreview';
 import RoomScore from './room-score/RoomScore';
 import RoomPrice from './room-price/RoomPrice';
 import RoomAmenities from './room-amenities/RoomAmenities';
-import RoomStyle from './room-style/RoomStyle';
-import RoomOthers from './room-others/RoomOthers';
 
 const MainInfo = function () {
   return (
@@ -15,8 +13,6 @@ const MainInfo = function () {
         <RoomScore />
         <RoomPrice />
         <RoomAmenities />
-        <RoomStyle />
-        <RoomOthers />
       </div>
       <div className="main">
         <RoomPreview />
