@@ -50,7 +50,6 @@ export const ReviewForm = function ({ addComment, isActiveModal, setModalActive 
       dispatch(clearState());
     }
   };
-
   // eslint-disable-next-line max-len
   const authorizationUser = (user) => (isSignIn ? dispatch(loginUser(user)) : dispatch(signupUser(user)));
 
