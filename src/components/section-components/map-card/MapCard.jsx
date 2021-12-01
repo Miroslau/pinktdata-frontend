@@ -78,7 +78,7 @@ const MapCard = function ({ id }) {
                 {' '}
                 <span className="room-reviews">
                   (
-                  {roomData.reviews}
+                  {roomData.reviewsCount}
                   )
                 </span>
               </div>

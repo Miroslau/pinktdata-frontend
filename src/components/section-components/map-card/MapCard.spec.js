@@ -1,5 +1,5 @@
 import '@testing-library/jest-dom';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import userEvent from '@testing-library/user-event';
 import { Router } from 'react-router-dom';
@@ -38,11 +38,13 @@ describe('MapCard component', () => {
 
   test('should have the text name', async () => {
     httpClient.get.mockImplementationOnce(() => Promise.resolve({ data: mockDataForPreviewPage }));
-    render(
-      <Router location={history.location} navigator={history}>
-        <MapCard id={mockDataForPreviewPage.id} />
-      </Router>,
-    );
+    await act(async () => {
+      render(
+        <Router location={history.location} navigator={history}>
+          <MapCard id={mockDataForPreviewPage.id} />
+        </Router>,
+      );
+    });
 
     const name = await screen.findByText(mockDataForPreviewPage.name);
     expect(name).toBeInTheDocument();
