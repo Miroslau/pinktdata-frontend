@@ -29,19 +29,24 @@ const RoomReviews = function () {
   const hasMounted = useMountedState();
 
   const addReview = (comment) => {
-    if (hasMounted()) {
-      reviewsAPI.review(comment)
-        .then(({ data }) => {
+    reviewsAPI.review(comment)
+      .then(({ data }) => {
+        if (hasMounted()) {
           const { listing } = data;
           const { reviews: newReviews } = listing;
-          setComments(newReviews);
-          setModalActive(false);
-        })
-        .catch((err) => {
+          if (hasMounted()) {
+            setComments(newReviews);
+            setModalActive(false);
+          }
+        }
+      })
+      // eslint-disable-next-line consistent-return
+      .catch((err) => {
+        if (hasMounted()) {
           setModalActive(false);
           return err.message;
-        });
-    }
+        }
+      });
   };
 
   return (
