@@ -7,7 +7,7 @@ import './PaymentPage.scss';
 import CheckoutForm from '../../components/payment-page/CheckoutForm';
 import paymentLocalization from '../../constants/Localizations/paymentLocalization';
 
-const stripePromise = loadStripe(process.env.REACT_APP_PUBLISH_KEY);
+const stripePromise = loadStripe(`${process.env.PUBLISHABLE_KEY}`);
 
 const PaymentPage = function () {
   return (
