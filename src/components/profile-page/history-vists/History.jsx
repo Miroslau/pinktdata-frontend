@@ -47,8 +47,8 @@ const History = function () {
       {!isLoading && (
         <Grid container rowSpacing={ROW_SPACING} columnSpacing={COLUMN_SPACING}>
           {visitHistory.map((visit) => (
-            <Grid item xs={GRID_ITEM_XS} key={visit.room.id}>
-              <RoomCard room={visit.room} isEditCard={false} />
+            <Grid item xs={GRID_ITEM_XS} key={visit.room._id}>
+              <RoomCard room={visit.room} isEditIconCard={false} />
             </Grid>
           ))}
         </Grid>

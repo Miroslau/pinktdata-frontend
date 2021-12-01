@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Splide, SplideSlide } from '@splidejs/react-splide';
 
@@ -7,6 +7,7 @@ import Paper from '@mui/material/Paper';
 import SaveIcon from '@mui/icons-material/Save';
 import ModeEditIcon from '@mui/icons-material/ModeEdit';
 import { Button } from '@material-ui/core';
+import TextFieldMui from '../../ui-components/text-field-mui/TextFieldMui';
 import useStyles from '../Profile.style';
 import './RoomCard.scss';
 
@@ -22,10 +23,13 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
-const RoomCard = function ({ room, isEditCard, submitForm }) {
-  const [editName, setEditName] = useState(room.name);
-  const [editAddress, setEditAddress] = useState(room.address);
-  const [editCity, setEditCity] = useState(room.city);
+const RoomCard = function ({
+  room, isEditIconCard, submitForm,
+}) {
+  const [editName] = useState(room.name);
+  const [isEditCard, setEditCard] = useState(true);
+  const [editAddress] = useState(room.address);
+  const [editCity] = useState(room.city);
   const classes = useStyles();
 
   const splideOptions = {
@@ -42,24 +46,15 @@ const RoomCard = function ({ room, isEditCard, submitForm }) {
 
   const { images, name } = room;
 
+  // eslint-disable-next-line no-unused-vars
   const { handleChange, handleSubmit } = useCreateRoomForm(
     validateAddRoomErrors,
     submitForm,
   );
 
-  const nameRef = useRef('');
-  const cityRef = useRef('');
-  const addressRef = useRef('');
-  const amountRef = useRef('');
-  const bedroomsCountRef = useRef('');
-
   const editCardHandler = (event) => {
     event.preventDefault();
-    bedroomsCountRef.current.focus();
-    amountRef.current.focus();
-    cityRef.current.focus();
-    addressRef.current.focus();
-    nameRef.current.focus();
+    setEditCard(false);
   };
 
   return (
@@ -83,56 +78,45 @@ const RoomCard = function ({ room, isEditCard, submitForm }) {
           />
         )}
       </div>
-      <form className="room-card-info" onChange={handleChange}>
-        <textarea
-          ref={nameRef}
-          type="text"
+      <div className="room-card-info">
+        <TextFieldMui
+          variant="standard"
           value={editName}
-          onChange={(event) => setEditName(event.target.value)}
-          disabled={isEditCard ? '' : 'disabled'}
-          cols={3}
-          rows={3}
           className="room-card-info__title"
+          disabled={isEditCard}
         />
-        <textarea
-          ref={addressRef}
-          type="text"
+        <TextFieldMui
+          variant="standard"
           value={editAddress}
-          onChange={(event) => setEditAddress(event.target.value)}
-          disabled={isEditCard ? '' : 'disabled'}
-          className="room-card-info__subtitle"
+          className="room-card-info__description"
+          disabled={isEditCard}
         />
-        <textarea
-          ref={cityRef}
-          type="text"
+        <TextFieldMui
+          variant="standard"
           value={editCity}
-          onChange={(event) => setEditCity(event.target.value)}
-          disabled={isEditCard ? '' : 'disabled'}
-          className="room-card-info__city"
+          className="room-card-info__description"
+          disabled={isEditCard}
         />
-        <div className="room-card-info__amount">
-          <input
-            ref={amountRef}
+        <div className="room-card-info__amount room-card-info__amount_width">
+          <TextFieldMui
+            variant="standard"
             value={room.amount}
-            disabled={isEditCard ? '' : 'disabled'}
-            className="room-card-info__amount"
+            className="room-card-info__description"
+            disabled={isEditCard}
           />
-          {' '}
-          {room.currency}
+          <span>{room.currency}</span>
         </div>
         <div className="room-card-info__bedroom">
-          {rentRoomsLocalization.CARD_COUNT}
-          {' '}
-          {room.bedrooms}
-          <input
-            ref={bedroomsCountRef}
+          <span>{rentRoomsLocalization.CARD_COUNT}</span>
+          <TextFieldMui
+            variant="standard"
             value={room.bedroomCount}
-            disabled={isEditCard ? '' : 'disabled'}
-            className="room-card-info__bedroom"
+            className="room-card-info__description"
+            disabled={isEditCard}
           />
         </div>
-      </form>
-      {isEditCard && (
+      </div>
+      {isEditIconCard && (
         <div className={classes.additionalBtn}>
           <Button
             variant="text"
@@ -155,13 +139,13 @@ const RoomCard = function ({ room, isEditCard, submitForm }) {
 };
 
 RoomCard.defaultProps = {
-  isEditCard: true,
+  isEditIconCard: true,
   submitForm: () => {},
 };
 
 RoomCard.propTypes = {
   room: PropTypes.instanceOf(Object).isRequired,
-  isEditCard: PropTypes.bool,
+  isEditIconCard: PropTypes.bool,
   submitForm: PropTypes.func,
 };
 

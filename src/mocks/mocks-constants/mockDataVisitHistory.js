@@ -4,7 +4,7 @@ const visitHistory = [
     startDate: '2021-11-30T12:00:00.000Z',
     room: {
       _id: '1',
-      name: 'Budget Room Center City/Ave of Arts/Free Parking',
+      name: 'Budget Room Center',
       city: 'Brooklyn',
       address: 'Brooklyn, NY, United States',
       currency: '€',
@@ -30,7 +30,7 @@ const visitHistory = [
     startDate: '2021-11-30T12:00:00.000Z',
     room: {
       _id: '2',
-      name: 'Close2Manhattan,walk2Shops ferry&subway.Clean NYC!',
+      name: 'Close2Manhattan!',
       address: 'Philadelphia, PA, United States',
       city: 'Philadelphia',
       currency: '$',

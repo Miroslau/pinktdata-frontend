@@ -43,7 +43,11 @@ const Rent = function ({ submitForm }) {
         {
                   rentRooms.map((room) => (
                     <Grid item xs={GRID_ITEM_XS} key={room._id}>
-                      <RoomCard room={room} isEditCard submitForm={submitForm} />
+                      <RoomCard
+                        room={room}
+                        isEditIconCard
+                        submitForm={submitForm}
+                      />
                     </Grid>
                   ))
               }
