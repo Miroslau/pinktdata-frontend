@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
@@ -10,6 +10,7 @@ import { roomContext } from '../../../../store/context/roomContext';
 import { NO_REVIEW } from '../../../../constants/reviews';
 import reviewsAPI from '../../../../api/reviews/reviewsAPI';
 import { ReviewForm } from './ReviewForm';
+import useMountedState from '../../../../hooks/useMountedState';
 
 const LIST_STYLE = {
   width: '100%',
@@ -25,22 +26,23 @@ const RoomReviews = function () {
   const { reviews } = useContext(roomContext);
   const [comments, setComments] = useState(reviews);
   const [isActiveModal, setModalActive] = useState(false);
+  const hasMounted = useMountedState();
 
   const addReview = (comment) => {
     reviewsAPI.review(comment)
       .then(({ data }) => {
-        const { listing } = data;
-        const { reviews: newReviews } = listing;
-        setComments(newReviews);
-        setModalActive(false);
+        if (hasMounted()) {
+          const { listing } = data;
+          const { reviews: newReviews } = listing;
+          setComments(newReviews);
+          setModalActive(false);
+        }
       })
       .catch((err) => {
         setModalActive(false);
         return err.message;
       });
   };
-
-  useEffect(() => {}, [comments]);
 
   return (
     <div className="room-component">
@@ -55,7 +57,7 @@ const RoomReviews = function () {
         <ReviewForm
           addComment={addReview}
           isActiveModal={isActiveModal}
-          modalToggle={(value) => setModalActive(value)}
+          setModalActive={(value) => setModalActive(value)}
         />
       </Grid>
       <List sx={LIST_STYLE}>
@@ -63,10 +65,7 @@ const RoomReviews = function () {
           <ListItem alignItems="flex-start" key={uniqueId()}>
             <ListItemText
               secondary={(
-                <div style={{
-                  fontSize: 14,
-                }}
-                >
+                <div className="comment-list">
                   <Typography
                     sx={TYPOGRAPHY_STYLE}
                     component="span"

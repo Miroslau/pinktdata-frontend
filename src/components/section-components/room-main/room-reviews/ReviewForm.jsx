@@ -27,8 +27,9 @@ const TEXTAREA_STYLE = {
   padding: 8,
   fontStyle: 'italic',
 };
+const AREA_LABEL = 'maximum-height';
 
-export const ReviewForm = function ({ addComment, isActiveModal, modalToggle }) {
+export const ReviewForm = function ({ addComment, isActiveModal, setModalActive }) {
   const dispatch = useDispatch();
   const [isSignIn, setSignIn] = useState(true);
   const textRef = useRef();
@@ -43,7 +44,7 @@ export const ReviewForm = function ({ addComment, isActiveModal, modalToggle }) 
   );
 
   const closeModal = () => {
-    modalToggle(false);
+    setModalActive(false);
     setSignIn(true);
     if (isError) {
       dispatch(clearState());
@@ -66,24 +67,23 @@ export const ReviewForm = function ({ addComment, isActiveModal, modalToggle }) 
 
   const submitForm = (e) => {
     e.preventDefault();
-    if (!textRef.current.value) return;
+    const { value } = textRef.current;
+    if (!value) return;
     const commentData = {
       roomId: id,
-      comment: textRef.current.value,
+      comment: value,
     };
     addComment(commentData);
   };
 
   return (
     <div>
-      <Button size="small" variant="outlined" onClick={() => modalToggle(true)}>
+      <Button size="small" variant="outlined" onClick={() => setModalActive(true)}>
         {LEAVE_COMMENT}
       </Button>
 
       <ModalWindowMui
         title={token ? LEAVE_COMMENT : TITLE_SIGN_IN}
-        // title={token ? LEAVE_COMMENT : isSignIn
-        //   ? TITLE_SIGN_IN : TITLE_SIGN_UP} // change
         clickButton={closeModal}
         isActiveModal={isActiveModal}
         sx={useStyle.dialog}
@@ -94,7 +94,7 @@ export const ReviewForm = function ({ addComment, isActiveModal, modalToggle }) 
               <form onSubmit={submitForm} className="form">
                 <TextareaAutosize
                   maxRows={4}
-                  aria-label="maximum height"
+                  aria-label={AREA_LABEL}
                   ref={textRef}
                   style={TEXTAREA_STYLE}
                 />
@@ -118,5 +118,5 @@ export const ReviewForm = function ({ addComment, isActiveModal, modalToggle }) 
 ReviewForm.propTypes = {
   addComment: PropTypes.func.isRequired,
   isActiveModal: PropTypes.bool.isRequired,
-  modalToggle: PropTypes.func.isRequired,
+  setModalActive: PropTypes.func.isRequired,
 };
