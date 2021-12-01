@@ -10,19 +10,22 @@ export const newRoomTextField = [
   },
   {
     id: 2,
-    title: 'Address',
-    model: 'publicAddress',
-    required: true,
-    placeholder: 'Enter room\'s address',
-    onlyRegister: true,
-    type: 'text',
-  },
-  {
-    id: 3,
     title: 'City',
     model: 'city',
     required: true,
     placeholder: 'Enter your city',
+    onlyRegister: true,
+    type: 'text',
+  },
+];
+
+export const publicAddress = [
+  {
+    id: 3,
+    title: 'Address',
+    model: 'publicAddress',
+    required: true,
+    placeholder: 'Enter room\'s address',
     onlyRegister: true,
     type: 'text',
   },

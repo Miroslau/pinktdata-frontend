@@ -59,6 +59,16 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     alignItems: 'center',
   },
+  dropTitle: {
+    border: '1px solid lightgray',
+    borderRadius: '5px',
+    padding: '5px',
+  },
+  public: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
 });
 
 export default useStyles;
