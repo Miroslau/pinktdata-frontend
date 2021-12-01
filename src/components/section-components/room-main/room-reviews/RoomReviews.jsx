@@ -29,19 +29,19 @@ const RoomReviews = function () {
   const hasMounted = useMountedState();
 
   const addReview = (comment) => {
-    reviewsAPI.review(comment)
-      .then(({ data }) => {
-        if (hasMounted()) {
+    if (hasMounted()) {
+      reviewsAPI.review(comment)
+        .then(({ data }) => {
           const { listing } = data;
           const { reviews: newReviews } = listing;
           setComments(newReviews);
           setModalActive(false);
-        }
-      })
-      .catch((err) => {
-        setModalActive(false);
-        return err.message;
-      });
+        })
+        .catch((err) => {
+          setModalActive(false);
+          return err.message;
+        });
+    }
   };
 
   return (
@@ -57,7 +57,7 @@ const RoomReviews = function () {
         <ReviewForm
           addComment={addReview}
           isActiveModal={isActiveModal}
-          setModalActive={(value) => setModalActive(value)}
+          setModalActive={setModalActive}
         />
       </Grid>
       <List sx={LIST_STYLE}>
