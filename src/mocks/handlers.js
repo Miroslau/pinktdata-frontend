@@ -4,6 +4,9 @@ import mockDataForPreviewPage from './mocks-constants/mockDataForPreviewPage';
 import mockDataForPopularRooms from './mocks-constants/mockDataForPopularRooms';
 import mockDataApartments from './mocks-constants/mockDataApartments';
 import mockDataMajorCities from './mocks-constants/mockDataMajorCities';
+import mockDataRoomsForRent from './mocks-constants/mockDataRoomsForRent';
+import mockDataVisitHistory from './mocks-constants/mockDataVisitHistory';
+import mockDataFutureRooms from './mocks-constants/mockDataFutureRooms';
 
 export const handlers = [
   rest.post('/api/auth/registration', (req, res, ctx) => {
@@ -39,7 +42,7 @@ export const handlers = [
       accessToken: 'f79e82e8-c34a-4dc7-a49e-9fadc0979fda',
     }));
   }),
-  rest.post('/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
+  rest.get('/api/auth/logout', (req, res, ctx) => res(ctx.status(204))),
   rest.get('/api/apartments/locations', (req, res, ctx) => {
     const params = req.url.searchParams.get('query');
     const cities = ['minsk', 'gomel', 'grodno', 'brest', 'vitebsk', 'mogileu', 'moscow', 'snp', 'miami'];
@@ -71,8 +74,18 @@ export const handlers = [
     return res(ctx.delay(), ctx.status(200), ctx.json(result));
   }),
 
+  rest.get('/api/apartments/user-apartments', (req, res, ctx) => res(ctx.delay(1500), ctx.status(200), ctx.json(mockDataRoomsForRent))),
+  rest.get('/api/trips/history', (req, res, ctx) => res(ctx.delay(1500), ctx.status(200), ctx.json(mockDataVisitHistory))),
+
+  rest.post('/api/apartments', (req, res, ctx) => {
+    const obj = req.body;
+    mockDataRoomsForRent.push(obj);
+    return res(ctx.delay(), ctx.status(200), ctx.json(mockDataRoomsForRent));
+  }),
+
   rest.get('/api/apartments/popular/images', (req, res, ctx) => res(ctx.delay(1500), ctx.status(200), ctx.json(mockDataForPopularRooms))),
 
   rest.get('/api/apartments/:id', (req, res, ctx) => res(ctx.delay(1500), ctx.status(200), ctx.json(mockDataForPreviewPage))),
 
+  rest.get('/api/trips/future', (req, res, ctx) => res(ctx.delay(10), ctx.status(200), ctx.json(mockDataFutureRooms))),
 ];
