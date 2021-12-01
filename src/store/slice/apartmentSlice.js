@@ -67,6 +67,24 @@ export const apartmentSlice = createSlice({
         endDate: new Date(new Date().setDate(new Date().getDate() + 1)),
       };
     },
+    clearStateWithoutDate: (state) => {
+      state.isError = false;
+      state.isFetching = false;
+      state.isSuccess = false;
+      state.isFetchAll = true;
+      state.apartments = [];
+      state.clusters = [];
+      state.publicAddress = '';
+      state.currentPage = 0;
+      state.count = 0;
+      state.bounds = null;
+      state.searchParams = {
+        ...state.searchParams,
+        priceRange: [],
+        bedrooms: 0,
+        isMax: true,
+      };
+    },
   },
   extraReducers: {
     [searchApartments.fulfilled]: (state, { payload }) => {
@@ -92,7 +110,7 @@ export const apartmentSlice = createSlice({
 });
 
 export const {
-  setPublicAddress, clearState, setParams, setBounds, setDate, setDateParams,
+  setPublicAddress, clearState, setParams, setBounds, setDate, setDateParams, clearStateWithoutDate,
 } = apartmentSlice.actions;
 
 export const apartmentSelector = (state) => state.apartment;

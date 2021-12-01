@@ -15,9 +15,9 @@ import useRedirectToMainPage from '../../../../../hooks/useRedirectToMainPage';
 const SearchBar = function () {
   const dispatch = useDispatch();
   const {
-    publicAddress, searchParams, startDate, endDate,
+    publicAddress, searchParams,
   } = useSelector(apartmentSelector);
-  const { bedrooms } = searchParams;
+  const { bedrooms, startDate, endDate } = searchParams;
   const redirectToMainPage = useRedirectToMainPage();
 
   const newStartDateMonth = format(new Date(startDate), 'MMM dd');
