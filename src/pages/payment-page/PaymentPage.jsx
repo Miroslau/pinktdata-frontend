@@ -5,7 +5,7 @@ import './PaymentPage.scss';
 import CheckoutForm from '../../components/payment-page/CheckoutForm';
 import paymentLocalization from '../../constants/Localizations/paymentLocalization';
 
-const PUBLISH_KEY = 'pk_test_51JxVpqCT7Fslrnfy5oMdCzvVfHdxOGfTgjgfe7L7sz3wADpV3SpEnP3tZ45eolX7tJbZ255XOGWlAFnShb4fa8pi00EBQ0fzKh';
+const PUBLISH_KEY = 'pk_test_51Jzm3XDR674yVRjDquzJMpExIBaI52I5YnjWThcPmElohA8UP5f3Gp6XpdNeJjhK1rycAp8OddRlIvGkFFGR8efd00jObjJywD';
 
 const stripePromise = loadStripe(PUBLISH_KEY);
 
