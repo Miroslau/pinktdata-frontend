@@ -110,7 +110,7 @@ const RoomCard = function ({
           <span>{rentRoomsLocalization.CARD_COUNT}</span>
           <TextFieldMui
             variant="standard"
-            value={room.bedroomCount}
+            value={room.bedrooms}
             className="room-card-info__description"
             disabled={isEditCard}
           />
