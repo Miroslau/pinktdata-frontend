@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useInView } from 'react-intersection-observer';
 import {
-  apartmentSelector, setParams,
+  apartmentSelector,
+  setParams,
   // eslint-disable-next-line import/named
-  setBounds, setPublicAddress,
+  setBounds,
+  setPublicAddress,
 } from '../../store/slice/apartmentSlice';
 import { searchApartments } from '../../store/actions/apartmentAction';
 import useStyles from '../../style/style';
@@ -14,10 +16,18 @@ import Content from '../../components/map-page/content-render/Content';
 const Map = function () {
   const dispatch = useDispatch();
   const {
-    publicAddress, searchParams, apartments, currentPage, isFetching, count, bounds,
+    publicAddress,
+    searchParams,
+    apartments,
+    clusters,
+    currentPage,
+    isFetching,
+    count,
+    bounds,
+    isFetchAll,
   } = useSelector(apartmentSelector);
   const {
-    priceRange, bedrooms, isMax,
+    priceRange, bedrooms, isMax, startDate, endDate,
   } = searchParams;
   const [isActiveModal, setModalActive] = useState(false);
   const [isFetchOnMapEvents, setIsFetchOnMapEvents] = useState(false);
@@ -38,6 +48,8 @@ const Map = function () {
         ...filtersParams,
         isFilter: true,
         bounds,
+        startDate,
+        endDate,
       }),
     );
   };
@@ -46,12 +58,16 @@ const Map = function () {
     if (isFetchOnMapEvents) {
       dispatch(setBounds(cords));
       dispatch(setPublicAddress(''));
-      dispatch(searchApartments({
-        currentPage: 0,
-        ...searchParams,
-        isFilter: true,
-        bounds: cords,
-      }));
+      dispatch(
+        searchApartments({
+          currentPage: 0,
+          ...searchParams,
+          isFilter: true,
+          bounds: cords,
+          startDate,
+          endDate,
+        }),
+      );
     }
   };
 
@@ -65,6 +81,8 @@ const Map = function () {
           bedrooms,
           isMax,
           bounds,
+          startDate,
+          endDate,
         }),
       );
     }
@@ -79,6 +97,8 @@ const Map = function () {
         bedrooms,
         isMax,
         bounds,
+        startDate,
+        endDate,
       }),
     );
   }, []);
@@ -97,8 +117,9 @@ const Map = function () {
         isFetching={isFetching}
       />
       <MapRender
-        apart={apartments}
+        apart={isFetchOnMapEvents ? clusters : apartments}
         isFetching={isFetching}
+        isFetchAll={isFetchAll}
         handleDragAndZoomMap={handleDragAndZoomMap}
         isFetchOnMapEvents={isFetchOnMapEvents}
         setIsFetchOnMapEvents={setIsFetchOnMapEvents}

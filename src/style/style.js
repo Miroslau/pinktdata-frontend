@@ -228,6 +228,53 @@ const useStyles = makeStyles({
       cursor: 'pointer',
     },
   },
+  // Modal for add new room
+  modalWrapper: {
+    padding: '120px 20px 0',
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  title: {
+    color: 'lightslategray',
+  },
+  box: {
+    position: 'relative',
+    padding: '10px 30px',
+    marginBottom: '20px',
+  },
+  subtitle: {
+    color: 'black',
+  },
+  modalForm: {
+    display: 'flex',
+    flexDirection: 'column',
+    rowGap: '20px',
+  },
+  buttonForm: {
+    justifyContent: 'center',
+  },
+  uploadBtn: {
+    display: 'grid',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    border: '1px solid lightgray',
+    borderRadius: '5px',
+    height: '100%',
+    textAlign: 'center',
+  },
+  textField: {
+    display: 'grid',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  fileUpload: {
+    maxWidth: '100%',
+    marginTop: '20px',
+    border: 'dashed 2px lightgray',
+  },
 });
 
 export default useStyles;

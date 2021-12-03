@@ -4,8 +4,15 @@ import mapAPI from '../../api/map/mapPageAPI';
 export const searchApartments = createAsyncThunk(
   'apartments/searchApartments',
   async ({
-    publicAddress, currentPage, priceRange, bedrooms, isMax,
-    isFilter = false, bounds,
+    publicAddress,
+    currentPage,
+    priceRange,
+    bedrooms,
+    isMax,
+    isFilter = false,
+    bounds,
+    startDate,
+    endDate,
   }, thunkAPI) => {
     try {
       let priceFrom;
@@ -14,7 +21,17 @@ export const searchApartments = createAsyncThunk(
         [priceFrom, priceTo] = priceRange;
       }
       // eslint-disable-next-line max-len
-      const response = await mapAPI.searchApartments(publicAddress, priceTo, bedrooms, isMax, bounds, currentPage, priceFrom);
+      const response = await mapAPI.searchApartments(
+        publicAddress,
+        priceTo,
+        bedrooms,
+        isMax,
+        bounds,
+        startDate,
+        endDate,
+        currentPage,
+        priceFrom,
+      );
 
       const { status, data } = response;
 
@@ -22,7 +39,9 @@ export const searchApartments = createAsyncThunk(
 
       const result = {
         apartments: data.apartments,
+        clusters: data.clusters,
         count: data.totalCount,
+        isFetchAll: data.isFetchAll,
       };
 
       if (isFilter) result.isFilter = isFilter;

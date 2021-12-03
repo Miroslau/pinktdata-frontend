@@ -1,0 +1,99 @@
+@import '../../../sass/variables';
+
+.room-card {
+  padding: 5px;
+  display: inline-flex;
+  column-gap: 20px;
+  width: 100%;
+  text-align: left !important;
+
+  &__img {
+    max-width: 300px;
+    max-height: 200px;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+    box-shadow: $box-shadow2;
+  }
+
+  &-info {
+    display: grid;
+    text-align: left;
+    grid-gap: 5px;
+    font-size: 14px;
+    width: 100%;
+
+    &__title {
+      width: 100%;
+      height: 30px;
+
+      .MuiInput-root {
+        &:before {
+          border-bottom: transparent;
+        }
+      }
+
+      .MuiInput-input {
+        -webkit-text-fill-color: $color-black !important;
+        font-size: 1.3rem;
+        font-weight: 600;
+
+      }
+    }
+
+    &__description {
+      width: 100%;
+      height: 30px;
+
+      .MuiInput-root {
+        &:before {
+          border-bottom: transparent;
+        }
+      }
+
+      .MuiInput-input {
+        -webkit-text-fill-color: $color-black !important;
+        font-size: 1.2rem;
+      }
+    }
+
+    &__amount, &__bedroom {
+      display: flex;
+      align-items: center;
+      min-width: 25px;
+      max-width: max-content;
+      border: none;
+      font-size: 20px;
+      column-gap: 5px;
+      color: $color-black;
+
+      &_width {
+        max-width: 65px;
+      }
+    }
+
+    input:disabled {
+      background: transparent;
+      cursor: default;
+      border: none;
+    }
+
+    textarea {
+      border: none;
+      resize: none;
+      overflow-wrap: break-word;
+    }
+
+    textarea:disabled {
+      background: transparent;
+      cursor: default;
+    }
+    textarea::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+  }
+}
+
+

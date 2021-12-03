@@ -1,36 +1,26 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Checkbox } from '@mui/material';
-import L from 'leaflet';
 import {
-  MapContainer,
-  TileLayer,
-  Popup,
-  Tooltip,
-  useMap,
-  Marker, useMapEvents,
+  MapContainer, TileLayer, useMap, useMapEvents,
 } from 'react-leaflet';
 import LinearProgress from '@mui/material/LinearProgress';
 import Box from '@mui/material/Box';
-import MarkerClusterGroup from 'react-leaflet-markercluster';
 import PropTypes from 'prop-types';
-import pointMarker from '../../../assets/svg/pointMarker.svg';
 import useStyles from '../../../style/style';
-import MapCard from '../../section-components/map-card/MapCard';
 import { mapRenderLocalization } from '../../../constants/Localizations/mapRenderLocalization';
+import Markers from './Markers';
 
-const markerIcon = new L.Icon({
-  iconUrl: pointMarker,
-  iconSize: new L.Point(32, 32),
-  shadowUrl: null,
-  shadowSize: null,
-  shadowAnchor: null,
-});
+const getCords = (map) => {
+  const VIEW_SIZE = 800;
+  const cords = map.getBounds();
+  cords.zoom = map.getZoom();
+  cords.size = {
+    x: VIEW_SIZE,
+    y: VIEW_SIZE,
+  };
 
-const createClusterCustomIcon = (cluster) => L.divIcon({
-  html: `<span>${cluster.getChildCount()}</span>`,
-  className: 'marker-cluster-custom',
-  iconSize: L.point(40, 40, true),
-});
+  return cords;
+};
 
 const HandlerEventsMap = function ({ getLocation }) {
   // eslint-disable-next-line no-unused-vars
@@ -42,20 +32,33 @@ const HandlerEventsMap = function ({ getLocation }) {
   return null;
 };
 
-const SetViewOnFetch = function ({ coords, isFetchOnMapEvents }) {
+const SetViewOnFetch = function ({
+  coords,
+  isFetchOnMapEvents,
+  handleDragAndZoomMap,
+}) {
   const map = useMap();
   if (!isFetchOnMapEvents) {
-    useEffect(() => {
-      map.setView(coords, map.getZoom());
-    }, [coords, map]);
+    map.setView(coords, map.getZoom());
   }
+
+  useEffect(() => {
+    if (isFetchOnMapEvents) {
+      const cords = getCords(map);
+      handleDragAndZoomMap(cords);
+    }
+  }, [isFetchOnMapEvents]);
 
   return null;
 };
 
 const MapRender = function ({
-  // eslint-disable-next-line no-unused-vars
-  apart, isFetching, handleDragAndZoomMap, isFetchOnMapEvents, setIsFetchOnMapEvents,
+  apart,
+  isFetching,
+  isFetchAll,
+  handleDragAndZoomMap,
+  isFetchOnMapEvents,
+  setIsFetchOnMapEvents,
 }) {
   const classes = useStyles();
   const [location, setLocation] = useState([39.94977, -75.28529]);
@@ -67,7 +70,7 @@ const MapRender = function ({
   }, [apart]);
 
   const getLocation = (mapEvent) => {
-    const cords = mapEvent.target.getBounds().pad(-0.1);
+    const cords = getCords(mapEvent.target);
     handleDragAndZoomMap(cords);
   };
 
@@ -96,33 +99,22 @@ const MapRender = function ({
         scrollWheelZoom
         on
       >
+        <HandlerEventsMap getLocation={getLocation} />
         <TileLayer
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <MarkerClusterGroup
-          iconCreateFunction={createClusterCustomIcon}
-          showCoverageOnHover={false}
-          spiderLegPolylineOptions={{ opacity: 0 }}
-        >
-          {apart.map((data) => (
-            <Marker
-              key={data._id}
-              center={[data.location.lat, data.location.lon]}
-              position={[data.location.lat, data.location.lon]}
-              icon={markerIcon}
-            >
-              <Tooltip direction="top" offset={[0, -5]} permanent>
-                {data.price}
-              </Tooltip>
-              <Popup>
-                <MapCard id={data._id} />
-              </Popup>
-            </Marker>
-          ))}
-          <SetViewOnFetch coords={location} isFetchOnMapEvents={isFetchOnMapEvents} />
-          <HandlerEventsMap getLocation={getLocation} />
-        </MarkerClusterGroup>
+        <Markers
+          apart={apart}
+          isFetchAll={isFetchAll}
+          isFetching={isFetching}
+          isFetchOnMapEvents={isFetchOnMapEvents}
+        />
+        <SetViewOnFetch
+          coords={location}
+          isFetchOnMapEvents={isFetchOnMapEvents}
+          handleDragAndZoomMap={handleDragAndZoomMap}
+        />
       </MapContainer>
     </div>
   );
@@ -131,6 +123,7 @@ const MapRender = function ({
 MapRender.propTypes = {
   apart: PropTypes.instanceOf(Array).isRequired,
   isFetching: PropTypes.bool.isRequired,
+  isFetchAll: PropTypes.bool.isRequired,
   handleDragAndZoomMap: PropTypes.func.isRequired,
   isFetchOnMapEvents: PropTypes.bool.isRequired,
   setIsFetchOnMapEvents: PropTypes.func.isRequired,
