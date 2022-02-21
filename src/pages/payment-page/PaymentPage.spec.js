@@ -40,7 +40,7 @@ describe('PaymentPage component', () => {
     reducer: rootReducer,
   });
 
-  test('should have render title to enter card data', () => {
+  test('should have render title to enter apartment-card data', () => {
     render((
       <Provider store={store}>
         <Router location={history.location} navigator={history}>

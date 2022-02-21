@@ -87,7 +87,7 @@ describe('future-visits Component', () => {
     expect(img).toBeInTheDocument();
   });
 
-  it('redirect to preview page on click title on card', async () => {
+  it('redirect to preview page on click title on apartment-card', async () => {
     render(
       <Router location={history.location} navigator={history}>
         <RoomFutureItems visit={itemRoom} />

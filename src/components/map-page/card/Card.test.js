@@ -8,7 +8,7 @@ import { server } from '../../../mocks/server';
 import apartments from '../../../mocks/mocks-constants/mockDataApartments';
 import Card from './Card';
 
-describe('Card Component', () => {
+describe('ApartmentCard Component', () => {
   const history = createMemoryHistory();
   const mockData = apartments[0];
 
@@ -18,17 +18,17 @@ describe('Card Component', () => {
   afterEach(() => server.restoreHandlers());
   afterAll(() => server.close());
 
-  it('renders card component', () => {
+  it('renders apartment-card component', () => {
     render(<Router location={history.location} navigator={history}><Card /></Router>);
   });
 
-  it('city has in card component', async () => {
+  it('city has in apartment-card component', async () => {
     // eslint-disable-next-line max-len
     const { findByText } = render(<Router location={history.location} navigator={history}><Card city={mockData.city} /></Router>);
     expect(await findByText('Philadelphia')).toBeInTheDocument();
   });
 
-  it('name has in card component', async () => {
+  it('name has in apartment-card component', async () => {
     // eslint-disable-next-line max-len
     const { findByText } = render(<Router location={history.location} navigator={history}><Card name={mockData.name} /></Router>);
     expect(await findByText('Free Parking guaranteed')).toBeInTheDocument();

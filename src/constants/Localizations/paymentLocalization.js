@@ -4,7 +4,7 @@ const paymentLocalization = {
   PAY: 'Pay',
   PAYMENT_SUCCESS: 'Payment success',
   PAYMENT_FAILED: 'Payment was failed',
-  ENTER_CARD_DETAILS: 'Enter your card details',
+  ENTER_CARD_DETAILS: 'Enter your apartment-card details',
 };
 
 export default paymentLocalization;

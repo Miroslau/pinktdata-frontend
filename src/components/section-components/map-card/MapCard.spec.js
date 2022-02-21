@@ -48,7 +48,7 @@ describe('MapCard component', () => {
     expect(name).toBeInTheDocument();
   });
 
-  test('redirect to preview page on click image on card', async () => {
+  test('redirect to preview page on click image on apartment-card', async () => {
     httpClient.get.mockImplementationOnce(() => Promise.resolve({ data: mockDataForPreviewPage }));
 
     render(
@@ -57,7 +57,7 @@ describe('MapCard component', () => {
       </Router>,
     );
 
-    const image = await screen.findAllByTestId('map-card-slider');
+    const image = await screen.findAllByTestId('map-apartment-card-slider');
     userEvent.click(image[0]);
     expect(history.location.pathname).toBe(`/apartments/${mockDataForPreviewPage.id}`);
   });
