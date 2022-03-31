@@ -60,9 +60,23 @@ h3{
   }
 }
 
+.form{
+  display: flex;
+  flex-direction: column;
+  .btn-add{
+    margin-top: 10px;
+    width: 100%;
+  }
+}
+
+
 .leaflet-container {
   width: 54.8vw;
   height: 100vh;
+}
+
+.comment-list{
+  font-size: 14px;
 }
 
 .file-upload {

@@ -88,4 +88,14 @@ export const handlers = [
   rest.get('/api/apartments/:id', (req, res, ctx) => res(ctx.delay(1500), ctx.status(200), ctx.json(mockDataForPreviewPage))),
 
   rest.get('/api/trips/future', (req, res, ctx) => res(ctx.delay(10), ctx.status(200), ctx.json(mockDataFutureRooms))),
+  rest.post('/api/apartments/review', (req, res, ctx) => {
+    const {
+      comment,
+    } = req.body;
+    return (res(ctx.status(200), ctx.json({
+      id: 'test',
+      name: 'user',
+      comment,
+    })));
+  }),
 ];

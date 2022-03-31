@@ -39,7 +39,7 @@ const data = {
   images,
   name: 'test name for room',
   rating: '4.99',
-  reviews: '1010',
+  reviewsCount: '1010',
   spaceType: 'Test room',
   city: 'Gomel',
   address: 'Belarus, Gomel, Some street',
@@ -49,7 +49,7 @@ const data = {
   bedroomLabel: '2 bed',
   locationLat: 39.96351,
   locationLon: -75.1694,
-  review: [
+  reviews: [
     {
       id: 1,
       name: 'Olga ',

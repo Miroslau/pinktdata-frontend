@@ -24,7 +24,7 @@ const RoomScore = function () {
           {roomCtx.rating}
           <span>
             (
-            {roomCtx.reviews}
+            {roomCtx.reviewsCount}
             )
           </span>
         </Typography>
